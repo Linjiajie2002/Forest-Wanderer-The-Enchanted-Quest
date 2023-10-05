@@ -30,7 +30,7 @@ public:
 	Animation* currentAnimation = nullptr;
 
 	Animation idle;
-	/*Animation crouch;
+	Animation crouch;
 	Animation run;
 	Animation highjump;
 	Animation slide;
@@ -38,7 +38,9 @@ public:
 	Animation atack;
 	Animation atack2;
 	Animation atack3;
-	Animation die;*/
+	Animation idle3;
+	Animation die;
+	Animation lowjump;
 
 
 

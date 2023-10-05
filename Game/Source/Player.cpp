@@ -153,7 +153,6 @@ Player::Player() : Entity(EntityType::PLAYER)
 	lowjump.speed = 0.08f;
 	lowjump.loop = true;
 	
-	
 
 }
 

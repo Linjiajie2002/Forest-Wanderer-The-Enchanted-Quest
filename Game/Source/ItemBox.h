@@ -35,9 +35,7 @@ public:
 
 private:
 
-	SDL_Texture* texture;
 	SDL_Texture* Boxtexture;
-	const char* texturePath;
 	const char* BoxPath;
 	PhysBody* pbody;
 };

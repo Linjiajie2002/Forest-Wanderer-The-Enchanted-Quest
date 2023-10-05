@@ -3,6 +3,7 @@
 
 #include "Entity.h"
 #include "Point.h"
+#include "Animation.h"
 #include "SDL/include/SDL.h"
 
 struct SDL_Texture;
@@ -29,7 +30,7 @@ public:
 	Animation* currentAnimation = nullptr;
 
 	Animation idle;
-	Animation crouch;
+	/*Animation crouch;
 	Animation run;
 	Animation highjump;
 	Animation slide;
@@ -37,7 +38,7 @@ public:
 	Animation atack;
 	Animation atack2;
 	Animation atack3;
-	Animation lowjump;
+	Animation die;*/
 
 
 

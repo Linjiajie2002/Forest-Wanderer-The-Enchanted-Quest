@@ -1,34 +1,62 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Source\Window.cpp" />
-    <ClCompile Include="Source\Textures.cpp" />
-    <ClCompile Include="Source\Scene.cpp" />
-    <ClCompile Include="Source\Render.cpp" />
-    <ClCompile Include="Source\Main.cpp" />
-    <ClCompile Include="Source\Input.cpp" />
-    <ClCompile Include="Source\Audio.cpp" />
-    <ClCompile Include="Source\App.cpp" />
     <ClCompile Include="Source\Log.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
     <ClCompile Include="Source\External\PugiXml\src\pugixml.cpp">
       <Filter>External\PugiXml</Filter>
     </ClCompile>
-    <ClCompile Include="Source\PerfTimer.cpp" />
-    <ClCompile Include="Source\Timer.cpp" />
-    <ClCompile Include="Source\EntityManager.cpp" />
-    <ClCompile Include="Source\Player.cpp" />
+    <ClCompile Include="Source\Audio.cpp">
+      <Filter>Modules\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Item.cpp">
+      <Filter>Modules\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Player.cpp">
+      <Filter>Modules\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Render.cpp">
+      <Filter>Modules\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Map.cpp">
+      <Filter>Modules\Mapa</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Textures.cpp">
+      <Filter>Modules\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\App.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\EntityManager.cpp">
+      <Filter>Modules\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Input.cpp">
+      <Filter>Modules\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PerfTimer.cpp">
+      <Filter>Modules\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Physics.cpp">
+      <Filter>Modules\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene.cpp">
+      <Filter>Modules\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Timer.cpp">
+      <Filter>Modules\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Window.cpp">
+      <Filter>Modules\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ItemBox.cpp">
+      <Filter>Modules\Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Window.h" />
-    <ClInclude Include="Source\Textures.h" />
-    <ClInclude Include="Source\Scene.h" />
-    <ClInclude Include="Source\Render.h" />
-    <ClInclude Include="Source\Module.h" />
-    <ClInclude Include="Source\Input.h" />
-    <ClInclude Include="Source\Audio.h" />
-    <ClInclude Include="Source\App.h" />
     <ClInclude Include="Source\Defs.h">
       <Filter>Utils</Filter>
     </ClInclude>
@@ -56,11 +84,60 @@
     <ClInclude Include="Source\Queue.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Source\PerfTimer.h" />
-    <ClInclude Include="Source\Timer.h" />
-    <ClInclude Include="Source\Entity.h" />
-    <ClInclude Include="Source\EntityManager.h" />
-    <ClInclude Include="Source\Player.h" />
+    <ClInclude Include="Source\Entity.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Audio.h">
+      <Filter>Modules\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Player.h">
+      <Filter>Modules\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Render.h">
+      <Filter>Modules\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Map.h">
+      <Filter>Modules\Mapa</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Textures.h">
+      <Filter>Modules\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\App.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EntityManager.h">
+      <Filter>Modules\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Input.h">
+      <Filter>Modules\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Module.h">
+      <Filter>Modules\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PerfTimer.h">
+      <Filter>Modules\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Physics.h">
+      <Filter>Modules\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene.h">
+      <Filter>Modules\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Timer.h">
+      <Filter>Modules\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Window.h">
+      <Filter>Modules\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Item.h">
+      <Filter>Modules\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Animation.h">
+      <Filter>Modules\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ItemBox.h">
+      <Filter>Modules\Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
@@ -71,6 +148,39 @@
     </Filter>
     <Filter Include="External\PugiXml">
       <UniqueIdentifier>{2855ff7f-53a1-413d-a75b-18b4ade921dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules">
+      <UniqueIdentifier>{ecef8e80-266c-4763-a02d-9ceff47e7de4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Audio">
+      <UniqueIdentifier>{76bee50e-1bd0-4827-83f0-da4b5e3e5786}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Item">
+      <UniqueIdentifier>{f8f67d54-41df-4208-85a9-d39918beb9a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Player">
+      <UniqueIdentifier>{dc6879a2-d0e7-4c88-ace7-5765d113c83c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Enemy">
+      <UniqueIdentifier>{6dcb6552-4dd9-4e76-bcc7-710e832fcef4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Render">
+      <UniqueIdentifier>{3603dff7-6d5c-4237-aa36-85ec0af8260c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Mapa">
+      <UniqueIdentifier>{d696bad8-4c39-4e40-88eb-1ba51f89d45d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Texture">
+      <UniqueIdentifier>{3b420e54-addc-48df-86c3-50ac8981f7b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{fafd5437-dc59-4337-a1d2-33affb0e99b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Other">
+      <UniqueIdentifier>{e632f41d-70b6-44cb-afdb-32c042b016f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Animation">
+      <UniqueIdentifier>{8da072d1-04c1-4e7c-9495-da581ad9a905}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -6,6 +6,7 @@
 #include "Window.h"
 #include "Scene.h"
 #include "Map.h"
+#include "ItemBox.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -32,6 +33,14 @@ bool Scene::Awake(pugi::xml_node& config)
 		Item* item = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
 		item->parameters = itemNode;
 	}
+
+	for (pugi::xml_node itemNode = config.child("itembox"); itemNode; itemNode = itemNode.next_sibling("itembox"))
+	{
+		ItemBox* itembox = (ItemBox*)app->entityManager->CreateEntity(EntityType::ITEMBOX);
+		itembox->parameters = itemNode;
+	}
+
+
 
 	if (config.child("player")) {
 		player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
@@ -80,6 +89,7 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
+
 	float camSpeed = 1; 
 
 	if(app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)

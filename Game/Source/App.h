@@ -6,6 +6,8 @@
 #include "PerfTimer.h"
 #include "Timer.h"
 #include "EntityManager.h"
+#include "Animation.h"
+
 
 #include "PugiXml/src/pugixml.hpp"
 
@@ -19,6 +21,8 @@ class Scene;
 class EntityManager;
 class Map;
 class Physics;
+class Animation;
+
 
 class App
 {
@@ -83,6 +87,7 @@ public:
 	EntityManager* entityManager;
 	Map* map;
 	Physics* physics;
+	Animation* animation;
 
 private:
 

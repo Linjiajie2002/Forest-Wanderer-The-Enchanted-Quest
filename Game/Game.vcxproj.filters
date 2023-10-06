@@ -55,6 +55,12 @@
     <ClCompile Include="Source\ItemBox.cpp">
       <Filter>Modules\Item</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Particle.cpp">
+      <Filter>Modules\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ModuleParticles.cpp">
+      <Filter>Modules\Particles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Defs.h">
@@ -138,6 +144,12 @@
     <ClInclude Include="Source\ItemBox.h">
       <Filter>Modules\Item</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Particle.h">
+      <Filter>Modules\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ModuleParticles.h">
+      <Filter>Modules\Particles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
@@ -181,6 +193,9 @@
     </Filter>
     <Filter Include="Modules\Animation">
       <UniqueIdentifier>{8da072d1-04c1-4e7c-9495-da581ad9a905}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Particles">
+      <UniqueIdentifier>{16035b7b-9473-4848-a3be-035ac3123b09}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -65,7 +65,7 @@ bool ItemBox::Update(float dt)
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
 	currentAnimation->Update();
 	
-	app->render->DrawTexture(Boxtexture, position.x, position.y, &rect);
+	app->render->DrawTexture(Boxtexture, position.x, position.y, SDL_FLIP_NONE,&rect);
 	//app->render->DrawTexture(Boxtexture, position.x, position.y);
 
 	return true;

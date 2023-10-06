@@ -49,7 +49,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene);
 	AddModule(map);
 	AddModule(entityManager);
-	AddModule(animation);
+
 
 
 	// Render last to swap buffer

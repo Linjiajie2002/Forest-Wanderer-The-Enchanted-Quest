@@ -51,6 +51,9 @@ public:
 	SDL_Texture* texture = NULL;
 	PhysBody* pbody;
 	int pickCoinFxId;
+
+	float jumpForce = 5;
+	bool isFacingLeft = false;
 };
 
 #endif // __PLAYER_H__

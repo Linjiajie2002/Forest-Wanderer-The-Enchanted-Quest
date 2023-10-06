@@ -174,44 +174,59 @@ bool Player::Start() {
 	//initilize textures
 	texture = app->tex->Load(texturePath);
 
-	pbody = app->physics->CreateCircle(position.x + 16, position.y + 16, 16, bodyType::DYNAMIC);
+	pbody = app->physics->CreateRectangle(position.x + 16, position.y + 16, 32,32, bodyType::DYNAMIC);
 	pbody->listener = this;
 	pbody->ctype = ColliderType::PLAYER;
 
 	pickCoinFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
 
-	currentAnimation = &idle3;
+	currentAnimation = &idle;
+	pbody->body->SetFixedRotation(true);
+
 	return true;
 }
 
 bool Player::Update(float dt)
 {
-	b2Vec2 vel = b2Vec2(0, -GRAVITY_Y);
+	currentAnimation = &idle;
+	b2Vec2 vel = b2Vec2(0, pbody->body->GetLinearVelocity().y);
+
+	vel.y -= GRAVITY_Y;
+	
 
 	
-	SDL_Rect rect = currentAnimation->GetCurrentFrame();
-	currentAnimation->Update();
-	app->render->DrawTexture(texture, position.x, position.y, &rect);
-
+	
 
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
 		//
 		currentAnimation = &run;
-		app->render->DrawTexture(texture, position.x, position.y, &rect);
 	}
-
 
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 		
-		vel = b2Vec2(-speed*dt, -GRAVITY_Y);
+		isFacingLeft = true;
+		vel = b2Vec2(-speed*dt, pbody->body->GetLinearVelocity().y);
+		currentAnimation = &run;
 	}
-
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-		vel = b2Vec2(speed*dt, -GRAVITY_Y);
+		
+		isFacingLeft = false;
+		vel = b2Vec2(speed*dt, pbody->body->GetLinearVelocity().y);
+		currentAnimation = &run;
+		
 	}
 
 	//Set the velocity of the pbody of the player
 	pbody->body->SetLinearVelocity(vel);
+
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+		//	
+		vel.y = 0;
+		pbody->body->SetLinearVelocity(vel);
+		pbody->body->ApplyLinearImpulse(b2Vec2(0, GRAVITY_Y * jumpForce), pbody->body->GetWorldCenter(), true);
+		currentAnimation = &lowjump;
+	}
+
 
 	//Update player position in pixels
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
@@ -222,9 +237,18 @@ bool Player::Update(float dt)
 	
 
 	//app->render->DrawTexture(texture, position.x, position.y);
+	SDL_Rect rect = currentAnimation->GetCurrentFrame();
+	
+	if (isFacingLeft) {
 
+		app->render->DrawTexture(texture, position.x, position.y, SDL_FLIP_HORIZONTAL, &rect);
+	}
+	else
+	{
+		app->render->DrawTexture(texture, position.x, position.y, SDL_FLIP_NONE, &rect);
+	}
 
-
+	currentAnimation->Update();
 	return true;
 }
 

@@ -1,9 +1,10 @@
 #ifndef __ANIMATION_H__
 #define __ANIMATION_H__
 
+#include "SDL/include/SDL_rect.h"
 #define MAX_FRAMES 2500
 
-class Animation : public Module 
+class Animation 
 {
 public:
 	float speed = 1.0f;

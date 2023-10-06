@@ -57,8 +57,9 @@ Player::Player() : Entity(EntityType::PLAYER)
 	highjump.PushBack({ 14, 112, 35, 35 });	//Quarta Linea
 	highjump.PushBack({ 68, 112, 35, 35 });
 
-	highjump.speed = 0.08f;
+	highjump.speed = 0.2f;
 	highjump.loop = true;
+	highjump.aniFrameTotal = 9;
 	
 	//slide
 	slide.PushBack({ 118, 112, 35, 35 });
@@ -196,20 +197,20 @@ bool Player::Update(float dt)
 
 	
 	
-
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-		//
-		currentAnimation = &run;
+		currentAnimation = &crouch;
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 		
+		
+	
 		isFacingLeft = true;
 		vel = b2Vec2(-speed*dt, pbody->body->GetLinearVelocity().y);
 		currentAnimation = &run;
 	}
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-		
+
 		isFacingLeft = false;
 		vel = b2Vec2(speed*dt, pbody->body->GetLinearVelocity().y);
 		currentAnimation = &run;
@@ -219,13 +220,16 @@ bool Player::Update(float dt)
 	//Set the velocity of the pbody of the player
 	pbody->body->SetLinearVelocity(vel);
 
+
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-		//	
+
 		vel.y = 0;
 		pbody->body->SetLinearVelocity(vel);
 		pbody->body->ApplyLinearImpulse(b2Vec2(0, GRAVITY_Y * jumpForce), pbody->body->GetWorldCenter(), true);
-		currentAnimation = &lowjump;
+		currentAnimation = &highjump;
+
 	}
+
 
 
 	//Update player position in pixels

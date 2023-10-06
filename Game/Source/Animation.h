@@ -12,6 +12,9 @@ public:
 	bool loop = true;
 	// Allows the animation to keep going back and forth
 	bool pingpong = false;
+	int animeFrameCount = 0;
+	int aniFrameTotal = 0;
+
 
 private:
 	float currentFrame = 0.0f;
@@ -19,7 +22,13 @@ private:
 	int loopCount = 0;
 	int pingpongDirection = 1;
 
+
+
 public:
+
+	int getTotalF() {
+		return totalFrames;
+	}
 
 	void PushBack(const SDL_Rect& rect)
 	{
@@ -58,6 +67,7 @@ public:
 
 		return frames[actualFrame];
 	}
+
 };
 
 #endif

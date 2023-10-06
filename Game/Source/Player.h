@@ -47,6 +47,7 @@ public:
 
 public:
 	float speed = 0.2f;
+	float crouchspeed = 0.1f;
 	const char* texturePath;
 	SDL_Texture* texture = NULL;
 	PhysBody* pbody;
@@ -54,6 +55,7 @@ public:
 
 	float jumpForce = 5;
 	bool isFacingLeft = false;
+	bool isHighJumping = false;
 };
 
 #endif // __PLAYER_H__

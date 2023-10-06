@@ -200,6 +200,7 @@ bool Player::Update(float dt)
 		app->render->DrawTexture(texture, position.x, position.y, &rect);
 	}
 
+
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 		
 		vel = b2Vec2(-speed*dt, -GRAVITY_Y);

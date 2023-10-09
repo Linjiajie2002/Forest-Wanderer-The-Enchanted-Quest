@@ -20,19 +20,23 @@ Player::Player() : Entity(EntityType::PLAYER)
 	int x = 0;
 	int y = 0;
 	
-	SDL_Rect* anirec[77];
+	SDL_Rect anirec[77];
 
-	//for (int i = 0; i < 78; i++)
-	//{
-
-	//	&anirec[i].x = x ;
-	//	&anirec[i].y = y ;
-	//	&anirec[i].w = 50;
-	//	&anirec[i].h = 37;
-	//	
-	//	x += 50;
-	//	y += 50;
-	//}
+	for (int i = 0; i < 77; i++)
+	{
+		anirec[i].x = x ;
+		anirec[i].y = y ;
+		anirec[i].w = 50;
+		anirec[i].h = 37;
+		if (x  == 300) {
+			x = 0;
+			y += 37;
+		}
+		else {
+			x += 50;
+			
+		}
+	}
 
 
 	//idle.PushBack({ anirec[0]});
@@ -41,14 +45,21 @@ Player::Player() : Entity(EntityType::PLAYER)
 	//idle.PushBack({ 115,6, 19, 30 });
 	//idle.PushBack({ 163,6, 19, 30 });
 
-	/*for (int i = 0; i < 5; i++)
+	for (int i = 43; i < 48; i++)
 	{
-		idle.PushBack({ &anirec[i] });
+
+		printf("X: %s",std::to_string(anirec[i].x).c_str());
+		printf("y: %s", std::to_string(anirec[i].y).c_str());
+		printf("h: %s", std::to_string(anirec[i].h).c_str());
+		printf("w: %s", std::to_string(anirec[i].w).c_str());
+		printf("\n");
+		
+		idle.PushBack({ anirec[i] });
 
 	}
 
 	idle.speed = 0.06f;
-	idle.loop = true;*/
+	idle.loop = true;
 
 	////crouch;
 	//crouch.PushBack({ 216,6, 19, 30 });

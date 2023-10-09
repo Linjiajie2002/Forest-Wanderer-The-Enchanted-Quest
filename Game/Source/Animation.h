@@ -26,9 +26,6 @@ private:
 
 public:
 
-	int getTotalF() {
-		return totalFrames;
-	}
 
 	void PushBack(const SDL_Rect& rect)
 	{

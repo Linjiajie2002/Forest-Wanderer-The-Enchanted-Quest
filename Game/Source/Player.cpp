@@ -189,7 +189,9 @@ bool Player::Start() {
 
 bool Player::Update(float dt)
 {
-	currentAnimation = &idle;
+		currentAnimation = &idle;
+	
+
 	b2Vec2 vel = b2Vec2(0, pbody->body->GetLinearVelocity().y);
 
 	vel.y -= GRAVITY_Y;
@@ -228,6 +230,11 @@ bool Player::Update(float dt)
 		pbody->body->ApplyLinearImpulse(b2Vec2(0, GRAVITY_Y * jumpForce), pbody->body->GetWorldCenter(), true);
 		currentAnimation = &highjump;
 
+	}
+
+
+	if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN) {
+		currentAnimation = &atack;
 	}
 
 

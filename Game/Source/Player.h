@@ -53,7 +53,7 @@ public:
 	PhysBody* pbody;
 	int pickCoinFxId;
 
-	float jumpForce = 5;
+	float jumpForce = 25;
 	bool isFacingLeft = false;
 	bool isHighJumping = false;
 };

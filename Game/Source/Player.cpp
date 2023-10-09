@@ -175,7 +175,8 @@ bool Player::Start() {
 	//initilize textures
 	texture = app->tex->Load(texturePath);
 
-	pbody = app->physics->CreateRectangle(position.x + 16, position.y + 16, 32,32, bodyType::DYNAMIC);
+	pbody = app->physics->CreateRectangle(position.x, position.y, 50,70, bodyType::DYNAMIC);
+	//pbody = app->physics->CreateCircle(position.x, position.y, 50, bodyType::DYNAMIC);
 	pbody->listener = this;
 	pbody->ctype = ColliderType::PLAYER;
 
@@ -252,11 +253,11 @@ bool Player::Update(float dt)
 	
 	if (isFacingLeft) {
 
-		app->render->DrawTexture(texture, position.x, position.y, SDL_FLIP_HORIZONTAL, &rect);
+		app->render->DrawTexture(texture, position.x, position.y-6,2, SDL_FLIP_HORIZONTAL, &rect);
 	}
 	else
 	{
-		app->render->DrawTexture(texture, position.x, position.y, SDL_FLIP_NONE, &rect);
+		app->render->DrawTexture(texture, position.x, position.y - 6,2, SDL_FLIP_NONE, &rect);
 	}
 
 	currentAnimation->Update();

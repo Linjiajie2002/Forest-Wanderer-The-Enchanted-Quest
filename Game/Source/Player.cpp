@@ -16,8 +16,25 @@ Player::Player() : Entity(EntityType::PLAYER)
 	//({最左边，最上面，最右边减去最左边，最下面-最上面})
 
 	//idle1
-	idle.PushBack({ 14, 6, 19, 30 });//Prime Linea
-	idle.PushBack({ 66, 6, 19, 30 });
+	int aniArray[77][4];
+	int x = 0;
+	int y = 0;
+	for (int i = 0; i < 78; i++)
+	{
+		anirec[i].x = x + 50;
+		anirec[i].y = y + 37;
+		anirec[i].w = 50;
+		anirec[i].h = 37;
+	}
+	SDL_Rect anirec[77];
+
+	for (int i = 0; i < 2; i++) {
+	
+	}
+
+	idle.PushBack({ anirec[0]});
+	idle.PushBack({ anirec[1] });
+
 	idle.PushBack({ 115,6, 19, 30 });
 	idle.PushBack({ 163,6, 19, 30 });
 

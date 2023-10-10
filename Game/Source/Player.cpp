@@ -16,10 +16,9 @@ Player::Player() : Entity(EntityType::PLAYER)
 	//({最左边，最上面，最右边减去最左边，最下面-最上面})
 
 
-	spritePositions = SPosition.SpritesPos(57, 64, 64, 1216);
+	spritePositions = SPosition.SpritesPos(12, 55, 40, 660);
 
-
-	for (int i = 0; i < 57; i++)
+	for (int i = 0; i < 12; i++)
 	{
 		printf("X%d: %s ",i, std::to_string(spritePositions[i].x).c_str());
 		printf("Y%d: %s ", i, std::to_string(spritePositions[i].y).c_str());
@@ -250,17 +249,17 @@ bool Player::Update(float dt)
 	pbody->body->SetLinearVelocity(vel);
 
 
-	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) {
 
-		vel.y = 0;
+		/*vel.y = 0;
 		pbody->body->SetLinearVelocity(vel);
 		pbody->body->ApplyLinearImpulse(b2Vec2(0, GRAVITY_Y * jumpForce), pbody->body->GetWorldCenter(), true);
-		currentAnimation = &highjump;
-
+		currentAnimation = &highjump;*/
+		currentAnimation = &idle2;
 	}
 
 
-	if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN) {
+	if (app->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT) {
 		currentAnimation = &atack;
 	}
 

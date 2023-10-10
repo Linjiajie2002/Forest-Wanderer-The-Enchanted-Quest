@@ -65,7 +65,7 @@ public:
 		return frames[actualFrame];
 	}
 
-	SDL_Rect* SpritesPos(int totalPos, int weight,  int hight,int ancho )
+	SDL_Rect* SpritesPos(int totalPos, int weight, int hight,int ancho )
 	{
 
 		SDL_Rect* anirec = new SDL_Rect[totalPos];

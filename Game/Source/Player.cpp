@@ -45,21 +45,29 @@ Player::Player() : Entity(EntityType::PLAYER)
 	//idle.PushBack({ 115,6, 19, 30 });
 	//idle.PushBack({ 163,6, 19, 30 });
 
-	for (int i = 43; i < 48; i++)
+	for (int i = 0; i < 4; i++)
 	{
-
-		printf("X: %s",std::to_string(anirec[i].x).c_str());
-		printf("y: %s", std::to_string(anirec[i].y).c_str());
-		printf("h: %s", std::to_string(anirec[i].h).c_str());
-		printf("w: %s", std::to_string(anirec[i].w).c_str());
 		printf("\n");
-		
 		idle.PushBack({ anirec[i] });
-
 	}
-
 	idle.speed = 0.06f;
 	idle.loop = true;
+
+
+	for (int i = 8; i < 14; i++)
+	{
+		//printf("X: %s", std::to_string(anirec[i].x).c_str());
+		//printf("y: %s", std::to_string(anirec[i].y).c_str());
+		//printf("h: %s", std::to_string(anirec[i].h).c_str());
+		//printf("w: %s", std::to_string(anirec[i].w).c_str());
+		//printf("\n");
+
+		run.PushBack({ anirec[i] });
+
+	}
+	run.speed = 0.08f;
+	run.loop = true;
+
 
 	////crouch;
 	//crouch.PushBack({ 216,6, 19, 30 });
@@ -79,8 +87,7 @@ Player::Player() : Entity(EntityType::PLAYER)
 	//run.PushBack({ 316,45, 24, 28 });
 	//
 
-	//run.speed = 0.08f;
-	//run.loop = true;
+
 	//
 	////highjump;
 	//highjump.PushBack({ 15, 79, 24,31 });//Terce Linea

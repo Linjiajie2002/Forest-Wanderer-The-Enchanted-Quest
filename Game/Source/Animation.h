@@ -65,6 +65,31 @@ public:
 		return frames[actualFrame];
 	}
 
+	SDL_Rect* SpritesPos(int totalPos, int weight,  int hight,int ancho )
+	{
+
+		SDL_Rect* anirec = new SDL_Rect[totalPos];
+		int x = 0;
+		int y = 0;
+		for (int i = 0; i < totalPos; i++)
+		{
+			anirec[i].x = x;
+			anirec[i].y = y;
+			anirec[i].w = weight;
+			anirec[i].h = hight;
+			if (x == ancho- weight) {
+				x = 0;
+				y += hight;
+			}
+			else {
+				x += weight;
+
+			}
+		}
+		return anirec;
+	}
+
+
 };
 
 #endif

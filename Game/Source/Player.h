@@ -29,6 +29,7 @@ public:
 
 	Animation* currentAnimation = nullptr;
 
+	Animation SPosition;
 	Animation idle;
 	Animation crouch;
 	Animation run;
@@ -42,7 +43,7 @@ public:
 	Animation die;
 	Animation lowjump;
 
-
+	SDL_Rect* spritePositions;
 
 
 public:

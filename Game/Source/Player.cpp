@@ -15,60 +15,43 @@ Player::Player() : Entity(EntityType::PLAYER)
 	name.Create("Player");
 	//({最左边，最上面，最右边减去最左边，最下面-最上面})
 
-	//idle1
-	int aniArray[77][4];
-	int x = 0;
-	int y = 0;
-	
-	SDL_Rect anirec[77];
 
-	for (int i = 0; i < 77; i++)
+	spritePositions = SPosition.SpritesPos(57, 64, 64, 1216);
+
+
+	for (int i = 0; i < 57; i++)
 	{
-		anirec[i].x = x ;
-		anirec[i].y = y ;
-		anirec[i].w = 50;
-		anirec[i].h = 37;
-		if (x  == 300) {
-			x = 0;
-			y += 37;
-		}
-		else {
-			x += 50;
-			
-		}
-	}
-
-
-	//idle.PushBack({ anirec[0]});
-	//idle.PushBack({ anirec[1] });
-
-	//idle.PushBack({ 115,6, 19, 30 });
-	//idle.PushBack({ 163,6, 19, 30 });
-
-	for (int i = 0; i < 4; i++)
-	{
+		printf("X%d: %s ",i, std::to_string(spritePositions[i].x).c_str());
+		printf("Y%d: %s ", i, std::to_string(spritePositions[i].y).c_str());
+		printf("H%d: %s ", i, std::to_string(spritePositions[i].h).c_str());
+		printf("W%d: %s ", i, std::to_string(spritePositions[i].w).c_str());
 		printf("\n");
-		idle.PushBack({ anirec[i] });
+		idle.PushBack({ spritePositions[i]});
 	}
-	idle.speed = 0.06f;
+	idle.speed = 0.26f;
 	idle.loop = true;
 
 
-	for (int i = 8; i < 14; i++)
-	{
-		//printf("X: %s", std::to_string(anirec[i].x).c_str());
-		//printf("y: %s", std::to_string(anirec[i].y).c_str());
-		//printf("h: %s", std::to_string(anirec[i].h).c_str());
-		//printf("w: %s", std::to_string(anirec[i].w).c_str());
-		//printf("\n");
-
-		run.PushBack({ anirec[i] });
-
-	}
+	//for (int i = 8; i < 3; i++)
+	//{
+	//	printf("X: %s", std::to_string(spritePositions[i].x).c_str());
+	//	printf("y: %s", std::to_string(spritePositions[i].y).c_str());
+	//	printf("h: %s", std::to_string(spritePositions[i].h).c_str());
+	//	printf("w: %s", std::to_string(spritePositions[i].w).c_str());
+	//	printf("\n");
+	//	run.PushBack({ spritePositions[i] });
+	//}
 	run.speed = 0.08f;
 	run.loop = true;
 
 
+
+		//idle.PushBack({ anirec[0]});
+	//idle.PushBack({ anirec[1] });
+
+	//idle.PushBack({ 115,6, 19, 30 });
+	//idle.PushBack({ 163,6, 19, 30 });
+	// 
 	////crouch;
 	//crouch.PushBack({ 216,6, 19, 30 });
 	//crouch.PushBack({ 265,6, 19, 30 });

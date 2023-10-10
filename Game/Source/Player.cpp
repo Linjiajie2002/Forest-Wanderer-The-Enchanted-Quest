@@ -16,9 +16,9 @@ Player::Player() : Entity(EntityType::PLAYER)
 	//({最左边，最上面，最右边减去最左边，最下面-最上面})
 
 
-	spritePositions = SPosition.SpritesPos(12, 55, 40, 660);
-
-	for (int i = 0; i < 12; i++)
+	//spritePositions = SPosition.SpritesPos(163, 100, 86, 500);
+	spritePositions = SPosition.SpritesPos(10, 476, 280, 2380);
+	for (int i = 0; i < 10; i++)
 	{
 		printf("X%d: %s ",i, std::to_string(spritePositions[i].x).c_str());
 		printf("Y%d: %s ", i, std::to_string(spritePositions[i].y).c_str());
@@ -27,7 +27,7 @@ Player::Player() : Entity(EntityType::PLAYER)
 		printf("\n");
 		idle.PushBack({ spritePositions[i]});
 	}
-	idle.speed = 0.26f;
+	idle.speed = 0.15f;
 	idle.loop = true;
 
 

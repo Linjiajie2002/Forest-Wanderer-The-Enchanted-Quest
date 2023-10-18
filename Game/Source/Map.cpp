@@ -37,6 +37,7 @@ bool Map::Update(float dt)
     if(mapLoaded == false)
         return false;
 
+
     ListItem<MapLayer*>* mapLayerItem;
     mapLayerItem = mapData.maplayers.start;
 
@@ -109,6 +110,7 @@ TileSet* Map::GetTilesetFromTileId(int gid) const
     while (item)
     {
         set = item->data;
+        
         if (gid < (item->data->firstgid + item->data->tilecount))
         {
             break;

@@ -36,7 +36,7 @@
 
 	<map>
 		<mapfolder path="Assets/Maps/"/>
-		<mapfile path="Assets/Maps/MapTemplate.tmx"/>
+		<mapfile path="Assets/Maps/Mapa.tmx"/>
 	</map>
 
 </config>

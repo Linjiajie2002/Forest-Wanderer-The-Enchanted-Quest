@@ -17,8 +17,8 @@ Player::Player() : Entity(EntityType::PLAYER)
 
 
 	//spritePositions = SPosition.SpritesPos(163, 100, 86, 500);
-	spritePositions = SPosition.SpritesPos(10, 476, 280, 2380);
-	for (int i = 0; i < 10; i++)
+	spritePositions = SPosition.SpritesPos(109, 50, 37, 350);
+	for (int i = 0; i < 4; i++)
 	{
 		printf("X%d: %s ",i, std::to_string(spritePositions[i].x).c_str());
 		printf("Y%d: %s ", i, std::to_string(spritePositions[i].y).c_str());
@@ -31,15 +31,15 @@ Player::Player() : Entity(EntityType::PLAYER)
 	idle.loop = true;
 
 
-	//for (int i = 8; i < 3; i++)
-	//{
-	//	printf("X: %s", std::to_string(spritePositions[i].x).c_str());
-	//	printf("y: %s", std::to_string(spritePositions[i].y).c_str());
-	//	printf("h: %s", std::to_string(spritePositions[i].h).c_str());
-	//	printf("w: %s", std::to_string(spritePositions[i].w).c_str());
-	//	printf("\n");
-	//	run.PushBack({ spritePositions[i] });
-	//}
+	for (int i = 9; i < 14; i++)
+	{
+		printf("X: %s", std::to_string(spritePositions[i].x).c_str());
+		printf("y: %s", std::to_string(spritePositions[i].y).c_str());
+		printf("h: %s", std::to_string(spritePositions[i].h).c_str());
+		printf("w: %s", std::to_string(spritePositions[i].w).c_str());
+		printf("\n");
+		run.PushBack({ spritePositions[i] });
+	}
 	run.speed = 0.08f;
 	run.loop = true;
 
@@ -251,10 +251,10 @@ bool Player::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) {
 
-		/*vel.y = 0;
+		vel.y = 0;
 		pbody->body->SetLinearVelocity(vel);
 		pbody->body->ApplyLinearImpulse(b2Vec2(0, GRAVITY_Y * jumpForce), pbody->body->GetWorldCenter(), true);
-		currentAnimation = &highjump;*/
+		currentAnimation = &highjump;
 		currentAnimation = &idle2;
 	}
 

@@ -15,8 +15,8 @@ using namespace std;
 
 ModuleParticles::ModuleParticles(bool startEnabled) : Module()
 {
-	for(uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
-		particles[i] = nullptr;
+	
+	name.Create("particles");
 }
 
 ModuleParticles::~ModuleParticles()
@@ -28,8 +28,11 @@ ModuleParticles::~ModuleParticles()
 bool ModuleParticles::Awake(pugi::xml_node& config)
 {
 	bool ret = true;
-	texture = app->tex->Load(config.child("mainParticleTexture").attribute("texturepath").as_string());
 
+	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
+		particles[i] = nullptr;
+	/*texture = app->tex->Load(config.child("mainParticleTexture").attribute("texturepath").as_string());*/
+	texturePath = (config.child("mainParticleTexture").attribute("texturepath").as_string());
 
 
 
@@ -49,7 +52,7 @@ bool ModuleParticles::Awake(pugi::xml_node& config)
 bool ModuleParticles::Start()
 {
 	
-
+	texture = app->tex->Load(texturePath);
 
 
 	return true;

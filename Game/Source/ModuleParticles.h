@@ -72,6 +72,8 @@ private:
 
 public:
 
+	const pugi::char_t* texturePath;
+
 	Particle shurikenL;
 
 

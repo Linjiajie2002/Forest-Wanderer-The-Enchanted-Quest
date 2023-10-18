@@ -200,7 +200,7 @@ bool Player::Start() {
 	//initilize textures
 	texture = app->tex->Load(texturePath);
 
-	pbody = app->physics->CreateRectangle(position.x, position.y, 50,70, bodyType::DYNAMIC);
+	pbody = app->physics->CreateRectangle(position.x, position.y, 55,70, bodyType::DYNAMIC);
 	//pbody = app->physics->CreateCircle(position.x, position.y, 50, bodyType::DYNAMIC);
 	pbody->listener = this;
 	pbody->ctype = ColliderType::PLAYER;
@@ -266,8 +266,8 @@ bool Player::Update(float dt)
 
 
 	//Update player position in pixels
-	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
-	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
+	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) -50;
+	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y)-30;
 
 	
 
@@ -278,7 +278,7 @@ bool Player::Update(float dt)
 	
 	if (isFacingLeft) {
 
-		app->render->DrawTexture(texture, position.x, position.y-6,2, SDL_FLIP_HORIZONTAL, &rect);
+		app->render->DrawTexture(texture, position.x, position.y - 6,2, SDL_FLIP_HORIZONTAL, &rect);
 	}
 	else
 	{

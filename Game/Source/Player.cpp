@@ -9,6 +9,7 @@
 #include "Point.h"
 #include "Physics.h"
 #include "Animation.h"
+#include "Render.h"
 
 Player::Player() : Entity(EntityType::PLAYER)
 {
@@ -20,11 +21,11 @@ Player::Player() : Entity(EntityType::PLAYER)
 	spritePositions = SPosition.SpritesPos(109, 50, 37, 350);
 	for (int i = 0; i < 4; i++)
 	{
-		printf("X%d: %s ",i, std::to_string(spritePositions[i].x).c_str());
+		/*printf("X%d: %s ",i, std::to_string(spritePositions[i].x).c_str());
 		printf("Y%d: %s ", i, std::to_string(spritePositions[i].y).c_str());
 		printf("H%d: %s ", i, std::to_string(spritePositions[i].h).c_str());
 		printf("W%d: %s ", i, std::to_string(spritePositions[i].w).c_str());
-		printf("\n");
+		printf("\n");*/
 		idle.PushBack({ spritePositions[i]});
 	}
 	idle.speed = 0.15f;
@@ -33,11 +34,11 @@ Player::Player() : Entity(EntityType::PLAYER)
 
 	for (int i = 9; i < 14; i++)
 	{
-		printf("X: %s", std::to_string(spritePositions[i].x).c_str());
+		/*printf("X: %s", std::to_string(spritePositions[i].x).c_str());
 		printf("y: %s", std::to_string(spritePositions[i].y).c_str());
 		printf("h: %s", std::to_string(spritePositions[i].h).c_str());
 		printf("w: %s", std::to_string(spritePositions[i].w).c_str());
-		printf("\n");
+		printf("\n");*/
 		run.PushBack({ spritePositions[i] });
 	}
 	run.speed = 0.08f;
@@ -220,6 +221,7 @@ bool Player::Update(float dt)
 
 	b2Vec2 vel = b2Vec2(0, pbody->body->GetLinearVelocity().y);
 
+
 	vel.y -= GRAVITY_Y;
 	
 
@@ -263,7 +265,7 @@ bool Player::Update(float dt)
 		currentAnimation = &atack;
 	}
 
-
+	
 
 	//Update player position in pixels
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) -50;
@@ -271,6 +273,8 @@ bool Player::Update(float dt)
 
 	
 
+	
+	printf("pos: %d", position.x);
 	
 
 	//app->render->DrawTexture(texture, position.x, position.y);
@@ -286,6 +290,9 @@ bool Player::Update(float dt)
 	}
 
 	currentAnimation->Update();
+	render->setCamereX(position.x);
+	
+
 	return true;
 }
 

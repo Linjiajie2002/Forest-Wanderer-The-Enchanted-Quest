@@ -382,7 +382,12 @@ bool Map::LoadCollision(std::string layerName) {
 
                     }
 
+                    /*if (gid == tileset->firstgid+5) {
 
+                        MapLayer vel = b2Vec2(-speed * dt, pbody->body->GetLinearVelocity().y);
+                        c1->ctype = ColliderType::PLATFORM;
+
+                    }*/
 
                 }
             }

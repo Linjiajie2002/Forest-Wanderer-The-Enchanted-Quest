@@ -1,6 +1,7 @@
 #include "App.h"
 #include "Window.h"
 #include "Render.h"
+#include "Player.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -70,6 +71,11 @@ bool Render::PreUpdate()
 
 bool Render::Update(float dt)
 {
+
+
+	//printf("Camere: %d", camera.x);
+
+	//printf("Pos: %d", player->position.x);
 	return true;
 }
 
@@ -266,4 +272,11 @@ bool Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, Uin
 	}
 
 	return ret;
+}
+
+
+
+void Render::setCamereY(int y) {
+	camera.y = y;
+
 }

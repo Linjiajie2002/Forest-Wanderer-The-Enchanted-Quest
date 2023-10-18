@@ -5,6 +5,8 @@
 #include "Point.h"
 #include "Animation.h"
 #include "SDL/include/SDL.h"
+#include "Physics.h"
+#include "Render.h"
 
 struct SDL_Texture;
 
@@ -42,7 +44,7 @@ public:
 	Animation idle3;
 	Animation die;
 	Animation lowjump;
-
+	
 	SDL_Rect* spritePositions;
 
 
@@ -53,6 +55,8 @@ public:
 	SDL_Texture* texture = NULL;
 	PhysBody* pbody;
 	int pickCoinFxId;
+
+	Render* render = NULL;
 
 	float jumpForce = 25;
 	bool isFacingLeft = false;

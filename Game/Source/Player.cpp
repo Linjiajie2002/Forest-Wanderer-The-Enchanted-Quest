@@ -251,10 +251,10 @@ bool Player::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) {
 
-		/*vel.y = 0;
+		vel.y = 0;
 		pbody->body->SetLinearVelocity(vel);
 		pbody->body->ApplyLinearImpulse(b2Vec2(0, GRAVITY_Y * jumpForce), pbody->body->GetWorldCenter(), true);
-		currentAnimation = &highjump;*/
+		currentAnimation = &highjump;
 		currentAnimation = &idle2;
 	}
 

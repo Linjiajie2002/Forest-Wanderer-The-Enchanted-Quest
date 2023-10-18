@@ -178,13 +178,14 @@ bool Map::Load()
         ret = LoadAllLayers(mapFileXML.child("map"));
     }
     
+    LoadCollision("Colisions");
     // NOTE: Later you have to create a function here to load and create the colliders from the map
 
    /* PhysBody* c1 = app->physics->CreateRectangle(524 + 128, 543 + 32, 256, 64, STATIC);
     c1->ctype = ColliderType::PLATFORM;*/
 
-    PhysBody* c2 = app->physics->CreateRectangle(352 + 64, 384 + 32, 128, 64, STATIC);
-    c2->ctype = ColliderType::PLATFORM;
+   /* PhysBody* c2 = app->physics->CreateRectangle(352 + 64, 384 + 32, 128, 64, STATIC);
+    c2->ctype = ColliderType::PLATFORM;*/
 
     //PhysBody* c3 = app->physics->CreateRectangle(256, 704 + 32, 576, 64, STATIC);
     //c3->ctype = ColliderType::PLATFORM;
@@ -352,10 +353,8 @@ Properties::Property* Properties::GetProperty(const char* name)
 }
 
 
-bool Map::LoadCollision() {
+bool Map::LoadCollision(std::string layerName) {
 
-    if (mapLoaded == false)
-        return false;
 
 
     ListItem<MapLayer*>* mapLayerItem;
@@ -363,7 +362,7 @@ bool Map::LoadCollision() {
 
     while (mapLayerItem != NULL) {
 
-        if (mapLayerItem->data->properties.GetProperty("Draw") != NULL && mapLayerItem->data->properties.GetProperty("Draw")->value) {
+        if (mapLayerItem->data->name.GetString() == layerName) {
 
             for (int x = 0; x < mapLayerItem->data->width; x++)
             {
@@ -375,16 +374,20 @@ bool Map::LoadCollision() {
                     SDL_Rect r = tileset->GetTileRect(gid);
                     iPoint pos = MapToWorld(x, y);
 
-                    app->render->DrawTexture(tileset->texture,
-                        pos.x,
-                        pos.y, SDL_FLIP_NONE,
-                        &r);
+                    //tipo
+                    if (gid == tileset->firstgid) {
+
+                        PhysBody* c1 = app->physics->CreateRectangle(pos.x + 16, pos.y + 16, 32, 32, STATIC);
+                        c1->ctype = ColliderType::PLATFORM;
+
+                    }
+
+
+
                 }
             }
         }
         mapLayerItem = mapLayerItem->next;
-
     }
-
     return true;
 }

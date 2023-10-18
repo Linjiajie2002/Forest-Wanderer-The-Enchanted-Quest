@@ -24,7 +24,7 @@
    </wangset>
   </wangsets>
  </tileset>
- <layer id="2" name="Terra" width="60" height="20">
+ <layer id="2" name="Terra" width="120" height="20">
   <data>
    <tile/>
    <tile/>

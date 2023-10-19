@@ -80,7 +80,7 @@ private:
 
 	// Debug mode
 	bool debug;
-
+	bool changeFps = true; 
 	// Box2D World
 	b2World* world;
 };

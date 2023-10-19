@@ -212,20 +212,27 @@ bool Player::Start() {
 	currentAnimation = &idle;
 	pbody->body->SetFixedRotation(true);
 
+
+
+	
+	
+
+
+
 	return true;
 }
 
 bool Player::Update(float dt)
 {
-		currentAnimation = &idle;
+	currentAnimation = &idle;
 	
 
 	b2Vec2 vel = b2Vec2(0, pbody->body->GetLinearVelocity().y);
 
 
 	vel.y -= GRAVITY_Y;
-	uint width;
-	uint height;
+
+
 	app->win->GetWindowSize(width, height);
 
 	
@@ -235,40 +242,33 @@ bool Player::Update(float dt)
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-		
-		
-	
 		isFacingLeft = true;
 		vel = b2Vec2(-speed*dt, pbody->body->GetLinearVelocity().y);
 		currentAnimation = &run;
-		
-
-		if (app->render->camera.x >= 2 && position.x< 514) {
-			app->render->camera.x = 2;
-		}
-		else {
-			app->render->camera.x = -position.x + (width / 2);
-		}
-
 	}
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 
 		isFacingLeft = false;
 		vel = b2Vec2(speed*dt, pbody->body->GetLinearVelocity().y);
 		currentAnimation = &run;
+	}
 
-	
-		if (app->render->camera.x >= 2 && position.x < 514) {
-			app->render->camera.x = 2;
-		}
-		else {
-			app->render->camera.x = -position.x + (width / 2);
-		}
+
+	//Camera
+	if (app->render->camera.x >= 2 && position.x < 514) {
+		app->render->camera.x = 2;
+	}
+	else {
+		app->render->camera.x = -position.x + (width / 2);
+
+		app->render->camera.x = (-position.x * app->win->GetScale() + (width / 2));
 		
 	}
-	
+	app->render->camera.y = (-position.y * app->win->GetScale() + (height / 2));
 
-	printf("Camera: %d \n", position.x);
+
+
+	//printf("Camera: %d \n", position.x);
 	//Set the velocity of the pbody of the player
 	pbody->body->SetLinearVelocity(vel);
 
@@ -279,7 +279,7 @@ bool Player::Update(float dt)
 		pbody->body->SetLinearVelocity(vel);
 		pbody->body->ApplyLinearImpulse(b2Vec2(0, GRAVITY_Y * jumpForce), pbody->body->GetWorldCenter(), true);
 		currentAnimation = &highjump;
-		currentAnimation = &idle2;
+
 	}
 
 
@@ -320,6 +320,8 @@ bool Player::Update(float dt)
 	return true;
 }
 
+
+
 bool Player::CleanUp()
 {
 
@@ -336,6 +338,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::PLATFORM:
 		LOG("Collision PLATFORM");
+		printf("colli holla");
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");

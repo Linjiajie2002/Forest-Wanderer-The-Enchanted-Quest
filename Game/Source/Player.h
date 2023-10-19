@@ -24,6 +24,8 @@ public:
 
 	bool Update(float dt);
 
+	bool PostUpdate();
+
 	bool CleanUp();
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
@@ -61,6 +63,9 @@ public:
 	float jumpForce = 25;
 	bool isFacingLeft = false;
 	bool isHighJumping = false;
+
+	uint width;
+	uint height;
 };
 
 #endif // __PLAYER_H__

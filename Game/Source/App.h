@@ -89,6 +89,8 @@ public:
 	Physics* physics;
 	Animation* animation;
 
+	int FpsNum = 16;
+
 private:
 
 	int argc;
@@ -118,7 +120,8 @@ private:
 	float averageFps = 0.0f;
 	uint32 secondsSinceStartup = 0;
 
-	uint32 maxFrameDuration = 16;
+	uint32 maxFrameDuration;
+
 
 };
 

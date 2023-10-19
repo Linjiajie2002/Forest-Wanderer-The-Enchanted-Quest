@@ -226,6 +226,18 @@ bool Physics::PostUpdate()
 	// Activate or deactivate debug mode
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 		debug = !debug;
+
+
+	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) {
+		if (changeFps) {
+			app->FpsNum = 32;
+			changeFps = false;
+		}
+		else {
+			app->FpsNum = 16;
+			changeFps = true;
+		}
+	}
 	
 	//  Iterate all objects in the world and draw the bodies
 	if (debug)

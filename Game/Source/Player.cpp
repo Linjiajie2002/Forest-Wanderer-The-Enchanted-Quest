@@ -9,6 +9,7 @@
 #include "Point.h"
 #include "Physics.h"
 #include "Animation.h"
+#include "Window.h"
 #include "Render.h"
 
 Player::Player() : Entity(EntityType::PLAYER)
@@ -201,8 +202,8 @@ bool Player::Start() {
 	//initilize textures
 	texture = app->tex->Load(texturePath);
 
-	pbody = app->physics->CreateRectangle(position.x, position.y, 55,70, bodyType::DYNAMIC);
-	//pbody = app->physics->CreateCircle(position.x, position.y, 50, bodyType::DYNAMIC);
+	//pbody = app->physics->CreateRectangle(position.x, position.y, 55,70, bodyType::DYNAMIC);
+	pbody = app->physics->CreateCircle(position.x, position.y, 37, bodyType::DYNAMIC);
 	pbody->listener = this;
 	pbody->ctype = ColliderType::PLAYER;
 
@@ -223,7 +224,9 @@ bool Player::Update(float dt)
 
 
 	vel.y -= GRAVITY_Y;
-	
+	uint width;
+	uint height;
+	app->win->GetWindowSize(width, height);
 
 	
 	
@@ -238,15 +241,34 @@ bool Player::Update(float dt)
 		isFacingLeft = true;
 		vel = b2Vec2(-speed*dt, pbody->body->GetLinearVelocity().y);
 		currentAnimation = &run;
+		
+
+		if (app->render->camera.x >= 2 && position.x< 514) {
+			app->render->camera.x = 2;
+		}
+		else {
+			app->render->camera.x = -position.x + (width / 2);
+		}
+
 	}
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 
 		isFacingLeft = false;
 		vel = b2Vec2(speed*dt, pbody->body->GetLinearVelocity().y);
 		currentAnimation = &run;
+
+	
+		if (app->render->camera.x >= 2 && position.x < 514) {
+			app->render->camera.x = 2;
+		}
+		else {
+			app->render->camera.x = -position.x + (width / 2);
+		}
 		
 	}
+	
 
+	printf("Camera: %d \n", position.x);
 	//Set the velocity of the pbody of the player
 	pbody->body->SetLinearVelocity(vel);
 
@@ -271,10 +293,12 @@ bool Player::Update(float dt)
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) -50;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y)-30;
 
+
+
+	
 	
 
 	
-	printf("pos: %d", position.x);
 	
 
 	//app->render->DrawTexture(texture, position.x, position.y);
@@ -290,7 +314,7 @@ bool Player::Update(float dt)
 	}
 
 	currentAnimation->Update();
-	render->setCamereX(position.x);
+	
 	
 
 	return true;

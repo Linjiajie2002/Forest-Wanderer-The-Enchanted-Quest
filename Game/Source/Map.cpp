@@ -4,6 +4,7 @@
 #include "Textures.h"
 #include "Map.h"
 #include "Physics.h"
+#include "Player.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -382,12 +383,38 @@ bool Map::LoadCollision(std::string layerName) {
 
                     }
 
-                    /*if (gid == tileset->firstgid+5) {
+                    if (gid == tileset->firstgid+5) {
+                        /*List<int> listadepunto;
+                        listadepunto.Add;*/
+                        int* puntos = new int[8];
+                        memset(puntos,0,8);
 
-                        MapLayer vel = b2Vec2(-speed * dt, pbody->body->GetLinearVelocity().y);
+                        puntos[0] =  -16;
+                        puntos[1] =  +16;
+
+                        puntos[2] =  -16;
+                        puntos[3] =  10;
+
+                        puntos[4] = + 16;
+                        puntos[5] = -16;
+
+                        puntos[6] = +16;
+                        puntos[7] = +16;
+                        
+                        /*puntos[0] =  - 16;
+                        puntos[1] =  + 16;
+
+                        puntos[2] =  + 16;
+                        puntos[3] =  - 16;
+
+                        puntos[4] =  + 16;
+                        puntos[5] = + 16;*/
+
+                        PhysBody* c1 = app->physics->CreateChain(pos.x + 16, pos.y + 16, puntos, 8, STATIC);
                         c1->ctype = ColliderType::PLATFORM;
+                        
 
-                    }*/
+                    }
 
                 }
             }

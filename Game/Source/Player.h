@@ -51,7 +51,7 @@ public:
 
 
 public:
-	float speed = 0.2f;
+	float speed = 0.4f;
 	float crouchspeed = 0.1f;
 	const char* texturePath;
 	SDL_Texture* texture = NULL;
@@ -66,6 +66,10 @@ public:
 
 	uint width;
 	uint height;
+
+	bool canJump = true;
+	bool playerOnPlatform = true;
+	int jumpCount = 0;
 };
 
 #endif // __PLAYER_H__

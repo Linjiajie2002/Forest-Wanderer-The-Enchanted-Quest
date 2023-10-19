@@ -230,56 +230,56 @@ bool Player::Update(float dt)
 	b2Vec2 vel = b2Vec2(0, pbody->body->GetLinearVelocity().y);
 
 
-	vel.y -= GRAVITY_Y;
+
 
 
 	app->win->GetWindowSize(width, height);
 
+
 	
-	
-	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && app->input->GetKey(SDL_SCANCODE_SPACE) != KEY_DOWN) {
 		currentAnimation = &crouch;
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT ) {
+
 		isFacingLeft = true;
 		vel = b2Vec2(-speed*dt, pbody->body->GetLinearVelocity().y);
 		currentAnimation = &run;
-	}
-	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-
-		isFacingLeft = false;
-		vel = b2Vec2(speed*dt, pbody->body->GetLinearVelocity().y);
-		currentAnimation = &run;
-	}
-
-
-	//Camera
-	if (app->render->camera.x >= 2 && position.x < 514) {
-		app->render->camera.x = 2;
-	}
-	else {
-		app->render->camera.x = -position.x + (width / 2);
-
-		app->render->camera.x = (-position.x * app->win->GetScale() + (width / 2));
 		
 	}
-	app->render->camera.y = (-position.y * app->win->GetScale() + (height / 2));
+	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+		
+			isFacingLeft = false;
+			vel = b2Vec2(speed * dt, pbody->body->GetLinearVelocity().y);
+			currentAnimation = &run;
+		
+	}
 
-
-
-	//printf("Camera: %d \n", position.x);
 	//Set the velocity of the pbody of the player
+	vel.y -= GRAVITY_Y;
 	pbody->body->SetLinearVelocity(vel);
+	
 
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 
-	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) {
-
+		if (canJump) {
 		vel.y = 0;
-		pbody->body->SetLinearVelocity(vel);
 		pbody->body->ApplyLinearImpulse(b2Vec2(0, GRAVITY_Y * jumpForce), pbody->body->GetWorldCenter(), true);
 		currentAnimation = &highjump;
-
+		jumpCount++;
+		playerOnPlatform = false;
+		if (jumpCount == 2) {
+			canJump = false;
+		}
+		}
+	}
+	else {
+		
+	}
+	
+	if (playerOnPlatform) {
+		canJump = true;
 	}
 
 
@@ -293,7 +293,17 @@ bool Player::Update(float dt)
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) -50;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y)-30;
 
+	//Camera
+	if (app->render->camera.x >= 2 && position.x < 514) {
+		app->render->camera.x = 2;
+	}
+	else {
+		app->render->camera.x = -position.x + (width / 2);
 
+		app->render->camera.x = (-position.x * app->win->GetScale() + (width / 2));
+
+	}
+	app->render->camera.y = (-position.y * app->win->GetScale() + (height / 2));
 
 	
 	
@@ -338,7 +348,13 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::PLATFORM:
 		LOG("Collision PLATFORM");
-		printf("colli holla");
+
+		if (jumpCount >= 2) {
+			
+			jumpCount = 0;
+			playerOnPlatform = true;
+		}
+
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");

@@ -78,7 +78,7 @@ Player::Player() : Entity(EntityType::PLAYER)
 	atack2.loop = false;
 
 
-	for (int i = 97; i <100; i++)
+	for (int i = 96; i < 100; i++)
 	{
 		atack3.PushBack({ spritePositions[i] });
 	}
@@ -139,7 +139,7 @@ bool Player::Start() {
 
 bool Player::Update(float dt)
 {
-	
+
 	currentAnimation = &idle;
 
 
@@ -160,7 +160,7 @@ bool Player::Update(float dt)
 
 			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
 				if (!isFacingLeft) {
-				isFacingLeft = false;
+					isFacingLeft = false;
 				}
 				currentAnimation = &crouch;
 			}
@@ -202,8 +202,8 @@ bool Player::Update(float dt)
 
 				currentAnimation = &highjump;
 
-				
-				if ( AniplayerOnPlatform) {
+
+				if (AniplayerOnPlatform) {
 					currentAnimation = &slide;
 				}
 
@@ -214,7 +214,7 @@ bool Player::Update(float dt)
 
 				pbody->body->GetFixtureList()[0].SetSensor(true);
 
-				
+
 				if (canJump) {
 					vel.y = 0;
 					pbody->body->ApplyLinearImpulse(b2Vec2(0, GRAVITY_Y * jumpForce), pbody->body->GetWorldCenter(), true);
@@ -235,57 +235,80 @@ bool Player::Update(float dt)
 
 			}
 
-			
+
 
 			if (starFram) {
 				frameCount++;
 			}
 
-			if (frameCount >= 300) {
+			if (frameCount >= 1000) {
 				frameCount = 0;
 				starFram = false;
 			}
+
+			if (canAtack) {
 			if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN) {
-				atackTypeCount++;
+				if (atackTypeCount > 3) {
+					atackTypeCount = 1;
+				}
+				else
+				{
+					atackTypeCount++;
+				}
+				//printf("yes");
 				isAtack = true;
-				starFram = true;
-				printf("%d", atackTypeCount);
+				
+				//printf("%d", atackTypeCount);
 			}
+			}
+			//printf("F%d ", frameCount);
 			//Atack
 			if (isAtack) {
-				if (atackTypeCount = 1) {
+				if (frameCount >= 400) {
+					//printf("1");
+					atackTypeCount = 1;
+					frameCount = 0;
+				}
+				if (atackTypeCount == 1) {
 				
 					currentAnimation = &atack;
-					if (frameCount >= 10000) {
-						printf("1");
-						atackTypeCount = 0;
-						frameCount = 0;
-						starFram = false;
-					}
-				}
-				else if (atackTypeCount = 2) {
+					canAtack = false;
 					
-					currentAnimation = &atack2;
-
-					if (frameCount >= 10000) {
-						printf("2");
-						atackTypeCount = 0;
-						frameCount = 0;
-						starFram = false;
-					}
 				}
-				else if (atackTypeCount = 3) {
-					printf("1");
+
+				if (atackTypeCount == 2) {
+					currentAnimation = &atack2;
+					canAtack = false;
+				}
+
+				if (atackTypeCount == 3) {
+					//printf("3");
 					currentAnimation = &atack3;
-					atackTypeCount = 0;
-					frameCount = 0;
-					starFram = false;
+					canAtack = false;
 				}
 
 
 				if (atack.HasFinished()) {
 					atack.Reset();
+					isAtack = false;
+					canAtack = true;
+					frameCount = 0;
+					starFram = true;
+				}
+
+				if (atack2.HasFinished()) {
 					atack2.Reset();
+					isAtack = false;
+					canAtack = true;
+					frameCount = 0;
+					starFram = true;
+				}
+				if (atack3.HasFinished()) {
+					atack3.Reset();
+					atackTypeCount = 0;
+					starFram = false;
+					frameCount = 0;
+					canAtack = true;
 					isAtack = false;
 				}
 			}
@@ -333,7 +356,7 @@ bool Player::Update(float dt)
 	}//if is dead
 
 
-	
+
 
 	//Update player position in pixels
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 50;
@@ -426,7 +449,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		jumpCount = 0;
 		highjump.Reset();
 		playerOnPlatform = true;
-		
+
 
 		break;
 	case ColliderType::UNKNOWN:

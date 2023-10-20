@@ -80,6 +80,7 @@ public:
 	//Atack
 	int atackTypeCount = 0;
 	bool isAtack = false;
+	bool canAtack = true;
 	uint64 frameCount = 0;
 };
 

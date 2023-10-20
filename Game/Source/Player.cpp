@@ -261,7 +261,8 @@ bool Player::Update(float dt)
 				//printf("%d", atackTypeCount);
 			}
 			}
-			//printf("F%d ", frameCount);
+			
+			printf("F%d ", frameCount);
 			//Atack
 			if (isAtack) {
 				if (frameCount >= 400) {

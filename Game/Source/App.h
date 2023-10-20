@@ -77,6 +77,9 @@ private:
 
 public:
 
+	bool debug;
+	bool godMode;
+
 	// Modules
 	Window* win;
 	Input* input;

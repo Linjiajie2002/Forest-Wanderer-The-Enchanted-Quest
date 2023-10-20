@@ -22,7 +22,6 @@ Physics::Physics() : Module()
 {
 	// Initialise all the internal class variables, at least to NULL pointer
 	world = NULL;
-	debug = true;
 }
 
 // Destructor
@@ -225,7 +224,12 @@ bool Physics::PostUpdate()
 
 	// Activate or deactivate debug mode
 	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
-		debug = !debug;
+		app->debug = !app->debug;
+
+
+	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
+		app->godMode = !app->godMode;
+	}
 
 
 	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) {
@@ -240,7 +244,7 @@ bool Physics::PostUpdate()
 	}
 	
 	//  Iterate all objects in the world and draw the bodies
-	if (debug)
+	if (app->debug)
 	{
 		for (b2Body* b = world->GetBodyList(); b; b = b->GetNext())
 		{

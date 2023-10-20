@@ -71,6 +71,8 @@ public:
 	bool canJump = true;
 	bool playerOnPlatform = true;
 	int jumpCount = 0;
+	bool isAtack = false;
+	bool isDead = false;
 };
 
 #endif // __PLAYER_H__

@@ -22,24 +22,21 @@ Player::Player() : Entity(EntityType::PLAYER)
 	spritePositions = SPosition.SpritesPos(109, 50, 37, 350);
 	for (int i = 0; i < 4; i++)
 	{
-		/*printf("X%d: %s ",i, std::to_string(spritePositions[i].x).c_str());
-		printf("Y%d: %s ", i, std::to_string(spritePositions[i].y).c_str());
-		printf("H%d: %s ", i, std::to_string(spritePositions[i].h).c_str());
-		printf("W%d: %s ", i, std::to_string(spritePositions[i].w).c_str());
-		printf("\n");*/
 		idle.PushBack({ spritePositions[i] });
 	}
 	idle.speed = 0.15f;
 	idle.loop = true;
 
+	for (int i = 5; i < 8; i++)
+	{
+		crouch.PushBack({ spritePositions[i] });
+	}
+	crouch.speed = 0.08f;
+	crouch.loop = true;
+
 
 	for (int i = 9; i < 14; i++)
 	{
-		/*printf("X: %s", std::to_string(spritePositions[i].x).c_str());
-		printf("y: %s", std::to_string(spritePositions[i].y).c_str());
-		printf("h: %s", std::to_string(spritePositions[i].h).c_str());
-		printf("w: %s", std::to_string(spritePositions[i].w).c_str());
-		printf("\n");*/
 		run.PushBack({ spritePositions[i] });
 	}
 	run.speed = 0.08f;
@@ -48,151 +45,39 @@ Player::Player() : Entity(EntityType::PLAYER)
 
 	for (int i = 15; i < 24; i++)
 	{
-		/*printf("X: %s", std::to_string(spritePositions[i].x).c_str());
-		printf("y: %s", std::to_string(spritePositions[i].y).c_str());
-		printf("h: %s", std::to_string(spritePositions[i].h).c_str());
-		printf("w: %s", std::to_string(spritePositions[i].w).c_str());
-		printf("\n");*/
 		highjump.PushBack({ spritePositions[i] });
 	}
-	highjump.speed = 0.08f;
+
+	highjump.speed = 0.4f;
 	highjump.loop = false;
 
+	for (int i = 25; i < 29; i++)
+	{
+		slide.PushBack({ spritePositions[i] });
+	}
 
-	//idle.PushBack({ anirec[0]});
-//idle.PushBack({ anirec[1] });
-
-//idle.PushBack({ 115,6, 19, 30 });
-//idle.PushBack({ 163,6, 19, 30 });
-// 
-////crouch;
-//crouch.PushBack({ 216,6, 19, 30 });
-//crouch.PushBack({ 265,6, 19, 30 });
-//crouch.PushBack({ 315, 6, 19, 30 });
-//crouch.PushBack({ 17, 45, 19, 30 });////Segundo Linea24,28
-
-//crouch.speed = 0.04f;
-//crouch.loop = true;
-
-////run;
-//run.PushBack({ 67, 45, 24, 28 });
-//run.PushBack({ 116,45, 24, 28 });
-//run.PushBack({ 166,45, 24, 28 });
-//run.PushBack({ 217,45, 24, 28 });
-//run.PushBack({ 266,45, 24, 28 });
-//run.PushBack({ 316,45, 24, 28 });
-//
+	slide.speed = 0.1f;
+	slide.loop = false;
 
 
-//
-////highjump;
-//highjump.PushBack({ 15, 79, 24,31 });//Terce Linea
-//highjump.PushBack({ 65, 79, 24,31 });
-//highjump.PushBack({ 117, 79, 24,31 });
-//highjump.PushBack({ 164, 79, 24,31 });
-//highjump.PushBack({ 218, 79, 24,31 });
-//highjump.PushBack({ 264, 79, 24,31 });
-//highjump.PushBack({ 320, 79, 24,31 });
-//highjump.PushBack({ 14, 112, 35, 35 });	//Quarta Linea
-//highjump.PushBack({ 68, 112, 35, 35 });
+	for (int i = 43; i < 53; i++)
+	{
+		atack.PushBack({ spritePositions[i] });
+	}
 
-//highjump.speed = 0.2f;
-//highjump.loop = true;
-//highjump.aniFrameTotal = 9;
-//
-////slide
-//slide.PushBack({ 118, 112, 35, 35 });
-//slide.PushBack({ 155, 112, 35, 35 });
-//slide.PushBack({ 205, 112, 35, 35 });
-//slide.PushBack({ 255, 112, 35, 35 });
-//slide.PushBack({ 309, 112, 35, 35 });
-//slide.PushBack({ 15, 151, 23,35  });//Quinta Linea
-//slide.PushBack({ 72, 151, 23,35 });
-//slide.PushBack({ 122, 151, 23,35 });
-//slide.PushBack({ 170, 151, 23,35 });
-//slide.PushBack({ 221, 151, 23,35 });
-//slide.PushBack({ 271, 151, 23,35 });
-//slide.PushBack({ 321, 151, 23,35 });
-//slide.PushBack({ 20,190,24,31});//Sixta Linea
-//slide.PushBack({ 71,190,24,31 });
-//slide.PushBack({ 121,190,24,31 });
-
-//slide.speed = 0.08f;
-//slide.loop = true;
-
-////idle2
-//idle2.PushBack({ 160,190,24,31 });
-//idle2.PushBack({ 210,190,24,31 });
-//idle2.PushBack({ 259,190,24,31 });
-//idle2.PushBack({ 309,190,24,31 });
-
-//idle2.speed = 0.08f;
-//idle2.loop = true;
-
-////atack
-//atack.PushBack({ 7,221,35,37});//7
-//atack.PushBack({ 58,221,35,37 });
-//atack.PushBack({ 115,221,35,37 });
-//atack.PushBack({ 165,221,35,37 });
-//atack.PushBack({ 215,221,35,37 });
-//atack.PushBack({ 265,221,35,37 });
-
-//atack.speed = 0.08f;
-//atack.loop = true;
+	atack.speed = 0.1f;
+	atack.loop = false;
 
 
-////atack2
-//atack2.PushBack({ 315,221,35,37 });//
-//atack2.PushBack({ 13,265,33,37 });//8
-//atack2.PushBack({ 60,265,39,37 });//30->35,37
-//atack2.PushBack({ 102,265,33,37 });
-//atack2.PushBack({ 152,265,33,37 });
+	for (int i = 64; i < 69; i++)
+	{
+		die.PushBack({ spritePositions[i] });
+	}
 
-//atack2.speed = 0.08f;
-//atack2.loop = true;
-
-////atack3
-//atack3.PushBack({ 219,265,33,30 });
-//atack3.PushBack({ 270,265,33,30 });
-//atack3.PushBack({ 302,265,48,30 });
-//atack3.PushBack({ 3,307,35,30 });//9
-//atack3.PushBack({ 50,307,35,30 });//25
-//atack3.PushBack({ 100,307,35,30 });
-
-//atack3.speed = 0.08f;
-//atack3.loop = true;
+	die.speed = 0.1f;
+	die.loop = false;
 
 
-////idle3
-//idle3.PushBack({ 166,307,35,30 });
-//idle3.PushBack({ 217,307,35,30 });
-//idle3.PushBack({ 265,307,35,30 });
-//idle3.PushBack({ 316,307,35,30 });
-//
-
-//idle3.speed = 0.08f;
-//idle3.loop = true;
-
-////die
-//die.PushBack({ 17,339,24,30 });//10
-//die.PushBack({ 65,339,24,30 });
-//die.PushBack({ 116,339,24,30 });
-//die.PushBack({ 168,339,24,30 });
-//die.PushBack({ 221,339,24,30 });
-//die.PushBack({ 268,339,24,30 });
-
-//die.speed = 0.08f;
-//die.loop = false;
-
-//
-////lowjump
-//lowjump.PushBack({ 317,339,24,30 });
-//lowjump.PushBack({ 18,376,23,30});//11
-//lowjump.PushBack({ 68,376,23,30 });
-
-//lowjump.speed = 0.08f;
-//lowjump.loop = true;
-//
 
 }
 
@@ -236,128 +121,168 @@ bool Player::Start() {
 
 bool Player::Update(float dt)
 {
+
 	currentAnimation = &idle;
-	
+
 
 	b2Vec2 vel = b2Vec2(0, pbody->body->GetLinearVelocity().y);
 
-	
+
 
 
 	app->win->GetWindowSize(width, height);
 
 
+	if (!isDead) {
+		if (!app->godMode) {
 
-	if (!app->godMode) {
+			pbody->body->GetFixtureList()[0].SetSensor(false);
+			vel = b2Vec2(0, pbody->body->GetLinearVelocity().y);
 
-		pbody->body->GetFixtureList()[0].SetSensor(false);
-		vel = b2Vec2(0, pbody->body->GetLinearVelocity().y);
+			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+				if (!isFacingLeft) {
+				isFacingLeft = false;
+				}
+				currentAnimation = &crouch;
+			}
 
-		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+			if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 
-			isFacingLeft = true;
-			vel = b2Vec2(-speed * dt, pbody->body->GetLinearVelocity().y);
-			currentAnimation = &run;
+				isFacingLeft = true;
+				vel = b2Vec2(-crouchspeed * dt, pbody->body->GetLinearVelocity().y);
+				currentAnimation = &run;
 
-		}
-		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+				if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+					currentAnimation = &crouch;
+				}
 
-			isFacingLeft = false;
-			vel = b2Vec2(speed * dt, pbody->body->GetLinearVelocity().y);
-			currentAnimation = &run;
-		}
-		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-			currentAnimation = &crouch;
-		}
+			}
+			if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 
-		//Set the velocity of the pbody of the player
-		vel.y -= GRAVITY_Y;
-		pbody->body->SetLinearVelocity(vel);
+				isFacingLeft = false;
+				vel = b2Vec2(speed * dt, pbody->body->GetLinearVelocity().y);
+				currentAnimation = &run;
 
-		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+				if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+					vel = b2Vec2(crouchspeed * dt, pbody->body->GetLinearVelocity().y);
+					currentAnimation = &crouch;
+				}
 
-			pbody->body->GetFixtureList()[0].SetSensor(true);
+			}
 
 
-			if (canJump) {
-				vel.y = 0;
-				pbody->body->ApplyLinearImpulse(b2Vec2(0, GRAVITY_Y * jumpForce), pbody->body->GetWorldCenter(), true);
+			//Set the velocity of the pbody of the player
+			vel.y -= GRAVITY_Y;
+			pbody->body->SetLinearVelocity(vel);
+
+
+
+			//Jump
+			if (jumpCount > 0) {
+
 				currentAnimation = &highjump;
-				jumpCount++;
-				playerOnPlatform = false;
-				if (jumpCount == 2) {
-					canJump = false;
+
+				if (highjump.HasFinished()) {
+					currentAnimation = &slide;
+				}
+
+			}
+
+			LOG("JumpCount: %d ", jumpCount);
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+
+				pbody->body->GetFixtureList()[0].SetSensor(true);
+
+
+				if (canJump) {
+					vel.y = 0;
+					pbody->body->ApplyLinearImpulse(b2Vec2(0, GRAVITY_Y * jumpForce), pbody->body->GetWorldCenter(), true);
+					jumpCount++;
+					playerOnPlatform = false;
+					if (jumpCount == 2) {
+						canJump = false;
+					}
 				}
 			}
-		}
-		else {
+			else {
+
+			}
+
+			if (playerOnPlatform) {
+				canJump = true;
+			}
+
+
+			//Atack
+			if (isAtack) {
+				currentAnimation = &atack;
+				if (atack.HasFinished()) {
+					atack.Reset();
+					isAtack = false;
+				}
+			}
 
 		}
+		else
+		{
 
-		if (playerOnPlatform) {
-			canJump = true;
-		}
-
-
-		if (app->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT) {
-			currentAnimation = &atack;
-		}
-
-
-
-	}
-	else
-	{
-
-		vel = b2Vec2(0, 0);
-		pbody->body->SetLinearVelocity(vel);
-		pbody->body->GetFixtureList()[0].SetSensor(true);
-
-		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-
-			isFacingLeft = true;
-			vel = b2Vec2(-speed * dt, pbody->body->GetLinearVelocity().y);
-			currentAnimation = &run;
+			vel = b2Vec2(0, 0);
 			pbody->body->SetLinearVelocity(vel);
+			pbody->body->GetFixtureList()[0].SetSensor(true);
+
+			if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+
+				isFacingLeft = true;
+				vel = b2Vec2(-speed * dt, pbody->body->GetLinearVelocity().y);
+				currentAnimation = &run;
+				pbody->body->SetLinearVelocity(vel);
+
+			}
+			if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+
+				isFacingLeft = false;
+				vel = b2Vec2(speed * dt, pbody->body->GetLinearVelocity().y);
+				currentAnimation = &run;
+				pbody->body->SetLinearVelocity(vel);
+			}
+
+			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+
+				isFacingLeft = true;
+				vel = b2Vec2(pbody->body->GetLinearVelocity().x, (-speed * 32));
+				currentAnimation = &run;
+				pbody->body->SetLinearVelocity(vel);
+			}
+
+			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+				isFacingLeft = false;
+				vel = b2Vec2(pbody->body->GetLinearVelocity().x, (speed * 32));
+				currentAnimation = &run;
+				pbody->body->SetLinearVelocity(vel);
+			}
 
 		}
-		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-
-			isFacingLeft = false;
-			vel = b2Vec2(speed * dt, pbody->body->GetLinearVelocity().y);
-			currentAnimation = &run;
-			pbody->body->SetLinearVelocity(vel);
-		}
-
-		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
-
-			isFacingLeft = true;
-			vel = b2Vec2(pbody->body->GetLinearVelocity().x, (-speed * 32));
-			currentAnimation = &run;
-			pbody->body->SetLinearVelocity(vel);
-		}
-
-		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-			isFacingLeft = false;
-			vel = b2Vec2(pbody->body->GetLinearVelocity().x, (speed * 32));
-			currentAnimation = &run;
-			pbody->body->SetLinearVelocity(vel);
-		}
-
-		
+	}//if is dead
 
 
-	}
-
-
-
-	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) {
-
-	}
+	
 
 	//Update player position in pixels
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 50;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 30;
+
+	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN) {
+		//position.y = parameters.attribute("y").as_int();
+
+		vel = b2Vec2(0, 0);
+
+
+		pbody->body->SetTransform(vel, pbody->body->GetAngle());
+
+		printf("posX: %d ", position.x);
+		printf("posY: %d ", position.y);
+		//pbody->body->SetLinearVelocity(vel);
+	}
 
 	//Camera
 	if (app->render->camera.x >= 2 && position.x < 514) {
@@ -373,7 +298,19 @@ bool Player::Update(float dt)
 
 
 
-	
+
+
+	//Die
+	if (isDead) {
+		currentAnimation = &die;
+
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) {
+		isDead = !isDead;
+		die.Reset();
+	}
+
 
 
 
@@ -389,9 +326,11 @@ bool Player::Update(float dt)
 		app->render->DrawTexture(texture, position.x, position.y - 6, 2, SDL_FLIP_NONE, &rect);
 	}
 
+
+
 	currentAnimation->Update();
 
-	
+
 
 
 	return true;
@@ -416,11 +355,9 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::PLATFORM:
 		LOG("Collision PLATFORM");
 
-		if (jumpCount >= 2) {
-
-			jumpCount = 0;
-			playerOnPlatform = true;
-		}
+		jumpCount = 0;
+		highjump.Reset();
+		playerOnPlatform = true;
 
 		break;
 	case ColliderType::UNKNOWN:
@@ -428,52 +365,3 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	}
 }
-
-
-
-
-//if (app->input->GetKey(SDL_SCANCODE_1) == KEY_REPEAT) {
-//	//
-//	currentAnimation = &idle3;
-//	app->render->DrawTexture(texture, position.x, position.y, &rect);
-//}
-//if (app->input->GetKey(SDL_SCANCODE_2) == KEY_REPEAT) {
-//	//
-//	currentAnimation = &die;
-//	app->render->DrawTexture(texture, position.x, position.y, &rect);
-//}
-//if (app->input->GetKey(SDL_SCANCODE_3) == KEY_REPEAT) {
-//	//
-//	currentAnimation = &atack3;
-//	app->render->DrawTexture(texture, position.x, position.y, &rect);
-//}
-//if (app->input->GetKey(SDL_SCANCODE_4) == KEY_REPEAT) {
-//	//
-//	currentAnimation = &highjump;
-//	app->render->DrawTexture(texture, position.x, position.y, &rect);
-//}
-//if (app->input->GetKey(SDL_SCANCODE_5) == KEY_REPEAT) {
-//	//
-//	currentAnimation = &slide;
-//	app->render->DrawTexture(texture, position.x, position.y, &rect);
-//}
-//if (app->input->GetKey(SDL_SCANCODE_6) == KEY_REPEAT) {
-//	//
-//	currentAnimation = &idle2;
-//	app->render->DrawTexture(texture, position.x, position.y, &rect);
-//}
-//if (app->input->GetKey(SDL_SCANCODE_7) == KEY_REPEAT) {
-//	//
-//	currentAnimation = &atack;
-//	app->render->DrawTexture(texture, position.x, position.y, &rect);
-//}
-//if (app->input->GetKey(SDL_SCANCODE_8) == KEY_REPEAT) {
-//	//
-//	currentAnimation = &atack2;
-//	app->render->DrawTexture(texture, position.x, position.y, &rect);
-//}
-//if (app->input->GetKey(SDL_SCANCODE_9) == KEY_REPEAT) {
-//	//
-//	currentAnimation = &atack3;
-//	app->render->DrawTexture(texture, position.x, position.y, &rect);
-//}

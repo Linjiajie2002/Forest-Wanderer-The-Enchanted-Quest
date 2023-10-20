@@ -82,6 +82,10 @@ public:
 	bool isAtack = false;
 	bool canAtack = true;
 	uint64 frameCount = 0;
+
+
+	//climb
+	bool onWall =false;
 };
 
 #endif // __PLAYER_H__

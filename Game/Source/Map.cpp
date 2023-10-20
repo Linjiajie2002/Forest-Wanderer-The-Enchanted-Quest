@@ -383,6 +383,14 @@ bool Map::LoadCollision(std::string layerName) {
 
                     }
 
+                    //tipo
+                    if (gid == tileset->firstgid+1) {
+
+                        PhysBody* c1 = app->physics->CreateRectangle(pos.x + 16, pos.y + 16, 32, 32, STATIC);
+                        c1->ctype = ColliderType::WALL;
+
+                    }
+
                     if (gid == tileset->firstgid+5) {
                         /*List<int> listadepunto;
                         listadepunto.Add;*/

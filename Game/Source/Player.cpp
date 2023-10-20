@@ -65,7 +65,7 @@ Player::Player() : Entity(EntityType::PLAYER)
 		atack.PushBack({ spritePositions[i] });
 	}
 
-	atack.speed = 0.1f;
+	atack.speed = 0.2f;
 	atack.loop = false;
 
 
@@ -74,7 +74,7 @@ Player::Player() : Entity(EntityType::PLAYER)
 		atack2.PushBack({ spritePositions[i] });
 	}
 
-	atack2.speed = 0.1f;
+	atack2.speed = 0.2f;
 	atack2.loop = false;
 
 
@@ -83,7 +83,7 @@ Player::Player() : Entity(EntityType::PLAYER)
 		atack3.PushBack({ spritePositions[i] });
 	}
 
-	atack3.speed = 0.1f;
+	atack3.speed = 0.2f;
 	atack3.loop = false;
 
 
@@ -147,12 +147,14 @@ bool Player::Update(float dt)
 
 
 	//printf("%d",frameCount);
-
+	//onWall = false;
 
 	app->win->GetWindowSize(width, height);
 
+	
 
 	if (!isDead) {
+
 		if (!app->godMode) {
 
 			pbody->body->GetFixtureList()[0].SetSensor(false);
@@ -164,78 +166,90 @@ bool Player::Update(float dt)
 				}
 				currentAnimation = &crouch;
 			}
+			
+				if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 
-			if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+					isFacingLeft = true;
+					vel = b2Vec2(-speed * dt, pbody->body->GetLinearVelocity().y);
+					currentAnimation = &run;
 
-				isFacingLeft = true;
-				vel = b2Vec2(-speed * dt, pbody->body->GetLinearVelocity().y);
-				currentAnimation = &run;
+					if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+						vel = b2Vec2(-crouchspeed * dt, pbody->body->GetLinearVelocity().y);
+						currentAnimation = &crouch;
+					}
 
-				if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-					vel = b2Vec2(-crouchspeed * dt, pbody->body->GetLinearVelocity().y);
-					currentAnimation = &crouch;
+					if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && onWall) {
+						printf("%d", onWall);
+						vel = b2Vec2(pbody->body->GetLinearVelocity().x, (-speed * 4));
+						currentAnimation = &crouch;
+					}
+
+				}
+				if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+
+					isFacingLeft = false;
+					vel = b2Vec2(speed * dt, pbody->body->GetLinearVelocity().y);
+					currentAnimation = &run;
+
+					if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+						vel = b2Vec2(crouchspeed * dt, pbody->body->GetLinearVelocity().y);
+						currentAnimation = &crouch;
+					}
+
+					if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && onWall) {
+						printf("%d", onWall);
+						vel = b2Vec2(pbody->body->GetLinearVelocity().x, (-speed * 4));
+						currentAnimation = &crouch;
+					}
+
 				}
 
-			}
-			if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 
-				isFacingLeft = false;
-				vel = b2Vec2(speed * dt, pbody->body->GetLinearVelocity().y);
-				currentAnimation = &run;
+				//Set the velocity of the pbody of the player
+				vel.y -= GRAVITY_Y;
+				pbody->body->SetLinearVelocity(vel);
 
-				if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-					vel = b2Vec2(crouchspeed * dt, pbody->body->GetLinearVelocity().y);
-					currentAnimation = &crouch;
+
+
+				//Jump
+				if (jumpCount > 0) {
+
+					currentAnimation = &highjump;
+
+
+					if (AniplayerOnPlatform) {
+						currentAnimation = &slide;
+					}
+
 				}
 
-			}
+				//LOG("JumpCount: %d ", jumpCount);
+				if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+
+					pbody->body->GetFixtureList()[0].SetSensor(true);
 
 
-			//Set the velocity of the pbody of the player
-			vel.y -= GRAVITY_Y;
-			pbody->body->SetLinearVelocity(vel);
-
-
-
-			//Jump
-			if (jumpCount > 0) {
-
-				currentAnimation = &highjump;
-
-
-				if (AniplayerOnPlatform) {
-					currentAnimation = &slide;
-				}
-
-			}
-
-			//LOG("JumpCount: %d ", jumpCount);
-			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-
-				pbody->body->GetFixtureList()[0].SetSensor(true);
-
-
-				if (canJump) {
-					vel.y = 0;
-					pbody->body->ApplyLinearImpulse(b2Vec2(0, GRAVITY_Y * jumpForce), pbody->body->GetWorldCenter(), true);
-					jumpCount++;
-					playerOnPlatform = false;
-					//AniplayerOnPlatform = true;
-					if (jumpCount == 2) {
-						canJump = false;
+					if (canJump) {
+						vel.y = 0;
+						pbody->body->ApplyLinearImpulse(b2Vec2(0, GRAVITY_Y * jumpForce), pbody->body->GetWorldCenter(), true);
+						jumpCount++;
+						playerOnPlatform = false;
+						//AniplayerOnPlatform = true;
+						if (jumpCount == 2) {
+							canJump = false;
+						}
 					}
 				}
-			}
-			else {
+				else {
 
-			}
+				}
 
-			if (playerOnPlatform) {
-				canJump = true;
+				if (playerOnPlatform) {
+					canJump = true;
 
-			}
+				}
 
-
+			
 
 			if (starFram) {
 				frameCount++;
@@ -247,22 +261,22 @@ bool Player::Update(float dt)
 			}
 
 			if (canAtack) {
-			if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN) {
-				if (atackTypeCount > 3) {
-					atackTypeCount = 1;
+				if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN) {
+					if (atackTypeCount > 3) {
+						atackTypeCount = 1;
+					}
+					else
+					{
+						atackTypeCount++;
+					}
+					//printf("yes");
+					isAtack = true;
+
+					//printf("%d", atackTypeCount);
 				}
-				else
-				{
-					atackTypeCount++;
-				}
-				//printf("yes");
-				isAtack = true;
-				
-				//printf("%d", atackTypeCount);
 			}
-			}
-			
-			printf("F%d ", frameCount);
+
+			//printf("F%d ", frameCount);
 			//Atack
 			if (isAtack) {
 				if (frameCount >= 400) {
@@ -271,10 +285,10 @@ bool Player::Update(float dt)
 					frameCount = 0;
 				}
 				if (atackTypeCount == 1) {
-				
+
 					currentAnimation = &atack;
 					canAtack = false;
-					
+
 				}
 
 				if (atackTypeCount == 2) {
@@ -354,6 +368,7 @@ bool Player::Update(float dt)
 			}
 
 		}
+
 	}//if is dead
 
 
@@ -450,8 +465,10 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		jumpCount = 0;
 		highjump.Reset();
 		playerOnPlatform = true;
+		break;
 
-
+	case ColliderType::WALL:
+		onWall =! onWall;
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");

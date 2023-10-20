@@ -46,6 +46,18 @@ Player::Player() : Entity(EntityType::PLAYER)
 	run.loop = true;
 
 
+	for (int i = 15; i < 24; i++)
+	{
+		/*printf("X: %s", std::to_string(spritePositions[i].x).c_str());
+		printf("y: %s", std::to_string(spritePositions[i].y).c_str());
+		printf("h: %s", std::to_string(spritePositions[i].h).c_str());
+		printf("w: %s", std::to_string(spritePositions[i].w).c_str());
+		printf("\n");*/
+		highjump.PushBack({ spritePositions[i] });
+	}
+	highjump.speed = 0.08f;
+	highjump.loop = false;
+
 
 	//idle.PushBack({ anirec[0]});
 //idle.PushBack({ anirec[1] });
@@ -225,7 +237,7 @@ bool Player::Start() {
 bool Player::Update(float dt)
 {
 	currentAnimation = &idle;
-
+	
 
 	b2Vec2 vel = b2Vec2(0, pbody->body->GetLinearVelocity().y);
 

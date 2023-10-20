@@ -31,6 +31,7 @@ public:
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
 
+
 	Animation* currentAnimation = nullptr;
 
 	Animation SPosition;

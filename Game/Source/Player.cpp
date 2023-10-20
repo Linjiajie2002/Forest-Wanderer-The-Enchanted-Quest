@@ -27,7 +27,7 @@ Player::Player() : Entity(EntityType::PLAYER)
 		printf("H%d: %s ", i, std::to_string(spritePositions[i].h).c_str());
 		printf("W%d: %s ", i, std::to_string(spritePositions[i].w).c_str());
 		printf("\n");*/
-		idle.PushBack({ spritePositions[i]});
+		idle.PushBack({ spritePositions[i] });
 	}
 	idle.speed = 0.15f;
 	idle.loop = true;
@@ -47,140 +47,140 @@ Player::Player() : Entity(EntityType::PLAYER)
 
 
 
-		//idle.PushBack({ anirec[0]});
-	//idle.PushBack({ anirec[1] });
+	//idle.PushBack({ anirec[0]});
+//idle.PushBack({ anirec[1] });
 
-	//idle.PushBack({ 115,6, 19, 30 });
-	//idle.PushBack({ 163,6, 19, 30 });
-	// 
-	////crouch;
-	//crouch.PushBack({ 216,6, 19, 30 });
-	//crouch.PushBack({ 265,6, 19, 30 });
-	//crouch.PushBack({ 315, 6, 19, 30 });
-	//crouch.PushBack({ 17, 45, 19, 30 });////Segundo Linea24,28
+//idle.PushBack({ 115,6, 19, 30 });
+//idle.PushBack({ 163,6, 19, 30 });
+// 
+////crouch;
+//crouch.PushBack({ 216,6, 19, 30 });
+//crouch.PushBack({ 265,6, 19, 30 });
+//crouch.PushBack({ 315, 6, 19, 30 });
+//crouch.PushBack({ 17, 45, 19, 30 });////Segundo Linea24,28
 
-	//crouch.speed = 0.04f;
-	//crouch.loop = true;
+//crouch.speed = 0.04f;
+//crouch.loop = true;
 
-	////run;
-	//run.PushBack({ 67, 45, 24, 28 });
-	//run.PushBack({ 116,45, 24, 28 });
-	//run.PushBack({ 166,45, 24, 28 });
-	//run.PushBack({ 217,45, 24, 28 });
-	//run.PushBack({ 266,45, 24, 28 });
-	//run.PushBack({ 316,45, 24, 28 });
-	//
-
-
-	//
-	////highjump;
-	//highjump.PushBack({ 15, 79, 24,31 });//Terce Linea
-	//highjump.PushBack({ 65, 79, 24,31 });
-	//highjump.PushBack({ 117, 79, 24,31 });
-	//highjump.PushBack({ 164, 79, 24,31 });
-	//highjump.PushBack({ 218, 79, 24,31 });
-	//highjump.PushBack({ 264, 79, 24,31 });
-	//highjump.PushBack({ 320, 79, 24,31 });
-	//highjump.PushBack({ 14, 112, 35, 35 });	//Quarta Linea
-	//highjump.PushBack({ 68, 112, 35, 35 });
-
-	//highjump.speed = 0.2f;
-	//highjump.loop = true;
-	//highjump.aniFrameTotal = 9;
-	//
-	////slide
-	//slide.PushBack({ 118, 112, 35, 35 });
-	//slide.PushBack({ 155, 112, 35, 35 });
-	//slide.PushBack({ 205, 112, 35, 35 });
-	//slide.PushBack({ 255, 112, 35, 35 });
-	//slide.PushBack({ 309, 112, 35, 35 });
-	//slide.PushBack({ 15, 151, 23,35  });//Quinta Linea
-	//slide.PushBack({ 72, 151, 23,35 });
-	//slide.PushBack({ 122, 151, 23,35 });
-	//slide.PushBack({ 170, 151, 23,35 });
-	//slide.PushBack({ 221, 151, 23,35 });
-	//slide.PushBack({ 271, 151, 23,35 });
-	//slide.PushBack({ 321, 151, 23,35 });
-	//slide.PushBack({ 20,190,24,31});//Sixta Linea
-	//slide.PushBack({ 71,190,24,31 });
-	//slide.PushBack({ 121,190,24,31 });
-
-	//slide.speed = 0.08f;
-	//slide.loop = true;
-
-	////idle2
-	//idle2.PushBack({ 160,190,24,31 });
-	//idle2.PushBack({ 210,190,24,31 });
-	//idle2.PushBack({ 259,190,24,31 });
-	//idle2.PushBack({ 309,190,24,31 });
-
-	//idle2.speed = 0.08f;
-	//idle2.loop = true;
-
-	////atack
-	//atack.PushBack({ 7,221,35,37});//7
-	//atack.PushBack({ 58,221,35,37 });
-	//atack.PushBack({ 115,221,35,37 });
-	//atack.PushBack({ 165,221,35,37 });
-	//atack.PushBack({ 215,221,35,37 });
-	//atack.PushBack({ 265,221,35,37 });
-
-	//atack.speed = 0.08f;
-	//atack.loop = true;
+////run;
+//run.PushBack({ 67, 45, 24, 28 });
+//run.PushBack({ 116,45, 24, 28 });
+//run.PushBack({ 166,45, 24, 28 });
+//run.PushBack({ 217,45, 24, 28 });
+//run.PushBack({ 266,45, 24, 28 });
+//run.PushBack({ 316,45, 24, 28 });
+//
 
 
-	////atack2
-	//atack2.PushBack({ 315,221,35,37 });//
-	//atack2.PushBack({ 13,265,33,37 });//8
-	//atack2.PushBack({ 60,265,39,37 });//30->35,37
-	//atack2.PushBack({ 102,265,33,37 });
-	//atack2.PushBack({ 152,265,33,37 });
+//
+////highjump;
+//highjump.PushBack({ 15, 79, 24,31 });//Terce Linea
+//highjump.PushBack({ 65, 79, 24,31 });
+//highjump.PushBack({ 117, 79, 24,31 });
+//highjump.PushBack({ 164, 79, 24,31 });
+//highjump.PushBack({ 218, 79, 24,31 });
+//highjump.PushBack({ 264, 79, 24,31 });
+//highjump.PushBack({ 320, 79, 24,31 });
+//highjump.PushBack({ 14, 112, 35, 35 });	//Quarta Linea
+//highjump.PushBack({ 68, 112, 35, 35 });
 
-	//atack2.speed = 0.08f;
-	//atack2.loop = true;
+//highjump.speed = 0.2f;
+//highjump.loop = true;
+//highjump.aniFrameTotal = 9;
+//
+////slide
+//slide.PushBack({ 118, 112, 35, 35 });
+//slide.PushBack({ 155, 112, 35, 35 });
+//slide.PushBack({ 205, 112, 35, 35 });
+//slide.PushBack({ 255, 112, 35, 35 });
+//slide.PushBack({ 309, 112, 35, 35 });
+//slide.PushBack({ 15, 151, 23,35  });//Quinta Linea
+//slide.PushBack({ 72, 151, 23,35 });
+//slide.PushBack({ 122, 151, 23,35 });
+//slide.PushBack({ 170, 151, 23,35 });
+//slide.PushBack({ 221, 151, 23,35 });
+//slide.PushBack({ 271, 151, 23,35 });
+//slide.PushBack({ 321, 151, 23,35 });
+//slide.PushBack({ 20,190,24,31});//Sixta Linea
+//slide.PushBack({ 71,190,24,31 });
+//slide.PushBack({ 121,190,24,31 });
 
-	////atack3
-	//atack3.PushBack({ 219,265,33,30 });
-	//atack3.PushBack({ 270,265,33,30 });
-	//atack3.PushBack({ 302,265,48,30 });
-	//atack3.PushBack({ 3,307,35,30 });//9
-	//atack3.PushBack({ 50,307,35,30 });//25
-	//atack3.PushBack({ 100,307,35,30 });
+//slide.speed = 0.08f;
+//slide.loop = true;
 
-	//atack3.speed = 0.08f;
-	//atack3.loop = true;
+////idle2
+//idle2.PushBack({ 160,190,24,31 });
+//idle2.PushBack({ 210,190,24,31 });
+//idle2.PushBack({ 259,190,24,31 });
+//idle2.PushBack({ 309,190,24,31 });
+
+//idle2.speed = 0.08f;
+//idle2.loop = true;
+
+////atack
+//atack.PushBack({ 7,221,35,37});//7
+//atack.PushBack({ 58,221,35,37 });
+//atack.PushBack({ 115,221,35,37 });
+//atack.PushBack({ 165,221,35,37 });
+//atack.PushBack({ 215,221,35,37 });
+//atack.PushBack({ 265,221,35,37 });
+
+//atack.speed = 0.08f;
+//atack.loop = true;
 
 
-	////idle3
-	//idle3.PushBack({ 166,307,35,30 });
-	//idle3.PushBack({ 217,307,35,30 });
-	//idle3.PushBack({ 265,307,35,30 });
-	//idle3.PushBack({ 316,307,35,30 });
-	//
+////atack2
+//atack2.PushBack({ 315,221,35,37 });//
+//atack2.PushBack({ 13,265,33,37 });//8
+//atack2.PushBack({ 60,265,39,37 });//30->35,37
+//atack2.PushBack({ 102,265,33,37 });
+//atack2.PushBack({ 152,265,33,37 });
 
-	//idle3.speed = 0.08f;
-	//idle3.loop = true;
+//atack2.speed = 0.08f;
+//atack2.loop = true;
 
-	////die
-	//die.PushBack({ 17,339,24,30 });//10
-	//die.PushBack({ 65,339,24,30 });
-	//die.PushBack({ 116,339,24,30 });
-	//die.PushBack({ 168,339,24,30 });
-	//die.PushBack({ 221,339,24,30 });
-	//die.PushBack({ 268,339,24,30 });
+////atack3
+//atack3.PushBack({ 219,265,33,30 });
+//atack3.PushBack({ 270,265,33,30 });
+//atack3.PushBack({ 302,265,48,30 });
+//atack3.PushBack({ 3,307,35,30 });//9
+//atack3.PushBack({ 50,307,35,30 });//25
+//atack3.PushBack({ 100,307,35,30 });
 
-	//die.speed = 0.08f;
-	//die.loop = false;
+//atack3.speed = 0.08f;
+//atack3.loop = true;
 
-	//
-	////lowjump
-	//lowjump.PushBack({ 317,339,24,30 });
-	//lowjump.PushBack({ 18,376,23,30});//11
-	//lowjump.PushBack({ 68,376,23,30 });
 
-	//lowjump.speed = 0.08f;
-	//lowjump.loop = true;
-	//
+////idle3
+//idle3.PushBack({ 166,307,35,30 });
+//idle3.PushBack({ 217,307,35,30 });
+//idle3.PushBack({ 265,307,35,30 });
+//idle3.PushBack({ 316,307,35,30 });
+//
+
+//idle3.speed = 0.08f;
+//idle3.loop = true;
+
+////die
+//die.PushBack({ 17,339,24,30 });//10
+//die.PushBack({ 65,339,24,30 });
+//die.PushBack({ 116,339,24,30 });
+//die.PushBack({ 168,339,24,30 });
+//die.PushBack({ 221,339,24,30 });
+//die.PushBack({ 268,339,24,30 });
+
+//die.speed = 0.08f;
+//die.loop = false;
+
+//
+////lowjump
+//lowjump.PushBack({ 317,339,24,30 });
+//lowjump.PushBack({ 18,376,23,30});//11
+//lowjump.PushBack({ 68,376,23,30 });
+
+//lowjump.speed = 0.08f;
+//lowjump.loop = true;
+//
 
 }
 
@@ -214,8 +214,8 @@ bool Player::Start() {
 
 
 
-	
-	
+
+
 
 
 
@@ -225,72 +225,73 @@ bool Player::Start() {
 bool Player::Update(float dt)
 {
 	currentAnimation = &idle;
-	
+
 
 	b2Vec2 vel = b2Vec2(0, pbody->body->GetLinearVelocity().y);
 
-
-
+	
 
 
 	app->win->GetWindowSize(width, height);
 
 
-	
+
 	if (!app->godMode) {
 
 		pbody->body->GetFixtureList()[0].SetSensor(false);
 		vel = b2Vec2(0, pbody->body->GetLinearVelocity().y);
 
-	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT ) {
+		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 
-		isFacingLeft = true;
-		vel = b2Vec2(-speed*dt, pbody->body->GetLinearVelocity().y);
-		currentAnimation = &run;
-		
-	}
-	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-		
+			isFacingLeft = true;
+			vel = b2Vec2(-speed * dt, pbody->body->GetLinearVelocity().y);
+			currentAnimation = &run;
+
+		}
+		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+
 			isFacingLeft = false;
 			vel = b2Vec2(speed * dt, pbody->body->GetLinearVelocity().y);
-			currentAnimation = &run;	
-	}
-	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-		currentAnimation = &crouch;
-	}
-
-	//Set the velocity of the pbody of the player
-	vel.y -= GRAVITY_Y;
-	pbody->body->SetLinearVelocity(vel);
-
-	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-
-		pbody->body->GetFixtureList()[0].SetSensor(true);
-
-
-		if (canJump) {
-		vel.y = 0;
-		pbody->body->ApplyLinearImpulse(b2Vec2(0, GRAVITY_Y * jumpForce), pbody->body->GetWorldCenter(), true);
-		currentAnimation = &highjump;
-		jumpCount++;
-		playerOnPlatform = false;
-		if (jumpCount == 2) {
-			canJump = false;
+			currentAnimation = &run;
 		}
+		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+			currentAnimation = &crouch;
 		}
-	}
-	else {
-		
-	}
-	
-	if (playerOnPlatform) {
-		canJump = true;
-	}
+
+		//Set the velocity of the pbody of the player
+		vel.y -= GRAVITY_Y;
+		pbody->body->SetLinearVelocity(vel);
+
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+
+			pbody->body->GetFixtureList()[0].SetSensor(true);
 
 
-	if (app->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT) {
-		currentAnimation = &atack;
-	}
+			if (canJump) {
+				vel.y = 0;
+				pbody->body->ApplyLinearImpulse(b2Vec2(0, GRAVITY_Y * jumpForce), pbody->body->GetWorldCenter(), true);
+				currentAnimation = &highjump;
+				jumpCount++;
+				playerOnPlatform = false;
+				if (jumpCount == 2) {
+					canJump = false;
+				}
+			}
+		}
+		else {
+
+		}
+
+		if (playerOnPlatform) {
+			canJump = true;
+		}
+
+
+		if (app->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT) {
+			currentAnimation = &atack;
+		}
+
+
 
 	}
 	else
@@ -319,28 +320,32 @@ bool Player::Update(float dt)
 		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
 
 			isFacingLeft = true;
-			vel = b2Vec2(pbody->body->GetLinearVelocity().x, ( - speed * 32));
+			vel = b2Vec2(pbody->body->GetLinearVelocity().x, (-speed * 32));
 			currentAnimation = &run;
 			pbody->body->SetLinearVelocity(vel);
 		}
 
 		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
 			isFacingLeft = false;
-			vel = b2Vec2(pbody->body->GetLinearVelocity().x, (speed*32));
+			vel = b2Vec2(pbody->body->GetLinearVelocity().x, (speed * 32));
 			currentAnimation = &run;
 			pbody->body->SetLinearVelocity(vel);
 		}
 
-
+		
 
 
 	}
 
-	
+
+
+	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) {
+
+	}
 
 	//Update player position in pixels
-	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) -50;
-	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y)-30;
+	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 50;
+	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 30;
 
 	//Camera
 	if (app->render->camera.x >= 2 && position.x < 514) {
@@ -354,27 +359,28 @@ bool Player::Update(float dt)
 	}
 	app->render->camera.y = (-position.y * app->win->GetScale() + (height / 2));
 
-	
-	
+
 
 	
-	
+
+
 
 	//app->render->DrawTexture(texture, position.x, position.y);
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
-	
+
 	if (isFacingLeft) {
 
-		app->render->DrawTexture(texture, position.x, position.y - 6,2, SDL_FLIP_HORIZONTAL, &rect);
+		app->render->DrawTexture(texture, position.x, position.y - 6, 2, SDL_FLIP_HORIZONTAL, &rect);
 	}
 	else
 	{
-		app->render->DrawTexture(texture, position.x, position.y - 6,2, SDL_FLIP_NONE, &rect);
+		app->render->DrawTexture(texture, position.x, position.y - 6, 2, SDL_FLIP_NONE, &rect);
 	}
 
 	currentAnimation->Update();
+
 	
-	
+
 
 	return true;
 }
@@ -399,7 +405,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		LOG("Collision PLATFORM");
 
 		if (jumpCount >= 2) {
-			
+
 			jumpCount = 0;
 			playerOnPlatform = true;
 		}
@@ -410,6 +416,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	}
 }
+
 
 
 

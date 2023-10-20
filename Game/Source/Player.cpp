@@ -57,7 +57,7 @@ Player::Player() : Entity(EntityType::PLAYER)
 	}
 
 	slide.speed = 0.1f;
-	slide.loop = false;
+	slide.loop = true;
 
 
 	for (int i = 43; i < 53; i++)
@@ -67,6 +67,24 @@ Player::Player() : Entity(EntityType::PLAYER)
 
 	atack.speed = 0.1f;
 	atack.loop = false;
+
+
+	for (int i = 54; i < 59; i++)
+	{
+		atack2.PushBack({ spritePositions[i] });
+	}
+
+	atack2.speed = 0.1f;
+	atack2.loop = false;
+
+
+	for (int i = 97; i <100; i++)
+	{
+		atack3.PushBack({ spritePositions[i] });
+	}
+
+	atack3.speed = 0.1f;
+	atack3.loop = false;
 
 
 	for (int i = 64; i < 69; i++)
@@ -121,13 +139,14 @@ bool Player::Start() {
 
 bool Player::Update(float dt)
 {
-
+	
 	currentAnimation = &idle;
 
 
 	b2Vec2 vel = b2Vec2(0, pbody->body->GetLinearVelocity().y);
 
 
+	//printf("%d",frameCount);
 
 
 	app->win->GetWindowSize(width, height);
@@ -149,10 +168,11 @@ bool Player::Update(float dt)
 			if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 
 				isFacingLeft = true;
-				vel = b2Vec2(-crouchspeed * dt, pbody->body->GetLinearVelocity().y);
+				vel = b2Vec2(-speed * dt, pbody->body->GetLinearVelocity().y);
 				currentAnimation = &run;
 
 				if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+					vel = b2Vec2(-crouchspeed * dt, pbody->body->GetLinearVelocity().y);
 					currentAnimation = &crouch;
 				}
 
@@ -182,23 +202,25 @@ bool Player::Update(float dt)
 
 				currentAnimation = &highjump;
 
-				if (highjump.HasFinished()) {
+				
+				if ( AniplayerOnPlatform) {
 					currentAnimation = &slide;
 				}
 
 			}
 
-			LOG("JumpCount: %d ", jumpCount);
+			//LOG("JumpCount: %d ", jumpCount);
 			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 
 				pbody->body->GetFixtureList()[0].SetSensor(true);
 
-
+				
 				if (canJump) {
 					vel.y = 0;
 					pbody->body->ApplyLinearImpulse(b2Vec2(0, GRAVITY_Y * jumpForce), pbody->body->GetWorldCenter(), true);
 					jumpCount++;
 					playerOnPlatform = false;
+					//AniplayerOnPlatform = true;
 					if (jumpCount == 2) {
 						canJump = false;
 					}
@@ -210,14 +232,60 @@ bool Player::Update(float dt)
 
 			if (playerOnPlatform) {
 				canJump = true;
+
 			}
 
+			
 
+			if (starFram) {
+				frameCount++;
+			}
+
+			if (frameCount >= 300) {
+				frameCount = 0;
+				starFram = false;
+			}
+			if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN) {
+				atackTypeCount++;
+				isAtack = true;
+				starFram = true;
+				printf("%d", atackTypeCount);
+			}
 			//Atack
 			if (isAtack) {
-				currentAnimation = &atack;
+				if (atackTypeCount = 1) {
+				
+					currentAnimation = &atack;
+					if (frameCount >= 10000) {
+						printf("1");
+						atackTypeCount = 0;
+						frameCount = 0;
+						starFram = false;
+					}
+				}
+				else if (atackTypeCount = 2) {
+					
+					currentAnimation = &atack2;
+
+					if (frameCount >= 10000) {
+						printf("2");
+						atackTypeCount = 0;
+						frameCount = 0;
+						starFram = false;
+					}
+				}
+				else if (atackTypeCount = 3) {
+					printf("1");
+					currentAnimation = &atack3;
+					atackTypeCount = 0;
+					frameCount = 0;
+					starFram = false;
+				}
+
+
 				if (atack.HasFinished()) {
 					atack.Reset();
+					atack2.Reset();
 					isAtack = false;
 				}
 			}
@@ -354,10 +422,11 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::PLATFORM:
 		LOG("Collision PLATFORM");
-
+		//AniplayerOnPlatform = true;
 		jumpCount = 0;
 		highjump.Reset();
 		playerOnPlatform = true;
+		
 
 		break;
 	case ColliderType::UNKNOWN:

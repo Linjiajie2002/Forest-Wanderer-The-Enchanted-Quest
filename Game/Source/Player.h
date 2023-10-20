@@ -68,11 +68,19 @@ public:
 	uint width;
 	uint height;
 
+	//Jump
 	bool canJump = true;
 	bool playerOnPlatform = true;
 	int jumpCount = 0;
-	bool isAtack = false;
 	bool isDead = false;
+	bool AniplayerOnPlatform = false;
+
+	bool starFram = false;
+	
+	//Atack
+	int atackTypeCount = 0;
+	bool isAtack = false;
+	uint64 frameCount = 0;
 };
 
 #endif // __PLAYER_H__

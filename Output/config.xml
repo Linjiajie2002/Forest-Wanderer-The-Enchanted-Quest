@@ -25,13 +25,13 @@
 	</audio>
 
 	<scene>
-		<player x="40" y="352" texturepath="Assets/Sprite/Player/Player.png"/>
-		<item x="256" y="515" texturepath="Assets/Textures/goldCoin.png"/>
-		<item x="416" y="512" texturepath="Assets/Textures/goldCoin.png"/>
-		<item x="384" y="352" texturepath="Assets/Textures/goldCoin.png"/>
-		<item x="200" y="672" texturepath="Assets/Textures/goldCoin.png"/>
-		<item x="500" y="672" texturepath="Assets/Textures/goldCoin.png"/>
-		<itembox x="480" y="672" texturepath="Assets/Item/ItemBox.png"/>
+		<player x="40" y="1100" texturepath="Assets/Sprite/Player/Player.png"/>
+		<item x="256" y="1200" texturepath="Assets/Textures/goldCoin.png"/>
+		<item x="416" y="1100" texturepath="Assets/Textures/goldCoin.png"/>
+		<item x="800" y="1100" texturepath="Assets/Textures/goldCoin.png"/>
+		<item x="200" y="1200" texturepath="Assets/Textures/goldCoin.png"/>
+		<item x="500" y="1100" texturepath="Assets/Textures/goldCoin.png"/>
+		<itembox x="480" y="1100" texturepath="Assets/Item/ItemBox.png"/>
 	</scene>
 
 	<map>

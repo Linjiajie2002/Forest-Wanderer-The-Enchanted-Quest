@@ -69,6 +69,42 @@ bool Map::Update(float dt)
 
     return true;
 }
+bool Map::UpdateDelante()
+{
+    if (mapLoaded == false)
+        return false;
+
+
+    ListItem<MapLayer*>* mapLayerItem;
+    mapLayerItem = mapData.maplayers.start;
+
+    while (mapLayerItem != NULL) {
+
+        if (mapLayerItem->data->properties.GetProperty("Delante") != NULL && mapLayerItem->data->properties.GetProperty("Delante")->value) {
+
+            for (int x = 0; x < mapLayerItem->data->width; x++)
+            {
+                for (int y = 0; y < mapLayerItem->data->height; y++)
+                {
+                    int gid = mapLayerItem->data->Get(x, y);
+                    TileSet* tileset = GetTilesetFromTileId(gid);
+
+                    SDL_Rect r = tileset->GetTileRect(gid);
+                    iPoint pos = MapToWorld(x, y);
+
+                    app->render->DrawTexture(tileset->texture,
+                        pos.x,
+                        pos.y, SDL_FLIP_NONE,
+                        &r);
+                }
+            }
+        }
+        mapLayerItem = mapLayerItem->next;
+
+    }
+
+    return true;
+}
 
 iPoint Map::MapToWorld(int x, int y) const
 {

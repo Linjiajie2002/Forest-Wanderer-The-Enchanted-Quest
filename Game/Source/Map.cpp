@@ -423,6 +423,38 @@ bool Map::LoadCollision(std::string layerName) {
                         
 
                     }
+                    if (gid == tileset->firstgid + 6) {
+                        /*List<int> listadepunto;
+                        listadepunto.Add;*/
+                        int* puntos = new int[6];
+                        memset(puntos, 0, 6);
+
+                        puntos[0] = -16;
+                        puntos[1] = +16;
+
+                        puntos[2] = -16;
+                        puntos[3] = -16;
+
+                        puntos[4] = +16;
+                        puntos[5] = +16;
+
+                        /*puntos[6] = +16;
+                        puntos[7] = +16;*/
+
+                        /*puntos[0] =  - 16;
+                        puntos[1] =  + 16;
+
+                        puntos[2] =  + 16;
+                        puntos[3] =  - 16;
+
+                        puntos[4] =  + 16;
+                        puntos[5] = + 16;*/
+
+                        PhysBody* c1 = app->physics->CreateChain(pos.x + 16, pos.y + 16, puntos, 6, STATIC);
+                        c1->ctype = ColliderType::PLATFORM;
+
+
+                    }
 
                 }
             }

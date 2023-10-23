@@ -245,9 +245,9 @@ bool Player::Update(float dt)
 
 
 				if (canJump) {
-					if (jumpCount == 1) {
+					/*if (jumpCount == 1) {
 						jumpForce = 30;
-					}
+					}*/
 					vel.y = 0;
 					pbody->body->ApplyLinearImpulse(b2Vec2(0, GRAVITY_Y * jumpForce), pbody->body->GetWorldCenter(), true);
 					jumpCount++;
@@ -255,7 +255,7 @@ bool Player::Update(float dt)
 					//AniplayerOnPlatform = true;
 					
 					if (jumpCount == 2) {
-						jumpForce = 25;
+						//jumpForce = 25;
 						canJump = false;
 					}
 				}

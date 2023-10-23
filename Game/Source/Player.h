@@ -86,6 +86,14 @@ public:
 
 	//climb
 	bool onWall =false;
+
+
+
+	int TSprite;
+	int SpriteX;
+	int SpriteY;
+	int PhotoWeight;
+
 };
 
 #endif // __PLAYER_H__

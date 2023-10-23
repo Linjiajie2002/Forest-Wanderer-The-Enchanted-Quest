@@ -25,7 +25,10 @@
 	</audio>
 
 	<scene>
-		<player x="40" y="352" texturepath="Assets/Sprite/Player/Player.png"/>
+		<player x="40" y="352" texturepath="Assets/Sprite/Player/Player.png">
+			<animations Tsprite="109" x="50" y="37" Pweight="350"/>
+		</player>
+
 		<item x="256" y="515" texturepath="Assets/Textures/goldCoin.png"/>
 		<item x="416" y="512" texturepath="Assets/Textures/goldCoin.png"/>
 		<item x="384" y="352" texturepath="Assets/Textures/goldCoin.png"/>

@@ -14,6 +14,9 @@ ItemBox::ItemBox() : Entity(EntityType::ITEM)
 {
 	name.Create("itembox");
 
+	
+	spritePositions = SPosition.SpritesPos(28, 50, 37, 512);
+
 	openBox.PushBack({ 30,24,35,40 });
 	openBox.PushBack({ 94,24,35,40 });
 	openBox.PushBack({ 158,24,35,40 });

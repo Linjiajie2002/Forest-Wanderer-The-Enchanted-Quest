@@ -31,7 +31,9 @@ public:
 
 	Animation* currentAnimation = nullptr;
 	Animation openBox;
-
+	Animation CloseBox;
+	Animation SPosition;
+	SDL_Rect* spritePositions;
 
 private:
 

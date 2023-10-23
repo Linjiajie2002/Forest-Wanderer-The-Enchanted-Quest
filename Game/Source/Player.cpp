@@ -11,11 +11,12 @@
 #include "Animation.h"
 #include "Window.h"
 #include "Render.h"
+#include "Map.h"
 
 Player::Player() : Entity(EntityType::PLAYER)
 {
 	name.Create("Player");
-	//({×î×ó±ß£¬×îÉÏÃæ£¬×îÓÒ±ß¼õÈ¥×î×ó±ß£¬×îÏÂÃæ-×îÉÏÃæ})
+	//({ï¿½ï¿½ï¿½ï¿½ß£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ£¬ï¿½ï¿½ï¿½Ò±ß¼ï¿½È¥ï¿½ï¿½ï¿½ï¿½ß£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½})
 
 
 	//spritePositions = SPosition.SpritesPos(163, 100, 86, 500);
@@ -132,7 +133,7 @@ bool Player::Start() {
 	texture = app->tex->Load(texturePath);
 
 	//pbody = app->physics->CreateRectangle(position.x, position.y, 55,70, bodyType::DYNAMIC);
-	pbody = app->physics->CreateCircle(position.x, position.y, 37, bodyType::DYNAMIC);
+	pbody = app->physics->CreateCircle(position.x, position.y, 31, bodyType::DYNAMIC);
 	pbody->listener = this;
 	pbody->ctype = ColliderType::PLAYER;
 
@@ -395,7 +396,7 @@ bool Player::Update(float dt)
 
 	//Update player position in pixels
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 50;
-	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 30;
+	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 35;
 
 	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN) {
 		//position.y = parameters.attribute("y").as_int();
@@ -421,6 +422,16 @@ bool Player::Update(float dt)
 
 	}
 	app->render->camera.y = (-position.y * app->win->GetScale() + (height / 2));
+
+	if (app->render->camera.y <= -829 ) {
+		app->render->camera.y = -829;
+	}
+
+
+	//printf("PosY: %d ",position.y);//-989-957
+	//printf("\n");
+	//printf("CameraY: %d ", app->render->camera.y);//-989-957
+	
 
 
 
@@ -456,6 +467,8 @@ bool Player::Update(float dt)
 
 	currentAnimation->Update();
 
+	//cargar siempre despues de dibujar al player
+	app->map->UpdateDelante();
 
 
 

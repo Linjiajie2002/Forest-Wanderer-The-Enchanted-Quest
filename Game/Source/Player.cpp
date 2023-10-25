@@ -354,6 +354,7 @@ bool Player::Update(float dt)
 			if (app->render->camera.x >= 2 && position.x < 514) {
 				app->render->camera.x = 2;
 			}
+
 			else {
 				app->render->camera.x = -position.x + (width / 2);
 

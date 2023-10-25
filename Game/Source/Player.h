@@ -87,7 +87,7 @@ public:
 	//climb
 	bool onWall =false;
 
-
+	bool MoveCamere = false;
 
 	int TSprite;
 	int SpriteX;

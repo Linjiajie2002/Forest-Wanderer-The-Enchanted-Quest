@@ -544,6 +544,8 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 	case ColliderType::WALL:
 		onWall = !onWall;
+		//position.x = -1;
+
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");

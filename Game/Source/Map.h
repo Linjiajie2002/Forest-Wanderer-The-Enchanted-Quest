@@ -97,6 +97,12 @@ struct MapData
 	List<MapLayer*> maplayers;
 };
 
+
+
+
+
+
+
 class Map : public Module
 {
 public:
@@ -127,8 +133,8 @@ private:
 
 	bool LoadMap(pugi::xml_node mapFile);
 	bool LoadTileSet(pugi::xml_node mapFile);
-	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
-	bool LoadAllLayers(pugi::xml_node mapNode);
+	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);//
+	bool LoadAllLayers(pugi::xml_node mapNode);//
 	TileSet* GetTilesetFromTileId(int gid) const;
 	bool LoadProperties(pugi::xml_node& node, Properties& properties);
 	bool LoadCollision(std::string layerName);
@@ -138,6 +144,10 @@ public:
 	MapData mapData;
 	int fondox;
 	int fondoy;
+
+	iPoint startPointcolisions = iPoint(-1, -1);
+	iPoint colisionsPointsSize = iPoint(-1, -1);
+	iPoint colisionsLastCords = iPoint(-1, -1);
 
 private:
 

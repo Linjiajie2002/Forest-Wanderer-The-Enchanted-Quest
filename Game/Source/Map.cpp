@@ -435,7 +435,9 @@ bool Map::LoadCollision(std::string layerName) {
                     }
 
 
-                    ////
+                
+
+
                     
                     if (gid == tileset->firstgid+1) {
 
@@ -447,15 +449,8 @@ bool Map::LoadCollision(std::string layerName) {
                             colisionsPointsSize.y = 0;
 
                         }
-
-                        
-
-                       // PhysBody* c1 = app->physics->CreateRectangle(16, 1392 ,32, 416, STATIC);//whxy
-                    
+               
                         colisionsPointsSize.y += 32;
-
-
-
                     }
 
                     else {
@@ -464,7 +459,7 @@ bool Map::LoadCollision(std::string layerName) {
                             if (colisionsPointsSize.y != -1) {
 
                                 PhysBody* c1 = app->physics->CreateRectangle(startPointcolisions.x + 16, startPointcolisions.y + colisionsPointsSize.y/2, 32, colisionsPointsSize.y, STATIC);
-                                c1->ctype = ColliderType::PLATFORM;
+                                c1->ctype = ColliderType::WALL;
 
 
                                 colisionsPointsSize.x = -1;

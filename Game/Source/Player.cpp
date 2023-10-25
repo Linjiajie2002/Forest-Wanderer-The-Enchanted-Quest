@@ -349,6 +349,7 @@ bool Player::Update(float dt)
 				}
 			}
 
+
 			//Camera
 			if (app->render->camera.x >= 2 && position.x < 514) {
 				app->render->camera.x = 2;
@@ -363,6 +364,9 @@ bool Player::Update(float dt)
 
 			if (app->render->camera.y <= -829) {
 				app->render->camera.y = -829;
+			}
+			if (app->render->camera.y >= 0) {
+				app->render->camera.y = 0;
 			}
 
 		}

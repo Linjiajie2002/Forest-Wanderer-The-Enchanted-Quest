@@ -15,21 +15,35 @@ ItemBox::ItemBox() : Entity(EntityType::ITEM)
 	name.Create("itembox");
 
 	
-	spritePositions = SPosition.SpritesPos(28, 50, 37, 512);
+	spritePositions = SPosition.SpritesPos(28, 60, 70, 480);
 
-	openBox.PushBack({ 30,24,35,40 });
+
+	/*openBox.PushBack({ 30,24,35,40 });
 	openBox.PushBack({ 94,24,35,40 });
 	openBox.PushBack({ 158,24,35,40 });
 	openBox.PushBack({ 222,24,35,40 });
-	openBox.PushBack({ 286,24,35,40 });
-	openBox.PushBack({ 350,24,35,40 });
-	openBox.PushBack({ 414,24,35,40 });
-	openBox.PushBack({ 158,24,35,40 });
-	openBox.PushBack({ 94,24,35,40 });
-	openBox.PushBack({ 30,24,35,40 });
+	openBox.PushBack({ 286,24,35,40 });*/
+
+	for (int i = 0; i < 5; i++)
+	{
+		openBox.PushBack({ spritePositions[i] });
+	}
 
 	openBox.speed = 0.17f;
-	openBox.loop = true;
+	openBox.loop = false;
+	
+	for (int i = 5; i >= 0; i--)
+	{
+		CloseBox.PushBack({ spritePositions[i] });
+	}
+	/*CloseBox.PushBack({ 350,24,35,40 });
+	CloseBox.PushBack({ 414,24,35,40 });
+	CloseBox.PushBack({ 158,24,35,40 });
+	CloseBox.PushBack({ 94,24,35,40 });
+	CloseBox.PushBack({ 30,24,35,40 });*/
+
+	CloseBox.speed = 0.17f;
+	CloseBox.loop = true;
 }
 
 ItemBox::~ItemBox() {}
@@ -52,7 +66,7 @@ bool ItemBox::Start() {
 	pbody = app->physics->CreateCircle(position.x + 16, position.y + 16, 16, bodyType::DYNAMIC);
 	pbody->ctype = ColliderType::ITEM;
 
-	currentAnimation = &openBox;
+	currentAnimation = &CloseBox;
 
 	return true;
 }

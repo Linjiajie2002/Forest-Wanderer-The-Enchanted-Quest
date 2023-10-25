@@ -136,6 +136,8 @@ private:
 public: 
 
 	MapData mapData;
+	int fondox;
+	int fondoy;
 
 private:
 

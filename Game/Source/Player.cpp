@@ -13,7 +13,7 @@
 #include "Render.h"
 #include "Map.h"
 
-Player::Player() : Entity(EntityType::PLAYER)
+Player::Player() : Entity(EntityType::PLAYER) 
 {
 	name.Create("Player");
 	//({����ߣ������棬���ұ߼�ȥ����ߣ�������-������})
@@ -136,13 +136,14 @@ bool Player::Start() {
 	pbody = app->physics->CreateCircle(position.x, position.y, 31, bodyType::DYNAMIC);
 	pbody->listener = this;
 	pbody->ctype = ColliderType::PLAYER;
-
+	/*pbody->body->GetWorld()->DestroyBody();
+	delete;*/
 	pickCoinFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
 
 	currentAnimation = &idle;
 	pbody->body->SetFixedRotation(true);
 
-
+	
 
 
 
@@ -348,6 +349,22 @@ bool Player::Update(float dt)
 				}
 			}
 
+			//Camera
+			if (app->render->camera.x >= 2 && position.x < 514) {
+				app->render->camera.x = 2;
+			}
+			else {
+				app->render->camera.x = -position.x + (width / 2);
+
+				app->render->camera.x = (-position.x * app->win->GetScale() + (width / 2));
+
+			}
+			app->render->camera.y = (-position.y * app->win->GetScale() + (height / 2));
+
+			if (app->render->camera.y <= -829) {
+				app->render->camera.y = -829;
+			}
+
 		}
 		else
 		{
@@ -411,21 +428,7 @@ bool Player::Update(float dt)
 		//pbody->body->SetLinearVelocity(vel);
 	}
 
-	//Camera
-	if (app->render->camera.x >= 2 && position.x < 514) {
-		app->render->camera.x = 2;
-	}
-	else {
-		app->render->camera.x = -position.x + (width / 2);
 
-		app->render->camera.x = (-position.x * app->win->GetScale() + (width / 2));
-
-	}
-	app->render->camera.y = (-position.y * app->win->GetScale() + (height / 2));
-
-	if (app->render->camera.y <= -829 ) {
-		app->render->camera.y = -829;
-	}
 
 
 	//printf("PosY: %d ",position.y);//-989-957

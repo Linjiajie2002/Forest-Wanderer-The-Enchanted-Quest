@@ -61,7 +61,7 @@ public:
 
 	Render* render = NULL;
 
-	float jumpForce = 20;
+	float jumpForce = 15;
 	bool isFacingLeft = false;
 	bool isHighJumping = false;
 

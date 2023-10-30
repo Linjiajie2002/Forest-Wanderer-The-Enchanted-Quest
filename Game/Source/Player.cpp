@@ -43,6 +43,7 @@ bool Player::Awake() {
 
 
 	//printf("%d %d %d %d", TSprite, SpriteX, SpriteY, PhotoWeight);
+
 	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
 
 
@@ -351,25 +352,47 @@ bool Player::Update(float dt)
 
 
 			//Camera
-			if (app->render->camera.x >= 2 && position.x < 514) {
-				app->render->camera.x = 2;
+
+			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
+				cameraUP = 0;
 			}
 
+			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+				//cameraUP = app->render->camera.y;
+
+				if (cameraUP >= 100) {
+					app->render->camera.y = app->render->camera.y;
+				}
+				else {
+					app->render->camera.y += 4;
+				}
+				cameraUP += 4;
+
+			}
 			else {
-				app->render->camera.x = -position.x + (width / 2);
 
-				app->render->camera.x = (-position.x * app->win->GetScale() + (width / 2));
+				if (app->render->camera.x >= 2 && position.x < 514) {
+					app->render->camera.x = 2;
+				}
 
+				else {
+					app->render->camera.x = -position.x + (width / 2);
+
+					app->render->camera.x = (-position.x * app->win->GetScale() + (width / 2));
+
+				}
+
+
+				app->render->camera.y = (-position.y * app->win->GetScale() + (height / 2));
+
+
+				if (app->render->camera.y <= -829) {
+					app->render->camera.y = -829;
+				}
+				if (app->render->camera.y >= 0) {
+					app->render->camera.y = 0;
+				}
 			}
-			app->render->camera.y = (-position.y * app->win->GetScale() + (height / 2));
-
-			if (app->render->camera.y <= -829) {
-				app->render->camera.y = -829;
-			}
-			if (app->render->camera.y >= 0) {
-				app->render->camera.y = 0;
-			}
-
 		}
 		else
 		{
@@ -455,10 +478,25 @@ bool Player::Update(float dt)
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 50;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 35;
 
-	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN) {
+
+	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
 		//position.y = parameters.attribute("y").as_int();
 
-		vel = b2Vec2(0, 0);
+		vel = b2Vec2(1, 23);
+
+
+		pbody->body->SetTransform(vel, pbody->body->GetAngle());
+
+		printf("posX: %d ", position.x);
+		printf("posY: %d ", position.y);
+		//pbody->body->SetLinearVelocity(vel);
+	}
+
+
+	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
+		//position.y = parameters.attribute("y").as_int();
+
+		vel = b2Vec2(1, 23);
 
 
 		pbody->body->SetTransform(vel, pbody->body->GetAngle());

@@ -55,7 +55,15 @@ bool Map::Update(float dt)
             
            
      
+            //printf("fondoy, %d ", fondoy);
 
+            if (fondoy >= 43) {
+                fondoy = 43;
+            }
+
+            if (fondoy <= 13) {
+                fondoy = 13;
+            }
 
 
             for (int x = MAX(fondox - 18, 0); x < MIN(fondox + 32, mapLayerItem->data->width); x++)

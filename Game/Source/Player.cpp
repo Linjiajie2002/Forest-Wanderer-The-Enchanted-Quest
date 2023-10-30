@@ -456,10 +456,25 @@ bool Player::Update(float dt)
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 50;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 35;
 
-	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN) {
+
+	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
 		//position.y = parameters.attribute("y").as_int();
 
-		vel = b2Vec2(0, 0);
+		vel = b2Vec2(1, 23);
+
+
+		pbody->body->SetTransform(vel, pbody->body->GetAngle());
+
+		printf("posX: %d ", position.x);
+		printf("posY: %d ", position.y);
+		//pbody->body->SetLinearVelocity(vel);
+	}
+
+
+	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
+		//position.y = parameters.attribute("y").as_int();
+
+		vel = b2Vec2(1, 23);
 
 
 		pbody->body->SetTransform(vel, pbody->body->GetAngle());

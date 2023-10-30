@@ -43,6 +43,7 @@ bool Player::Awake() {
 
 
 	//printf("%d %d %d %d", TSprite, SpriteX, SpriteY, PhotoWeight);
+
 	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
 
 

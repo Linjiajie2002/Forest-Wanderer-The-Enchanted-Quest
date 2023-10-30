@@ -5,6 +5,7 @@
 #include "Map.h"
 #include "Physics.h"
 #include "Player.h"
+#include "Scene.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -30,6 +31,8 @@ bool Map::Awake(pugi::xml_node& config)
     mapFileName = config.child("mapfile").attribute("path").as_string();
     mapFolder = config.child("mapfolder").attribute("path").as_string();
 
+   
+
     return ret;
 }
 
@@ -46,9 +49,18 @@ bool Map::Update(float dt)
 
         if (mapLayerItem->data->properties.GetProperty("Draw") != NULL && mapLayerItem->data->properties.GetProperty("Draw")->value) {
 
-            for (int x = 0; x < mapLayerItem->data->width; x++)
+
+            fondox = app->scene->GetPlayer()->position.x / 32;
+            fondoy = app->scene->GetPlayer()->position.y / 32;
+            
+           
+     
+
+
+
+            for (int x = MAX(fondox - 18, 0); x < MIN(fondox + 32, mapLayerItem->data->width); x++)
             {
-                for (int y = 0; y < mapLayerItem->data->height; y++)
+                for (int y = MAX(fondoy - 18, 0); y < MIN(fondoy + 18, mapLayerItem->data->height); y++)
                 {
                     int gid = mapLayerItem->data->Get(x, y);
                     TileSet* tileset = GetTilesetFromTileId(gid);
@@ -82,9 +94,12 @@ bool Map::UpdateDelante()
 
         if (mapLayerItem->data->properties.GetProperty("Delante") != NULL && mapLayerItem->data->properties.GetProperty("Delante")->value) {
 
-            for (int x = 0; x < mapLayerItem->data->width; x++)
+            fondox = app->scene->GetPlayer()->position.x / 32;
+            fondoy = app->scene->GetPlayer()->position.y / 32;
+
+            for (int x = MAX(fondox - 18, 0); x < MIN(fondox + 32, mapLayerItem->data->width); x++)
             {
-                for (int y = 0; y < mapLayerItem->data->height; y++)
+                for (int y = MAX(fondoy - 18, 0); y < MIN(fondoy + 18, mapLayerItem->data->height); y++)
                 {
                     int gid = mapLayerItem->data->Get(x, y);
                     TileSet* tileset = GetTilesetFromTileId(gid);
@@ -419,13 +434,52 @@ bool Map::LoadCollision(std::string layerName) {
 
                     }
 
-                    //tipo
+
+                
+
+
+                    
+                    if (gid == tileset->firstgid+1) {
+
+
+                        if (colisionsPointsSize.x == -1 || colisionsPointsSize.y == -1) {
+                            startPointcolisions.x = pos.x;
+                            startPointcolisions.y = pos.y;
+                            colisionsPointsSize.x = 0;
+                            colisionsPointsSize.y = 0;
+
+                        }
+               
+                        colisionsPointsSize.y += 32;
+                    }
+
+                    else {
+
+                        //if (x == colisionsLastCords.x) {
+                            if (colisionsPointsSize.y != -1) {
+
+                                PhysBody* c1 = app->physics->CreateRectangle(startPointcolisions.x + 16, startPointcolisions.y + colisionsPointsSize.y/2, 32, colisionsPointsSize.y, STATIC);
+                                c1->ctype = ColliderType::WALL;
+
+
+                                colisionsPointsSize.x = -1;
+                                colisionsPointsSize.y = -1;
+                            }
+                       //}
+
+                    }
+
+                    
+                    /*//tipo
                     if (gid == tileset->firstgid+1) {
 
                         PhysBody* c1 = app->physics->CreateRectangle(pos.x + 16, pos.y + 16, 32, 32, STATIC);
                         c1->ctype = ColliderType::WALL;
 
-                    }
+                    }*/
+
+
+
 
                     if (gid == tileset->firstgid+5) {
                         /*List<int> listadepunto;
@@ -473,18 +527,6 @@ bool Map::LoadCollision(std::string layerName) {
 
                         puntos[4] = +16;
                         puntos[5] = +16;
-
-                        /*puntos[6] = +16;
-                        puntos[7] = +16;*/
-
-                        /*puntos[0] =  - 16;
-                        puntos[1] =  + 16;
-
-                        puntos[2] =  + 16;
-                        puntos[3] =  - 16;
-
-                        puntos[4] =  + 16;
-                        puntos[5] = + 16;*/
 
                         PhysBody* c1 = app->physics->CreateChain(pos.x + 16, pos.y + 16, puntos, 6, STATIC);
                         c1->ctype = ColliderType::PLATFORM;

@@ -22,7 +22,7 @@ Player::Player() : Entity(EntityType::PLAYER)
 	//spritePositions = SPosition.SpritesPos(163, 100, 86, 500);
 	//spritePositions = SPosition.SpritesPos(109, 50, 37, 350);
 
-	
+
 
 
 }
@@ -137,7 +137,8 @@ bool Player::Start() {
 	pbody = app->physics->CreateCircle(position.x, position.y, 31, bodyType::DYNAMIC);
 	pbody->listener = this;
 	pbody->ctype = ColliderType::PLAYER;
-
+	/*pbody->body->GetWorld()->DestroyBody();
+	delete;*/
 	pickCoinFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
 
 	currentAnimation = &idle;
@@ -254,7 +255,7 @@ bool Player::Update(float dt)
 					jumpCount++;
 					playerOnPlatform = false;
 					//AniplayerOnPlatform = true;
-					
+
 					if (jumpCount == 2) {
 						//jumpForce = 25;
 						canJump = false;
@@ -349,6 +350,27 @@ bool Player::Update(float dt)
 				}
 			}
 
+
+			//Camera
+			if (app->render->camera.x >= 2 && position.x < 514) {
+				app->render->camera.x = 2;
+			}
+
+			else {
+				app->render->camera.x = -position.x + (width / 2);
+
+				app->render->camera.x = (-position.x * app->win->GetScale() + (width / 2));
+
+			}
+			app->render->camera.y = (-position.y * app->win->GetScale() + (height / 2));
+
+			if (app->render->camera.y <= -829) {
+				app->render->camera.y = -829;
+			}
+			if (app->render->camera.y >= 0) {
+				app->render->camera.y = 0;
+			}
+
 		}
 		else
 		{
@@ -388,6 +410,41 @@ bool Player::Update(float dt)
 				pbody->body->SetLinearVelocity(vel);
 			}
 
+
+			if (app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN) {
+
+				if (MoveCamere == false) {
+					MoveCamere = true;
+				}
+				else {
+					MoveCamere = false;
+				}
+
+			}
+
+			if (MoveCamere == false) {
+
+				//Camera
+				if (app->render->camera.x >= 2 && position.x < 514) {
+					app->render->camera.x = 2;
+				}
+
+				else {
+					app->render->camera.x = -position.x + (width / 2);
+
+					app->render->camera.x = (-position.x * app->win->GetScale() + (width / 2));
+
+				}
+				app->render->camera.y = (-position.y * app->win->GetScale() + (height / 2));
+
+				if (app->render->camera.y <= -829) {
+					app->render->camera.y = -829;
+				}
+				if (app->render->camera.y >= 0) {
+					app->render->camera.y = 0;
+				}
+			}
+
 		}
 
 	}//if is dead
@@ -412,27 +469,13 @@ bool Player::Update(float dt)
 		//pbody->body->SetLinearVelocity(vel);
 	}
 
-	//Camera
-	if (app->render->camera.x >= 2 && position.x < 514) {
-		app->render->camera.x = 2;
-	}
-	else {
-		app->render->camera.x = -position.x + (width / 2);
 
-		app->render->camera.x = (-position.x * app->win->GetScale() + (width / 2));
-
-	}
-	app->render->camera.y = (-position.y * app->win->GetScale() + (height / 2));
-
-	if (app->render->camera.y <= -829 ) {
-		app->render->camera.y = -829;
-	}
 
 
 	//printf("PosY: %d ",position.y);//-989-957
 	//printf("\n");
 	//printf("CameraY: %d ", app->render->camera.y);//-989-957
-	
+
 
 
 
@@ -502,6 +545,8 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 	case ColliderType::WALL:
 		onWall = !onWall;
+		//position.x = -1;
+
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");

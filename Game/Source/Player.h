@@ -93,6 +93,7 @@ public:
 	int SpriteX;
 	int SpriteY;
 	int PhotoWeight;
+	int cameraUP;
 
 };
 

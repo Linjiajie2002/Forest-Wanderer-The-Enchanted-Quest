@@ -55,14 +55,14 @@ bool Map::Update(float dt)
             
            
      
-            printf("fondoy, %d ", fondoy);
+            //printf("fondoy, %d ", fondoy);
 
             if (fondoy >= 43) {
                 fondoy = 43;
             }
 
-            if (fondoy <= 8) {
-                fondoy = 8;
+            if (fondoy <= 13) {
+                fondoy = 13;
             }
 
 

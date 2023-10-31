@@ -1,6 +1,9 @@
 #ifndef __ANIMATION_H__
 #define __ANIMATION_H__
 
+
+
+
 #include "SDL/include/SDL_rect.h"
 #define MAX_FRAMES 2500
 
@@ -89,6 +92,14 @@ public:
 		return anirec;
 	}
 
+	void LoadAnim( int x, int y, SDL_Rect* spritePositions,float speed,bool loop) {
+		for (int i = x; i < y; i++)
+		{
+			this->PushBack({spritePositions[i]});
+		}
+		this->speed = speed;
+		this->loop = loop;
+	}
 
 };
 

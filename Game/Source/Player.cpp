@@ -49,19 +49,25 @@ bool Player::Awake() {
 
 	texturePath = parameters.attribute("texturepath").as_string();
 
-	for (int i = 0; i < 4; i++)
+	
+
+	idle.LoadAnim(0,4, spritePositions, 0.15f,true);//start,end,spritePos,speed,loop
+	crouch.LoadAnim(5, 8, spritePositions, 1.08f, true);
+
+	/*for (int i = 0; i < 4; i++)
 	{
 		idle.PushBack({ spritePositions[i] });
-	}
-	idle.speed = 0.15f;
-	idle.loop = true;
+	}*/
 
-	for (int i = 5; i < 8; i++)
+
+	/*for (int i = 5; i < 8; i++)
 	{
 		crouch.PushBack({ spritePositions[i] });
-	}
-	crouch.speed = 0.08f;
-	crouch.loop = true;
+	}*/
+
+	
+	/*crouch.speed = 0.08f;
+	crouch.loop = true;*/
 
 
 	for (int i = 9; i < 14; i++)

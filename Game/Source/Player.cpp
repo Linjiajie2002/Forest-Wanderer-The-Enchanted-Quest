@@ -48,12 +48,6 @@ bool Player::Awake() {
 
 
 	texturePath = parameters.attribute("texturepath").as_string();
-
-	
-
-	idle.LoadAnim(0,4, spritePositions, 0.15f,true);//start,end,spritePos,speed,loop
-	crouch.LoadAnim(5, 8, spritePositions, 1.08f, true);
-
 	/*for (int i = 0; i < 4; i++)
 	{
 		idle.PushBack({ spritePositions[i] });
@@ -65,70 +59,85 @@ bool Player::Awake() {
 		crouch.PushBack({ spritePositions[i] });
 	}*/
 
-	
+
 	/*crouch.speed = 0.08f;
 	crouch.loop = true;*/
 
-
-	for (int i = 9; i < 14; i++)
-	{
-		run.PushBack({ spritePositions[i] });
-	}
-	run.speed = 0.08f;
-	run.loop = true;
-
-
-	for (int i = 15; i < 24; i++)
-	{
-		highjump.PushBack({ spritePositions[i] });
-	}
-
-	highjump.speed = 0.4f;
-	highjump.loop = false;
-
-	for (int i = 25; i < 29; i++)
-	{
-		slide.PushBack({ spritePositions[i] });
-	}
-
-	slide.speed = 0.1f;
-	slide.loop = true;
+	//for (int i = 9; i < 14; i++)
+	//{
+	//	run.PushBack({ spritePositions[i] });
+	//}
+	//run.speed = 0.08f;
+	//run.loop = true;
 
 
-	for (int i = 43; i < 53; i++)
-	{
-		atack.PushBack({ spritePositions[i] });
-	}
+	//for (int i = 15; i < 24; i++)
+	//{
+	//	highjump.PushBack({ spritePositions[i] });
+	//}
 
-	atack.speed = 0.2f;
-	atack.loop = false;
+	//highjump.speed = 0.4f;
+	//highjump.loop = false;
 
+	//for (int i = 25; i < 29; i++)
+	//{
+	//	slide.PushBack({ spritePositions[i] });
+	//}
 
-	for (int i = 54; i < 59; i++)
-	{
-		atack2.PushBack({ spritePositions[i] });
-	}
+	//slide.speed = 0.1f;
+	//slide.loop = true;
 
-	atack2.speed = 0.2f;
-	atack2.loop = false;
+	//for (int i = 43; i < 53; i++)
+	//{
+	//	atack.PushBack({ spritePositions[i] });
+	//}
 
-
-	for (int i = 96; i < 100; i++)
-	{
-		atack3.PushBack({ spritePositions[i] });
-	}
-
-	atack3.speed = 0.2f;
-	atack3.loop = false;
+	//atack.speed = 0.2f;
+	//atack.loop = false;
 
 
-	for (int i = 64; i < 69; i++)
-	{
-		die.PushBack({ spritePositions[i] });
-	}
+	//for (int i = 54; i < 59; i++)
+	//{
+	//	atack2.PushBack({ spritePositions[i] });
+	//}
 
-	die.speed = 0.1f;
-	die.loop = false;
+	//atack2.speed = 0.2f;
+	//atack2.loop = false;
+
+
+	//for (int i = 96; i < 100; i++)
+	//{
+	//	atack3.PushBack({ spritePositions[i] });
+	//}
+
+	//atack3.speed = 0.2f;
+	//atack3.loop = false;
+
+
+	//for (int i = 64; i < 69; i++)
+	//{
+	//	die.PushBack({ spritePositions[i] });
+	//}
+
+	//die.speed = 0.1f;
+	//die.loop = false;
+	
+	//start,end,spritePos,speed,loop
+	idle.LoadAnim(0,4, spritePositions, 0.15f,true);
+	crouch.LoadAnim(5, 8, spritePositions, 0.08f, true);
+	run.LoadAnim(9, 14, spritePositions, 0.08f, true);
+	highjump.LoadAnim(15, 24, spritePositions, 0.4f, false);
+	slide.LoadAnim(25, 29, spritePositions, 0.1f, true);
+	atack.LoadAnim(43, 53, spritePositions, 0.2f, false);
+	atack2.LoadAnim(54, 59, spritePositions, 0.2f, false);
+	atack3.LoadAnim(96, 100, spritePositions, 0.2f, false);
+	die.LoadAnim(64, 69, spritePositions, 0.1f, false);
+
+
+
+
+
+
 
 
 	return true;
@@ -493,8 +502,8 @@ bool Player::Update(float dt)
 
 		pbody->body->SetTransform(vel, pbody->body->GetAngle());
 
-		printf("posX: %d ", position.x);
-		printf("posY: %d ", position.y);
+		//printf("posX: %d ", position.x);
+		//printf("posY: %d ", position.y);
 		//pbody->body->SetLinearVelocity(vel);
 	}
 
@@ -566,7 +575,6 @@ bool Player::Update(float dt)
 
 bool Player::CleanUp()
 {
-
 	return true;
 }
 

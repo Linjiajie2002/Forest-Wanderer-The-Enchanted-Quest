@@ -5,6 +5,8 @@
 
 
 #include "SDL/include/SDL_rect.h"
+#include "Entity.h"
+
 #define MAX_FRAMES 2500
 
 class Animation 
@@ -92,13 +94,20 @@ public:
 		return anirec;
 	}
 
-	void LoadAnim( int x, int y, SDL_Rect* spritePositions,float speed,bool loop) {
-		for (int i = x; i < y; i++)
+	void LoadAnim(char* Anipart, char* NombreAni, SDL_Rect* spritePositions) {
+		//Player* player = app->scene->GetPlayer();
+		
+		pugi::xml_document configFile;
+		pugi::xml_node AniInfo;
+		pugi::xml_parse_result parseResult = configFile.load_file("config.xml");
+		AniInfo = configFile.child("config").child("Animations").child(Anipart).child(NombreAni);
+
+		for (int i = AniInfo.attribute("start").as_int(); i < AniInfo.attribute("end").as_int(); i++)
 		{
 			this->PushBack({spritePositions[i]});
 		}
-		this->speed = speed;
-		this->loop = loop;
+		this->speed = AniInfo.attribute("speed").as_float();
+		this->loop = AniInfo.attribute("loop").as_bool();
 	}
 
 };

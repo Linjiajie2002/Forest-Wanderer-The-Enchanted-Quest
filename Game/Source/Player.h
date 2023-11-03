@@ -52,8 +52,10 @@ public:
 
 
 public:
-	float speed = 0.4f;
-	float crouchspeed = 0.1f;	
+	float speed;
+	float crouchspeed;
+	float jumpForce;
+	
 	const char* texturePath;
 	SDL_Texture* texture = NULL;
 	PhysBody* pbody;
@@ -61,7 +63,6 @@ public:
 
 	Render* render = NULL;
 
-	float jumpForce = 15;
 	bool isFacingLeft = false;
 	bool isHighJumping = false;
 

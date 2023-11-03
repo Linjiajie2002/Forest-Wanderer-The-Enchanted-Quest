@@ -65,6 +65,11 @@ bool Map::Update(float dt)
                 fondoy = 13;
             }
 
+            //printf("fondox: %d \n", fondox);
+            if (fondox >= 183) {
+                fondox = 183;
+            }
+
 
             for (int x = MAX(fondox - 18, 0); x < MIN(fondox + 32, mapLayerItem->data->width); x++)
             {
@@ -539,7 +544,30 @@ bool Map::LoadCollision(std::string layerName) {
                         PhysBody* c1 = app->physics->CreateChain(pos.x + 16, pos.y + 16, puntos, 6, STATIC);
                         c1->ctype = ColliderType::PLATFORM;
 
+                    }
 
+                    if (gid == tileset->firstgid + 11) {
+                        PhysBody* c1 = app->physics->CreateRectangle(pos.x - 16, pos.y + 16, 32, 32, STATIC);
+                        c1->ctype = ColliderType::PLATFORM;
+
+                    }
+
+                    if (gid == tileset->firstgid + 12) {
+                        PhysBody* c1 = app->physics->CreateRectangle(pos.x - 16, pos.y + 246, 32, 32, STATIC);
+                        c1->ctype = ColliderType::DEADPLATFORM;
+                        
+                    }
+
+                    if (gid == tileset->firstgid + 13) {
+                        PhysBody* c1 = app->physics->CreateRectangle(pos.x + 64, pos.y + 16, 32, 32, STATIC);
+                        c1->ctype = ColliderType::PLATFORM;
+                        
+                    }
+
+                    if (gid == tileset->firstgid + 14) {
+                        PhysBody* c1 = app->physics->CreateRectangle(pos.x - 16, pos.y - 64, 32, 32, STATIC);
+                        c1->ctype = ColliderType::PLATFORM;
+                       
                     }
 
                 }

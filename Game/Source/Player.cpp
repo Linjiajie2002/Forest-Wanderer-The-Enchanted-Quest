@@ -16,15 +16,6 @@
 Player::Player() : Entity(EntityType::PLAYER)
 {
 	name.Create("Player");
-	//({����ߣ������棬���ұ߼�ȥ����ߣ�������-������})
-
-
-	//spritePositions = SPosition.SpritesPos(163, 100, 86, 500);
-	//spritePositions = SPosition.SpritesPos(109, 50, 37, 350);
-
-
-
-
 }
 
 Player::~Player() {
@@ -33,9 +24,15 @@ Player::~Player() {
 
 bool Player::Awake() {
 
+	//data player
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
+	speed = parameters.attribute("speed").as_float();
+	crouchspeed = parameters.attribute("crouchspeed").as_float();
+	jumpForce = parameters.attribute("jumpforce").as_float();
 
+
+	//data animation
 	TSprite = parameters.child("animations").attribute("Tsprite").as_int();
 	SpriteX = parameters.child("animations").attribute("x").as_int();
 	SpriteY = parameters.child("animations").attribute("y").as_int();
@@ -45,100 +42,18 @@ bool Player::Awake() {
 	//printf("%d %d %d %d", TSprite, SpriteX, SpriteY, PhotoWeight);
 
 	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-
-
 	texturePath = parameters.attribute("texturepath").as_string();
-	/*for (int i = 0; i < 4; i++)
-	{
-		idle.PushBack({ spritePositions[i] });
-	}*/
-
-
-	/*for (int i = 5; i < 8; i++)
-	{
-		crouch.PushBack({ spritePositions[i] });
-	}*/
-
-
-	/*crouch.speed = 0.08f;
-	crouch.loop = true;*/
-
-	//for (int i = 9; i < 14; i++)
-	//{
-	//	run.PushBack({ spritePositions[i] });
-	//}
-	//run.speed = 0.08f;
-	//run.loop = true;
-
-
-	//for (int i = 15; i < 24; i++)
-	//{
-	//	highjump.PushBack({ spritePositions[i] });
-	//}
-
-	//highjump.speed = 0.4f;
-	//highjump.loop = false;
-
-	//for (int i = 25; i < 29; i++)
-	//{
-	//	slide.PushBack({ spritePositions[i] });
-	//}
-
-	//slide.speed = 0.1f;
-	//slide.loop = true;
-
-	//for (int i = 43; i < 53; i++)
-	//{
-	//	atack.PushBack({ spritePositions[i] });
-	//}
-
-	//atack.speed = 0.2f;
-	//atack.loop = false;
-
-
-	//for (int i = 54; i < 59; i++)
-	//{
-	//	atack2.PushBack({ spritePositions[i] });
-	//}
-
-	//atack2.speed = 0.2f;
-	//atack2.loop = false;
-
-
-	//for (int i = 96; i < 100; i++)
-	//{
-	//	atack3.PushBack({ spritePositions[i] });
-	//}
-
-	//atack3.speed = 0.2f;
-	//atack3.loop = false;
-
-
-	//for (int i = 64; i < 69; i++)
-	//{
-	//	die.PushBack({ spritePositions[i] });
-	//}
-
-	//die.speed = 0.1f;
-	//die.loop = false;
 	
-	//start,end,spritePos,speed,loop
-	idle.LoadAnim(0,4, spritePositions, 0.15f,true);
-	crouch.LoadAnim(5, 8, spritePositions, 0.08f, true);
-	run.LoadAnim(9, 14, spritePositions, 0.08f, true);
-	highjump.LoadAnim(15, 24, spritePositions, 0.4f, false);
-	slide.LoadAnim(25, 29, spritePositions, 0.1f, true);
-	atack.LoadAnim(43, 53, spritePositions, 0.2f, false);
-	atack2.LoadAnim(54, 59, spritePositions, 0.2f, false);
-	atack3.LoadAnim(96, 100, spritePositions, 0.2f, false);
-	die.LoadAnim(64, 69, spritePositions, 0.1f, false);
 
-
-
-
-
-
-
+	idle.LoadAnim("Player","idle",spritePositions);
+	crouch.LoadAnim("Player","crouch",spritePositions);
+	run.LoadAnim("Player","run",spritePositions);
+	highjump.LoadAnim("Player","highjump",spritePositions);
+	slide.LoadAnim("Player","slide",spritePositions);
+	atack.LoadAnim("Player","atack",spritePositions);
+	atack2.LoadAnim("Player","atack2",spritePositions);
+	atack3.LoadAnim("Player","atack3",spritePositions);
+	die.LoadAnim("Player","die",spritePositions);
 
 	return true;
 }
@@ -154,16 +69,10 @@ bool Player::Start() {
 	pbody->ctype = ColliderType::PLAYER;
 	/*pbody->body->GetWorld()->DestroyBody();
 	delete;*/
-	pickCoinFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
+	pickCoinFxId = app->audio->LoadFx(parameters.child("audio").attribute("texturepath").as_string());
 
 	currentAnimation = &idle;
 	pbody->body->SetFixedRotation(true);
-
-
-
-
-
-
 
 
 	return true;
@@ -210,11 +119,11 @@ bool Player::Update(float dt)
 					currentAnimation = &crouch;
 				}*/
 
-				if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && onWall) {
+				/*if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && onWall) {
 					printf("%d", onWall);
-					vel = b2Vec2(pbody->body->GetLinearVelocity().x, (-speed * 4));
+					vel = b2Vec2(pbody->body->GetLinearVelocity().x, (-speed * 4) * dt);
 					currentAnimation = &crouch;
-				}
+				}*/
 
 			}
 			if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
@@ -228,11 +137,11 @@ bool Player::Update(float dt)
 					currentAnimation = &crouch;
 				}*/
 
-				if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && onWall) {
+				/*if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && onWall) {
 					printf("%d", onWall);
-					vel = b2Vec2(pbody->body->GetLinearVelocity().x, (-speed * 4));
+					vel = b2Vec2(pbody->body->GetLinearVelocity().x, (-speed * 4) * dt);
 					currentAnimation = &crouch;
-				}
+				}*/
 
 			}
 
@@ -316,7 +225,7 @@ bool Player::Update(float dt)
 			//printf("F%d ", frameCount);
 			//Atack
 			if (isAtack) {
-				if (frameCount >= 400) {
+				if (frameCount >= 200) {
 					//printf("1");
 					atackTypeCount = 1;
 					frameCount = 0;
@@ -368,28 +277,30 @@ bool Player::Update(float dt)
 
 			//Camera
 
-			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
-				cameraUP = 0;
-			}
+			//if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
+			//	cameraUP = 0;
+			//}
 
-			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
-				//cameraUP = app->render->camera.y;
+			//if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+			//	//cameraUP = app->render->camera.y;
 
-				if (cameraUP >= 100) {
-					app->render->camera.y = app->render->camera.y;
-				}
-				else {
-					app->render->camera.y += 4;
-				}
-				cameraUP += 4;
+			//	if (cameraUP >= 100) {
+			//		app->render->camera.y = app->render->camera.y;
+			//	}
+			//	else {
+			//		app->render->camera.y += 4;
+			//	}
+			//	cameraUP += 4;
 
-			}
-			else {
-
+			//}
+			//else {
+				
 				if (app->render->camera.x >= 2 && position.x < 514) {
 					app->render->camera.x = 2;
 				}
-
+				else if(app->render->camera.x <= -5370 && position.x > 5883) {
+					app->render->camera.x = -5370;
+				}		
 				else {
 					app->render->camera.x = -position.x + (width / 2);
 
@@ -397,7 +308,7 @@ bool Player::Update(float dt)
 
 				}
 
-
+				
 				app->render->camera.y = (-position.y * app->win->GetScale() + (height / 2));
 
 
@@ -407,7 +318,9 @@ bool Player::Update(float dt)
 				if (app->render->camera.y >= 0) {
 					app->render->camera.y = 0;
 				}
-			}
+			//}
+
+				//printf("Camera: %d \n", position.x);
 		}
 		else
 		{
@@ -498,7 +411,7 @@ bool Player::Update(float dt)
 		//position.y = parameters.attribute("y").as_int();
 
 		vel = b2Vec2(1, 23);
-
+		app->scene->GetPlayer()->isDead = false;
 
 		pbody->body->SetTransform(vel, pbody->body->GetAngle());
 
@@ -592,6 +505,10 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		jumpCount = 0;
 		highjump.Reset();
 		playerOnPlatform = true;
+		break;
+	case ColliderType::DEADPLATFORM:
+		LOG("Collision DEADPLATFORM");
+		app->scene->GetPlayer()->isDead = true;
 		break;
 
 	case ColliderType::WALL:

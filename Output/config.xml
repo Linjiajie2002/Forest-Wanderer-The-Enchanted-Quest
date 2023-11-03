@@ -34,15 +34,23 @@
 		 <item x="416" y="512" texturepath="Assets/Textures/goldCoin.png"/>
 		 <item x="384" y="352" texturepath="Assets/Textures/goldCoin.png"/>
 		 <item x="200" y="672" texturepath="Assets/Textures/goldCoin.png"/>
-		 <item x="500" y="672" texturepath="Assets/Textures/goldCoin.png"/>
-		 <itembox x="480" y="672" texturepath="Assets/Item/ItemBox.png"/>-->
-	</scene>
+		 <item x="500" y="672" texturepath="Assets/Textures/goldCoin.png"/>-->
+		
+		<itembox x="50" y="1100" texturepath="Assets/Item/ItemBox.png">
+			<animations Tsprite="40" x="34" y="41" Pweight="340"/>
+		</itembox>
+
+	 </scene>
+
 	
+
+	
+
 	<Animations>
 		<Player>
 			<idle start="0" end="4" speed="0.15f" loop="true"/>
 			<crouch start="5" end="8" speed="0.08f" loop="true"/>
-			<run start="9" end="14" speed="0.08f" loop="false"/>
+			<run start="9" end="14" speed="0.08f" loop="true"/>
 			<highjump start="15" end="24" speed="0.4f" loop="true"/>
 			<slide start="25" end="29" speed="0.1f" loop="false"/>
 			<atack start="43" end="53" speed="0.2f" loop="false"/>
@@ -50,6 +58,26 @@
 			<atack3 start="96" end="100" speed="0.2f" loop="false"/>
 			<die start="64" end="69" speed="0.1f" loop="false"/>
 		</Player>
+		<ItemBox>
+
+			<idle start="20" end="21" speed="0.15f" loop="false"/>
+
+			<openBox1 start="1" end="5" speed="0.15f" loop="false"/>
+			<closeBox1 start="6" end="10" speed="0.15f" loop="false"/>
+
+			<idle2 start="10" end="11" speed="0.15f" loop="false"/>
+			<openBox2 start="11" end="15" speed="0.15f" loop="false"/>
+			<closeBox2 start="16" end="10" speed="0.15f" loop="false"/>
+
+			<idle3 start="20" end="21" speed="0.15f" loop="false"/>
+			<openBox3 start="21" end="25" speed="0.15f" loop="false"/>
+			<closeBox3 start="26" end="30" speed="0.15f" loop="false"/>
+
+			<idle4 start="30" end="31" speed="0.15f" loop="false"/>
+			<openBox4 start="31" end="35" speed="0.15f" loop="false"/>
+			<closeBox4 start="36" end="40" speed="0.15f" loop="false"/>
+			
+		</ItemBox>
 	</Animations>
 	
 	<map>

@@ -30,10 +30,16 @@ public:
 	bool isPicked = false;
 
 	Animation* currentAnimation = nullptr;
+	Animation idle;
 	Animation openBox;
-	Animation CloseBox;
+	Animation closeBox;
 	Animation SPosition;
 	SDL_Rect* spritePositions;
+
+	int TSprite;
+	int SpriteX;
+	int SpriteY;
+	int PhotoWeight;
 
 private:
 

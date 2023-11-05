@@ -31,6 +31,17 @@ Debug Controls
  - Guillem Montes- [@Guillem257](https://github.com/Guillem257)
  - Jiajie Lin - [@Linjiajie2002](https://github.com/Linjiajie2002)
 
+## Features
+
+- Using Tiled for the map with SDL2
+- Using Tiled for Collisions with Box2d
+- Character Movements: Run, jump, double jump, attack
+- Implementation of a debug mode
+- Character animations
+- Level 1 implemented
+- Creation of a debug mode
+- Optimized code to improve performance
+
 ## License
 
 This project is licensed under an unmodified MIT license, which is an OSI-certified license that allows static linking with closed source software. Check [LICENSE](LICENSE) for further details.

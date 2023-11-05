@@ -1,0 +1,90 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "Test.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "file.lastUsedOpenFilter": "Todos los archivos (*)",
+    "fileStates": {
+        "": {
+            "scaleInDock": 5.5
+        },
+        "MapTemplate.tmx": {
+            "scale": 0.4416015625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1022.4148606811145,
+                "y": 383.83016364440516
+            }
+        },
+        "MapTemplate.tmx#MapMetadata": {
+            "scaleInDock": 1
+        },
+        "MapTemplate.tmx#TX Tileset Ground": {
+            "scaleInDock": 1
+        },
+        "MapTemplate.tmx#TX Village Props": {
+            "scaleInDock": 1
+        },
+        "MapTemplate.tmx#tmw_desert_spacing": {
+            "scaleInDock": 1
+        },
+        "Test.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 646.6666666666665,
+                "y": 336
+            }
+        },
+        "Test.tmx#Casa": {
+            "scaleInDock": 1
+        },
+        "Test.tmx#Objecto": {
+            "scaleInDock": 1.5
+        },
+        "Test.tmx#Objeto": {
+            "scaleInEditor": 1
+        },
+        "Test.tmx#Roca": {
+            "scaleInDock": 0.75,
+            "scaleInEditor": 1
+        },
+        "Test.tmx#Shop": {
+            "scaleInEditor": 1
+        },
+        "Test.tmx#Tree": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Test.tmx#lamp": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Test.tmx#shop": {
+            "scaleInDock": 4,
+            "scaleInEditor": 0.33
+        },
+        "Test.tmx#t": {
+            "scaleInEditor": 1
+        },
+        "Test.tmx#treetiles": {
+            "scaleInEditor": 1
+        }
+    },
+    "last.imagePath": "C:/Users/jial/Downloads",
+    "map.lastUsedFormat": "tmx",
+    "openFiles": [
+        "MapTemplate.tmx",
+        "Test.tmx"
+    ],
+    "project": "Tilet.tiled-project",
+    "recentFiles": [
+        "MapTemplate.tmx",
+        "Test.tmx"
+    ],
+    "tileset.embedInMap": true
+}

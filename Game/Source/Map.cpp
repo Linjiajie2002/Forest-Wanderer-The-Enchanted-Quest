@@ -548,7 +548,7 @@ bool Map::LoadCollision(std::string layerName) {
 
                     if (gid == tileset->firstgid + 11) {
                         PhysBody* c1 = app->physics->CreateRectangle(pos.x - 16, pos.y + 16, 32, 32, STATIC);
-                        c1->ctype = ColliderType::PLATFORM;
+                        c1->ctype = ColliderType::WALL;
 
                     }
 
@@ -560,13 +560,13 @@ bool Map::LoadCollision(std::string layerName) {
 
                     if (gid == tileset->firstgid + 13) {
                         PhysBody* c1 = app->physics->CreateRectangle(pos.x + 64, pos.y + 16, 32, 32, STATIC);
-                        c1->ctype = ColliderType::PLATFORM;
+                        c1->ctype = ColliderType::WALL;
                         
                     }
 
                     if (gid == tileset->firstgid + 14) {
                         PhysBody* c1 = app->physics->CreateRectangle(pos.x - 16, pos.y - 64, 32, 32, STATIC);
-                        c1->ctype = ColliderType::PLATFORM;
+                        c1->ctype = ColliderType::WALL;
                        
                     }
 

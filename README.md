@@ -3,7 +3,7 @@
 ## Forest Wanderer: The Enchanted Quest
 
 "Forest Wanderer: The Enchanted Quest" is a project team of the subject “DESENVOLUPAMENT DE VIDEOJOCS” in CITM University: Videogames Design & Developments degree. The first job is to make a platform in SDL and Box2d.
-Link to the project: https://github.com/Linjiajie2002/DV_Proyecto_1
+Link to the project: https://github.com/Linjiajie2002/Forest-Wanderer-The-Enchanted-Quest
 
 ## Controls
 
@@ -30,8 +30,6 @@ F11 - Change frames cap
 
  - Guillem Montes- {@Guillem257}
  - Jiajie Lin - {@Linjiajie2002}
-
-PRUEVA
 
 ## License
 

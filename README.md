@@ -28,8 +28,8 @@ F11 - Change frames cap
 
 ## Developers
 
- - Guillem Montes- {@Guillem257}
- - Jiajie Lin - {@Linjiajie2002}
+ - Guillem Montes- [@Guillem257](https://github.com/Guillem257)
+ - Jiajie Lin - [@Linjiajie2002](https://github.com/Linjiajie2002)
 
 ## License
 

@@ -9,21 +9,21 @@ Link to the project: https://github.com/Linjiajie2002/Forest-Wanderer-The-Enchan
 
 Basic Controls
 
-SPACE - Jump button
-DOUBLE SPACE - Double jump
-hold S - Look down
-A/D - Move left/right
-J - Attack
-R - Dead
-ESC - Close Game
+- SPACE - Jump button
+- DOUBLE SPACE - Double jump
+- Hold S - Look down
+- A/D - Move left/right
+- J - Attack
+- R - Dead
+- ESC - Close Game
 
 Debug Controls
 
-F1 - Go to level1
-F3 - Reset level
-F9 - Show/hide Collisions and other metas
-F10 - Toggle godmode (free movement with WASD)
-F11 - Change frames cap
+- F1 - Go to level1
+- F3 - Reset level
+- F9 - Show/hide Collisions and other metas
+- F10 - Toggle godmode (free movement with WASD)
+- F11 - Change frames cap
 
 
 ## Developers

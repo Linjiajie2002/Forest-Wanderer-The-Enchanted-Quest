@@ -1,0 +1,32 @@
+{
+    "activeFile": "Mapa.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Mapa.tmx": {
+            "scale": 0.125,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": -536,
+                "y": -208
+            }
+        },
+        "Mapa.tmx#Main": {
+            "scaleInDock": 0.5
+        }
+    },
+    "last.imagePath": "C:/Users/jial/Documents/GitHub/DV_Proyecto_1/Output/Assets/Maps/Mapa",
+    "openFiles": [
+        "Mapa.tmx"
+    ],
+    "project": "Mapa.tiled-project",
+    "recentFiles": [
+        "Mapa.tmx"
+    ],
+    "tileset.embedInMap": true
+}

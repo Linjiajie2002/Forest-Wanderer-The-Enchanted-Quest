@@ -429,8 +429,8 @@ bool Player::Update(float dt)
 
 		pbody->body->SetTransform(vel, pbody->body->GetAngle());
 
-		printf("posX: %d ", position.x);
-		printf("posY: %d ", position.y);
+		/*printf("posX: %d ", position.x);
+		printf("posY: %d ", position.y);*/
 		//pbody->body->SetLinearVelocity(vel);
 	}
 

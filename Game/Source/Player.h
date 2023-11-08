@@ -52,6 +52,9 @@ public:
 	Animation idle3;
 	Animation die;
 	Animation lowjump;
+
+	Animation arrowAtack1;
+	Animation arrowAtack2;
 	
 	SDL_Rect* spritePositions;
 
@@ -104,6 +107,7 @@ public:
 	
 	int cameraUP;
 
+	//Shake
 	int shakeDuration = 0; 
 	int shakeMagnitude = 5;
 
@@ -114,6 +118,9 @@ public:
 
 	int originalX = 0;
 	int originalY = 0;
+
+	bool changePeson = false;
+	bool isAir = false;
 
 };
 

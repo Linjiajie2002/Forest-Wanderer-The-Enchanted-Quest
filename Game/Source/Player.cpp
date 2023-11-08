@@ -24,27 +24,41 @@ Player::~Player() {
 
 bool Player::Awake() {
 
+
+
+	if (changePeson == false) {
+		texturePath = parameters.attribute("texturepath").as_string();
+		TSprite = parameters.child("animations").attribute("Tsprite").as_int();
+		SpriteX = parameters.child("animations").attribute("x").as_int();
+		SpriteY = parameters.child("animations").attribute("y").as_int();
+		PhotoWeight = parameters.child("animations").attribute("Pweight").as_int();
+		position.x = parameters.attribute("x").as_int();
+		position.y = parameters.attribute("y").as_int();
+		spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
+
+	}
+	else {
+		texturePath = parameters.attribute("texturepath2").as_string();
+		TSprite = parameters.child("animations2").attribute("Tsprite").as_int();
+		SpriteX = parameters.child("animations2").attribute("x").as_int();
+		SpriteY = parameters.child("animations2").attribute("y").as_int();
+		PhotoWeight = parameters.child("animations2").attribute("Pweight").as_int();
+		position.x = position.x+16;
+		position.y = position.y+16;
+		spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
+
+		
+	}
+
 	//data player
-	position.x = parameters.attribute("x").as_int();
-	position.y = parameters.attribute("y").as_int();
+
 	speed = parameters.attribute("speed").as_float();
 	crouchspeed = parameters.attribute("crouchspeed").as_float();
 	jumpForce = parameters.attribute("jumpforce").as_float();
 
 
-	//data animation
-	TSprite = parameters.child("animations").attribute("Tsprite").as_int();
-	SpriteX = parameters.child("animations").attribute("x").as_int();
-	SpriteY = parameters.child("animations").attribute("y").as_int();
-	PhotoWeight = parameters.child("animations").attribute("Pweight").as_int();
-
-
 	//printf("%d %d %d %d", TSprite, SpriteX, SpriteY, PhotoWeight);
-
-	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-	texturePath = parameters.attribute("texturepath").as_string();
-
-
+	
 	idle.LoadAnim("Player", "idle", spritePositions);
 	crouch.LoadAnim("Player", "crouch", spritePositions);
 	run.LoadAnim("Player", "run", spritePositions);
@@ -54,6 +68,14 @@ bool Player::Awake() {
 	atack2.LoadAnim("Player", "atack2", spritePositions);
 	atack3.LoadAnim("Player", "atack3", spritePositions);
 	die.LoadAnim("Player", "die", spritePositions);
+	
+
+	arrowAtack1.LoadAnim("arrowPlayr", "atackarrow1", spritePositions);
+	arrowAtack2.LoadAnim("arrowPlayr", "atackarrow2", spritePositions);
+	
+
+
+	
 
 
 
@@ -83,9 +105,15 @@ bool Player::Start() {
 
 bool Player::Update(float dt)
 {
-
+	if (app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN) {
+		changePeson = true;
+		Awake();
+		Start();
+		currentAnimation = &arrowAtack2;
+		//changePeson = false;
+		
+	}
 	currentAnimation = &idle;
-
 
 	b2Vec2 vel = b2Vec2(0, pbody->body->GetLinearVelocity().y);
 
@@ -181,7 +209,7 @@ bool Player::Update(float dt)
 					pbody->body->ApplyLinearImpulse(b2Vec2(0, GRAVITY_Y * jumpForce), pbody->body->GetWorldCenter(), true);
 					jumpCount++;
 					playerOnPlatform = false;
-
+					
 				
 					//AniplayerOnPlatform = true;
 
@@ -540,8 +568,10 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		jumpCount = 0;
 		highjump.Reset();
 		playerOnPlatform = true;
-		shake = true;
-		shakeDuration = 10;
+		
+		/*shake = true;
+		shakeDuration = 10;*/
+		
 		break;
 	case ColliderType::DEADPLATFORM:
 		LOG("Collision DEADPLATFORM");

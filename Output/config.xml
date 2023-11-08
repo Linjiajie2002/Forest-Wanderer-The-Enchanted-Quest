@@ -25,8 +25,9 @@
 	</audio>
 
 	<scene>
-		<player x="40" y="1100" speed="0.4f" crouchspeed="0.1f" jumpforce="15" texturepath="Assets/Sprite/Player/Player.png" >
+		<player x="40" y="1100" speed="0.4f" crouchspeed="0.1f" jumpforce="15" texturepath="Assets/Sprite/Player/Player.png" texturepath2="Assets/Sprite/Player/Player2.png" >
 			<animations Tsprite="109" x="50" y="37" Pweight="350"/>
+			<animations2 Tsprite="15" x="50" y="37" Pweight="200"/>
 			<audio texturepath="Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg"/>
 		</player>
 
@@ -58,6 +59,12 @@
 			<atack3 start="96" end="100" speed="0.2f" loop="false"/>
 			<die start="64" end="69" speed="0.1f" loop="false"/>
 		</Player>
+		
+		<arrowPlayr>
+			<atackarrow1 start="0" end="9" speed="10.15f" loop="false"/>
+			<atackarrow2 start="10" end="15" speed="0.15f" loop="false"/>
+			
+		</arrowPlayr>
 		<ItemBox>
 
 			<idle start="20" end="21" speed="0.15f" loop="false"/>

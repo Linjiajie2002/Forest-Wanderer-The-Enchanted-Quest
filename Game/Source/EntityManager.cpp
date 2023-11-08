@@ -4,6 +4,7 @@
 #include "Textures.h"
 #include "Scene.h"
 #include "ItemBox.h"
+#include "Effect.h"
 
 #include "Defs.h"
 #include "Log.h"

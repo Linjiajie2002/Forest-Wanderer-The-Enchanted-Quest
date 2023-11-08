@@ -246,6 +246,8 @@ bool Physics::PostUpdate()
 			changeFps = true;
 		}
 	}
+
+
 	
 	//  Iterate all objects in the world and draw the bodies
 	if (app->debug)

@@ -24,6 +24,7 @@ class Physics;
 class Animation;
 
 
+
 class App
 {
 public:
@@ -91,6 +92,7 @@ public:
 	Map* map;
 	Physics* physics;
 	Animation* animation;
+	
 
 	int FpsNum = 16;
 

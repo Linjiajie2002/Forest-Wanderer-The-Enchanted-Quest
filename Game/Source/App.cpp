@@ -10,6 +10,8 @@
 #include "Animation.h"
 #include "ItemBox.h"
 
+
+
 #include "Defs.h"
 #include "Log.h"
 
@@ -36,7 +38,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	map = new Map();
 	entityManager = new EntityManager();
 	animation = new Animation();
-
+	
 
 
 	// Ordered for awake / Start / Update
@@ -49,7 +51,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene);
 	AddModule(map);
 	AddModule(entityManager);
-
+	
 
 
 	// Render last to swap buffer

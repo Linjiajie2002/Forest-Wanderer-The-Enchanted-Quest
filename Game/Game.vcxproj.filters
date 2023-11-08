@@ -52,14 +52,17 @@
     <ClCompile Include="Source\Window.cpp">
       <Filter>Modules\Other</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ItemBox.cpp">
-      <Filter>Modules\Item</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Particle.cpp">
       <Filter>Modules\Particles</Filter>
     </ClCompile>
     <ClCompile Include="Source\ModuleParticles.cpp">
       <Filter>Modules\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ItemBox.cpp">
+      <Filter>Modules\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Effect.cpp">
+      <Filter>Modules\Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -141,14 +144,17 @@
     <ClInclude Include="Source\Animation.h">
       <Filter>Modules\Animation</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ItemBox.h">
-      <Filter>Modules\Item</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Particle.h">
       <Filter>Modules\Particles</Filter>
     </ClInclude>
     <ClInclude Include="Source\ModuleParticles.h">
       <Filter>Modules\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ItemBox.h">
+      <Filter>Modules\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Effect.h">
+      <Filter>Modules\Effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -196,6 +202,9 @@
     </Filter>
     <Filter Include="Modules\Particles">
       <UniqueIdentifier>{16035b7b-9473-4848-a3be-035ac3123b09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Effect">
+      <UniqueIdentifier>{a77800a6-3d20-4942-836c-5e2c47ee2817}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

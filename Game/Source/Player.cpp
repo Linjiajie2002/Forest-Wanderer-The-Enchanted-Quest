@@ -84,18 +84,9 @@ bool Player::Start() {
 
 
 bool Player::Update(float dt)
-{/*
-	if (app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN) {
-		LoadPersonB();
-	}*/
+{
 
-	//if (changePeson == true) {
-	//	currentAnimation = &arrowAtack2;
-	//}else{
-	//	currentAnimation = &idle;
-	//}
-
-	currentAnimation = &arrowAtack2;
+	currentAnimation = &idle;
 	vel = b2Vec2(0, pbody->body->GetLinearVelocity().y);
 
 
@@ -183,7 +174,21 @@ bool Player::Update(float dt)
 			}
 
 
-			//printf("Camera: %d \n", position.x);
+			if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
+
+				vel = b2Vec2(1, 23);
+				app->scene->GetPlayer()->isDead = false;
+
+				pbody->body->SetTransform(vel, pbody->body->GetAngle());
+			}
+
+
+			if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
+
+				vel = b2Vec2(1, 23);
+				pbody->body->SetTransform(vel, pbody->body->GetAngle());
+
+			}
 
 
 		}
@@ -197,55 +202,9 @@ bool Player::Update(float dt)
 
 
 
-	if (app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN) {
-		LoadPersonB();
-		currentAnimation = &arrowAtack2;
-	}
-
-
 	//Update player position in pixels
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 50;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 35;
-
-
-	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
-		//position.y = parameters.attribute("y").as_int();
-
-		vel = b2Vec2(1, 23);
-		app->scene->GetPlayer()->isDead = false;
-
-		pbody->body->SetTransform(vel, pbody->body->GetAngle());
-
-		//printf("posX: %d ", position.x);
-		//printf("posY: %d ", position.y);
-		//pbody->body->SetLinearVelocity(vel);
-	}
-
-
-	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
-		//position.y = parameters.attribute("y").as_int();
-
-		vel = b2Vec2(1, 23);
-
-
-		pbody->body->SetTransform(vel, pbody->body->GetAngle());
-
-		/*printf("posX: %d ", position.x);
-		printf("posY: %d ", position.y);*/
-		//pbody->body->SetLinearVelocity(vel);
-	}
-
-
-
-
-	//printf("PosY: %d ",position.y);//-989-957
-	//printf("\n");
-	//printf("CameraY: %d ", app->render->camera.y);//-989-957
-
-
-
-
-
 
 	//Die
 	if (isDead) {
@@ -504,20 +463,6 @@ void Player::checkAtack() {
 
 }
 
-void Player::LoadPersonB() {
-	texturePath = parameters.attribute("texturepath2").as_string();
-	TSprite = parameters.child("animations2").attribute("Tsprite").as_int();
-	SpriteX = parameters.child("animations2").attribute("x").as_int();
-	SpriteY = parameters.child("animations2").attribute("y").as_int();
-	PhotoWeight = parameters.child("animations2").attribute("Pweight").as_int();
-	position.x = parameters.attribute("x").as_int();
-	position.y = parameters.attribute("y").as_int();
-	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-
-
-
-
-}
 
 void Player::godMod(float dt) {
 
@@ -573,6 +518,9 @@ void Player::godMod(float dt) {
 		//Camera
 		Camera();
 	}
+
+
+
 }
 
 void Player::OnCollision(PhysBody* physA, PhysBody* physB) {

@@ -31,7 +31,6 @@ public:
 
 
 	void Camera();
-	void LoadPersonB();
 	void ShakeCamera(int xOffset, int yOffset);
 	void keyInput(float dt);
 	void Jump();

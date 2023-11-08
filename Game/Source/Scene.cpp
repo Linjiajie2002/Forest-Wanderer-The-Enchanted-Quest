@@ -7,6 +7,7 @@
 #include "Scene.h"
 #include "Map.h"
 #include "ItemBox.h"
+#include "Effect.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -40,6 +41,8 @@ bool Scene::Awake(pugi::xml_node& config)
 		ItemBox* itembox = (ItemBox*)app->entityManager->CreateEntity(EntityType::ITEMBOX);
 		itembox->parameters = itemNode;
 	}
+
+
 
 
 

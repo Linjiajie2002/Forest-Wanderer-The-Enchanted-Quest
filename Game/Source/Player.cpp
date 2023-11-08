@@ -43,17 +43,17 @@ bool Player::Awake() {
 
 	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
 	texturePath = parameters.attribute("texturepath").as_string();
-	
 
-	idle.LoadAnim("Player","idle",spritePositions);
-	crouch.LoadAnim("Player","crouch",spritePositions);
-	run.LoadAnim("Player","run",spritePositions);
-	highjump.LoadAnim("Player","highjump",spritePositions);
-	slide.LoadAnim("Player","slide",spritePositions);
-	atack.LoadAnim("Player","atack",spritePositions);
-	atack2.LoadAnim("Player","atack2",spritePositions);
-	atack3.LoadAnim("Player","atack3",spritePositions);
-	die.LoadAnim("Player","die",spritePositions);
+
+	idle.LoadAnim("Player", "idle", spritePositions);
+	crouch.LoadAnim("Player", "crouch", spritePositions);
+	run.LoadAnim("Player", "run", spritePositions);
+	highjump.LoadAnim("Player", "highjump", spritePositions);
+	slide.LoadAnim("Player", "slide", spritePositions);
+	atack.LoadAnim("Player", "atack", spritePositions);
+	atack2.LoadAnim("Player", "atack2", spritePositions);
+	atack3.LoadAnim("Player", "atack3", spritePositions);
+	die.LoadAnim("Player", "die", spritePositions);
 
 	return true;
 }
@@ -178,6 +178,8 @@ bool Player::Update(float dt)
 					pbody->body->ApplyLinearImpulse(b2Vec2(0, GRAVITY_Y * jumpForce), pbody->body->GetWorldCenter(), true);
 					jumpCount++;
 					playerOnPlatform = false;
+
+				
 					//AniplayerOnPlatform = true;
 
 					if (jumpCount == 2) {
@@ -294,33 +296,25 @@ bool Player::Update(float dt)
 
 			//}
 			//else {
-				
-				if (app->render->camera.x >= 2 && position.x < 514) {
-					app->render->camera.x = 2;
-				}
-				else if(app->render->camera.x <= -5370 && position.x > 5883) {
-					app->render->camera.x = -5370;
-				}		
-				else {
-					app->render->camera.x = -position.x + (width / 2);
-
-					app->render->camera.x = (-position.x * app->win->GetScale() + (width / 2));
-
-				}
-
-				
-				app->render->camera.y = (-position.y * app->win->GetScale() + (height / 2));
-
-
-				if (app->render->camera.y <= -829) {
-					app->render->camera.y = -829;
-				}
-				if (app->render->camera.y >= 0) {
-					app->render->camera.y = 0;
-				}
+			//Camera();
 			//}
+			if (shake == true) {
+			
+				if (shakeDuration > 0) {
+					xOffset = (rand() % (2 * shakeMagnitude + 1)) - shakeMagnitude;
+					yOffset = (rand() % (2 * shakeMagnitude + 1)) - shakeMagnitude;
+					ShakeCamera(xOffset, yOffset);
+					shakeDuration--;
+				}
+			}
+			else {
+				Camera();
+			}
 
+			
 				//printf("Camera: %d \n", position.x);
+			
+
 		}
 		else
 		{
@@ -375,24 +369,7 @@ bool Player::Update(float dt)
 			if (MoveCamere == false) {
 
 				//Camera
-				if (app->render->camera.x >= 2 && position.x < 514) {
-					app->render->camera.x = 2;
-				}
-
-				else {
-					app->render->camera.x = -position.x + (width / 2);
-
-					app->render->camera.x = (-position.x * app->win->GetScale() + (width / 2));
-
-				}
-				app->render->camera.y = (-position.y * app->win->GetScale() + (height / 2));
-
-				if (app->render->camera.y <= -829) {
-					app->render->camera.y = -829;
-				}
-				if (app->render->camera.y >= 0) {
-					app->render->camera.y = 0;
-				}
+				Camera();
 			}
 
 		}
@@ -491,6 +468,60 @@ bool Player::CleanUp()
 	return true;
 }
 
+void Player::Camera() {
+
+	if (app->render->camera.x >= 2 && position.x < 514) {
+		app->render->camera.x = 2;
+	}
+	else if (app->render->camera.x <= -5370 && position.x > 5883) {
+		app->render->camera.x = -5370;
+	}
+	else {
+		app->render->camera.x = -position.x + (width / 2);
+
+		app->render->camera.x = (-position.x * app->win->GetScale() + (width / 2) );
+
+	}
+
+
+	app->render->camera.y = (-position.y * app->win->GetScale() + (height / 2) );
+
+
+	if (app->render->camera.y <= -829) {
+		app->render->camera.y = -829;
+	}
+	if (app->render->camera.y >= 0) {
+		app->render->camera.y = 0;
+	}
+}
+
+void Player::ShakeCamera(int xOffset, int yOffset) {
+
+	if (app->render->camera.x >= 2 && position.x < 514) {
+		app->render->camera.x = 2;
+	}
+	else if (app->render->camera.x <= -5370 && position.x > 5883) {
+		app->render->camera.x = -5370;
+	}
+	else {
+		app->render->camera.x = -position.x + (width / 2);
+
+		app->render->camera.x = (-position.x * app->win->GetScale() + (width / 2) + xOffset);
+
+	}
+
+	
+	app->render->camera.y = (-position.y * app->win->GetScale() + (height / 2) +yOffset);
+
+
+	if (app->render->camera.y <= -829) {
+		app->render->camera.y = -829;
+	}
+	if (app->render->camera.y >= 0) {
+		app->render->camera.y = 0;
+	}
+}
+
 void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 	switch (physB->ctype)
@@ -505,6 +536,8 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		jumpCount = 0;
 		highjump.Reset();
 		playerOnPlatform = true;
+		shake = true;
+		shakeDuration = 10;
 		break;
 	case ColliderType::DEADPLATFORM:
 		LOG("Collision DEADPLATFORM");

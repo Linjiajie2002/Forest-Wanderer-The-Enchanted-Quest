@@ -28,6 +28,10 @@ public:
 
 	bool CleanUp();
 
+	void Camera();
+
+	void ShakeCamera(int xOffset, int yOffset);
+
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
 
@@ -96,6 +100,17 @@ public:
 	int PhotoWeight;
 	
 	int cameraUP;
+
+	int shakeDuration = 0; 
+	int shakeMagnitude = 5;
+
+	bool shake = false;
+
+	int xOffset = (rand() % (2 * shakeMagnitude + 1)) - shakeMagnitude;
+	int yOffset = (rand() % (2 * shakeMagnitude + 1)) - shakeMagnitude;
+
+	int originalX = 0;
+	int originalY = 0;
 
 };
 

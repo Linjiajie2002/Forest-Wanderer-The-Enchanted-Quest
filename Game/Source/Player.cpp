@@ -42,7 +42,7 @@ bool Player::Awake() {
 
 
 	//printf("%d %d %d %d", TSprite, SpriteX, SpriteY, PhotoWeight);
-	
+
 	idle.LoadAnim("Player", "idle", spritePositions);
 	crouch.LoadAnim("Player", "crouch", spritePositions);
 	run.LoadAnim("Player", "run", spritePositions);
@@ -52,7 +52,8 @@ bool Player::Awake() {
 	atack2.LoadAnim("Player", "atack2", spritePositions);
 	atack3.LoadAnim("Player", "atack3", spritePositions);
 	die.LoadAnim("Player", "die", spritePositions);
-	
+	arrowAtack1.LoadAnim("Player", "atackarrow1", spritePositions);
+	arrowAtack2.LoadAnim("Player", "atackarrow2", spritePositions);
 
 
 	return true;
@@ -94,7 +95,7 @@ bool Player::Update(float dt)
 	//	currentAnimation = &idle;
 	//}
 
-	currentAnimation = &idle;
+	currentAnimation = &arrowAtack2;
 	vel = b2Vec2(0, pbody->body->GetLinearVelocity().y);
 
 
@@ -104,17 +105,13 @@ bool Player::Update(float dt)
 	app->win->GetWindowSize(width, height);
 
 
-
-
-
-
 	if (!isDead) {
 
 		if (!app->godMode) {
 
 			pbody->body->GetFixtureList()[0].SetSensor(false);
 			vel = b2Vec2(0, pbody->body->GetLinearVelocity().y);
-			
+
 			//Keyboard Input
 			keyInput(dt);
 
@@ -139,33 +136,9 @@ bool Player::Update(float dt)
 
 			//LOG("JumpCount: %d ", jumpCount);
 			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+				Jump();
 
-				pbody->body->GetFixtureList()[0].SetSensor(true);
-
-
-				if (canJump) {
-					/*if (jumpCount == 1) {
-						jumpForce = 30;
-					}*/
-					vel.y = 0;
-					pbody->body->ApplyLinearImpulse(b2Vec2(0, GRAVITY_Y * jumpForce), pbody->body->GetWorldCenter(), true);
-					jumpCount++;
-					playerOnPlatform = false;
-					
-				
-					//AniplayerOnPlatform = true;
-
-					if (jumpCount == 2) {
-						//jumpForce = 25;
-						canJump = false;
-					}
-				}
 			}
-
-			if (playerOnPlatform) {
-				canJump = true;
-			}
-
 
 
 			if (starFram) {
@@ -191,85 +164,13 @@ bool Player::Update(float dt)
 
 					//printf("%d", atackTypeCount);
 				}
-				
+
 			}
 
-			//printf("F%d ", frameCount);
-			//Atack
-			if (isAtack) {
-				if (frameCount >= 200) {
-					//printf("1");
-					atackTypeCount = 1;
-					frameCount = 0;
-				}
-				if (atackTypeCount == 1) {
+			checkAtack();
 
-					currentAnimation = &atack;
-					canAtack = false;
-
-				}
-
-				if (atackTypeCount == 2) {
-					currentAnimation = &atack2;
-					canAtack = false;
-				}
-
-				if (atackTypeCount == 3) {
-					//printf("3");
-					currentAnimation = &atack3;
-					canAtack = false;
-				}
-
-
-				if (atack.HasFinished()) {
-					atack.Reset();
-					isAtack = false;
-					canAtack = true;
-					frameCount = 0;
-					starFram = true;
-				}
-
-				if (atack2.HasFinished()) {
-					atack2.Reset();
-					isAtack = false;
-					canAtack = true;
-					frameCount = 0;
-					starFram = true;
-				}
-				if (atack3.HasFinished()) {
-					atack3.Reset();
-					atackTypeCount = 0;
-					starFram = false;
-					frameCount = 0;
-					canAtack = true;
-					isAtack = false;
-				}
-				
-			}
-
-			//Camera
-
-			//if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
-			//	cameraUP = 0;
-			//}
-
-			//if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
-			//	//cameraUP = app->render->camera.y;
-
-			//	if (cameraUP >= 100) {
-			//		app->render->camera.y = app->render->camera.y;
-			//	}
-			//	else {
-			//		app->render->camera.y += 4;
-			//	}
-			//	cameraUP += 4;
-
-			//}
-			//else {
-			//Camera();
-			//}
 			if (shake == true) {
-			
+
 				if (shakeDuration > 0) {
 					xOffset = (rand() % (2 * shakeMagnitude + 1)) - shakeMagnitude;
 					yOffset = (rand() % (2 * shakeMagnitude + 1)) - shakeMagnitude;
@@ -281,66 +182,14 @@ bool Player::Update(float dt)
 				Camera();
 			}
 
-			
-				//printf("Camera: %d \n", position.x);
-			
+
+			//printf("Camera: %d \n", position.x);
+
 
 		}
 		else
 		{
-
-			vel = b2Vec2(0, 0);
-			pbody->body->SetLinearVelocity(vel);
-			pbody->body->GetFixtureList()[0].SetSensor(true);
-
-			if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-
-				isFacingLeft = true;
-				vel = b2Vec2(-speed * dt, pbody->body->GetLinearVelocity().y);
-				currentAnimation = &run;
-				pbody->body->SetLinearVelocity(vel);
-
-			}
-			if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-
-				isFacingLeft = false;
-				vel = b2Vec2(speed * dt, pbody->body->GetLinearVelocity().y);
-				currentAnimation = &run;
-				pbody->body->SetLinearVelocity(vel);
-			}
-
-			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
-
-				isFacingLeft = true;
-				vel = b2Vec2(pbody->body->GetLinearVelocity().x, (-speed * 32));
-				currentAnimation = &run;
-				pbody->body->SetLinearVelocity(vel);
-			}
-
-			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-				isFacingLeft = false;
-				vel = b2Vec2(pbody->body->GetLinearVelocity().x, (speed * 32));
-				currentAnimation = &run;
-				pbody->body->SetLinearVelocity(vel);
-			}
-
-
-			if (app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN) {
-
-				if (MoveCamere == false) {
-					MoveCamere = true;
-				}
-				else {
-					MoveCamere = false;
-				}
-
-			}
-
-			if (MoveCamere == false) {
-
-				//Camera
-				Camera();
-			}
+			godMod(dt);
 
 		}
 
@@ -350,7 +199,7 @@ bool Player::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN) {
 		LoadPersonB();
-		currentAnimation = &arrowAtack1;
+		currentAnimation = &arrowAtack2;
 	}
 
 
@@ -445,6 +294,29 @@ bool Player::CleanUp()
 
 void Player::Camera() {
 
+
+	//Camera
+
+	//if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
+	//	cameraUP = 0;
+	//}
+
+	//if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+	//	//cameraUP = app->render->camera.y;
+
+	//	if (cameraUP >= 100) {
+	//		app->render->camera.y = app->render->camera.y;
+	//	}
+	//	else {
+	//		app->render->camera.y += 4;
+	//	}
+	//	cameraUP += 4;
+
+	//}
+	//else {
+	//Camera();
+	//}
+
 	if (app->render->camera.x >= 2 && position.x < 514) {
 		app->render->camera.x = 2;
 	}
@@ -454,12 +326,12 @@ void Player::Camera() {
 	else {
 		app->render->camera.x = -position.x + (width / 2);
 
-		app->render->camera.x = (-position.x * app->win->GetScale() + (width / 2) );
+		app->render->camera.x = (-position.x * app->win->GetScale() + (width / 2));
 
 	}
 
 
-	app->render->camera.y = (-position.y * app->win->GetScale() + (height / 2) );
+	app->render->camera.y = (-position.y * app->win->GetScale() + (height / 2));
 
 
 	if (app->render->camera.y <= -829) {
@@ -485,8 +357,8 @@ void Player::ShakeCamera(int xOffset, int yOffset) {
 
 	}
 
-	
-	app->render->camera.y = (-position.y * app->win->GetScale() + (height / 2) +yOffset);
+
+	app->render->camera.y = (-position.y * app->win->GetScale() + (height / 2) + yOffset);
 
 
 	if (app->render->camera.y <= -829) {
@@ -498,6 +370,9 @@ void Player::ShakeCamera(int xOffset, int yOffset) {
 }
 
 void Player::keyInput(float dt) {
+
+
+
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
 		if (!isFacingLeft) {
 			isFacingLeft = false;
@@ -541,6 +416,92 @@ void Player::keyInput(float dt) {
 		}*/
 
 	}
+
+
+
+}
+
+
+void Player::Jump() {
+	pbody->body->GetFixtureList()[0].SetSensor(true);
+
+
+	if (canJump) {
+		/*if (jumpCount == 1) {
+			jumpForce = 30;
+		}*/
+		vel.y = 0;
+		pbody->body->ApplyLinearImpulse(b2Vec2(0, GRAVITY_Y * jumpForce), pbody->body->GetWorldCenter(), true);
+		jumpCount++;
+		playerOnPlatform = false;
+
+
+		//AniplayerOnPlatform = true;
+
+		if (jumpCount == 2) {
+			//jumpForce = 25;
+			canJump = false;
+		}
+	}
+
+	if (playerOnPlatform) {
+		canJump = true;
+	}
+}
+
+void Player::checkAtack() {
+
+	if (isAtack) {
+		if (frameCount >= 200) {
+			//printf("1");
+			atackTypeCount = 1;
+			frameCount = 0;
+		}
+		if (atackTypeCount == 1) {
+
+			currentAnimation = &atack;
+			canAtack = false;
+
+		}
+
+		if (atackTypeCount == 2) {
+			currentAnimation = &atack2;
+			canAtack = false;
+		}
+
+		if (atackTypeCount == 3) {
+			//printf("3");
+			currentAnimation = &atack3;
+			canAtack = false;
+		}
+
+
+		if (atack.HasFinished()) {
+			atack.Reset();
+			isAtack = false;
+			canAtack = true;
+			frameCount = 0;
+			starFram = true;
+		}
+
+		if (atack2.HasFinished()) {
+			atack2.Reset();
+			isAtack = false;
+			canAtack = true;
+			frameCount = 0;
+			starFram = true;
+		}
+		if (atack3.HasFinished()) {
+			atack3.Reset();
+			atackTypeCount = 0;
+			starFram = false;
+			frameCount = 0;
+			canAtack = true;
+			isAtack = false;
+		}
+
+	}
+
 }
 
 void Player::LoadPersonB() {
@@ -554,9 +515,64 @@ void Player::LoadPersonB() {
 	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
 
 
-	arrowAtack1.LoadAnim("arrowPlayr", "atackarrow1", spritePositions);
-	arrowAtack2.LoadAnim("arrowPlayr", "atackarrow2", spritePositions);
 
+
+}
+
+void Player::godMod(float dt) {
+
+	vel = b2Vec2(0, 0);
+	pbody->body->SetLinearVelocity(vel);
+	pbody->body->GetFixtureList()[0].SetSensor(true);
+
+	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+
+		isFacingLeft = true;
+		vel = b2Vec2(-speed * dt, pbody->body->GetLinearVelocity().y);
+		currentAnimation = &run;
+		pbody->body->SetLinearVelocity(vel);
+
+	}
+	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+
+		isFacingLeft = false;
+		vel = b2Vec2(speed * dt, pbody->body->GetLinearVelocity().y);
+		currentAnimation = &run;
+		pbody->body->SetLinearVelocity(vel);
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+
+		isFacingLeft = true;
+		vel = b2Vec2(pbody->body->GetLinearVelocity().x, (-speed * 32));
+		currentAnimation = &run;
+		pbody->body->SetLinearVelocity(vel);
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+		isFacingLeft = false;
+		vel = b2Vec2(pbody->body->GetLinearVelocity().x, (speed * 32));
+		currentAnimation = &run;
+		pbody->body->SetLinearVelocity(vel);
+	}
+
+
+	if (app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN) {
+
+		if (MoveCamere == false) {
+			MoveCamere = true;
+		}
+		else {
+			MoveCamere = false;
+		}
+
+	}
+
+	if (MoveCamere == false) {
+
+		//Camera
+		Camera();
+	}
 }
 
 void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
@@ -573,10 +589,10 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		jumpCount = 0;
 		highjump.Reset();
 		playerOnPlatform = true;
-		
+
 		/*shake = true;
 		shakeDuration = 10;*/
-		
+
 		break;
 	case ColliderType::DEADPLATFORM:
 		LOG("Collision DEADPLATFORM");

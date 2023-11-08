@@ -34,6 +34,10 @@ public:
 	void LoadPersonB();
 	void ShakeCamera(int xOffset, int yOffset);
 	void keyInput(float dt);
+	void Jump();
+	void checkAtack();
+
+	void godMod(float dt);
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 

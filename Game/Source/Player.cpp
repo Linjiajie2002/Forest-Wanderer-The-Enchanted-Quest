@@ -24,31 +24,15 @@ Player::~Player() {
 
 bool Player::Awake() {
 
+	texturePath = parameters.attribute("texturepath").as_string();
+	TSprite = parameters.child("animations").attribute("Tsprite").as_int();
+	SpriteX = parameters.child("animations").attribute("x").as_int();
+	SpriteY = parameters.child("animations").attribute("y").as_int();
+	PhotoWeight = parameters.child("animations").attribute("Pweight").as_int();
+	position.x = parameters.attribute("x").as_int();
+	position.y = parameters.attribute("y").as_int();
+	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
 
-
-	if (changePeson == false) {
-		texturePath = parameters.attribute("texturepath").as_string();
-		TSprite = parameters.child("animations").attribute("Tsprite").as_int();
-		SpriteX = parameters.child("animations").attribute("x").as_int();
-		SpriteY = parameters.child("animations").attribute("y").as_int();
-		PhotoWeight = parameters.child("animations").attribute("Pweight").as_int();
-		position.x = parameters.attribute("x").as_int();
-		position.y = parameters.attribute("y").as_int();
-		spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-
-	}
-	else {
-		texturePath = parameters.attribute("texturepath2").as_string();
-		TSprite = parameters.child("animations2").attribute("Tsprite").as_int();
-		SpriteX = parameters.child("animations2").attribute("x").as_int();
-		SpriteY = parameters.child("animations2").attribute("y").as_int();
-		PhotoWeight = parameters.child("animations2").attribute("Pweight").as_int();
-		position.x = position.x+16;
-		position.y = position.y+16;
-		spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-
-		
-	}
 
 	//data player
 
@@ -70,18 +54,11 @@ bool Player::Awake() {
 	die.LoadAnim("Player", "die", spritePositions);
 	
 
-	arrowAtack1.LoadAnim("arrowPlayr", "atackarrow1", spritePositions);
-	arrowAtack2.LoadAnim("arrowPlayr", "atackarrow2", spritePositions);
-	
-
-
-	
-
-
-
 
 	return true;
 }
+
+
 
 bool Player::Start() {
 
@@ -103,18 +80,21 @@ bool Player::Start() {
 	return true;
 }
 
-bool Player::Update(float dt)
-{
-	if (app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN) {
-		changePeson = true;
-		Awake();
-		Start();
-		currentAnimation = &arrowAtack2;
-		//changePeson = false;
-		
-	}
-	currentAnimation = &idle;
 
+
+bool Player::Update(float dt)
+{/*
+	if (app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN) {
+		LoadPersonB();
+	}*/
+
+	//if (changePeson == true) {
+	//	currentAnimation = &arrowAtack2;
+	//}else{
+	//	currentAnimation = &idle;
+	//}
+
+	currentAnimation = &idle;
 	b2Vec2 vel = b2Vec2(0, pbody->body->GetLinearVelocity().y);
 
 
@@ -122,6 +102,9 @@ bool Player::Update(float dt)
 	//onWall = false;
 
 	app->win->GetWindowSize(width, height);
+
+
+
 
 
 
@@ -410,6 +393,11 @@ bool Player::Update(float dt)
 
 
 
+	if (app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN) {
+		LoadPersonB();
+		currentAnimation = &arrowAtack1;
+	}
+
 
 	//Update player position in pixels
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 50;
@@ -552,6 +540,23 @@ void Player::ShakeCamera(int xOffset, int yOffset) {
 	if (app->render->camera.y >= 0) {
 		app->render->camera.y = 0;
 	}
+}
+
+
+void Player::LoadPersonB() {
+	texturePath = parameters.attribute("texturepath2").as_string();
+	TSprite = parameters.child("animations2").attribute("Tsprite").as_int();
+	SpriteX = parameters.child("animations2").attribute("x").as_int();
+	SpriteY = parameters.child("animations2").attribute("y").as_int();
+	PhotoWeight = parameters.child("animations2").attribute("Pweight").as_int();
+	position.x = parameters.attribute("x").as_int();
+	position.y = parameters.attribute("y").as_int();
+	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
+
+
+	arrowAtack1.LoadAnim("arrowPlayr", "atackarrow1", spritePositions);
+	arrowAtack2.LoadAnim("arrowPlayr", "atackarrow2", spritePositions);
+
 }
 
 void Player::OnCollision(PhysBody* physA, PhysBody* physB) {

@@ -29,7 +29,7 @@ public:
 	bool CleanUp();
 
 	void Camera();
-
+	void LoadPersonB();
 	void ShakeCamera(int xOffset, int yOffset);
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);

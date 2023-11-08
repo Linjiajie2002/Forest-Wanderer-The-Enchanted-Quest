@@ -61,8 +61,8 @@
 		</Player>
 		
 		<arrowPlayr>
-			<atackarrow1 start="0" end="9" speed="10.15f" loop="false"/>
-			<atackarrow2 start="10" end="15" speed="0.15f" loop="false"/>
+			<atackarrow1 start="0" end="9" speed="0.15f" loop="true"/>
+			<atackarrow2 start="10" end="15" speed="0.15f" loop="true"/>
 			
 		</arrowPlayr>
 		<ItemBox>

@@ -43,6 +43,7 @@ bool Player::Awake() {
 
 	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
 	texturePath = parameters.attribute("texturepath").as_string();
+	//texturePath2 = parameters.attribute("texturepath").as_string();
 	
 
 	idle.LoadAnim("Player","idle",spritePositions);
@@ -53,7 +54,11 @@ bool Player::Awake() {
 	atack.LoadAnim("Player","atack",spritePositions);
 	atack2.LoadAnim("Player","atack2",spritePositions);
 	atack3.LoadAnim("Player","atack3",spritePositions);
+	atackarrow.LoadAnim("Player","atackarrow",spritePositions);
 	die.LoadAnim("Player","die",spritePositions);
+
+
+
 
 	return true;
 }
@@ -220,6 +225,7 @@ bool Player::Update(float dt)
 
 					//printf("%d", atackTypeCount);
 				}
+				
 			}
 
 			//printf("F%d ", frameCount);
@@ -272,8 +278,8 @@ bool Player::Update(float dt)
 					canAtack = true;
 					isAtack = false;
 				}
+				
 			}
-
 
 			//Camera
 

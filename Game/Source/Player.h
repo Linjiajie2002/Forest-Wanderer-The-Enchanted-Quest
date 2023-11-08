@@ -44,6 +44,7 @@ public:
 	Animation atack;
 	Animation atack2;
 	Animation atack3;
+	Animation atackarrow;
 	Animation idle3;
 	Animation die;
 	Animation lowjump;
@@ -57,6 +58,7 @@ public:
 	float jumpForce;
 	
 	const char* texturePath;
+	const char* texturePath2;
 	SDL_Texture* texture = NULL;
 	PhysBody* pbody;
 	int pickCoinFxId;
@@ -81,6 +83,7 @@ public:
 	//Atack
 	int atackTypeCount = 0;
 	bool isAtack = false;
+	bool isAtackarrow = false;
 	bool canAtack = true;
 	uint64 frameCount = 0;
 

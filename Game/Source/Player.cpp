@@ -55,6 +55,9 @@ bool Player::Awake() {
 	atack3.LoadAnim("Player", "atack3", spritePositions);
 	die.LoadAnim("Player", "die", spritePositions);
 
+
+
+
 	return true;
 }
 
@@ -222,6 +225,7 @@ bool Player::Update(float dt)
 
 					//printf("%d", atackTypeCount);
 				}
+				
 			}
 
 			//printf("F%d ", frameCount);
@@ -274,8 +278,8 @@ bool Player::Update(float dt)
 					canAtack = true;
 					isAtack = false;
 				}
+				
 			}
-
 
 			//Camera
 

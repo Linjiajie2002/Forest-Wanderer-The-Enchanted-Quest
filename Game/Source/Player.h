@@ -28,9 +28,12 @@ public:
 
 	bool CleanUp();
 
+
+
 	void Camera();
 	void LoadPersonB();
 	void ShakeCamera(int xOffset, int yOffset);
+	void keyInput(float dt);
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
@@ -63,6 +66,8 @@ public:
 	float speed;
 	float crouchspeed;
 	float jumpForce;
+
+	b2Vec2 vel;
 	
 	const char* texturePath;
 	const char* texturePath2;

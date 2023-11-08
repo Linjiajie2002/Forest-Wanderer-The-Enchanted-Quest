@@ -95,7 +95,7 @@ bool Player::Update(float dt)
 	//}
 
 	currentAnimation = &idle;
-	b2Vec2 vel = b2Vec2(0, pbody->body->GetLinearVelocity().y);
+	vel = b2Vec2(0, pbody->body->GetLinearVelocity().y);
 
 
 	//printf("%d",frameCount);
@@ -114,50 +114,9 @@ bool Player::Update(float dt)
 
 			pbody->body->GetFixtureList()[0].SetSensor(false);
 			vel = b2Vec2(0, pbody->body->GetLinearVelocity().y);
-
-			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-				if (!isFacingLeft) {
-					isFacingLeft = false;
-				}
-				currentAnimation = &crouch;
-			}
-
-			if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-
-				isFacingLeft = true;
-				vel = b2Vec2(-speed * dt, pbody->body->GetLinearVelocity().y);
-				currentAnimation = &run;
-
-				/*if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-					vel = b2Vec2(-crouchspeed * dt, pbody->body->GetLinearVelocity().y);
-					currentAnimation = &crouch;
-				}*/
-
-				/*if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && onWall) {
-					printf("%d", onWall);
-					vel = b2Vec2(pbody->body->GetLinearVelocity().x, (-speed * 4) * dt);
-					currentAnimation = &crouch;
-				}*/
-
-			}
-			if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-
-				isFacingLeft = false;
-				vel = b2Vec2(speed * dt, pbody->body->GetLinearVelocity().y);
-				currentAnimation = &run;
-
-				/*if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-					vel = b2Vec2(crouchspeed * dt, pbody->body->GetLinearVelocity().y);
-					currentAnimation = &crouch;
-				}*/
-
-				/*if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && onWall) {
-					printf("%d", onWall);
-					vel = b2Vec2(pbody->body->GetLinearVelocity().x, (-speed * 4) * dt);
-					currentAnimation = &crouch;
-				}*/
-
-			}
+			
+			//Keyboard Input
+			keyInput(dt);
 
 
 			//Set the velocity of the pbody of the player
@@ -202,13 +161,9 @@ bool Player::Update(float dt)
 					}
 				}
 			}
-			else {
-
-			}
 
 			if (playerOnPlatform) {
 				canJump = true;
-
 			}
 
 
@@ -542,6 +497,51 @@ void Player::ShakeCamera(int xOffset, int yOffset) {
 	}
 }
 
+void Player::keyInput(float dt) {
+	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+		if (!isFacingLeft) {
+			isFacingLeft = false;
+		}
+		currentAnimation = &crouch;
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+
+		isFacingLeft = true;
+		vel = b2Vec2(-speed * dt, pbody->body->GetLinearVelocity().y);
+		currentAnimation = &run;
+
+		/*if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+			vel = b2Vec2(-crouchspeed * dt, pbody->body->GetLinearVelocity().y);
+			currentAnimation = &crouch;
+		}*/
+
+		/*if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && onWall) {
+			printf("%d", onWall);
+			vel = b2Vec2(pbody->body->GetLinearVelocity().x, (-speed * 4) * dt);
+			currentAnimation = &crouch;
+		}*/
+
+	}
+	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+
+		isFacingLeft = false;
+		vel = b2Vec2(speed * dt, pbody->body->GetLinearVelocity().y);
+		currentAnimation = &run;
+
+		/*if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+			vel = b2Vec2(crouchspeed * dt, pbody->body->GetLinearVelocity().y);
+			currentAnimation = &crouch;
+		}*/
+
+		/*if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && onWall) {
+			printf("%d", onWall);
+			vel = b2Vec2(pbody->body->GetLinearVelocity().x, (-speed * 4) * dt);
+			currentAnimation = &crouch;
+		}*/
+
+	}
+}
 
 void Player::LoadPersonB() {
 	texturePath = parameters.attribute("texturepath2").as_string();

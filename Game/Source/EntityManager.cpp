@@ -92,6 +92,9 @@ Entity* EntityManager::CreateEntity(EntityType type)
 	case EntityType::ITEMBOX:
 		entity = new ItemBox();
 		break;
+	case EntityType::EFFECT:
+		entity = new Effect();
+		break;
 	default:
 		break;
 	}

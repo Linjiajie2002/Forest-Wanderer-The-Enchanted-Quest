@@ -7,17 +7,40 @@
 
 #include "SDL/include/SDL.h"
 
-class Effect 
+class Effect : public Entity
 {
 public:
 
-	// Constructor
 	Effect();
-	~Effect() {};
-	void Start();
 
+	virtual ~Effect();
+
+	bool Awake();
+
+	bool Start();
+
+	bool Update(float dt);
+
+	bool CleanUp();
+
+public:
+
+	Animation* currentAnimation = nullptr;
+	Animation dieEffect;
+
+	Animation SPosition;
+	SDL_Rect* spritePositions;
+
+	int TSprite;
+	int SpriteX;
+	int SpriteY;
+	int PhotoWeight;
 
 private:
 
+	SDL_Texture* Effecttexture;
+	const char* EffectPath;
+	PhysBody* pbody;
 };
+
 #endif // __ITEM_H__

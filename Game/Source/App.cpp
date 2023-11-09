@@ -9,6 +9,7 @@
 #include "Physics.h"
 #include "Animation.h"
 #include "ItemBox.h"
+#include "Effect.h"
 
 
 

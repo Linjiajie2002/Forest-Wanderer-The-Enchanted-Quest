@@ -40,11 +40,12 @@
 			<animations Tsprite="40" x="34" y="41" Pweight="340"/>
 		</itembox>
 
+		<effect x="40" y="1100" texturepath="Assets/Effecto/Die/Die.png">
+			<animations Tsprite="16" x="48" y="48" Pweight="768"/>
+		</effect>
+
 	 </scene>
 
-	
-
-	
 
 	<Animations>
 		<Player>
@@ -78,8 +79,14 @@
 			<idle4 start="30" end="31" speed="0.15f" loop="false"/>
 			<openBox4 start="31" end="35" speed="0.15f" loop="false"/>
 			<closeBox4 start="36" end="40" speed="0.15f" loop="false"/>
+
+			<DieEffect start="5" end="16" speed="0.15f" loop="true"/>
 			
 		</ItemBox>
+
+		<Effecto>
+			
+		</Effecto>
 	</Animations>
 	
 	<map>

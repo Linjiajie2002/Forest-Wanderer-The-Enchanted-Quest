@@ -12,6 +12,7 @@
 #include "Window.h"
 #include "Render.h"
 #include "Map.h"
+#include "Effect.h"
 
 Player::Player() : Entity(EntityType::PLAYER)
 {

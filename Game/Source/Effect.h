@@ -5,6 +5,8 @@
 #include "Point.h"
 #include "Animation.h"
 
+struct SDL_Texture;
+
 class Effect : public Entity
 {
 public:
@@ -41,4 +43,4 @@ private:
 	PhysBody* pbody;
 };
 
-#endif // __ITEM_H__
+#endif // __EFFECT_H__

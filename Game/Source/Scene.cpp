@@ -42,22 +42,20 @@ bool Scene::Awake(pugi::xml_node& config)
 		itembox->parameters = itemNode;
 	}
 
-	//Add effect
-	for (pugi::xml_node itemNode = config.child("effect"); itemNode; itemNode = itemNode.next_sibling("effect"))
-	{
-		Effect* effect = (Effect*)app->entityManager->CreateEntity(EntityType::EFFECT);
-		effect->parameters = itemNode;
-	}
-
-
-
-
+	
 
 	if (config.child("player")) {
 		player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 		player->parameters = config.child("player");
 	}
 
+
+	//Add effect
+	for (pugi::xml_node itemNode = config.child("effect"); itemNode; itemNode = itemNode.next_sibling("effect"))
+	{
+		Effect* effect = (Effect*)app->entityManager->CreateEntity(EntityType::EFFECT);
+		effect->parameters = itemNode;
+	}
 	return ret;
 }
 

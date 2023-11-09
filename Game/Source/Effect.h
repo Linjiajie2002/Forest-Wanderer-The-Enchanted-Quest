@@ -23,14 +23,15 @@ public:
 
 	bool CleanUp();
 
-	void DeadEffectFuncion();
+	void EffectFuncion();
 	void ReviveEffectFuncion();
 
 public:
 
 	Animation* currentAnimation = nullptr;
-	Animation dieEffect;
-	Animation reviveEffect;
+	Animation* currentAnimation2 = nullptr;
+	Animation OroEffect;
+	Animation GhostEffect;
 
 
 	Animation SPosition;

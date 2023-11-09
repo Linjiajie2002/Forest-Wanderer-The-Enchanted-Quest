@@ -128,7 +128,32 @@ bool Player::Update(float dt)
 
 			//LOG("JumpCount: %d ", jumpCount);
 			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-				Jump();
+				pbody->body->GetFixtureList()[0].SetSensor(true);
+
+
+				if (canJump) {
+					/*if (jumpCount == 1) {
+						jumpForce = 30;
+					}*/
+					vel.y = 0;
+					pbody->body->ApplyLinearImpulse(b2Vec2(0, GRAVITY_Y * jumpForce), pbody->body->GetWorldCenter(), true);
+					jumpCount++;
+					playerOnPlatform = false;
+
+
+					//AniplayerOnPlatform = true;
+
+					if (jumpCount == 2) {
+						//jumpForce = 25;
+						canJump = false;
+					}
+				}
+
+				if (playerOnPlatform) {
+					canJump = true;
+				}
+
+
 
 			}
 
@@ -384,30 +409,7 @@ void Player::keyInput(float dt) {
 
 
 void Player::Jump() {
-	pbody->body->GetFixtureList()[0].SetSensor(true);
 
-
-	if (canJump) {
-		/*if (jumpCount == 1) {
-			jumpForce = 30;
-		}*/
-		vel.y = 0;
-		pbody->body->ApplyLinearImpulse(b2Vec2(0, GRAVITY_Y * jumpForce), pbody->body->GetWorldCenter(), true);
-		jumpCount++;
-		playerOnPlatform = false;
-
-
-		//AniplayerOnPlatform = true;
-
-		if (jumpCount == 2) {
-			//jumpForce = 25;
-			canJump = false;
-		}
-	}
-
-	if (playerOnPlatform) {
-		canJump = true;
-	}
 }
 
 void Player::checkAtack() {

@@ -53,7 +53,7 @@ bool Scene::Awake(pugi::xml_node& config)
 	//Add effect
 	for (pugi::xml_node itemNode = config.child("effect"); itemNode; itemNode = itemNode.next_sibling("effect"))
 	{
-		Effect* effect = (Effect*)app->entityManager->CreateEntity(EntityType::EFFECT);
+		effect = (Effect*)app->entityManager->CreateEntity(EntityType::EFFECT);
 		effect->parameters = itemNode;
 	}
 	return ret;
@@ -145,4 +145,9 @@ bool Scene::CleanUp()
 Player* Scene::GetPlayer() {
 
 	return player;
+}
+
+Effect* Scene::GetEffect() {
+
+	return effect;
 }

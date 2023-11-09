@@ -64,8 +64,8 @@
 		</Player>
 
 		<Effect>
-			<DieEffect start="0" end="16" speed="0.20f" loop="false"/>
-			<ReviveEffect start="0" end="16" speed="0.20f" loop="false"/>
+			<OroEffect start="0" end="16" speed="0.20f" loop="false"/>
+			<GhostEffect start="0" end="16" speed="0.20f" loop="false"/>
 		</Effect>
 
 		<ItemBox>

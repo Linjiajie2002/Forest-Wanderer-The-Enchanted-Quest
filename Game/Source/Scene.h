@@ -4,6 +4,8 @@
 #include "Module.h"
 #include "Player.h"
 #include "Item.h"
+#include "Effect.h"
+
 
 struct SDL_Texture;
 
@@ -36,6 +38,7 @@ public:
 
 
 	Player* GetPlayer();
+	Effect* GetEffect();
 
 
 private:
@@ -44,6 +47,8 @@ private:
 	uint texW, texH;
 	uint windowW, windowH;
 	Player* player;
+
+	Effect* effect;
 
 };
 

@@ -26,7 +26,7 @@ bool Effect::Awake() {
 	SpriteY = parameters.child("animations1").attribute("y").as_int();
 	PhotoWeight = parameters.child("animations1").attribute("Pweight").as_int();
 	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-	dieEffect.LoadAnim("Effect", "DieEffect", spritePositions);
+	OroEffect.LoadAnim("Effect", "OroEffect", spritePositions);
 
 
 	EffectPath2 = parameters.child("animations2").attribute("texturepath").as_string();
@@ -35,7 +35,7 @@ bool Effect::Awake() {
 	SpriteY2 = parameters.child("animations2").attribute("y").as_int();
 	PhotoWeight2 = parameters.child("animations2").attribute("Pweight").as_int();
 	spritePositions2 = SPosition2.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-	reviveEffect.LoadAnim("Effect", "ReviveEffect", spritePositions);
+	GhostEffect.LoadAnim("Effect", "GhostEffect", spritePositions);
 
 	return true;
 }
@@ -49,39 +49,28 @@ bool Effect::Start() {
 	pbody->ctype = ColliderType::EFFECT;
 	pbody->body->SetFixedRotation(true);*/
 
-	currentAnimation = &reviveEffect;
+	currentAnimation = &OroEffect;
+	currentAnimation2 = &GhostEffect;
 	return true;
 }
 
 bool Effect::Update(float dt)
 {
-	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
-		check =!check;
-	}
 
-	if (check == true) {
-	
-		ReviveEffectFuncion();
-	}
 
-	if (check == false) {
-
-		dieEffect.Reset();
-	}
 
 	if (app->scene->GetPlayer()->isDead == true) {
-		//ReviveEffect();
-		DeadEffectFuncion();
-	}
-	else
-	{
 		
-		reviveEffect.Reset();
+		EffectFuncion();
+		OroEffect.Reset();
+
+	}else{
+
+		ReviveEffectFuncion();
+		GhostEffect.Reset();
 	}
 
 
-	/*reviveEffect.Reset();
-	dieEffect.Reset();*/
 	return true;
 }
 
@@ -91,42 +80,31 @@ bool Effect::CleanUp()
 	return true;
 }
 
-void Effect::DeadEffectFuncion()
+void Effect::EffectFuncion()
 {
 
 	position.x = app->scene->GetPlayer()->position.x + 6;//+ 30
 	position.y = app->scene->GetPlayer()->position.y - 16;//+ 18
 
-	SDL_Rect rect = currentAnimation->GetCurrentFrame();
-
-	currentAnimation = &reviveEffect;
-
-	app->render->DrawTexture(Effecttexture2, position.x, position.y, 2, SDL_FLIP_NONE, &rect);
+	SDL_Rect rect2 = currentAnimation2->GetCurrentFrame();
 
 
-
-
-	//app->render->DrawTexture(Boxtexture, position.x, position.y);
-	currentAnimation->Update();
+	currentAnimation2 = &GhostEffect;
+	app->render->DrawTexture(Effecttexture2, position.x, position.y, 2, SDL_FLIP_NONE, &rect2);
+	currentAnimation2->Update();
 
 }
 
 void Effect::ReviveEffectFuncion()
 {
-
 	position.x = app->scene->GetPlayer()->position.x + 6;//+ 30
 	position.y = app->scene->GetPlayer()->position.y - 16;//+ 18
 
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
 
-	currentAnimation = &dieEffect;
 
+	currentAnimation = &OroEffect;
 	app->render->DrawTexture(Effecttexture, position.x, position.y, 2, SDL_FLIP_NONE, &rect);
-
-
-
-
-	//app->render->DrawTexture(Boxtexture, position.x, position.y);
 	currentAnimation->Update();
 
 }

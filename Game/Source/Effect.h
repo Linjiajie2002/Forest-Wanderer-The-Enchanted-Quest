@@ -23,23 +23,43 @@ public:
 
 	bool CleanUp();
 
+	void DeadEffectFuncion();
+	void ReviveEffectFuncion();
+
 public:
 
 	Animation* currentAnimation = nullptr;
 	Animation dieEffect;
+	Animation reviveEffect;
+
 
 	Animation SPosition;
-	SDL_Rect* spritePositions;
+
 
 	int TSprite;
 	int SpriteX;
 	int SpriteY;
 	int PhotoWeight;
+	SDL_Rect* spritePositions;
+	
+
+
+	Animation SPosition2;
+	int TSprite2;
+	int SpriteX2;
+	int SpriteY2;
+	int PhotoWeight2;
+	SDL_Rect* spritePositions2;
+
+	bool check = false;
 
 private:
 
 	SDL_Texture* Effecttexture;
 	const char* EffectPath;
+
+	SDL_Texture* Effecttexture2;
+	const char* EffectPath2;
 	PhysBody* pbody;
 };
 

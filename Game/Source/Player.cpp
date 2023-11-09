@@ -175,21 +175,6 @@ bool Player::Update(float dt)
 			}
 
 
-			if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
-
-				vel = b2Vec2(1, 23);
-				app->scene->GetPlayer()->isDead = false;
-
-				pbody->body->SetTransform(vel, pbody->body->GetAngle());
-			}
-
-
-			if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
-
-				vel = b2Vec2(1, 23);
-				pbody->body->SetTransform(vel, pbody->body->GetAngle());
-
-			}
 
 
 		}
@@ -202,6 +187,21 @@ bool Player::Update(float dt)
 	}//if is dead
 
 
+	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
+
+		vel = b2Vec2(1, 23);
+		app->scene->GetPlayer()->isDead = false;
+
+		pbody->body->SetTransform(vel, pbody->body->GetAngle());
+	}
+
+
+	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
+
+		vel = b2Vec2(1, 23);
+		pbody->body->SetTransform(vel, pbody->body->GetAngle());
+
+	}
 
 	//Update player position in pixels
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 50;
@@ -209,6 +209,7 @@ bool Player::Update(float dt)
 
 	//Die
 	if (isDead) {
+		SDL_Delay(20);
 		currentAnimation = &die;
 
 	}

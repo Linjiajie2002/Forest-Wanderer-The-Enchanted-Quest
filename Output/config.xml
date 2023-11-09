@@ -40,8 +40,9 @@
 			<animations Tsprite="40" x="34" y="41" Pweight="340"/>
 		</itembox>
 		
-		<effect x="40" y="1100" texturepath="Assets/Effecto/Die/Die.png">
-			<animations Tsprite="16" x="48" y="48" Pweight="768"/>
+		<effect>
+			<animations1 Tsprite="16" x="48" y="48" Pweight="768" texturepath="Assets/Effecto/Die/Die.png"/>
+			<animations2 Tsprite="16" x="48" y="48" Pweight="768" texturepath="Assets/Effecto/Revive/Revive.png"/>
 		</effect>
 
 	</scene>
@@ -63,7 +64,8 @@
 		</Player>
 
 		<Effect>
-			<DieEffect start="0" end="15" speed="0.20f" loop="false"/>
+			<DieEffect start="0" end="16" speed="0.20f" loop="false"/>
+			<ReviveEffect start="0" end="16" speed="0.20f" loop="false"/>
 		</Effect>
 
 		<ItemBox>

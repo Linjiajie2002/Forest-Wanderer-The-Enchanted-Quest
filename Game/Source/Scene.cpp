@@ -8,6 +8,7 @@
 #include "Map.h"
 #include "ItemBox.h"
 #include "Effect.h"
+#include "Shop.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -40,6 +41,12 @@ bool Scene::Awake(pugi::xml_node& config)
 	{
 		ItemBox* itembox = (ItemBox*)app->entityManager->CreateEntity(EntityType::ITEMBOX);
 		itembox->parameters = itemNode;
+	}
+
+	for (pugi::xml_node itemNode = config.child("shop"); itemNode; itemNode = itemNode.next_sibling("shop"))
+	{
+		Shop* shop = (Shop*)app->entityManager->CreateEntity(EntityType::SHOP);
+		shop->parameters = itemNode;
 	}
 
 	

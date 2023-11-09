@@ -5,6 +5,7 @@
 #include "Scene.h"
 #include "ItemBox.h"
 #include "Effect.h"
+#include "Shop.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -91,6 +92,9 @@ Entity* EntityManager::CreateEntity(EntityType type)
 		break;
 	case EntityType::ITEMBOX:
 		entity = new ItemBox();
+		break;
+	case EntityType::SHOP:
+		entity = new Shop();
 		break;
 	case EntityType::EFFECT:
 		entity = new Effect();

@@ -45,6 +45,8 @@
 			<animations2 Tsprite="16" x="48" y="48" Pweight="768" texturepath="Assets/Effecto/Revive/Revive.png"/>
 		</effect>
 
+		<shop Posx="120" Posy="985" Tsprite="6" x="118" y="128" Pweight="340" texturepath="Assets/Shop/Shop.png"/>
+
 	</scene>
 
 
@@ -86,7 +88,9 @@
 			<openBox4 start="31" end="35" speed="0.15f" loop="false"/>
 			<closeBox4 start="36" end="40" speed="0.15f" loop="false"/>
 		</ItemBox>
-
+		<Shop>
+			<idle start="0" end="6" speed="0.15f" loop="true"/>
+		</Shop>
 	</Animations>
 
 	<map>

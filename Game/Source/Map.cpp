@@ -418,6 +418,7 @@ Properties::Property* Properties::GetProperty(const char* name)
 }
 
 
+
 bool Map::LoadCollision(std::string layerName) {
 
 

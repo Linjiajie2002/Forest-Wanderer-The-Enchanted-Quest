@@ -556,6 +556,10 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		//position.x = -1;
 
 		break;
+
+	case ColliderType::SHOP:
+
+		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
 		break;

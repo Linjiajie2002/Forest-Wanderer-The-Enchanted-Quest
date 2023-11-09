@@ -29,6 +29,7 @@ enum class ColliderType {
 	PLATFORM, 
 	DEADPLATFORM,
 	WALL,
+	SHOP,
 	EFFECT,
 	UNKNOWN
 	// ..

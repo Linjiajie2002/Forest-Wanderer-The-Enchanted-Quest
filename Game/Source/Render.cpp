@@ -150,7 +150,7 @@ bool Render::DrawTexture(SDL_Texture* texture, int x, int y,SDL_RendererFlip fli
 	return ret;
 }
 // Blit to screen PLAYER
-bool Render::DrawTexture(SDL_Texture* texture, int x, int y, uint scale, SDL_RendererFlip flip,  const SDL_Rect* section, float speed, double angle, int pivotX, int pivotY) const
+bool Render::DrawTexture(SDL_Texture* texture, int x, int y, double scale, SDL_RendererFlip flip,  const SDL_Rect* section, float speed, double angle, int pivotX, int pivotY) const
 {
 	bool ret = true;
 	//uint scale = app->win->GetScale();

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="200" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="16" nextobjectid="6">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="200" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="17" nextobjectid="6">
  <tileset firstgid="1" name="Main" tilewidth="32" tileheight="32" tilecount="625" columns="25">
   <image source="Mapa/Main.png" width="800" height="800"/>
   <wangsets>
@@ -36472,12 +36472,12 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="3282"/>
-   <tile gid="3283"/>
-   <tile gid="3284"/>
-   <tile gid="3285"/>
-   <tile gid="3286"/>
-   <tile gid="3287"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -36672,12 +36672,12 @@
    <tile gid="1"/>
    <tile/>
    <tile/>
-   <tile gid="3288"/>
-   <tile gid="3289"/>
-   <tile gid="3290"/>
-   <tile gid="3291"/>
-   <tile gid="3292"/>
-   <tile gid="3293"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -36872,12 +36872,12 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="3294"/>
-   <tile gid="3295"/>
-   <tile gid="3296"/>
-   <tile gid="3297"/>
-   <tile gid="3298"/>
-   <tile gid="3299"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -37072,12 +37072,12 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="3300"/>
-   <tile gid="3301"/>
-   <tile gid="3302"/>
-   <tile gid="3303"/>
-   <tile gid="3304"/>
-   <tile gid="3305"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile gid="37"/>
@@ -37272,12 +37272,12 @@
    <tile gid="4"/>
    <tile gid="43"/>
    <tile/>
-   <tile gid="3306"/>
-   <tile gid="3307"/>
-   <tile gid="3308"/>
-   <tile gid="3309"/>
-   <tile gid="3310"/>
-   <tile gid="3311"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile gid="37"/>
    <tile gid="62"/>
@@ -37472,12 +37472,12 @@
    <tile gid="84"/>
    <tile gid="68"/>
    <tile gid="43"/>
-   <tile gid="3312"/>
-   <tile gid="3313"/>
-   <tile gid="3314"/>
-   <tile gid="3315"/>
-   <tile gid="3316"/>
-   <tile gid="3317"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile gid="37"/>
    <tile gid="62"/>
    <tile gid="58"/>

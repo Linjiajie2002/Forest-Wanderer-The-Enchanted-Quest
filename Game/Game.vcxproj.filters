@@ -64,6 +64,9 @@
     <ClCompile Include="Source\Effect.cpp">
       <Filter>Modules\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Shop.cpp">
+      <Filter>Modules\Shop</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Defs.h">
@@ -156,6 +159,9 @@
     <ClInclude Include="Source\Effect.h">
       <Filter>Modules\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Shop.h">
+      <Filter>Modules\Shop</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
@@ -205,6 +211,9 @@
     </Filter>
     <Filter Include="Modules\Effect">
       <UniqueIdentifier>{a77800a6-3d20-4942-836c-5e2c47ee2817}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Shop">
+      <UniqueIdentifier>{938c6716-d0fc-46b7-b3d1-8e926afa1e33}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

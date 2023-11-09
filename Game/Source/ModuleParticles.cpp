@@ -35,8 +35,6 @@ bool ModuleParticles::Awake(pugi::xml_node& config)
 	texturePath = (config.child("mainParticleTexture").attribute("texturepath").as_string());
 
 
-
-
 	shurikenL.anim.PushBack({ 103, 292, 13, 10 });
 	shurikenL.anim.PushBack({ 120, 292, 13, 10 });
 	shurikenL.anim.PushBack({ 137, 292, 13, 10 });

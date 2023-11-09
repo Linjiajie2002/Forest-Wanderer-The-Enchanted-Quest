@@ -86,16 +86,15 @@ bool Player::Start() {
 
 bool Player::Update(float dt)
 {
-
 	currentAnimation = &idle;
 	vel = b2Vec2(0, pbody->body->GetLinearVelocity().y);
-
 
 	//printf("%d",frameCount);
 	//onWall = false;
 
-	app->win->GetWindowSize(width, height);
+	//printf("%d", vel.y);
 
+	app->win->GetWindowSize(width, height);
 
 	if (!isDead) {
 
@@ -126,6 +125,9 @@ bool Player::Update(float dt)
 
 			}
 
+			if (playerOnPlatform) {
+				canJump = true;
+			}
 			//LOG("JumpCount: %d ", jumpCount);
 			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 				pbody->body->GetFixtureList()[0].SetSensor(true);
@@ -148,13 +150,6 @@ bool Player::Update(float dt)
 						canJump = false;
 					}
 				}
-
-				if (playerOnPlatform) {
-					canJump = true;
-				}
-
-
-
 			}
 
 
@@ -183,24 +178,22 @@ bool Player::Update(float dt)
 				}
 
 			}
-
 			checkAtack();
 
-			if (shake == true) {
+			Camera();
+			//if (false) {
 
-				if (shakeDuration > 0) {
-					xOffset = (rand() % (2 * shakeMagnitude + 1)) - shakeMagnitude;
-					yOffset = (rand() % (2 * shakeMagnitude + 1)) - shakeMagnitude;
-					ShakeCamera(xOffset, yOffset);
-					shakeDuration--;
-				}
-			}
-			else {
-				Camera();
-			}
-
-
-
+			//	if (shakeDuration > 0) {
+			//		xOffset = (rand() % (2 * shakeMagnitude + 1)) - shakeMagnitude;
+			//		yOffset = (rand() % (2 * shakeMagnitude + 1)) - shakeMagnitude;
+			//		ShakeCamera(xOffset, yOffset);
+			//		shakeDuration--;
+			//	}
+			//	firstTouchPlantform = 1;
+			//}
+			//else {
+			//	/*Camera();*/
+			//}
 
 		}
 		else
@@ -257,15 +250,13 @@ bool Player::Update(float dt)
 	else
 	{
 		app->render->DrawTexture(texture, position.x, position.y - 6, 2, SDL_FLIP_NONE, &rect);
+	
 	}
-
-
 
 	currentAnimation->Update();
 
 	//cargar siempre despues de dibujar al player
 	app->map->UpdateDelante();
-
 
 
 	return true;
@@ -527,6 +518,8 @@ void Player::godMod(float dt) {
 
 }
 
+
+
 void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 	switch (physB->ctype)
@@ -541,9 +534,10 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		jumpCount = 0;
 		highjump.Reset();
 		playerOnPlatform = true;
+		playerCheckAir = !playerCheckAir;
 
-		/*shake = true;
-		shakeDuration = 10;*/
+		/*shake = true;*/
+		shakeDuration = 10;
 
 		break;
 	case ColliderType::DEADPLATFORM:

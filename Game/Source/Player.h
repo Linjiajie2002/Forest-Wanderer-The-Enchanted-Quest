@@ -40,6 +40,9 @@ public:
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
+	
+	
+
 
 
 	Animation* currentAnimation = nullptr;
@@ -70,6 +73,9 @@ public:
 	float crouchspeed;
 	float jumpForce;
 
+	PhysBody* physA = new PhysBody();
+	PhysBody* physB = new PhysBody();
+
 	b2Vec2 vel;
 	
 	const char* texturePath;
@@ -89,6 +95,7 @@ public:
 	//Jump
 	bool canJump = true;
 	bool playerOnPlatform = true;
+	bool playerCheckAir = false;
 	int jumpCount = 0;
 	bool isDead = false;
 	bool AniplayerOnPlatform = false;
@@ -118,6 +125,7 @@ public:
 	//Shake
 	int shakeDuration = 0; 
 	int shakeMagnitude = 5;
+	int firstTouchPlantform = 0;
 
 	bool shake = false;
 

@@ -146,6 +146,7 @@ public:
 	int fondox;
 	int fondoy;
 
+
 	iPoint startPointcolisions = iPoint(-1, -1);
 	iPoint colisionsPointsSize = iPoint(-1, -1);
 	iPoint colisionsLastCords = iPoint(-1, -1);

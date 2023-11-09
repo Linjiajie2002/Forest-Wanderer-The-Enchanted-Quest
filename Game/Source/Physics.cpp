@@ -355,6 +355,7 @@ void Physics::BeginContact(b2Contact* contact)
 		physB->listener->OnCollision(physB, physA);
 }
 
+
 //--------------- PhysBody
 
 void PhysBody::GetPosition(int& x, int& y) const

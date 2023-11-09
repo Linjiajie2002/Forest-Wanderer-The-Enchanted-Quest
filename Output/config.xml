@@ -61,6 +61,11 @@
 			<atackarrow1 start="113" end="121" speed="0.15f" loop="true"/>
 			<atackarrow2 start="122" end="127" speed="0.15f" loop="true"/>
 		</Player>
+
+		<Effect>
+			<DieEffect start="10" end="12" speed="0.15f" loop="true"/>
+		</Effect>
+
 		<ItemBox>
 
 			<idle start="20" end="21" speed="0.15f" loop="false"/>
@@ -80,13 +85,9 @@
 			<openBox4 start="31" end="35" speed="0.15f" loop="false"/>
 			<closeBox4 start="36" end="40" speed="0.15f" loop="false"/>
 
-			<DieEffect start="5" end="16" speed="0.15f" loop="true"/>
 			
 		</ItemBox>
 
-		<Effecto>
-			
-		</Effecto>
 	</Animations>
 	
 	<map>

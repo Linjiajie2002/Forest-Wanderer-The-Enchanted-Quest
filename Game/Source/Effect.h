@@ -1,11 +1,9 @@
 #ifndef __EFFECT_H__
 #define __EFFECT_H__
 
-
+#include "Entity.h"
 #include "Point.h"
 #include "Animation.h"
-
-#include "SDL/include/SDL.h"
 
 class Effect : public Entity
 {

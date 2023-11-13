@@ -215,5 +215,8 @@
     <Filter Include="Modules\Shop">
       <UniqueIdentifier>{938c6716-d0fc-46b7-b3d1-8e926afa1e33}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Modules\FadeToBlack">
+      <UniqueIdentifier>{1de680f4-db3d-4b7d-b801-b14f1b74ae51}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

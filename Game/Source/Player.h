@@ -72,9 +72,8 @@ public:
 	float speed;
 	float crouchspeed;
 	float jumpForce;
-
-	PhysBody* physA = new PhysBody();
-	PhysBody* physB = new PhysBody();
+	
+	bool NoControl = true;
 
 	b2Vec2 vel;
 	

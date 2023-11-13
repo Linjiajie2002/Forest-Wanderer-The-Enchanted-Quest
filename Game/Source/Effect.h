@@ -32,7 +32,7 @@ public:
 	Animation* currentAnimation2 = nullptr;
 	Animation OroEffect;
 	Animation GhostEffect;
-
+	Animation dieEffect;
 
 	Animation SPosition;
 

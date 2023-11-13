@@ -117,7 +117,6 @@ public:
 
 			}
 		}
-		
 		this->speed = AniInfo.attribute("speed").as_float();
 		this->loop = AniInfo.attribute("loop").as_bool();
 	}

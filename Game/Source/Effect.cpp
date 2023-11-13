@@ -29,13 +29,21 @@ bool Effect::Awake() {
 	OroEffect.LoadAnim("Effect", "OroEffect", spritePositions);
 
 
-	EffectPath2 = parameters.child("animations2").attribute("texturepath").as_string();
+	/*EffectPath2 = parameters.child("animations2").attribute("texturepath").as_string();
 	TSprite2 = parameters.child("animations2").attribute("Tsprite").as_int();
 	SpriteX2 = parameters.child("animations2").attribute("x").as_int();
 	SpriteY2 = parameters.child("animations2").attribute("y").as_int();
 	PhotoWeight2 = parameters.child("animations2").attribute("Pweight").as_int();
-	spritePositions2 = SPosition2.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-	GhostEffect.LoadAnim("Effect", "GhostEffect", spritePositions);
+	spritePositions2 = SPosition2.SpritesPos(TSprite2, SpriteX2, SpriteY2, PhotoWeight2);
+	GhostEffect.LoadAnim("Effect", "GhostEffect", spritePositions2);*/
+
+	EffectPath2 = parameters.child("animations3").attribute("texturepath").as_string();
+	TSprite2 = parameters.child("animations3").attribute("Tsprite").as_int();
+	SpriteX2 = parameters.child("animations3").attribute("x").as_int();
+	SpriteY2 = parameters.child("animations3").attribute("y").as_int();
+	PhotoWeight2 = parameters.child("animations3").attribute("Pweight").as_int();
+	spritePositions2 = SPosition2.SpritesPos(TSprite2, SpriteX2, SpriteY2, PhotoWeight2);
+	GhostEffect.LoadAnim("Effect", "Die4", spritePositions2);
 
 	return true;
 }
@@ -77,20 +85,26 @@ bool Effect::Update(float dt)
 
 bool Effect::CleanUp()
 {
+
+	currentAnimation->HasFinished();
+	currentAnimation2->HasFinished();
 	return true;
 }
 
 void Effect::EffectFuncion()
 {
 
-	position.x = app->scene->GetPlayer()->position.x + 6;//+ 30
-	position.y = app->scene->GetPlayer()->position.y - 16;//+ 18
+	//position.x = app->scene->GetPlayer()->position.x + 6;//+ 30
+	//position.y = app->scene->GetPlayer()->position.y - 16;//+ 18
+
+	position.x = app->scene->GetPlayer()->position.x + 20;//+ 30
+	position.y = app->scene->GetPlayer()->position.y -25;//+ 18
 
 	SDL_Rect rect2 = currentAnimation2->GetCurrentFrame();
 
 
 	currentAnimation2 = &GhostEffect;
-	app->render->DrawTexture(Effecttexture2, position.x, position.y, 2, SDL_FLIP_NONE, &rect2);
+	app->render->DrawTexture(Effecttexture2, position.x, position.y, 0.8, SDL_FLIP_NONE, &rect2);//0.8 , 2 
 	currentAnimation2->Update();
 
 }

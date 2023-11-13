@@ -96,7 +96,16 @@ bool Player::Update(float dt)
 
 	app->win->GetWindowSize(width, height);
 
-	if (!isDead) {
+	if (isDead) {
+		NoControl = false;
+	}
+	else {
+		NoControl = true;
+	}
+
+
+
+	if (NoControl) {
 
 		if (!app->godMode) {
 
@@ -194,6 +203,7 @@ bool Player::Update(float dt)
 			//else {
 			//	/*Camera();*/
 			//}
+			
 
 		}
 		else
@@ -225,19 +235,19 @@ bool Player::Update(float dt)
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 50;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 35;
 
+	
 	//Die
 	if (isDead) {
 		SDL_Delay(20);
 		currentAnimation = &die;
-
 	}
+
+
 
 	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) {
 		isDead = !isDead;
 		die.Reset();
 	}
-
-
 
 
 	//app->render->DrawTexture(texture, position.x, position.y);

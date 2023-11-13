@@ -7,7 +7,7 @@
 #include "Timer.h"
 #include "EntityManager.h"
 #include "Animation.h"
-
+#include "ModuleFadeToBlack.h"
 
 #include "PugiXml/src/pugixml.hpp"
 
@@ -22,6 +22,7 @@ class EntityManager;
 class Map;
 class Physics;
 class Animation;
+class ModuleFadeToBlack;
 
 
 
@@ -92,7 +93,7 @@ public:
 	Map* map;
 	Physics* physics;
 	Animation* animation;
-	
+	ModuleFadeToBlack* fade;
 
 	int FpsNum = 16;
 

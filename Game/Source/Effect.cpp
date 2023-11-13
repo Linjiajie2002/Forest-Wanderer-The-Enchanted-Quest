@@ -45,6 +45,15 @@ bool Effect::Awake() {
 	spritePositions2 = SPosition2.SpritesPos(TSprite2, SpriteX2, SpriteY2, PhotoWeight2);
 	GhostEffect.LoadAnim("Effect", "Die4", spritePositions2);
 
+
+	/*EffectPath2 = parameters.child("animations4").attribute("texturepath").as_string();
+	TSprite2 = parameters.child("animations4").attribute("Tsprite").as_int();
+	SpriteX2 = parameters.child("animations4").attribute("x").as_int();
+	SpriteY2 = parameters.child("animations4").attribute("y").as_int();
+	PhotoWeight2 = parameters.child("animations4").attribute("Pweight").as_int();
+	spritePositions2 = SPosition2.SpritesPos(TSprite2, SpriteX2, SpriteY2, PhotoWeight2);
+	GhostEffect.LoadAnim("Effect", "HealEffect", spritePositions2);*/
+
 	return true;
 }
 
@@ -85,9 +94,8 @@ bool Effect::Update(float dt)
 
 bool Effect::CleanUp()
 {
-
-	currentAnimation->HasFinished();
-	currentAnimation2->HasFinished();
+	SDL_DestroyTexture(Effecttexture);
+	SDL_DestroyTexture(Effecttexture2);
 	return true;
 }
 

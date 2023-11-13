@@ -60,6 +60,33 @@ public:
 	SString name;
 	bool active;
 
+private:
+	bool isEnabled = true;
+
+public:
+	
+
+	void Module::Enable()
+	{
+		if (!isEnabled)
+		{
+			isEnabled = true;
+			Start();
+		}
+	}
+
+	void Module::Disable()
+	{
+		// TODO 0: Call CleanUp() for disabling a module
+		if (isEnabled)
+		{
+			isEnabled = false;
+			CleanUp();
+		}
+	}
+
+
 };
+
 
 #endif // __MODULE_H__

@@ -10,7 +10,7 @@
 #include "Animation.h"
 #include "ItemBox.h"
 #include "Effect.h"
-
+#include "ModuleFadeToBlack.h"
 
 
 #include "Defs.h"
@@ -39,7 +39,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	map = new Map();
 	entityManager = new EntityManager();
 	animation = new Animation();
-	
+	fade = new ModuleFadeToBlack();
 
 
 	// Ordered for awake / Start / Update
@@ -57,6 +57,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	// Render last to swap buffer
 	AddModule(render);
+	AddModule(fade);
 
 	LOG("Timer App Constructor: %f", timer.ReadMSec());
 }

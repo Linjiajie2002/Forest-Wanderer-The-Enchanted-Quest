@@ -25,8 +25,9 @@
 	</audio>
 
 	<scene>
-		<player x="40" y="1100" speed="0.4f" crouchspeed="0.1f" jumpforce="15" texturepath="Assets/Sprite/Player/Player.png" >
-			<animations Tsprite="133" x="50" y="37" Pweight="350"/>
+		<player x="40" y="1100" speed="0.4f" crouchspeed="0.1f" jumpforce="15" texturepath="Assets/Sprite/Player/Player.png" ><!--x="40" y="1100"-->
+			<animations Tsprite="374" x="288" y="128" Pweight="6336"/>
+			<!--<animations Tsprite="133" x="50" y="37" Pweight="350"/> -->
 			<audio texturepath="Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg"/>
 		</player>
 
@@ -54,7 +55,7 @@
 
 	<Animations>
 		<Player>
-			<idle start="0" end="4" speed="0.15f" loop="true"/>
+		<!--<idle start="0" end="4" speed="0.15f" loop="true"/>
 			<crouch start="5" end="8" speed="0.08f" loop="true"/>
 			<run start="9" end="14" speed="0.08f" loop="true"/>
 			<highjump start="15" end="24" speed="0.4f" loop="true"/>
@@ -64,7 +65,31 @@
 			<atack3 start="96" end="100" speed="0.2f" loop="false"/>
 			<die start="64" end="69" speed="0.1f" loop="false"/>
 			<atackarrow1 start="113" end="121" speed="0.15f" loop="true"/>
-			<atackarrow2 start="122" end="127" speed="0.15f" loop="true"/>
+			<atackarrow2 start="122" end="127" speed="0.15f" loop="true"/>  -->
+			<idle start="0" end="12" speed="0.2f" loop="true"/>
+			<run start="23" end="32" speed="0.08f" loop="true"/>
+			
+			<die start="353" end="369" speed="0.3f" loop="false"/>
+			<defend_on start="309" end="320" speed="0.2f" loop="false"/>
+			<defend_off start="321" end="327" speed="0.2f" loop="false"/>
+
+			<take_hit start="331" end="336" speed="0.3f" loop="false"/>
+			
+			
+			<close_atk start="221" end="230" speed="0.2f" loop="false"/>
+			<air_atk start="155" end="164" speed="0.2f" loop="false"/>
+			<arrow_atk start="243" end="257" speed="0.2f" loop="false"/>
+			<scope_atk start="265" end="276" speed="0.2f" loop="false"/>
+			<sp_atk start="287" end="303" speed="0.2f" loop="false"/>
+
+			<on_ground start="64" end="66" speed="0.2f" loop="false"/>
+
+			<Jump_UP start="15" end="24" speed="0.4f" loop="true"/>
+			<Jump_DOWN start="15" end="24" speed="0.4f" loop="true"/>
+			
+			<roll start="25" end="29" speed="0.1f" loop="false"/>
+			<slide start="25" end="29" speed="0.1f" loop="false"/>
+
 		</Player>
 
 		<Effect>

@@ -45,17 +45,22 @@ bool Player::Awake() {
 	//printf("%d %d %d %d", TSprite, SpriteX, SpriteY, PhotoWeight);
 
 	idle.LoadAnim("Player", "idle", spritePositions);
-	crouch.LoadAnim("Player", "crouch", spritePositions);
-	run.LoadAnim("Player", "run", spritePositions);
-	highjump.LoadAnim("Player", "highjump", spritePositions);
-	slide.LoadAnim("Player", "slide", spritePositions);
-	atack.LoadAnim("Player", "atack", spritePositions);
-	atack2.LoadAnim("Player", "atack2", spritePositions);
-	atack3.LoadAnim("Player", "atack3", spritePositions);
 	die.LoadAnim("Player", "die", spritePositions);
-	arrowAtack1.LoadAnim("Player", "atackarrow1", spritePositions);
-	arrowAtack2.LoadAnim("Player", "atackarrow2", spritePositions);
+	run.LoadAnim("Player", "run", spritePositions);
+	defend_on.LoadAnim("Player", "defend_on", spritePositions);
+	defend_off.LoadAnim("Player", "defend_off", spritePositions);
+	takehit.LoadAnim("Player", "take_hit", spritePositions);
+	onground.LoadAnim("Player", "on_ground", spritePositions);
 
+	close_atk.LoadAnim("Player", "close_atk", spritePositions);
+	arrow_atk.LoadAnim("Player", "arrow_atk", spritePositions);
+	air_atk.LoadAnim("Player", "air_atk", spritePositions);
+	scope_atk.LoadAnim("Player", "scope_atk", spritePositions);
+	sp_atk.LoadAnim("Player", "sp_atk", spritePositions);
+
+
+
+	slide.LoadAnim("Player", "slide", spritePositions);
 
 	return true;
 }
@@ -171,23 +176,59 @@ bool Player::Update(float dt)
 				starFram = false;
 			}
 
-			if (canAtack) {
-				if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN) {
-					if (atackTypeCount > 3) {
-						atackTypeCount = 1;
-					}
-					else
-					{
-						atackTypeCount++;
-					}
-					//printf("yes");
-					isAtack = true;
+			//if (canAtack) {
+			//	if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN) {
+			//		//if (atackTypeCount > 3) {
+			//		//	atackTypeCount = 1;
+			//		//}
+			//		//else
+			//		//{
+			//		//	atackTypeCount++;
+			//		//}
+			//		////printf("yes");
+			//		//isAtack = true;
+			//		
+			//		//printf("%d", atackTypeCount);
+			//		canAtack = true;
+			//	}
+			//	currentAnimation = &atack;
+			//
 
-					//printf("%d", atackTypeCount);
-				}
+			//}
+			//checkAtack();
+			if (test) {
+				test2 = false;
+				defend_off.Reset();
+				currentAnimation = &defend_on;
+			}
+
+			if (test2) {
+				currentAnimation = &defend_off;
 
 			}
-			checkAtack();
+		
+			
+			if (app->input->GetKey(SDL_SCANCODE_J) == KEY_UP) {
+				test2 = true;
+
+				defend_on.Reset();
+				defend_off.Reset();
+				close_atk.Reset();
+				scope_atk.Reset();
+				sp_atk.Reset();
+				air_atk.Reset();
+				arrow_atk.Reset();
+			}
+
+			if (app->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT) {
+				test = true;
+			}
+			else
+			{
+				test = false;
+			}
+
+			
 
 			Camera();
 			//if (false) {
@@ -255,11 +296,11 @@ bool Player::Update(float dt)
 
 	if (isFacingLeft) {
 
-		app->render->DrawTexture(texture, position.x, position.y - 6, 2, SDL_FLIP_HORIZONTAL, &rect);
+		app->render->DrawTexture(texture, position.x- 135, position.y - 97, 1.3, SDL_FLIP_HORIZONTAL, &rect);//-6
 	}
 	else
 	{
-		app->render->DrawTexture(texture, position.x, position.y - 6, 2, SDL_FLIP_NONE, &rect);
+		app->render->DrawTexture(texture, position.x-135, position.y - 97, 1.3, SDL_FLIP_NONE, &rect);//-6
 	
 	}
 
@@ -413,60 +454,60 @@ void Player::Jump() {
 
 }
 
-void Player::checkAtack() {
-
-	if (isAtack) {
-		if (frameCount >= 200) {
-			//printf("1");
-			atackTypeCount = 1;
-			frameCount = 0;
-		}
-		if (atackTypeCount == 1) {
-
-			currentAnimation = &atack;
-			canAtack = false;
-
-		}
-
-		if (atackTypeCount == 2) {
-			currentAnimation = &atack2;
-			canAtack = false;
-		}
-
-		if (atackTypeCount == 3) {
-			//printf("3");
-			currentAnimation = &atack3;
-			canAtack = false;
-		}
-
-
-		if (atack.HasFinished()) {
-			atack.Reset();
-			isAtack = false;
-			canAtack = true;
-			frameCount = 0;
-			starFram = true;
-		}
-
-		if (atack2.HasFinished()) {
-			atack2.Reset();
-			isAtack = false;
-			canAtack = true;
-			frameCount = 0;
-			starFram = true;
-		}
-		if (atack3.HasFinished()) {
-			atack3.Reset();
-			atackTypeCount = 0;
-			starFram = false;
-			frameCount = 0;
-			canAtack = true;
-			isAtack = false;
-		}
-
-	}
-
-}
+//void Player::checkAtack() {
+//
+//	if (isAtack) {
+//		if (frameCount >= 200) {
+//			//printf("1");
+//			atackTypeCount = 1;
+//			frameCount = 0;
+//		}
+//		if (atackTypeCount == 1) {
+//
+//			currentAnimation = &atack;
+//			canAtack = false;
+//
+//		}
+//
+//		if (atackTypeCount == 2) {
+//			currentAnimation = &atack2;
+//			canAtack = false;
+//		}
+//
+//		if (atackTypeCount == 3) {
+//			//printf("3");
+//			currentAnimation = &atack3;
+//			canAtack = false;
+//		}
+//
+//
+//		if (atack.HasFinished()) {
+//			atack.Reset();
+//			isAtack = false;
+//			canAtack = true;
+//			frameCount = 0;
+//			starFram = true;
+//		}
+//
+//		if (atack2.HasFinished()) {
+//			atack2.Reset();
+//			isAtack = false;
+//			canAtack = true;
+//			frameCount = 0;
+//			starFram = true;
+//		}
+//		if (atack3.HasFinished()) {
+//			atack3.Reset();
+//			atackTypeCount = 0;
+//			starFram = false;
+//			frameCount = 0;
+//			canAtack = true;
+//			isAtack = false;
+//		}
+//
+//	}
+//
+//}
 
 
 void Player::godMod(float dt) {

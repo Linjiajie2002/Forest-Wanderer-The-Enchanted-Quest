@@ -48,22 +48,25 @@ public:
 	Animation* currentAnimation = nullptr;
 
 	Animation SPosition;
+
 	Animation idle;
-	Animation crouch;
 	Animation run;
+	Animation defend_on;
+	Animation defend_off;
+	Animation takehit;
+	Animation die;
+
+	Animation crouch;
 	Animation highjump;
 	Animation slide;
-	Animation idle2;
-	Animation atack;
-	Animation atack2;
-	Animation atack3;
-	Animation atackarrow;
-	Animation idle3;
-	Animation die;
-	Animation lowjump;
+	Animation onground;
+	
+	Animation close_atk;
+	Animation air_atk;
+	Animation arrow_atk;
+	Animation scope_atk;
+	Animation sp_atk;
 
-	Animation arrowAtack1;
-	Animation arrowAtack2;
 	
 	SDL_Rect* spritePositions;
 
@@ -136,6 +139,10 @@ public:
 
 	bool changePeson = false;
 	bool isAir = false;
+
+
+	bool test = false;
+	bool test2 = false;
 
 };
 

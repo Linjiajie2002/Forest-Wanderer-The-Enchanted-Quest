@@ -59,8 +59,13 @@ bool Player::Awake() {
 	sp_atk.LoadAnim("Player", "sp_atk", spritePositions);
 
 
-
+	roll.LoadAnim("Player", "roll", spritePositions);
 	slide.LoadAnim("Player", "slide", spritePositions);
+
+
+	Jump_UP.LoadAnim("Player", "Jump_UP", spritePositions);
+	Jump_DOWN.LoadAnim("Player", "Jump_DOWN", spritePositions);
+	Jump_DOWN_LOOP.LoadAnim("Player", "Jump_DOWN_LOOP", spritePositions);
 
 	return true;
 }
@@ -125,17 +130,24 @@ bool Player::Update(float dt)
 			vel.y -= GRAVITY_Y;
 			pbody->body->SetLinearVelocity(vel);
 
+			//printf("%d\n", vel.y);
+			printf("PosY> %d \n", position.y);
+
 
 
 			//Jump
 			if (jumpCount > 0) {
 
-				currentAnimation = &highjump;
+				
+				currentAnimation = &Jump_UP;
 
 
 				if (AniplayerOnPlatform) {
 					currentAnimation = &slide;
 				}
+
+			}else{
+				Jump_UP.Reset();
 
 			}
 
@@ -196,39 +208,6 @@ bool Player::Update(float dt)
 
 			//}
 			//checkAtack();
-			if (test) {
-				test2 = false;
-				defend_off.Reset();
-				currentAnimation = &defend_on;
-			}
-
-			if (test2) {
-				currentAnimation = &defend_off;
-
-			}
-		
-			
-			if (app->input->GetKey(SDL_SCANCODE_J) == KEY_UP) {
-				test2 = true;
-
-				defend_on.Reset();
-				defend_off.Reset();
-				close_atk.Reset();
-				scope_atk.Reset();
-				sp_atk.Reset();
-				air_atk.Reset();
-				arrow_atk.Reset();
-			}
-
-			if (app->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT) {
-				test = true;
-			}
-			else
-			{
-				test = false;
-			}
-
-			
 
 			Camera();
 			//if (false) {

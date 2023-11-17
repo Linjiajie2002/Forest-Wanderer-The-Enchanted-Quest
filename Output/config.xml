@@ -82,13 +82,15 @@
 			<scope_atk start="265" end="276" speed="0.2f" loop="false"/>
 			<sp_atk start="287" end="303" speed="0.2f" loop="false"/>
 
-			<on_ground start="64" end="66" speed="0.2f" loop="false"/>
-
-			<Jump_UP start="15" end="24" speed="0.4f" loop="true"/>
-			<Jump_DOWN start="15" end="24" speed="0.4f" loop="true"/>
 			
-			<roll start="25" end="29" speed="0.1f" loop="false"/>
-			<slide start="25" end="29" speed="0.1f" loop="false"/>
+
+			<Jump_UP start="45" end="53" speed="0.2f" loop="false"/>
+			<Jump_DOWN start="54" end="63" speed="0.2f" loop="false"/>
+			<Jump_DOWN_LOOP start="111" end="113" speed="0.2f" loop="true"/>
+			<on_ground start="64" end="66" speed="0.2f" loop="false"/>
+			
+			<roll start="176" end="183" speed="0.2f" loop="false"/>
+			<slide start="199" end="211" speed="0.2f" loop="false"/>
 
 		</Player>
 

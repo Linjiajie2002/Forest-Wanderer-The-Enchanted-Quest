@@ -56,9 +56,14 @@ public:
 	Animation takehit;
 	Animation die;
 
+	Animation Jump_UP;
+	Animation Jump_DOWN;
+	Animation Jump_DOWN_LOOP;
+
 	Animation crouch;
 	Animation highjump;
 	Animation slide;
+	Animation roll;
 	Animation onground;
 	
 	Animation close_atk;

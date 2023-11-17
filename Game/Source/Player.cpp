@@ -135,6 +135,8 @@ bool Player::Update(float dt)
 
 
 
+
+
 			//Jump
 			if (jumpCount > 0) {
 
@@ -424,6 +426,21 @@ void Player::keyInput(float dt) {
 
 	}
 
+
+	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+		currentAnimation = &defend_on;
+		defend_off.Reset();
+		In_defend = true;
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_UP) {
+		In_defend = false;
+		defend_on.Reset();
+	}
+
+	if (!In_defend) {
+		currentAnimation = &defend_off;
+	}
 
 
 }

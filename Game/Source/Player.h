@@ -146,7 +146,7 @@ public:
 	bool isAir = false;
 
 
-	bool test = false;
+	bool In_defend = true;
 	bool test2 = false;
 
 };

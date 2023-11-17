@@ -443,6 +443,13 @@ void Player::keyInput(float dt) {
 	}
 
 
+
+	if (app->input->GetKey(SDL_SCANCODE_I) == KEY_REPEAT) {
+		currentAnimation = &defend_on;
+		defend_off.Reset();
+		In_defend = true;
+	}
+
 }
 
 

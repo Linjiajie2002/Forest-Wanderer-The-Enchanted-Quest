@@ -35,12 +35,12 @@ public:
 	void keyInput(float dt);
 	void Jump();
 	void checkAtack();
-
 	void godMod(float dt);
-
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
-	
+
+	void AtackAnimation(char* atackname);
+	void RetAtkAni(Animation* ani, bool* anib);
 	
 
 
@@ -73,6 +73,7 @@ public:
 	Animation sp_atk;
 
 	
+	Animation* ResetAtackAnimation = nullptr;
 	SDL_Rect* spritePositions;
 
 
@@ -113,7 +114,12 @@ public:
 	int atackTypeCount = 0;
 	bool isAtack = false;
 	bool isAtackarrow = false;
-	bool canAtack = true;
+	
+	bool is_close_atk = false;
+	bool is_sp_atk = false;
+	
+	bool* atkReset;
+
 	uint64 frameCount = 0;
 
 

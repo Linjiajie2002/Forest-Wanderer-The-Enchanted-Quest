@@ -106,13 +106,6 @@ bool Player::Update(float dt)
 
 	app->win->GetWindowSize(width, height);
 
-	if (isDead) {
-		NoControl = false;
-	}
-	else {
-		NoControl = true;
-	}
-
 
 
 	if (NoControl) {
@@ -140,7 +133,7 @@ bool Player::Update(float dt)
 			//Jump
 			if (jumpCount > 0) {
 
-				
+
 				currentAnimation = &Jump_UP;
 
 
@@ -148,7 +141,8 @@ bool Player::Update(float dt)
 					currentAnimation = &slide;
 				}
 
-			}else{
+			}
+			else {
 				Jump_UP.Reset();
 
 			}
@@ -190,6 +184,18 @@ bool Player::Update(float dt)
 				starFram = false;
 			}
 
+			
+			if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN) {
+				is_close_atk = true;
+				
+			}
+			
+			if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN) {
+				is_sp_atk = true;
+			}
+
+
+
 			//if (canAtack) {
 			//	if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN) {
 			//		//if (atackTypeCount > 3) {
@@ -225,7 +231,7 @@ bool Player::Update(float dt)
 			//else {
 			//	/*Camera();*/
 			//}
-			
+
 
 		}
 		else
@@ -235,6 +241,52 @@ bool Player::Update(float dt)
 		}
 
 	}//if is dead
+
+
+
+	if (isDead) {
+		NoControl = false;
+	}
+	else {
+		NoControl = true;
+	}
+
+
+
+	//if (close_atk.HasFinished()) {
+	//	NoControl = true;
+	//	is_close_atk = false;
+	//	close_atk.Reset();
+	//}
+
+	//if (sp_atk.HasFinished()) {
+	//	NoControl = true;
+	//	is_sp_atk = false;
+	//	sp_atk.Reset();
+	//}
+
+	if (ResetAtackAnimation != nullptr && ResetAtackAnimation->HasFinished()) {
+		RetAtkAni(ResetAtackAnimation, atkReset);
+	}
+
+	//if (is_close_atk) {
+
+	//	AtackAnimation("close_atk");
+	//	ResetAtackAnimation = &close_atk;
+	//	atkReset = &is_close_atk;
+	//}
+
+	if (is_close_atk) {
+		AtackAnimation("close_atk");
+		ResetAtackAnimation = &close_atk;
+		atkReset = &is_close_atk;
+	}
+
+	if (is_sp_atk) {
+		AtackAnimation("sp_atk");
+		ResetAtackAnimation = &sp_atk;
+		atkReset = &is_sp_atk;
+	}
 
 
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
@@ -257,7 +309,7 @@ bool Player::Update(float dt)
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 50;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 35;
 
-	
+
 	//Die
 	if (isDead) {
 		SDL_Delay(20);
@@ -277,12 +329,12 @@ bool Player::Update(float dt)
 
 	if (isFacingLeft) {
 
-		app->render->DrawTexture(texture, position.x- 135, position.y - 97, 1.3, SDL_FLIP_HORIZONTAL, &rect);//-6
+		app->render->DrawTexture(texture, position.x - 135, position.y - 97, 1.3, SDL_FLIP_HORIZONTAL, &rect);//-6
 	}
 	else
 	{
-		app->render->DrawTexture(texture, position.x-135, position.y - 97, 1.3, SDL_FLIP_NONE, &rect);//-6
-	
+		app->render->DrawTexture(texture, position.x - 135, position.y - 97, 1.3, SDL_FLIP_NONE, &rect);//-6
+
 	}
 
 	currentAnimation->Update();
@@ -291,9 +343,36 @@ bool Player::Update(float dt)
 	app->map->UpdateDelante();
 
 
+
+
+
 	return true;
 }
 
+
+void Player::RetAtkAni(Animation* ani, bool* anib) {
+		NoControl = true;
+		*anib = false;
+		ani->Reset();
+}
+
+void Player::AtackAnimation(char* atackname) {
+
+	vel.x = 0;
+	vel.y = 0;
+	pbody->body->SetLinearVelocity(vel);
+	NoControl = false;
+
+	if (atackname == "close_atk") {
+		currentAnimation = &close_atk;
+	}
+	else if (atackname == "sp_atk") {
+		currentAnimation = &sp_atk;
+	}
+
+
+
+}
 
 
 bool Player::CleanUp()

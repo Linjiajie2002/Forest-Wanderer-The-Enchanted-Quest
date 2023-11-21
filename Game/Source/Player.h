@@ -117,8 +117,12 @@ public:
 	
 	bool is_close_atk = false;
 	bool is_sp_atk = false;
-	
-	bool* atkReset;
+
+	bool* checkisAtk = nullptr;
+	Animation* checkAtk;
+	bool* atkReset = nullptr;
+	char* atkAniname = nullptr;
+
 
 	uint64 frameCount = 0;
 

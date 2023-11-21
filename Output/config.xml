@@ -76,7 +76,7 @@
 			<take_hit start="331" end="336" speed="0.3f" loop="false"/>
 			
 			
-			<close_atk start="221" end="230" speed="0.2f" loop="false"/>
+			<close_atk start="221" end="230" speed="0.3f" loop="false"/>
 			<air_atk start="155" end="164" speed="0.2f" loop="false"/>
 			<arrow_atk start="243" end="257" speed="0.2f" loop="false"/>
 			<scope_atk start="265" end="276" speed="0.2f" loop="false"/>

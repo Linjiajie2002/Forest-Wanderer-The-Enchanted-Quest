@@ -311,6 +311,18 @@ bool Player::Update(float dt)
 
 	}
 
+	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
+
+		vel = b2Vec2(position.x, position.y);
+
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
+
+		pbody->body->SetTransform(vel, pbody->body->GetAngle());
+
+	}
+
 	//Update player position in pixels
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 50;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 35;

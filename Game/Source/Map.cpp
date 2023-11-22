@@ -554,7 +554,7 @@ bool Map::LoadCollision(std::string layerName) {
                     }
 
                     if (gid == tileset->firstgid + 12) {
-                        PhysBody* c1 = app->physics->CreateRectangle(pos.x - 16, pos.y + 246, 32, 32, STATIC);
+                        PhysBody* c1 = app->physics->CreateRectangle(pos.x - 16, pos.y + 245, 32, 32, STATIC);
                         c1->ctype = ColliderType::DEADPLATFORM;
                         
                     }

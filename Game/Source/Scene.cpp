@@ -9,6 +9,8 @@
 #include "ItemBox.h"
 #include "Effect.h"
 #include "Shop.h"
+#include "Enemy_Goblin.h"
+#include "Enemy_Flyeye.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -47,6 +49,18 @@ bool Scene::Awake(pugi::xml_node& config)
 	{
 		Shop* shop = (Shop*)app->entityManager->CreateEntity(EntityType::SHOP);
 		shop->parameters = itemNode;
+	}
+
+	for (pugi::xml_node itemNode = config.child("enemy"); itemNode; itemNode = itemNode.next_sibling("enemy"))
+	{
+		Enemy_Goblin* enemy_goblin = (Enemy_Goblin*)app->entityManager->CreateEntity(EntityType::ENEMY_GOBLIN);
+		enemy_goblin->parameters = itemNode;
+	}
+
+	for (pugi::xml_node itemNode = config.child("enemy"); itemNode; itemNode = itemNode.next_sibling("enemy"))
+	{
+		Enemy_Flyeye* enemy_flyeye = (Enemy_Flyeye*)app->entityManager->CreateEntity(EntityType::ENEMY_FLYEYE);
+		enemy_flyeye->parameters = itemNode;
 	}
 
 	

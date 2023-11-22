@@ -98,6 +98,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\Effect.cpp" />
+    <ClCompile Include="Source\Enemy_Flyeye.cpp" />
+    <ClCompile Include="Source\Enemy_Goblin.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />
     <ClCompile Include="Source\Item.cpp" />
     <ClCompile Include="Source\ItemBox.cpp" />
@@ -120,6 +122,8 @@
     <ClCompile Include="Source\Window.cpp" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Effect.h" />
+    <ClInclude Include="Source\Enemy_Flyeye.h" />
+    <ClInclude Include="Source\Enemy_Goblin.h" />
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\EntityManager.h" />
     <ClInclude Include="Source\ModuleFadeToBlack.h" />

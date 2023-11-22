@@ -41,7 +41,10 @@
 			<animations Tsprite="40" x="34" y="41" Pweight="340"/>
 		</itembox>
 		
-		
+		<enemy>
+			<Enemy_Flyeye Tsprite="32" x="150" y="150" Pweight="1200" texturepath="Assets/Sprite/Enemy/Fly_eye/Flyeye.png"/>
+			<Enemy_Goblin Tsprite="40" x="150" y="150" Pweight="1200" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png"/>
+		</enemy>
 		
 		<effect>
 			<animations1 Tsprite="16" x="48" y="48" Pweight="768" texturepath="Assets/Effecto/Die/Die.png"/>
@@ -61,7 +64,11 @@
 		</Enemy_Flyeye>
 
 		<Enemy_Goblin>
-			<idle start="0" end="8" speed="0.2f" loop="true"/>
+			<take_hit start="0" end="3" speed="0.3f" loop="false"/>
+			<run start="9" end="16" speed="0.08f" loop="true"/>
+			<idle start="17" end="20" speed="0.2f" loop="true"/>
+			<die start="25" end="28" speed="0.3f" loop="false"/>
+			<atake start="33" end="40" speed="0.3f" loop="false"/>
 		</Enemy_Goblin>
 		
 		<Player>

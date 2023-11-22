@@ -6,6 +6,8 @@
 #include "ItemBox.h"
 #include "Effect.h"
 #include "Shop.h"
+#include "Enemy_Goblin.h"
+#include "Enemy_Flyeye.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -86,6 +88,12 @@ Entity* EntityManager::CreateEntity(EntityType type)
 	{
 	case EntityType::PLAYER:
 		entity = new Player();
+		break;
+	case EntityType::ENEMY_GOBLIN:
+		entity = new Enemy_Goblin(); 
+		break;
+	case EntityType::ENEMY_FLYEYE:
+		entity = new Enemy_Flyeye();
 		break;
 	case EntityType::ITEM:
 		entity = new Item();

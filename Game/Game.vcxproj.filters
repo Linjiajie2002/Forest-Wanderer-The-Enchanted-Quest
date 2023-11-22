@@ -70,6 +70,12 @@
     <ClCompile Include="Source\ModuleFadeToBlack.cpp">
       <Filter>Modules\FadeToBlack</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Enemy_Goblin.cpp">
+      <Filter>Modules\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Enemy_Flyeye.cpp">
+      <Filter>Modules\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Defs.h">
@@ -167,6 +173,12 @@
     </ClInclude>
     <ClInclude Include="Source\ModuleFadeToBlack.h">
       <Filter>Modules\FadeToBlack</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy_Goblin.h">
+      <Filter>Modules\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy_Flyeye.h">
+      <Filter>Modules\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

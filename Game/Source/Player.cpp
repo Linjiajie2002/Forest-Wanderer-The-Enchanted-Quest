@@ -519,6 +519,9 @@ void Player::keyInput(float dt) {
 		In_defend = true;
 	}
 
+	if (defend_off.HasFinished()) {
+		In_defend = true;
+	}
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_UP) {
 		In_defend = false;
 		defend_on.Reset();

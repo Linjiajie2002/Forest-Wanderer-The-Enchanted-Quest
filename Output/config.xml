@@ -41,7 +41,7 @@
 			<animations Tsprite="40" x="34" y="41" Pweight="340"/>
 		</itembox>
 		
-		<>
+		
 		
 		<effect>
 			<animations1 Tsprite="16" x="48" y="48" Pweight="768" texturepath="Assets/Effecto/Die/Die.png"/>
@@ -56,6 +56,14 @@
 
 
 	<Animations>
+		<Enemy_Flyeye>
+			<idle start="0" end="8" speed="0.2f" loop="true"/>
+		</Enemy_Flyeye>
+
+		<Enemy_Goblin>
+			<idle start="0" end="8" speed="0.2f" loop="true"/>
+		</Enemy_Goblin>
+		
 		<Player>
 		<!--<idle start="0" end="4" speed="0.15f" loop="true"/>
 			<crouch start="5" end="8" speed="0.08f" loop="true"/>
@@ -124,7 +132,9 @@
 		<Shop>
 			<idle start="0" end="6" speed="0.15f" loop="true"/>
 		</Shop>
-	</Animations>
+	
+
+</Animations>
 
 	<map>
 		<mapfolder path="Assets/Maps/"/>

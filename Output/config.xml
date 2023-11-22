@@ -58,6 +58,11 @@
 	<Animations>
 		<Enemy_Flyeye>
 			<idle start="0" end="8" speed="0.2f" loop="true"/>
+			<die start="17" end="20" speed="0.3f" loop="false"/>
+			<take_hit start="9" end="12" speed="0.3f" loop="false"/>
+			<atk start="25" end="32" speed="0.3f" loop="false"/>
+			
+
 		</Enemy_Flyeye>
 
 		<Enemy_Goblin>

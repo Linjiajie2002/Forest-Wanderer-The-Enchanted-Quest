@@ -513,16 +513,6 @@ void Player::keyInput(float dt) {
 		vel = b2Vec2(speed * dt, pbody->body->GetLinearVelocity().y);
 		currentAnimation = &run;
 
-		/*if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-			vel = b2Vec2(crouchspeed * dt, pbody->body->GetLinearVelocity().y);
-			currentAnimation = &crouch;
-		}*/
-
-		/*if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && onWall) {
-			printf("%d", onWall);
-			vel = b2Vec2(pbody->body->GetLinearVelocity().x, (-speed * 4) * dt);
-			currentAnimation = &crouch;
-		}*/
 
 	}
 
@@ -552,11 +542,7 @@ void Player::keyInput(float dt) {
 
 
 
-	//if (app->input->GetKey(SDL_SCANCODE_I) == KEY_REPEAT) {
-	//	currentAnimation = &defend_on;
-	//	defend_off.Reset();
-	//	In_defend = true;
-	//}
+	
 
 }
 
@@ -565,60 +551,6 @@ void Player::Jump() {
 
 }
 
-//void Player::checkAtack() {
-//
-//	if (isAtack) {
-//		if (frameCount >= 200) {
-//			//printf("1");
-//			atackTypeCount = 1;
-//			frameCount = 0;
-//		}
-//		if (atackTypeCount == 1) {
-//
-//			currentAnimation = &atack;
-//			canAtack = false;
-//
-//		}
-//
-//		if (atackTypeCount == 2) {
-//			currentAnimation = &atack2;
-//			canAtack = false;
-//		}
-//
-//		if (atackTypeCount == 3) {
-//			//printf("3");
-//			currentAnimation = &atack3;
-//			canAtack = false;
-//		}
-//
-//
-//		if (atack.HasFinished()) {
-//			atack.Reset();
-//			isAtack = false;
-//			canAtack = true;
-//			frameCount = 0;
-//			starFram = true;
-//		}
-//
-//		if (atack2.HasFinished()) {
-//			atack2.Reset();
-//			isAtack = false;
-//			canAtack = true;
-//			frameCount = 0;
-//			starFram = true;
-//		}
-//		if (atack3.HasFinished()) {
-//			atack3.Reset();
-//			atackTypeCount = 0;
-//			starFram = false;
-//			frameCount = 0;
-//			canAtack = true;
-//			isAtack = false;
-//		}
-//
-//	}
-//
-//}
 
 
 void Player::godMod(float dt) {
@@ -705,6 +637,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::DEADPLATFORM:
 		LOG("Collision DEADPLATFORM");
 		app->scene->GetPlayer()->isDead = true;
+		
 		break;
 
 	case ColliderType::WALL:

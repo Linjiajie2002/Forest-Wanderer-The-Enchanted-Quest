@@ -524,16 +524,20 @@ void Player::keyInput(float dt) {
 	}
 
 
+	if (defend_off.HasFinished()) {
+		In_defend = true;
+	}
+
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-	
+		vel.x = 0;
+		vel.y = 0;
+		pbody->body->SetLinearVelocity(vel);
 		currentAnimation = &defend_on;
 		defend_off.Reset();
 		In_defend = true;
 	}
 
-	if (defend_off.HasFinished()) {
-		In_defend = true;
-	}
+
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_UP) {
 		In_defend = false;
 		defend_on.Reset();

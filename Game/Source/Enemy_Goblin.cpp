@@ -18,18 +18,18 @@ Enemy_Goblin::~Enemy_Goblin() {}
 
 bool Enemy_Goblin::Awake() {
 
-	EnemyPath = parameters.child("Enemy_Goblin").attribute("texturepath").as_string();
-	TSprite = parameters.child("Enemy_Goblin").attribute("Tsprite").as_int();
-	SpriteX = parameters.child("Enemy_Goblin").attribute("x").as_int();
-	SpriteY = parameters.child("Enemy_Goblin").attribute("y").as_int();
-	PhotoWeight = parameters.child("Enemy_Goblin").attribute("Pweight").as_int();
-	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
+	//EnemyPath = parameters.child("Enemy_Goblin").attribute("texturepath").as_string();
+	//TSprite = parameters.child("Enemy_Goblin").attribute("Tsprite").as_int();
+	//SpriteX = parameters.child("Enemy_Goblin").attribute("x").as_int();
+	//SpriteY = parameters.child("Enemy_Goblin").attribute("y").as_int();
+	//PhotoWeight = parameters.child("Enemy_Goblin").attribute("Pweight").as_int();
+	//spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
 
-	idle.LoadAnim("Enemy_Goblin", "idle", spritePositions);
-	run.LoadAnim("Enemy_Goblin", "run", spritePositions);
-	take_hit.LoadAnim("Enemy_Goblin", "take_hit", spritePositions);
-	die.LoadAnim("Enemy_Goblin", "die", spritePositions);
-	atack.LoadAnim("Enemy_Goblin", "atake", spritePositions);
+	//idle.LoadAnim("Enemy_Goblin", "idle", spritePositions);
+	//run.LoadAnim("Enemy_Goblin", "run", spritePositions);
+	//take_hit.LoadAnim("Enemy_Goblin", "take_hit", spritePositions);
+	//die.LoadAnim("Enemy_Goblin", "die", spritePositions);
+	//atack.LoadAnim("Enemy_Goblin", "atake", spritePositions);
 
 
 	return true;

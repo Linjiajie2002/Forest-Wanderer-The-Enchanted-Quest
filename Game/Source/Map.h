@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "List.h"
 #include "Point.h"
+#include "Pathfinding.h"
 
 #include "PugiXml\src\pugixml.hpp"
 
@@ -95,6 +96,7 @@ struct MapData
 	MapTypes type;
 
 	List<MapLayer*> maplayers;
+
 };
 
 
@@ -126,6 +128,9 @@ public:
     // Load new map
     bool Load();
 
+	void CreateNavigationMap(int& width, int& height, uchar** buffer) const;
+
+
 	iPoint MapToWorld(int x, int y) const;
 	iPoint Map::WorldToMap(int x, int y);
 
@@ -142,6 +147,8 @@ private:
 
 public: 
 
+
+
 	MapData mapData;
 	int fondox;
 	int fondoy;
@@ -151,11 +158,15 @@ public:
 	iPoint colisionsPointsSize = iPoint(-1, -1);
 	iPoint colisionsLastCords = iPoint(-1, -1);
 
+	PathFinding* pathfinding;
+
 private:
 
     SString mapFileName;
 	SString mapFolder;
     bool mapLoaded;
+	MapLayer* navigationLayer;
+	int blockedGid = 49; 
 };
 
 #endif // __MAP_H__

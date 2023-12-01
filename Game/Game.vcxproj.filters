@@ -76,6 +76,9 @@
     <ClCompile Include="Source\Enemy_Flyeye.cpp">
       <Filter>Modules\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Pathfinding.cpp">
+      <Filter>Modules\Pathfinding</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Defs.h">
@@ -180,6 +183,9 @@
     <ClInclude Include="Source\Enemy_Flyeye.h">
       <Filter>Modules\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Pathfinding.h">
+      <Filter>Modules\Pathfinding</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
@@ -235,6 +241,9 @@
     </Filter>
     <Filter Include="Modules\FadeToBlack">
       <UniqueIdentifier>{1de680f4-db3d-4b7d-b801-b14f1b74ae51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Pathfinding">
+      <UniqueIdentifier>{a0d41bfb-34ef-4fd3-a1c4-b663e306bad0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

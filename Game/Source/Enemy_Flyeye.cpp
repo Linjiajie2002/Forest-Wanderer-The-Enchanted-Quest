@@ -18,33 +18,34 @@ Enemy_Flyeye::~Enemy_Flyeye() {}
 
 bool Enemy_Flyeye::Awake() {
 
-	//EnemyPath = parameters.child("Enemy_Goblin").attribute("texturepath").as_string();
-	//TSprite = parameters.child("Enemy_Goblin").attribute("Tsprite").as_int();
-	//SpriteX = parameters.child("Enemy_Goblin").attribute("x").as_int();
-	//SpriteY = parameters.child("Enemy_Goblin").attribute("y").as_int();
-	//PhotoWeight = parameters.child("Enemy_Goblin").attribute("Pweight").as_int();
-	//spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
+	EnemyPath = parameters.child("Enemy_Flyeye").attribute("texturepath").as_string();
+	TSprite = parameters.child("Enemy_Flyeye").attribute("Tsprite").as_int();
+	SpriteX = parameters.child("Enemy_Flyeye").attribute("x").as_int();
+	SpriteY = parameters.child("Enemy_Flyeye").attribute("y").as_int();
+	PhotoWeight = parameters.child("Enemy_Flyeye").attribute("Pweight").as_int();
+	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
 
-	//idle.LoadAnim("Enemy_Goblin", "idle", spritePositions);
-	//run.LoadAnim("Enemy_Goblin", "run", spritePositions);
-	//take_hit.LoadAnim("Enemy_Goblin", "take_hit", spritePositions);
-	//die.LoadAnim("Enemy_Goblin", "die", spritePositions);
-	//atack.LoadAnim("Enemy_Goblin", "atake", spritePositions);
+	position.x = parameters.child("Enemy_Flyeye").attribute("Posx").as_int();
+	position.y = parameters.child("Enemy_Flyeye").attribute("Posy").as_int();
 
-
+	idle.LoadAnim("Enemy_Flyeye", "idle", spritePositions);
+	/*run.LoadAnim("Enemy_Flyeye", "run", spritePositions);*/
+	take_hit.LoadAnim("Enemy_Flyeye", "take_hit", spritePositions);
+	die.LoadAnim("Enemy_Flyeye", "die", spritePositions);
+	atack.LoadAnim("Enemy_Flyeye", "atk", spritePositions);
 	return true;
 }
 
 bool Enemy_Flyeye::Start() {
 
-	////initilize textures
-	//Shoptexture = app->tex->Load(ShopPath);
-	//pbody = app->physics->CreateRectangleSensor(position.x + 110, position.y + 155, 162, 133, bodyType::STATIC);
-	////pbody = app->physics->CreateCircle(position.x + 16, position.y + 16, 16, bodyType::STATIC);
-	//pbody->ctype = ColliderType::SHOP;
-	//pbody->body->SetFixedRotation(true);
+	//initilize textures
+	Enemytexture = app->tex->Load(EnemyPath);
+	pbody = app->physics->CreateCircle(position.x-10, position.y, 31, bodyType::DYNAMIC);
+	//pbody = app->physics->CreateCircle(position.x + 16, position.y + 16, 16, bodyType::STATIC);
+	/*pbody->ctype = ColliderType::SHOP;*/
+	pbody->body->SetFixedRotation(true);
 
-	//currentAnimation = &idle;
+	currentAnimation = &idle;
 
 
 
@@ -53,12 +54,23 @@ bool Enemy_Flyeye::Start() {
 
 bool Enemy_Flyeye::Update(float dt)
 {
-	//SDL_Rect rect = currentAnimation->GetCurrentFrame();
 
-	//currentAnimation = &idle;
+	printf("PosX: %d", position.x);
+	printf("\nPosy: %d", position.y);
 
-	//app->render->DrawTexture(Shoptexture, position.x, position.y, 1.8, SDL_FLIP_NONE, &rect);
-	//currentAnimation->Update();
+
+	SDL_Rect rect = currentAnimation->GetCurrentFrame();
+
+	currentAnimation = &idle;
+
+	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x)+ 10;
+	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y)-15;
+
+	app->render->DrawTexture(Enemytexture, position.x-150, position.y-120, 1.8, SDL_FLIP_NONE, &rect);
+	//app->render->DrawTexture(Enemytexture, position.x, position.y-100);
+	currentAnimation->Update();
+
+
 	return true;
 }
 

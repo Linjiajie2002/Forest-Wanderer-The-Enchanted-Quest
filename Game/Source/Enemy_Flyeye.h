@@ -48,7 +48,9 @@ public:
 private:
 
 	SDL_Texture* Enemytexture;
+	SDL_Texture* Pathfindingtexture;
 	const char* EnemyPath;
+	const char* PathfindingPath;
 	PhysBody* pbody;
 };
 

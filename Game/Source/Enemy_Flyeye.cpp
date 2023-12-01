@@ -8,6 +8,7 @@
 #include "Point.h"
 #include "Physics.h"
 #include "Enemy_Flyeye.h"
+#include "Map.h"
 
 Enemy_Flyeye::Enemy_Flyeye() : Entity(EntityType::ENEMY_FLYEYE)
 {
@@ -25,6 +26,8 @@ bool Enemy_Flyeye::Awake() {
 	PhotoWeight = parameters.child("Enemy_Flyeye").attribute("Pweight").as_int();
 	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
 
+	PathfindingPath = parameters.child("Pathfinding").attribute("texturepath").as_string();
+
 	position.x = parameters.child("Enemy_Flyeye").attribute("Posx").as_int();
 	position.y = parameters.child("Enemy_Flyeye").attribute("Posy").as_int();
 
@@ -40,7 +43,10 @@ bool Enemy_Flyeye::Start() {
 
 	//initilize textures
 	Enemytexture = app->tex->Load(EnemyPath);
-	pbody = app->physics->CreateCircle(position.x-10, position.y, 31, bodyType::DYNAMIC);
+	Pathfindingtexture = app->tex->Load(PathfindingPath);
+
+
+	pbody = app->physics->CreateCircle(position.x - 10, position.y, 31, bodyType::DYNAMIC);
 	//pbody = app->physics->CreateCircle(position.x + 16, position.y + 16, 16, bodyType::STATIC);
 	/*pbody->ctype = ColliderType::SHOP;*/
 	pbody->body->SetFixedRotation(true);
@@ -54,20 +60,49 @@ bool Enemy_Flyeye::Start() {
 
 bool Enemy_Flyeye::Update(float dt)
 {
-
-	printf("PosX: %d", position.x);
-	printf("\nPosy: %d", position.y);
-
+	
 
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
 
 	currentAnimation = &idle;
 
-	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x)+ 10;
-	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y)-15;
+	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) + 10;
+	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15;
 
-	app->render->DrawTexture(Enemytexture, position.x-150, position.y-120, 1.8, SDL_FLIP_NONE, &rect);
+	
+	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
+
+		iPoint origPos = app->map->WorldToMap(position.x + 16, position.y + 16);
+		iPoint playerPos = app->scene->GetPlayer()->position;
+		playerPos = app->map->WorldToMap(playerPos.x, playerPos.y);
+		app->map->pathfinding->CreatePath(origPos, playerPos);
+		//printf("\nPlayer:Posx%d, Posy%d", app->scene->GetPlayer()->position.x, app->scene->GetPlayer()->position.y);
+
+
+		if (app->map->pathfinding->GetLastPath()->Count() > 1) {
+
+	
+
+
+			//iPoint newPositionPoint = app->map->MapToWorld(app->map->pathfinding->GetLastPath()->At(app->map->pathfinding->GetLastPath()->Count() - 1)->x, app->map->pathfinding->GetLastPath()->At(app->map->pathfinding->GetLastPath()->Count() - 1)->y);
+			iPoint newPositionPoint = app->map->MapToWorld(app->map->pathfinding->GetLastPath()->At(1)->x, app->map->pathfinding->GetLastPath()->At(1)->y);
+
+			b2Vec2 newPosition = b2Vec2(PIXEL_TO_METERS(newPositionPoint.x), PIXEL_TO_METERS(newPositionPoint.y));
+
+			pbody->body->SetLinearVelocity(b2Vec2(0,0));
+			pbody->body->SetTransform(newPosition, 0);
+
+		}
+	}
+
+	app->render->DrawTexture(Enemytexture, position.x - 150, position.y - 120, 1.8, SDL_FLIP_NONE, &rect);
 	//app->render->DrawTexture(Enemytexture, position.x, position.y-100);
+	for (uint i = 0; i < app->map->pathfinding->GetLastPath()->Count(); ++i)
+	{
+		iPoint pos = app->map->MapToWorld(app->map->pathfinding->GetLastPath()->At(i)->x, app->map->pathfinding->GetLastPath()->At(i)->y);
+		app->render->DrawTexture(Pathfindingtexture, pos.x+1, pos.y+1);
+	}
+
 	currentAnimation->Update();
 
 

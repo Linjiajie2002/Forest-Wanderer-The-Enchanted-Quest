@@ -1,12 +1,17 @@
 <?xml version="1.0"?>
-<!-- L02: TODO 4: Create a simulation xml file to read -->
-<game_state>
-	<input />
+<save_game>
 	<window />
+	<input />
 	<textures />
 	<audio />
-	<scene />
+	<:anonymous />
+	<scene>
+		<player x="500" y="1053" />
+	</scene>
+	<map />
+	<entitymanager />
 	<renderer>
-		<camera x="0" y="0" />
+		<camera x="2" y="-669" />
 	</renderer>
-</game_state>
+	<:anonymous />
+</save_game>

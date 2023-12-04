@@ -221,6 +221,15 @@ void App::FinishUpdate()
 		averageFps, framesPerSecond, dt, secondsSinceStartup, frameCount);
 
 	app->win->SetTitle(title);
+
+	if (loadRequest) {
+		loadRequest = false;
+		LoadFromFile();
+	}
+	if (saveRequest) {
+		saveRequest = false;
+		SaveFromFile();
+	}
 }
 
 // Call modules before each loop iteration
@@ -336,3 +345,70 @@ const char* App::GetOrganization() const
 }
 
 
+bool App::LoadRequest() {
+	bool ret = true;
+	loadRequest = true;
+	return true;
+}
+
+bool App::SaveRequest() {
+	bool ret = true;
+	saveRequest = true;
+	return true;
+}
+
+bool App::LoadFromFile() {
+	bool ret = true;
+
+	pugi::xml_document saveFile;
+	pugi::xml_parse_result result = saveFile.load_file("save_game.xml");
+
+	if (result) {
+		LOG("save_game.xml parsed without errors");
+
+		ListItem<Module*>* item;
+		item = modules.start;
+
+		while (item != NULL && ret == true)
+		{
+			ret = item->data->LoadState(saveFile.child("save_game").child(item->data->name.GetString()));
+			item = item->next;
+		}
+
+	}
+	else
+	{
+		LOG("Error loading save_game.xml: %s", result.description());
+		ret = false;
+
+	}
+	return ret;
+}
+
+bool App::SaveFromFile() {
+	bool ret = true;
+
+	pugi::xml_document saveFile;
+	pugi::xml_node gameState= saveFile.append_child("save_game");
+
+
+
+	ListItem<Module*>* item;
+	item = modules.start;
+
+		while (item != NULL && ret == true)
+		{
+			pugi::xml_node module=gameState.append_child(item->data->name.GetString());
+
+			ret = item->data->SaveState(module);
+			item = item->next;
+		}
+
+		ret = saveFile.save_file("save_game.xml");
+		if (ret) LOG("Saved");
+		else LOG("Error saving game state");
+		ret = false;
+
+	
+	return ret;
+}

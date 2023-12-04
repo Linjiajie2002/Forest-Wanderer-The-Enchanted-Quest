@@ -138,7 +138,11 @@ bool Scene::Update(float dt)
 
 		// Renders the image in the center of the screen 
 		//app->render->DrawTexture(img, (int)textPosX, (int)textPosY);
+
 	}
+
+	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) app->SaveRequest();
+	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) app->LoadRequest();
 
 	return true;
 }
@@ -171,4 +175,46 @@ Player* Scene::GetPlayer() {
 Effect* Scene::GetEffect() {
 
 	return effect;
+}
+
+bool Scene::LoadState(pugi::xml_node node) {
+
+	/*if (app->sceneLevel != node.child("player").attribute("sceneLevel").as_int()) {
+		app->sceneLevel = node.child("player").attribute("sceneLevel").as_int();
+		app->fadetoBlack->FadetoBlackTransition(app->screne, app->scene);
+
+	}
+	else {
+		player->position.x = node.child("player").attribute("x").as_int();
+		player->position.y = node.child("player").attribute("y").as_int();
+		player->SetPosition(node.child("player").attribute("x").as_int(), node.child("player").attribute("y").as_int());
+		app->scenelevel = node.child("player").attribute("sceneLevel").as_int();
+	}*/
+
+	LOG("Antes: x: %d y: %d", player->position.x, player->position.y);
+	
+
+	player->position.x = node.child("player").attribute("x").as_int();
+	player->position.y = node.child("player").attribute("y").as_int();
+	player->pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(node.child("player").attribute("x").as_int()), PIXEL_TO_METERS(node.child("player").attribute("y").as_int())), 0);
+	
+	LOG("Despues: x: %d y: %d", player->position.x, player->position.y);
+	LOG("aaaaaaaaaaaaa %d", node.child("player").attribute("x").as_int());
+	
+	return true;
+
+}
+
+bool Scene::SaveState(pugi::xml_node node) {
+
+	
+	pugi::xml_node playerNode = node.append_child("player");
+	playerNode.append_attribute("x").set_value(player->position.x);
+	playerNode.append_attribute("y").set_value(player->position.y);
+	//playerNode.append_attribute("sceneLevel").set_value(app->sceneLevel);
+
+
+
+	return true;
+
 }

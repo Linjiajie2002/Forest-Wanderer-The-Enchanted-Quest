@@ -45,6 +45,8 @@ public:
 	int SpriteY;
 	int PhotoWeight;
 
+	int countFrame = 0;
+
 private:
 
 	SDL_Texture* Enemytexture;
@@ -52,6 +54,7 @@ private:
 	const char* EnemyPath;
 	const char* PathfindingPath;
 	PhysBody* pbody;
+	PhysBody* pbody1;
 };
 
 #endif // __ITEM_H__

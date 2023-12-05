@@ -284,9 +284,9 @@ bool Player::Update(float dt)
 
 
 	if (checkisAtk != nullptr && *checkisAtk) {
-			AtackAnimation(atkAniname);
-			ResetAtackAnimation = checkAtk;
-			atkReset = checkisAtk;
+		AtackAnimation(atkAniname);
+		ResetAtackAnimation = checkAtk;
+		atkReset = checkisAtk;
 	}
 	/*if (is_sp_atk) {
 		AtackAnimation("sp_atk");
@@ -542,7 +542,7 @@ void Player::keyInput(float dt) {
 
 
 
-	
+
 
 }
 
@@ -637,7 +637,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::DEADPLATFORM:
 		LOG("Collision DEADPLATFORM");
 		app->scene->GetPlayer()->isDead = true;
-		
+
 		break;
 
 	case ColliderType::WALL:

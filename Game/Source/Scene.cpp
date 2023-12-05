@@ -51,11 +51,11 @@ bool Scene::Awake(pugi::xml_node& config)
 		shop->parameters = itemNode;
 	}
 
-	/*for (pugi::xml_node itemNode = config.child("enemy"); itemNode; itemNode = itemNode.next_sibling("enemy"))
+	for (pugi::xml_node itemNode = config.child("enemy"); itemNode; itemNode = itemNode.next_sibling("enemy"))
 	{
 		Enemy_Goblin* enemy_goblin = (Enemy_Goblin*)app->entityManager->CreateEntity(EntityType::ENEMY_GOBLIN);
 		enemy_goblin->parameters = itemNode;
-	}*/
+	}
 
 	for (pugi::xml_node itemNode = config.child("enemy"); itemNode; itemNode = itemNode.next_sibling("enemy"))
 	{

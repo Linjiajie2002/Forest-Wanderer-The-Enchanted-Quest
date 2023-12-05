@@ -44,8 +44,12 @@ public:
 	int SpriteX;
 	int SpriteY;
 	int PhotoWeight;
+	int countFrame = 0;
 
 private:
+
+	SDL_Texture* Pathfindingtexture;
+	const char* PathfindingPath;
 
 	SDL_Texture* Enemytexture;
 	const char* EnemyPath;

@@ -83,8 +83,13 @@ bool Player::Start() {
 	pbody->ctype = ColliderType::PLAYER;
 	/*pbody->body->GetWorld()->DestroyBody();
 	delete;*/
-	pickCoinFxId = app->audio->LoadFx(parameters.child("audio").attribute("texturepath").as_string());
 
+	//SONIDOS
+	pickCoinFxId = app->audio->LoadFx(parameters.child("audio").attribute("texturepath").as_string());
+	soundjump = app->audio->LoadFx(parameters.child("salto").attribute("texturepath").as_string());
+	deadenemy = app->audio->LoadFx(parameters.child("salto").attribute("texturepath").as_string());
+	finallevel = app->audio->LoadFx(parameters.child("salto").attribute("texturepath").as_string());
+	
 	currentAnimation = &idle;
 	pbody->body->SetFixedRotation(true);
 
@@ -154,6 +159,8 @@ bool Player::Update(float dt)
 			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 				pbody->body->GetFixtureList()[0].SetSensor(true);
 
+				// SONIDO SALTO
+				app->audio->PlayFx(soundjump);
 
 				if (canJump) {
 					/*if (jumpCount == 1) {

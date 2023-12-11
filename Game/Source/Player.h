@@ -81,7 +81,13 @@ public:
 	float speed;
 	float crouchspeed;
 	float jumpForce;
-	
+
+	int pickCoinFxId;
+
+	int soundjump;
+	int deadenemy;
+	int finallevel;
+
 	bool NoControl = true;
 
 	b2Vec2 vel;
@@ -90,7 +96,7 @@ public:
 	const char* texturePath2;
 	SDL_Texture* texture = NULL;
 	PhysBody* pbody;
-	int pickCoinFxId;
+
 
 	Render* render = NULL;
 

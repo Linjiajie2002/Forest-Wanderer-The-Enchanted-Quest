@@ -656,6 +656,11 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::SHOP:
 
 		break;
+
+	case ColliderType::ENEMYAREA:
+		inEnemyArear = !inEnemyArear;
+		printf("sssss");
+		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
 		break;

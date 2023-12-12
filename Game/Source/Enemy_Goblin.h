@@ -45,6 +45,7 @@ public:
 	int SpriteY;
 	int PhotoWeight;
 	int countFrame = 0;
+	b2Vec2 vel;
 
 private:
 

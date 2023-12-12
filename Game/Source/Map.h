@@ -166,7 +166,7 @@ private:
 	SString mapFolder;
     bool mapLoaded;
 	MapLayer* navigationLayer;
-	int blockedGid = 49; 
+	int blockedGid = 635;
 };
 
 #endif // __MAP_H__

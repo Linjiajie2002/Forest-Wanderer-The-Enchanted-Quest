@@ -290,6 +290,7 @@ bool Map::Load()
     RELEASE_ARRAY(navigationMap);
 
     LoadCollision("Colisions");
+
     // NOTE: Later you have to create a function here to load and create the colliders from the map
 
    /* PhysBody* c1 = app->physics->CreateRectangle(524 + 128, 543 + 32, 256, 64, STATIC);
@@ -357,9 +358,9 @@ void Map::CreateNavigationMap(int& width, int& height, uchar** buffer) const
 
             //If the gid is a blockedGid is an area that I cannot navigate, so is set in the navigation map as 0, all the other areas can be navigated
             //!!!! make sure that you assign blockedGid according to your map
-            if (gid == blockedGid) navigationMap[i] = 0;
+            if (gid == blockedGid) navigationMap[i] = 1;
 
-            else navigationMap[i] = 1;
+            else navigationMap[i] = 0;
         }
     }
 
@@ -661,6 +662,12 @@ bool Map::LoadCollision(std::string layerName) {
                         PhysBody* c1 = app->physics->CreateRectangle(pos.x - 16, pos.y - 64, 32, 32, STATIC);
                         c1->ctype = ColliderType::WALL;
                        
+                    }
+
+                    if (gid == tileset->firstgid + 9) {
+                    
+                        PhysBody* c1 = app->physics->CreateRectangleSensor(pos.x + 16, pos.y + 16, 32, 32, STATIC);
+                        c1->ctype = ColliderType::ENEMYAREA;
                     }
 
                 }

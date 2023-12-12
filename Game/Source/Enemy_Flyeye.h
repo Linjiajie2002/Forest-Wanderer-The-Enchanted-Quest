@@ -46,6 +46,7 @@ public:
 	int PhotoWeight;
 
 	int countFrame = 0;
+	bool isFacingLeft;
 
 private:
 

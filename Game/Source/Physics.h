@@ -31,6 +31,7 @@ enum class ColliderType {
 	WALL,
 	SHOP,
 	EFFECT,
+	ENEMYAREA,
 	UNKNOWN
 	// ..
 };

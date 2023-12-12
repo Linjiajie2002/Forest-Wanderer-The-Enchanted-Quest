@@ -46,8 +46,8 @@
 		</itembox>
 		
 		<enemy>
-			<Enemy_Flyeye Posx="64" Posy="1100" Tsprite="32" x="150" y="150" Pweight="1200" texturepath="Assets/Sprite/Enemy/Fly_eye/Flyeye.png"/>
-			<Enemy_Goblin Posx="64" Posy="1100" Tsprite="40" x="150" y="150" Pweight="1200" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png"/>
+			<Enemy_Flyeye Posx="800" Posy="1100" Tsprite="32" x="150" y="150" Pweight="1200" texturepath="Assets/Sprite/Enemy/Fly_eye/Flyeye.png"/>
+			<Enemy_Goblin Posx="200" Posy="1100" Tsprite="40" x="150" y="150" Pweight="1200" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png"/>
 			<Pathfinding texturepath="Assets/Maps/pathfinding.png"/>
 		</enemy>
 		

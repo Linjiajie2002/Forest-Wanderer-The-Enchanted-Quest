@@ -165,6 +165,8 @@ public:
 	bool In_defend = true;
 	bool test2 = false;
 
+	bool inEnemyArear = false;
+
 };
 
 #endif // __PLAYER_H__

@@ -47,11 +47,11 @@ bool Enemy_Flyeye::Start() {
 
 
 	pbody = app->physics->CreateCircle(position.x - 10, position.y, 31, bodyType::DYNAMIC);
-	pbody1 = app->physics->CreateRectangle(position.x - 10, position.y, 31, 10, bodyType::DYNAMIC);
+	//pbody1 = app->physics->CreateRectangle(position.x - 10, position.y, 31, 10, bodyType::DYNAMIC);
 	//pbody = app->physics->CreateCircle(position.x + 16, position.y + 16, 16, bodyType::STATIC);
 	/*pbody->ctype = ColliderType::SHOP;*/
 	pbody->body->SetFixedRotation(true);
-	pbody1->body->SetFixedRotation(true);
+	//pbody1->body->SetFixedRotation(true);
 	currentAnimation = &idle;
 
 
@@ -70,36 +70,63 @@ bool Enemy_Flyeye::Update(float dt)
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 15;
 
 
-	//if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
-
 	iPoint origPos = app->map->WorldToMap(position.x + 16, position.y + 16);
 	iPoint playerPos = app->scene->GetPlayer()->position;
 	playerPos = app->map->WorldToMap(playerPos.x, playerPos.y);
-	app->map->pathfinding->CreatePath(origPos, playerPos);
-	//printf("\nPlayer:Posx%d, Posy%d", app->scene->GetPlayer()->position.x, app->scene->GetPlayer()->position.y);
+	//playerPos.y = 2;
+	playerPos.x += 1;
 
-	if (countFrame >= 30) {
+
+	if (app->scene->GetPlayer()->inEnemyArear == true) {
+		app->map->pathfinding->CreatePath(origPos, playerPos);
+
 		if (app->map->pathfinding->GetLastPath()->Count() > 1) {
-
-			//iPoint newPositionPoint = app->map->MapToWorld(app->map->pathfinding->GetLastPath()->At(app->map->pathfinding->GetLastPath()->Count() - 1)->x, app->map->pathfinding->GetLastPath()->At(app->map->pathfinding->GetLastPath()->Count() - 1)->y);
 			iPoint newPositionPoint = app->map->MapToWorld(app->map->pathfinding->GetLastPath()->At(1)->x, app->map->pathfinding->GetLastPath()->At(1)->y);
-
 			b2Vec2 newPosition = b2Vec2(PIXEL_TO_METERS(newPositionPoint.x), PIXEL_TO_METERS(newPositionPoint.y));
-
 			pbody->body->SetLinearVelocity(b2Vec2(0, 0));
-			pbody->body->SetTransform(newPosition, 0);
+
+			//printf("\nposy: %d", position.y - newPositionPoint.y);
+			if (position.x > newPositionPoint.x) {
+				isFacingLeft = true;
+				pbody->body->SetLinearVelocity(b2Vec2(-3, 0));
+			}
+			else {
+				isFacingLeft = false;
+				pbody->body->SetLinearVelocity(b2Vec2(3, 0));
+
+			}
+			/*if (position.y > newPositionPoint.y) {
+
+				pbody->body->SetLinearVelocity(b2Vec2(0, -3));
+
+			}
+			else {
+				pbody->body->SetLinearVelocity(b2Vec2(0, 3));
+			}*/
+
 
 		}
-		countFrame = 0;
 	}
-	//}
+	else {
 
-	app->render->DrawTexture(Enemytexture, position.x - 150, position.y - 120, 1.8, SDL_FLIP_NONE, &rect);
+		//printf("dddd");
+	}
+
 	//app->render->DrawTexture(Enemytexture, position.x, position.y-100);
 	for (uint i = 0; i < app->map->pathfinding->GetLastPath()->Count(); ++i)
 	{
 		iPoint pos = app->map->MapToWorld(app->map->pathfinding->GetLastPath()->At(i)->x, app->map->pathfinding->GetLastPath()->At(i)->y);
 		app->render->DrawTexture(Pathfindingtexture, pos.x + 1, pos.y + 1);
+	}
+
+	if (isFacingLeft) {
+
+		app->render->DrawTexture(Enemytexture, position.x - 150, position.y - 120, 1.8, SDL_FLIP_HORIZONTAL, &rect);//-6
+	}
+	else
+	{
+		app->render->DrawTexture(Enemytexture, position.x - 150, position.y - 120, 1.8, SDL_FLIP_NONE, &rect);//-6
+
 	}
 
 	currentAnimation->Update();

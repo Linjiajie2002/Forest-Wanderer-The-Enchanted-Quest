@@ -73,7 +73,7 @@ bool Enemy_Goblin::Update(float dt)
 		app->map->pathfinding->CreatePath(origPos, playerPos);
 		//printf("\nPlayer:Posx%d, Posy%d", app->scene->GetPlayer()->position.x, app->scene->GetPlayer()->position.y);
 
-		if (countFrame >= 30) {
+		if (countFrame >= 1) {
 			currentAnimation = &run;
 			if (app->map->pathfinding->GetLastPath()->Count() > 1) {
 

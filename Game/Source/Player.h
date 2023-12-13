@@ -87,6 +87,8 @@ public:
 	int soundjump;
 	int deadenemy;
 	int finallevel;
+	int escudo;
+	int intro;
 
 	bool NoControl = true;
 

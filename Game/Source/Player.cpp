@@ -87,9 +87,12 @@ bool Player::Start() {
 	//SONIDOS
 	pickCoinFxId = app->audio->LoadFx(parameters.child("audio").attribute("texturepath").as_string());
 	soundjump = app->audio->LoadFx(parameters.child("salto").attribute("texturepath").as_string());
-	deadenemy = app->audio->LoadFx(parameters.child("salto").attribute("texturepath").as_string());
-	finallevel = app->audio->LoadFx(parameters.child("salto").attribute("texturepath").as_string());
-	
+	escudo = app->audio->LoadFx(parameters.child("escudo").attribute("texturepath").as_string());
+	deadenemy = app->audio->LoadFx(parameters.child("deadenemy").attribute("texturepath").as_string());
+	finallevel = app->audio->LoadFx(parameters.child("finallevel").attribute("texturepath").as_string());
+	intro = app->audio->LoadFx(parameters.child("intro").attribute("texturepath").as_string());
+	app->audio->PlayFx(intro);
+
 	currentAnimation = &idle;
 	pbody->body->SetFixedRotation(true);
 
@@ -159,9 +162,11 @@ bool Player::Update(float dt)
 			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 				pbody->body->GetFixtureList()[0].SetSensor(true);
 
-				// SONIDO SALTO
-				app->audio->PlayFx(soundjump);
-
+				if (jumpCount == 0) {
+					// SONIDO SALTO
+					app->audio->PlayFx(soundjump);
+				}
+				printf("Salto");
 				if (canJump) {
 					/*if (jumpCount == 1) {
 						jumpForce = 30;
@@ -178,6 +183,7 @@ bool Player::Update(float dt)
 						//jumpForce = 25;
 						canJump = false;
 					}
+					
 				}
 			}
 
@@ -527,6 +533,11 @@ void Player::keyInput(float dt) {
 	if (defend_off.HasFinished()) {
 		In_defend = true;
 	}
+	
+	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) {
+		app->audio->PlayFx(escudo);
+
+	}
 
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
 		vel.x = 0;
@@ -535,16 +546,20 @@ void Player::keyInput(float dt) {
 		currentAnimation = &defend_on;
 		defend_off.Reset();
 		In_defend = true;
+
+
 	}
 
 
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_UP) {
 		In_defend = false;
 		defend_on.Reset();
+
 	}
 
 	if (!In_defend) {
 		currentAnimation = &defend_off;
+
 	}
 
 

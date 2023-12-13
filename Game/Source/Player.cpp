@@ -104,6 +104,8 @@ bool Player::Start() {
 
 bool Player::Update(float dt)
 {
+
+	//printf("%d \n", position.x);
 	currentAnimation = &idle;
 	vel = b2Vec2(0, pbody->body->GetLinearVelocity().y);
 
@@ -673,9 +675,13 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 
 	case ColliderType::ENEMYAREA:
-		inEnemyArear = !inEnemyArear;
-		printf("sssss");
+		inEnemyArear = true;
 		break;
+
+	case ColliderType::PLAYERLEAVE:
+		inEnemyArear = false;
+		break;
+
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
 		break;

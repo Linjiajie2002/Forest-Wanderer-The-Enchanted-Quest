@@ -44,9 +44,13 @@ public:
 	int SpriteX;
 	int SpriteY;
 	int PhotoWeight;
+	float speed;
 
 	int countFrame = 0;
 	bool isFacingLeft;
+
+	bool touchR = false;
+	bool touchL = false;
 
 private:
 

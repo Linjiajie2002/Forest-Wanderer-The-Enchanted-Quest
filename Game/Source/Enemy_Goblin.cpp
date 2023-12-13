@@ -128,7 +128,7 @@ bool Enemy_Goblin::Update(float dt)
 	{
 		//printf("%d", countFrame);
 		iPoint pos = app->map->MapToWorld(app->map->pathfinding->GetLastPath()->At(i)->x, app->map->pathfinding->GetLastPath()->At(i)->y);
-		app->render->DrawTexture(Pathfindingtexture, pos.x + 1, pos.y + 1);
+		app->render->DrawTexture(Pathfindingtexture, pos.x, pos.y);
 	}
 
 

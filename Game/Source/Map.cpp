@@ -591,20 +591,20 @@ bool Map::LoadCollision(std::string layerName) {
                     if (gid == tileset->firstgid+5) {
                         /*List<int> listadepunto;
                         listadepunto.Add;*/
-                        int* puntos = new int[8];
-                        memset(puntos,0,8);
+                        int* puntos = new int[6];
+                        memset(puntos,0,6);
 
-                        puntos[0] =  -16;
-                        puntos[1] =  +16;
+                        puntos[0] =  +16;
+                        puntos[1] =  -16;
 
-                        puntos[2] =  -16;
-                        puntos[3] =  10;
+                        puntos[2] =  +16;
+                        puntos[3] =  +16;
 
-                        puntos[4] = + 16;
-                        puntos[5] = -16;
+                        puntos[4] = -16;
+                        puntos[5] = +16;
 
-                        puntos[6] = +16;
-                        puntos[7] = +16;
+                    /*    puntos[6] = +16;
+                        puntos[7] = +16;*/
                         
                         /*puntos[0] =  - 16;
                         puntos[1] =  + 16;
@@ -615,7 +615,7 @@ bool Map::LoadCollision(std::string layerName) {
                         puntos[4] =  + 16;
                         puntos[5] = + 16;*/
 
-                        PhysBody* c1 = app->physics->CreateChain(pos.x + 16, pos.y + 16, puntos, 8, STATIC);
+                        PhysBody* c1 = app->physics->CreateChain(pos.x + 16, pos.y + 16, puntos, 6, STATIC);
                         c1->ctype = ColliderType::PLATFORM;
                         
 
@@ -639,6 +639,18 @@ bool Map::LoadCollision(std::string layerName) {
                         c1->ctype = ColliderType::PLATFORM;
 
                     }
+
+                    if (gid == tileset->firstgid + 8) {
+                        PhysBody* c1 = app->physics->CreateRectangleSensor(pos.x + 16, pos.y + 16, 32, 32, STATIC);
+                        c1->ctype = ColliderType::PLAYERLEAVE;
+                    }
+
+                    if (gid == tileset->firstgid + 9) {
+
+                        PhysBody* c1 = app->physics->CreateRectangleSensor(pos.x + 16, pos.y + 16, 32, 32, STATIC);
+                        c1->ctype = ColliderType::ENEMYAREA;
+                    }
+
 
                     if (gid == tileset->firstgid + 11) {
                         PhysBody* c1 = app->physics->CreateRectangle(pos.x - 16, pos.y + 16, 32, 32, STATIC);
@@ -664,11 +676,9 @@ bool Map::LoadCollision(std::string layerName) {
                        
                     }
 
-                    if (gid == tileset->firstgid + 9) {
                     
-                        PhysBody* c1 = app->physics->CreateRectangleSensor(pos.x + 16, pos.y + 16, 32, 32, STATIC);
-                        c1->ctype = ColliderType::ENEMYAREA;
-                    }
+
+
 
                 }
             }

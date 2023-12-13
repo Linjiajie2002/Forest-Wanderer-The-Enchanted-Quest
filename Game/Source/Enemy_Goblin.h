@@ -45,6 +45,10 @@ public:
 	int SpriteY;
 	int PhotoWeight;
 	int countFrame = 0;
+	float speed;
+
+	int lasPosX;
+	bool isFacingLeft = true;
 	b2Vec2 vel;
 
 private:

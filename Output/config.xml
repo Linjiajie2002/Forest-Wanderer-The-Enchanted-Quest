@@ -46,8 +46,10 @@
 		</itembox>
 		
 		<enemy>
-			<Enemy_Flyeye Posx="800" Posy="1100" Tsprite="32" x="150" y="150" Pweight="1200" texturepath="Assets/Sprite/Enemy/Fly_eye/Flyeye.png"/>
-			<Enemy_Goblin Posx="200" Posy="1100" Tsprite="40" x="150" y="150" Pweight="1200" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png"/>
+			<Enemy_Flyeye Posx="800" Posy="1100" Tsprite="32" x="150" y="150" Pweight="1200" speed ="0.4" texturepath="Assets/Sprite/Enemy/Fly_eye/Flyeye.png"/>
+			<!--<Enemy_Goblin Posx="800" Posy="1100" Tsprite="40" x="150" y="150" Pweight="1200" speed ="0.4" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png"/>-->
+			<Enemy_Goblin Posx="4448" Posy="1312" Tsprite="40" x="150" y="150" Pweight="1200" speed ="0.4" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png"/>
+			<Enemy_Goblin Posx="4438" Posy="1312" Tsprite="40" x="150" y="150" Pweight="1200" speed ="0.4" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png"/>
 			<Pathfinding texturepath="Assets/Maps/pathfinding.png"/>
 		</enemy>
 		
@@ -75,7 +77,7 @@
 
 		<Enemy_Goblin>
 			<take_hit start="0" end="3" speed="0.3f" loop="false"/>
-			<run start="9" end="16" speed="0.08f" loop="true"/>
+			<run start="9" end="16" speed="0.2f" loop="true"/>
 			<idle start="17" end="20" speed="0.1f" loop="true"/>
 			<die start="25" end="28" speed="0.3f" loop="false"/>
 			<atake start="33" end="40" speed="0.3f" loop="false"/>

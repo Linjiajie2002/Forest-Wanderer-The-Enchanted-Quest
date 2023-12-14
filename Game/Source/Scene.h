@@ -52,7 +52,10 @@ private:
 	Player* player;
 
 	Effect* effect;
+public:
 
+	SDL_Texture* Pathfindingtexture;
+	const char* PathfindingPath;
 };
 
 #endif // __SCENE_H__

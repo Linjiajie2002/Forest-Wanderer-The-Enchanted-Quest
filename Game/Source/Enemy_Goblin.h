@@ -53,8 +53,7 @@ public:
 
 private:
 
-	SDL_Texture* Pathfindingtexture;
-	const char* PathfindingPath;
+	
 
 	SDL_Texture* Enemytexture;
 	const char* EnemyPath;

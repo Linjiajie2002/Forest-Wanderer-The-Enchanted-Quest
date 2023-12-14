@@ -87,7 +87,7 @@ Entity* EntityManager::CreateEntity(EntityType type)
 	switch (type)
 	{
 	case EntityType::PLAYER:
-		entity = new Player();
+		entity = new Player(); 
 		break;
 	case EntityType::ENEMY_GOBLIN:
 		entity = new Enemy_Goblin(); 

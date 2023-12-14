@@ -53,7 +53,14 @@
 		
 		<enemy>
 			<Enemy_Flyeye Posx="800" Posy="1100" Tsprite="32" x="150" y="150" Pweight="1200" speed ="0.4" texturepath="Assets/Sprite/Enemy/Fly_eye/Flyeye.png"/>
+			
+			<!--
+			<Enemy_Goblin Posx="800" Posy="1100" Tsprite="40" x="150" y="150" Pweight="1200" speed ="0.4" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png"/>
+			<Enemy_Goblin Posx="790" Posy="1100" Tsprite="40" x="150" y="150" Pweight="1200" speed ="0.4" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png"/>
+			-->
+			
 			<Enemy_Goblin Posx="4648" Posy="1312" Tsprite="40" x="150" y="150" Pweight="1200" speed ="0.4" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png"/>
+			
 			<Enemy_Goblin Posx="4438" Posy="1212" Tsprite="40" x="150" y="150" Pweight="1200" speed ="0.4" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png"/>
 			<Pathfinding texturepath="Assets/Maps/pathfinding.png"/>
 		</enemy>

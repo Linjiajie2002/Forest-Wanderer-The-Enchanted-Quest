@@ -25,6 +25,9 @@ public:
 
 	bool CleanUp();
 
+	void OnCollision(PhysBody* physA, PhysBody* physB);
+	void OnEndCollision(PhysBody* physA, PhysBody* physB);
+
 public:
 
 	bool isPicked = false;
@@ -50,6 +53,10 @@ public:
 	int lasPosX;
 	bool isFacingLeft = true;
 	b2Vec2 vel;
+	b2Filter filter;
+
+	bool AtackPlayer = false;
+
 
 private:
 

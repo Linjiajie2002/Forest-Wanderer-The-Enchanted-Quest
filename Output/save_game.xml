@@ -6,12 +6,12 @@
 	<audio />
 	<:anonymous />
 	<scene>
-		<player x="4390" y="1053" />
+		<player x="4417" y="1053" />
 	</scene>
 	<map />
 	<entitymanager />
 	<renderer>
-		<camera x="-3878" y="-669" />
+		<camera x="-3905" y="-669" />
 	</renderer>
 	<:anonymous />
 </save_game>

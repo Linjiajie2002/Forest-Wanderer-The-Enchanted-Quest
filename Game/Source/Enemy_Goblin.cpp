@@ -26,7 +26,7 @@ bool Enemy_Goblin::Awake() {
 	PhotoWeight = parameters.attribute("Pweight").as_int();
 	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
 
-	
+
 	speed = parameters.attribute("speed").as_float();
 	idle.LoadAnim("Enemy_Goblin", "idle", spritePositions);
 	run.LoadAnim("Enemy_Goblin", "run", spritePositions);
@@ -52,7 +52,14 @@ bool Enemy_Goblin::Start() {
 	pbody->ctype = ColliderType::ENEMY;
 	pbody->body->SetFixedRotation(true);
 	pbody->body->GetFixtureList()[0].SetFriction(0.03);
+	pbody->listener = this;
 	currentAnimation = &idle;
+
+	b2Filter enemyFilter;
+	enemyFilter.categoryBits = static_cast<uint16_t>(ColliderType::PLATFORM);
+	enemyFilter.maskBits = 0xFFFF & ~static_cast<uint16_t>(ColliderType::PLATFORM);  // 与任何碰撞组别的物体都发生碰撞，但不与自己发生碰撞
+	pbody->body->GetFixtureList()[0].SetFilterData(enemyFilter);
+
 
 	return true;
 }
@@ -72,58 +79,42 @@ bool Enemy_Goblin::Update(float dt)
 	iPoint playerPos = app->scene->GetPlayer()->position;
 	playerPos = app->map->WorldToMap(playerPos.x, playerPos.y);
 	playerPos.y += 1;
-	playerPos.x += 1;
-	
+	/*if (isFacingLeft)playerPos.x += 4;*/
+	playerPos.x += 1.2;
 
-	//printf("%d", app->scene->GetPlayer()->inEnemyArear);
-	if (app->scene->GetPlayer()->inEnemyArear == true) {
+	if (AtackPlayer) {
+		currentAnimation = &atack;
 
-		app->map->pathfinding->CreatePath(origPos, playerPos);
-		currentAnimation = &run;
-		if (app->map->pathfinding->GetLastPath()->Count() > 1) {
-			iPoint newPositionPoint = app->map->MapToWorld(app->map->pathfinding->GetLastPath()->At(1)->x, app->map->pathfinding->GetLastPath()->At(1)->y);
-			b2Vec2 newPosition = b2Vec2(PIXEL_TO_METERS(newPositionPoint.x), PIXEL_TO_METERS(newPositionPoint.y));
-			pbody->body->SetLinearVelocity(b2Vec2(0, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
+	}
+	else {
+		if (app->scene->GetPlayer()->inEnemyArear == true) {
 
-			//printf("\nposy: %d", position.y - newPositionPoint.y);
-			if (position.x > newPositionPoint.x) {
-				isFacingLeft = true;
-				pbody->body->SetLinearVelocity(b2Vec2(-speed * dt, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
+			app->map->pathfinding->CreatePath(origPos, playerPos);
+			currentAnimation = &run;
+			if (app->map->pathfinding->GetLastPath()->Count() > 1) {
+				iPoint newPositionPoint = app->map->MapToWorld(app->map->pathfinding->GetLastPath()->At(1)->x, app->map->pathfinding->GetLastPath()->At(1)->y);
+				b2Vec2 newPosition = b2Vec2(PIXEL_TO_METERS(newPositionPoint.x), PIXEL_TO_METERS(newPositionPoint.y));
+				pbody->body->SetLinearVelocity(b2Vec2(0, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
+
+				//printf("\nposy: %d", position.y - newPositionPoint.y);
+				if (position.x > newPositionPoint.x) {
+					isFacingLeft = true;
+					pbody->body->SetLinearVelocity(b2Vec2(-speed * dt, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
+				}
+				else {
+					isFacingLeft = false;
+					pbody->body->SetLinearVelocity(b2Vec2(speed * dt, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
+
+				}
 			}
-			else {
-				isFacingLeft = false;
-				pbody->body->SetLinearVelocity(b2Vec2(speed * dt, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
-
-			}
-			/*if (position.y > newPositionPoint.y) {
-
-				pbody->body->SetLinearVelocity(b2Vec2(0, -3));
-
-			}
-			else {
-				pbody->body->SetLinearVelocity(b2Vec2(0, 3));
-			}*/
-
 		}
 	}
 
-	//if (lasPosX == position.x) {
-	//	countFrame++;
-	//}
+	if (currentAnimation->HasFinished()) {
+		atack.Reset();
+	}
 
-	//if (countFrame >= 20 && lasPosX == position.x) {
-	//	pbody->body->SetLinearVelocity(b2Vec2(speed * dt, speed * dt));
-	//}
-	//else {
-	//	countFrame = 0;
-	//}
-
-	//lasPosX = position.x;
-
-	//currentAnimation = &run;
-
-	//app->render->DrawTexture(Enemytexture, position.x - 150, position.y - 120, 1.8, SDL_FLIP_NONE, &rect);
-	//app->render->DrawTexture(Enemytexture, position.x, position.y-100);
+	//printf("\n%d", position.x - app->scene->GetPlayer()->position.x);
 
 	for (uint i = 0; i < app->map->pathfinding->GetLastPath()->Count(); ++i)
 	{
@@ -149,4 +140,34 @@ bool Enemy_Goblin::Update(float dt)
 bool Enemy_Goblin::CleanUp()
 {
 	return true;
+}
+
+
+void Enemy_Goblin::OnCollision(PhysBody* physA, PhysBody* physB) {
+
+	switch (physB->ctype)
+	{
+	case ColliderType::PLAYER:
+		AtackPlayer = true;
+
+		break;
+
+	case ColliderType::UNKNOWN:
+		LOG("Collision UNKNOWN");
+		break;
+	}
+}
+
+void Enemy_Goblin::OnEndCollision(PhysBody* physA, PhysBody* physB) {
+
+	switch (physB->ctype)
+	{
+	case ColliderType::PLAYER:
+		AtackPlayer = false;
+		break;
+
+	case ColliderType::UNKNOWN:
+		LOG("Collision UNKNOWN");
+		break;
+	}
 }

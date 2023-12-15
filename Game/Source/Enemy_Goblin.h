@@ -76,6 +76,8 @@ public:
 	int life;
 	bool isDead;
 	bool isTakehit;
+	bool canatake = true;
+	int atakeSpeed;
 private:
 
 	

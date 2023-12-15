@@ -169,7 +169,7 @@ bool Player::Update(float dt)
 					// SONIDO SALTO
 					app->audio->PlayFx(soundjump);
 				}
-				printf("Salto");
+				//printf("Salto");
 				if (canJump) {
 					/*if (jumpCount == 1) {
 						jumpForce = 30;
@@ -206,17 +206,8 @@ bool Player::Update(float dt)
 				*checkisAtk = true;
 				checkAtk = &close_atk;
 				atkAniname = "close_atk";
-				if (!isFacingLeft) {
-					pbody_closeAtk = app->physics->CreateRectangleSensor(position.x + 120, position.y + 25, 70, 10, bodyType::STATIC);
-				}
-				else {
-					pbody_closeAtk = app->physics->CreateRectangleSensor(position.x, position.y + 25, 70, 10, bodyType::STATIC);
-				}
-				pbody_closeAtk->ctype = ColliderType::CLOSEATK;
-				pbody_closeAtk->body->SetFixedRotation(true);
-
-
-
+				if(!isFacingLeft)app->par->CloseAtake(position.x + 120, position.y + 25, 70, 10, ColliderType::CLOSEATK_PLAYER);
+				else app->par->CloseAtake(position.x, position.y + 25, 70, 10, ColliderType::CLOSEATK_PLAYER);
 			}
 
 
@@ -298,8 +289,8 @@ bool Player::Update(float dt)
 	//}
 
 	if (ResetAtackAnimation != nullptr && ResetAtackAnimation->HasFinished()) {
-		pbody_closeAtk->body->GetWorld()->DestroyBody(pbody_closeAtk->body);
 		RetAtkAni(ResetAtackAnimation, atkReset);
+		app->par->DestroyParticle();
 	}
 
 	//if (is_close_atk) {

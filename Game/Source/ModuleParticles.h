@@ -6,6 +6,7 @@
 //#include "Globals.h"
 #include "Particle.h"
 //#include "Collider.h"
+#include "Physics.h"
 
 
 #define MAX_ACTIVE_PARTICLES 1000
@@ -46,6 +47,9 @@ public:
 	//fPoint GetPositionSpeed(int position);
 	//void DestroyCollision(int position);
 
+	void CloseAtake(int posX, int posY, int Weight, int Height,ColliderType CLtype);
+	void DestroyParticle();
+
 
 private:
 	// Particles spritesheet loaded into an SDL Texture
@@ -61,7 +65,7 @@ public:
 
 	const pugi::char_t* texturePath;
 
-	Particle shurikenL;
+	PhysBody* pbody;
 
 
 };

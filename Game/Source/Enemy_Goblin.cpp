@@ -9,6 +9,7 @@
 #include "Physics.h"
 #include "Enemy_Goblin.h"
 #include "Map.h"
+#include "ModuleParticles.h"
 
 #include <iostream>
 #include <random>
@@ -74,7 +75,6 @@ bool Enemy_Goblin::Start() {
 bool Enemy_Goblin::Update(float dt)
 {
 
-
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
 	if (life <= 0) {
 		isDead = true;
@@ -104,6 +104,10 @@ bool Enemy_Goblin::Update(float dt)
 				}
 				else {
 					currentAnimation = &atack;
+					//if (canatake) {
+					//	currentAnimation = &atack;
+					//	atakeSpeed = 0;
+					//}
 				}
 			}
 			else {
@@ -133,6 +137,23 @@ bool Enemy_Goblin::Update(float dt)
 		}
 		else {
 			EnemyMove(dt, enemyAreaLimitL, enemyAreaLimitR);
+		}
+
+		if (!isFacingLeft)app->par->CloseAtake(position.x + 20, position.y, 30, 30, ColliderType::CLOSEATK_ENEMY);
+		else app->par->CloseAtake(position.x, position.y, 30, 30, ColliderType::CLOSEATK_ENEMY);
+
+
+		if (canatake) {
+			canatake = false;
+			atakeSpeed++;
+		}
+
+		if (atakeSpeed >= 60) {
+			canatake = true;
+		}
+
+		if (atack.HasFinished()) {
+			app->par->DestroyParticle();
 		}
 
 		if (currentAnimation->HasFinished()) {
@@ -252,7 +273,7 @@ void Enemy_Goblin::OnCollision(PhysBody* physA, PhysBody* physB) {
 		inEenemyArea = true;
 		break;
 
-	case ColliderType::CLOSEATK:
+	case ColliderType::CLOSEATK_PLAYER:
 		isTakehit = true;
 		life--;
 		break;

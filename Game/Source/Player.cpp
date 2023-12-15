@@ -13,6 +13,7 @@
 #include "Render.h"
 #include "Map.h"
 #include "Effect.h"
+#include "Particle.h"
 
 Player::Player() : Entity(EntityType::PLAYER)
 {
@@ -185,7 +186,7 @@ bool Player::Update(float dt)
 						//jumpForce = 25;
 						canJump = false;
 					}
-					
+
 				}
 			}
 
@@ -205,7 +206,19 @@ bool Player::Update(float dt)
 				*checkisAtk = true;
 				checkAtk = &close_atk;
 				atkAniname = "close_atk";
+				if (!isFacingLeft) {
+					pbody_closeAtk = app->physics->CreateRectangleSensor(position.x + 120, position.y + 25, 70, 10, bodyType::STATIC);
+				}
+				else {
+					pbody_closeAtk = app->physics->CreateRectangleSensor(position.x, position.y + 25, 70, 10, bodyType::STATIC);
+				}
+				pbody_closeAtk->ctype = ColliderType::CLOSEATK;
+				pbody_closeAtk->body->SetFixedRotation(true);
+
+
+
 			}
+
 
 			if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN) {
 				checkisAtk = &is_sp_atk;
@@ -285,7 +298,7 @@ bool Player::Update(float dt)
 	//}
 
 	if (ResetAtackAnimation != nullptr && ResetAtackAnimation->HasFinished()) {
-
+		pbody_closeAtk->body->GetWorld()->DestroyBody(pbody_closeAtk->body);
 		RetAtkAni(ResetAtackAnimation, atkReset);
 	}
 
@@ -313,7 +326,6 @@ bool Player::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
 
 		vel = b2Vec2(1, 23);
-		//vel = b2Vec2(1, 23);
 		app->scene->GetPlayer()->isDead = false;
 
 		pbody->body->SetTransform(vel, pbody->body->GetAngle());
@@ -536,7 +548,7 @@ void Player::keyInput(float dt) {
 	if (defend_off.HasFinished()) {
 		In_defend = true;
 	}
-	
+
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) {
 		app->audio->PlayFx(escudo);
 

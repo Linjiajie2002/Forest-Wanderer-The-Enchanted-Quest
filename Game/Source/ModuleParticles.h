@@ -18,7 +18,7 @@ class ModuleParticles : public Module
 public:
 	// Constructor
 	// Initializes all the particles in the array to nullptr
-	ModuleParticles(bool startEnabled);
+	ModuleParticles();
 
 	//Destructor
 	~ModuleParticles();
@@ -39,25 +39,12 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	// Called when a particle collider hits another collider
-	/*void OnCollision(Collider* c1, Collider* c2) override;*/
 
 
-	// Creates a new particle and adds it to the array
-	// Param particle	- A template particle from which the new particle will be created
-	// Param x, y		- Position x,y in the screen (upper left axis)
-	// Param delay		- Delay time from the moment the function is called until the particle is displayed in screen
-	/*int AddParticle(const Particle& particle, int x, int y, Collider::Type colliderType = Collider::Type::NONE, uint delay = 0);
-	int AddParticle(const Particle& particle, int x, int y, fPoint initial_speed, Collider::Type colliderType = Collider::Type::NONE, uint delay = 0);*/
-
-	int AddParticle(const Particle& particle, int x, int y,  uint delay = 0);
-	int AddParticle(const Particle& particle, int x, int y, fPoint initial_speed, uint delay = 0);
-
-
-	void SetSpeedParticle(int position, fPoint speed);
-	fPoint GetPositionParticle(int position);
-	fPoint GetPositionSpeed(int position);
-	void DestroyCollision(int position);
+	//void SetSpeedParticle(int position, fPoint speed);
+	//fPoint GetPositionParticle(int position);
+	//fPoint GetPositionSpeed(int position);
+	//void DestroyCollision(int position);
 
 
 private:

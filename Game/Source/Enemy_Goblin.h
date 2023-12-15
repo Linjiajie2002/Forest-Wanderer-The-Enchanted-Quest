@@ -72,6 +72,10 @@ public:
 
 	bool inEenemyArea = true;
 	int enemyOutAreaTime;
+	
+	int life;
+	bool isDead;
+	bool isTakehit;
 private:
 
 	

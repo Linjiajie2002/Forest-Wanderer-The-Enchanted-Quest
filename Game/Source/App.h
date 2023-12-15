@@ -8,6 +8,7 @@
 #include "EntityManager.h"
 #include "Animation.h"
 #include "ModuleFadeToBlack.h"
+#include "ModuleParticles.h"
 
 #include "PugiXml/src/pugixml.hpp"
 
@@ -23,7 +24,7 @@ class Map;
 class Physics;
 class Animation;
 class ModuleFadeToBlack;
-
+class ModuleParticles;
 
 
 class App
@@ -102,6 +103,7 @@ public:
 	Physics* physics;
 	Animation* animation;
 	ModuleFadeToBlack* fade;
+	ModuleParticles* par;
 
 	int FpsNum = 16;
 

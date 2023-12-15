@@ -11,6 +11,7 @@
 #include "ItemBox.h"
 #include "Effect.h"
 #include "ModuleFadeToBlack.h"
+#include "ModuleParticles.h"
 
 
 #include "Defs.h"
@@ -40,6 +41,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	entityManager = new EntityManager();
 	animation = new Animation();
 	fade = new ModuleFadeToBlack();
+	par = new ModuleParticles();
 
 
 	// Ordered for awake / Start / Update
@@ -52,8 +54,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene);
 	AddModule(map);
 	AddModule(entityManager);
-	
-
+	AddModule(par);
 
 	// Render last to swap buffer
 	AddModule(render);

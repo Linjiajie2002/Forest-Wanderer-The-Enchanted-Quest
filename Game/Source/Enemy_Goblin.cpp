@@ -30,6 +30,7 @@ bool Enemy_Goblin::Awake() {
 	PhotoWeight = parameters.attribute("Pweight").as_int();
 	enemyAreaLimitR = parameters.attribute("Area_Limit_R").as_int();
 	enemyAreaLimitL = parameters.attribute("Area_Limit_L").as_int();
+	life = parameters.attribute("life").as_int();
 	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
 
 
@@ -72,75 +73,100 @@ bool Enemy_Goblin::Start() {
 
 bool Enemy_Goblin::Update(float dt)
 {
+
+
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
+	if (life <= 0) {
+		isDead = true;
+	}
 
-	currentAnimation = &idle;
+	if (!isDead) {
+		currentAnimation = &idle;
 
-	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) + 15;
-	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 30;
+		position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) + 15;
+		position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 30;
 
-	pbody->body->SetLinearVelocity(b2Vec2(0, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
+		pbody->body->SetLinearVelocity(b2Vec2(0, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
 
-	iPoint origPos = app->map->WorldToMap(position.x + 16, position.y + 16);
-	iPoint playerPos = app->scene->GetPlayer()->position;
-	playerPos = app->map->WorldToMap(playerPos.x, playerPos.y);
-	playerPos.y += 1;
-	/*if (isFacingLeft)playerPos.x += 4;*/
-	playerPos.x += 1.2;
+		iPoint origPos = app->map->WorldToMap(position.x + 16, position.y + 16);
+		iPoint playerPos = app->scene->GetPlayer()->position;
+		playerPos = app->map->WorldToMap(playerPos.x, playerPos.y);
+		playerPos.y += 1;
+		/*if (isFacingLeft)playerPos.x += 4;*/
+		playerPos.x += 1.2;
+		if (app->scene->GetPlayer()->inEnemyArear) {
+			if (isTakehit) {
+				currentAnimation = &take_hit;
+			}
+			if (AtackPlayer) {
+				if (isTakehit) {
+					currentAnimation = &take_hit;
+				}
+				else {
+					currentAnimation = &atack;
+				}
+			}
+			else {
 
-	if (app->scene->GetPlayer()->inEnemyArear) {
-		if (AtackPlayer) {
-			currentAnimation = &atack;
+				if (app->scene->GetPlayer()->inEnemyArear == true) {
 
-		}
-		else {
-			if (app->scene->GetPlayer()->inEnemyArear == true) {
+					app->map->pathfinding->CreatePath(origPos, playerPos);
+					currentAnimation = &run;
+					if (app->map->pathfinding->GetLastPath()->Count() > 1) {
+						iPoint newPositionPoint = app->map->MapToWorld(app->map->pathfinding->GetLastPath()->At(1)->x, app->map->pathfinding->GetLastPath()->At(1)->y);
+						b2Vec2 newPosition = b2Vec2(PIXEL_TO_METERS(newPositionPoint.x), PIXEL_TO_METERS(newPositionPoint.y));
+						pbody->body->SetLinearVelocity(b2Vec2(0, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
 
-				app->map->pathfinding->CreatePath(origPos, playerPos);
-				currentAnimation = &run;
-				if (app->map->pathfinding->GetLastPath()->Count() > 1) {
-					iPoint newPositionPoint = app->map->MapToWorld(app->map->pathfinding->GetLastPath()->At(1)->x, app->map->pathfinding->GetLastPath()->At(1)->y);
-					b2Vec2 newPosition = b2Vec2(PIXEL_TO_METERS(newPositionPoint.x), PIXEL_TO_METERS(newPositionPoint.y));
-					pbody->body->SetLinearVelocity(b2Vec2(0, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
+						//printf("\nposy: %d", position.y - newPositionPoint.y);
+						if (position.x > newPositionPoint.x) {
+							isFacingLeft = true;
+							pbody->body->SetLinearVelocity(b2Vec2(-speed * dt, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
+						}
+						else {
+							isFacingLeft = false;
+							pbody->body->SetLinearVelocity(b2Vec2(speed * dt, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
 
-					//printf("\nposy: %d", position.y - newPositionPoint.y);
-					if (position.x > newPositionPoint.x) {
-						isFacingLeft = true;
-						pbody->body->SetLinearVelocity(b2Vec2(-speed * dt, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
-					}
-					else {
-						isFacingLeft = false;
-						pbody->body->SetLinearVelocity(b2Vec2(speed * dt, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
-
+						}
 					}
 				}
 			}
 		}
-	}
-	else {
-		EnemyMove(dt, enemyAreaLimitL,enemyAreaLimitR);
-	}
-
-	if (currentAnimation->HasFinished()) {
-		atack.Reset();
-	}
-
-	if (!inEenemyArea){
-		enemyOutAreaTime++;
-		if (enemyOutAreaTime >= 400) {
-		
+		else {
+			EnemyMove(dt, enemyAreaLimitL, enemyAreaLimitR);
 		}
 
+		if (currentAnimation->HasFinished()) {
+			atack.Reset();
+			take_hit.Reset();
+			if (isTakehit)isTakehit = false;
+
+		}
+
+		if (!inEenemyArea) {
+			enemyOutAreaTime++;
+			if (enemyOutAreaTime >= 400) {
+
+			}
+
+		}
+		for (uint i = 0; i < app->map->pathfinding->GetLastPath()->Count(); ++i)
+		{
+			//printf("%d", countFrame);
+			iPoint pos = app->map->MapToWorld(app->map->pathfinding->GetLastPath()->At(i)->x, app->map->pathfinding->GetLastPath()->At(i)->y);
+			app->render->DrawTexture(app->scene->Pathfindingtexture, pos.x, pos.y);
+		}
 	}
+
+	if (isDead) {
+		currentAnimation = &die;
+		//pbody->body->GetWorld()->DestroyBody(pbody->body);
+		pbody->body->SetActive(false);
+	}
+
 
 	//printf("\n%d", position.x - app->scene->GetPlayer()->position.x);
 
-	for (uint i = 0; i < app->map->pathfinding->GetLastPath()->Count(); ++i)
-	{
-		//printf("%d", countFrame);
-		iPoint pos = app->map->MapToWorld(app->map->pathfinding->GetLastPath()->At(i)->x, app->map->pathfinding->GetLastPath()->At(i)->y);
-		app->render->DrawTexture(app->scene->Pathfindingtexture, pos.x, pos.y);
-	}
+
 
 
 	if (isFacingLeft) {
@@ -161,9 +187,8 @@ bool Enemy_Goblin::CleanUp()
 	return true;
 }
 
-void Enemy_Goblin::EnemyMove(float dt,int enemyAreaLimitL, int enemyAreaLimitR)
+void Enemy_Goblin::EnemyMove(float dt, int enemyAreaLimitL, int enemyAreaLimitR)
 {
-
 	if (!enemyidle) {
 		if (!walkrdinWork)rddirection = Rd();
 		timeidle = 0;
@@ -202,10 +227,6 @@ void Enemy_Goblin::EnemyMove(float dt,int enemyAreaLimitL, int enemyAreaLimitR)
 			if (timeidle >= 200)enemyidle = false, rdinWork = false, walkFrameCount = 0, walkrdinWork = false;
 		}
 	}
-
-
-	printf("\nwalkFrameCount:%d ", walkFrameCount);
-	printf("\timeidle:%d", timeidle);
 }
 
 bool Enemy_Goblin::Rd()
@@ -229,6 +250,11 @@ void Enemy_Goblin::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 	case ColliderType::ENEMYAREA:
 		inEenemyArea = true;
+		break;
+
+	case ColliderType::CLOSEATK:
+		isTakehit = true;
+		life--;
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");

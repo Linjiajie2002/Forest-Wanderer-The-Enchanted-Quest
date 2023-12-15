@@ -5,7 +5,7 @@
 #include "Player.h"
 #include "Item.h"
 #include "Effect.h"
-
+#include "Enemy_Goblin.h"
 
 struct SDL_Texture;
 
@@ -39,6 +39,7 @@ public:
 
 	Player* GetPlayer();
 	Effect* GetEffect();
+	Enemy_Goblin* GetGoblin();
 
 	bool LoadState(pugi::xml_node node);
 
@@ -50,7 +51,7 @@ private:
 	uint texW, texH;
 	uint windowW, windowH;
 	Player* player;
-
+	Enemy_Goblin* enemy_goblin;
 	Effect* effect;
 public:
 

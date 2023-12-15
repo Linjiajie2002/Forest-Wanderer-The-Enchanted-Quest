@@ -99,6 +99,8 @@ public:
 	SDL_Texture* texture = NULL;
 	PhysBody* pbody;
 
+	PhysBody* pbody_closeAtk;
+
 
 	Render* render = NULL;
 

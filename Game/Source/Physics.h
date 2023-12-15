@@ -34,6 +34,7 @@ enum class ColliderType {
 	EFFECT,
 	ENEMYAREA,
 	PLAYERLEAVE,
+	CLOSEATK,
 	UNKNOWN
 	// ..
 };

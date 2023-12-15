@@ -53,7 +53,7 @@ bool Scene::Awake(pugi::xml_node& config)
 
 	for (pugi::xml_node itemNode = config.child("enemy").child("Enemy_Goblin"); itemNode; itemNode = itemNode.next_sibling("Enemy_Goblin"))
 	{
-		Enemy_Goblin* enemy_goblin = (Enemy_Goblin*)app->entityManager->CreateEntity(EntityType::ENEMY_GOBLIN);
+		enemy_goblin = (Enemy_Goblin*)app->entityManager->CreateEntity(EntityType::ENEMY_GOBLIN);
 		enemy_goblin->parameters = itemNode;
 	}
 
@@ -180,6 +180,11 @@ Player* Scene::GetPlayer() {
 Effect* Scene::GetEffect() {
 
 	return effect;
+}
+
+Enemy_Goblin* Scene::GetGoblin() {
+
+	return enemy_goblin;
 }
 
 bool Scene::LoadState(pugi::xml_node node) {

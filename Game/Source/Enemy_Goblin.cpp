@@ -28,6 +28,8 @@ bool Enemy_Goblin::Awake() {
 	SpriteX = parameters.attribute("x").as_int();
 	SpriteY = parameters.attribute("y").as_int();
 	PhotoWeight = parameters.attribute("Pweight").as_int();
+	enemyAreaLimitR = parameters.attribute("Area_Limit_R").as_int();
+	enemyAreaLimitL = parameters.attribute("Area_Limit_L").as_int();
 	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
 
 
@@ -116,15 +118,20 @@ bool Enemy_Goblin::Update(float dt)
 		}
 	}
 	else {
-		EnemyMove(dt);
+		EnemyMove(dt, enemyAreaLimitL,enemyAreaLimitR);
 	}
-
 
 	if (currentAnimation->HasFinished()) {
 		atack.Reset();
 	}
 
+	if (!inEenemyArea){
+		enemyOutAreaTime++;
+		if (enemyOutAreaTime >= 400) {
+		
+		}
 
+	}
 
 	//printf("\n%d", position.x - app->scene->GetPlayer()->position.x);
 
@@ -154,20 +161,18 @@ bool Enemy_Goblin::CleanUp()
 	return true;
 }
 
-void Enemy_Goblin::EnemyMove(float dt)
+void Enemy_Goblin::EnemyMove(float dt,int enemyAreaLimitL, int enemyAreaLimitR)
 {
+
 	if (!enemyidle) {
 		if (!walkrdinWork)rddirection = Rd();
 		timeidle = 0;
-	}
-
-	if (!enemyidle) {
 		walkrdinWork = true;
 		currentAnimation = &run;
-		if (position.x < 3936) {
+		if (position.x < enemyAreaLimitL) {
 			rddirection = true;
 		}
-		if (position.x > 5120) {
+		if (position.x > enemyAreaLimitR) {
 			rddirection = false;
 		}
 
@@ -187,13 +192,14 @@ void Enemy_Goblin::EnemyMove(float dt)
 	}
 	else {
 		if (!rdinWork)rddirection = Rd();
+		rdinWork = true;
 		currentAnimation = &idle;
 		timeidle++;
 		if (rddirection) {
-			if (timeidle >= 100)enemyidle = false, rdinWork = true, walkFrameCount = 0, walkrdinWork = false;
+			if (timeidle >= 50)enemyidle = false, rdinWork = false, walkFrameCount = 0, walkrdinWork = false;
 		}
 		else {
-			if (timeidle >= 200)enemyidle = false, rdinWork = true, walkFrameCount = 0, walkrdinWork = false;
+			if (timeidle >= 200)enemyidle = false, rdinWork = false, walkFrameCount = 0, walkrdinWork = false;
 		}
 	}
 
@@ -219,9 +225,11 @@ void Enemy_Goblin::OnCollision(PhysBody* physA, PhysBody* physB) {
 	{
 	case ColliderType::PLAYER:
 		AtackPlayer = true;
-
 		break;
 
+	case ColliderType::ENEMYAREA:
+		inEenemyArea = true;
+		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
 		break;
@@ -236,6 +244,9 @@ void Enemy_Goblin::OnEndCollision(PhysBody* physA, PhysBody* physB) {
 		AtackPlayer = false;
 		break;
 
+	case ColliderType::ENEMYAREA:
+		inEenemyArea = false;
+		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
 		break;

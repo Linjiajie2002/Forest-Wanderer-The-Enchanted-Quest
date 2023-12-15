@@ -313,6 +313,7 @@ bool Player::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
 
 		vel = b2Vec2(1, 23);
+		//vel = b2Vec2(1, 23);
 		app->scene->GetPlayer()->isDead = false;
 
 		pbody->body->SetTransform(vel, pbody->body->GetAngle());

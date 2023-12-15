@@ -26,7 +26,7 @@ public:
 	bool CleanUp();
 
 
-	void EnemyMove(float dt);
+	void EnemyMove(float dt, int enemyAreaLimitL, int enemyAreaLimitR);
 	bool Rd();
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
@@ -68,6 +68,10 @@ public:
 	int timeidle;
 	bool rdinWork = false;
 	bool walkrdinWork = true;
+	int enemyAreaLimitR, enemyAreaLimitL;
+
+	bool inEenemyArea = true;
+	int enemyOutAreaTime;
 private:
 
 	

@@ -58,10 +58,12 @@
 			<Enemy_Goblin Posx="800" Posy="1100" Tsprite="40" x="150" y="150" Pweight="1200" speed ="0.4" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png"/>
 			<Enemy_Goblin Posx="790" Posy="1100" Tsprite="40" x="150" y="150" Pweight="1200" speed ="0.4" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png"/>
 			-->
+
+			<Enemy_Goblin Posx="3360" Posy="224" Tsprite="40" x="150" y="150" Pweight="1200" Area_Limit_L="3328" Area_Limit_R="3712" speed ="0.4" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png"/>
+
 			
-			<Enemy_Goblin Posx="4648" Posy="1312" Tsprite="40" x="150" y="150" Pweight="1200" speed ="0.4" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png"/>
-			
-			<Enemy_Goblin Posx="4438" Posy="1212" Tsprite="40" x="150" y="150" Pweight="1200" speed ="0.4" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png"/>
+			<Enemy_Goblin Posx="4648" Posy="1312" Tsprite="40" x="150" y="150" Pweight="1200" Area_Limit_L="3936" Area_Limit_R="5120" speed ="0.4" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png"/>
+			<Enemy_Goblin Posx="4438" Posy="1212" Tsprite="40" x="150" y="150" Pweight="1200" Area_Limit_L="3936" Area_Limit_R="5120" speed ="0.4" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png"/>
 			<Pathfinding texturepath="Assets/Maps/pathfinding.png"/>
 		</enemy>
 		

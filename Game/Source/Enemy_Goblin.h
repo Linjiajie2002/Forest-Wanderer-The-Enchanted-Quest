@@ -25,6 +25,10 @@ public:
 
 	bool CleanUp();
 
+
+	void EnemyMove(float dt);
+	bool Rd();
+
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 	void OnEndCollision(PhysBody* physA, PhysBody* physB);
 
@@ -57,7 +61,13 @@ public:
 
 	bool AtackPlayer = false;
 
-
+	int walkFrameCount = 0;
+	bool rddirection;
+	int enemywalk;
+	bool enemyidle = true;
+	int timeidle;
+	bool rdinWork = false;
+	bool walkrdinWork = true;
 private:
 
 	

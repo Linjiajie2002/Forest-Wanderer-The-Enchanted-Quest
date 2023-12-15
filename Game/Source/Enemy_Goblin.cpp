@@ -10,6 +10,10 @@
 #include "Enemy_Goblin.h"
 #include "Map.h"
 
+#include <iostream>
+#include <random>
+
+
 Enemy_Goblin::Enemy_Goblin() : Entity(EntityType::ENEMY_GOBLIN)
 {
 	name.Create("enemy");
@@ -82,37 +86,45 @@ bool Enemy_Goblin::Update(float dt)
 	/*if (isFacingLeft)playerPos.x += 4;*/
 	playerPos.x += 1.2;
 
-	if (AtackPlayer) {
-		currentAnimation = &atack;
+	if (app->scene->GetPlayer()->inEnemyArear) {
+		if (AtackPlayer) {
+			currentAnimation = &atack;
 
-	}
-	else {
-		if (app->scene->GetPlayer()->inEnemyArear == true) {
+		}
+		else {
+			if (app->scene->GetPlayer()->inEnemyArear == true) {
 
-			app->map->pathfinding->CreatePath(origPos, playerPos);
-			currentAnimation = &run;
-			if (app->map->pathfinding->GetLastPath()->Count() > 1) {
-				iPoint newPositionPoint = app->map->MapToWorld(app->map->pathfinding->GetLastPath()->At(1)->x, app->map->pathfinding->GetLastPath()->At(1)->y);
-				b2Vec2 newPosition = b2Vec2(PIXEL_TO_METERS(newPositionPoint.x), PIXEL_TO_METERS(newPositionPoint.y));
-				pbody->body->SetLinearVelocity(b2Vec2(0, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
+				app->map->pathfinding->CreatePath(origPos, playerPos);
+				currentAnimation = &run;
+				if (app->map->pathfinding->GetLastPath()->Count() > 1) {
+					iPoint newPositionPoint = app->map->MapToWorld(app->map->pathfinding->GetLastPath()->At(1)->x, app->map->pathfinding->GetLastPath()->At(1)->y);
+					b2Vec2 newPosition = b2Vec2(PIXEL_TO_METERS(newPositionPoint.x), PIXEL_TO_METERS(newPositionPoint.y));
+					pbody->body->SetLinearVelocity(b2Vec2(0, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
 
-				//printf("\nposy: %d", position.y - newPositionPoint.y);
-				if (position.x > newPositionPoint.x) {
-					isFacingLeft = true;
-					pbody->body->SetLinearVelocity(b2Vec2(-speed * dt, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
-				}
-				else {
-					isFacingLeft = false;
-					pbody->body->SetLinearVelocity(b2Vec2(speed * dt, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
+					//printf("\nposy: %d", position.y - newPositionPoint.y);
+					if (position.x > newPositionPoint.x) {
+						isFacingLeft = true;
+						pbody->body->SetLinearVelocity(b2Vec2(-speed * dt, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
+					}
+					else {
+						isFacingLeft = false;
+						pbody->body->SetLinearVelocity(b2Vec2(speed * dt, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
 
+					}
 				}
 			}
 		}
 	}
+	else {
+		EnemyMove(dt);
+	}
+
 
 	if (currentAnimation->HasFinished()) {
 		atack.Reset();
 	}
+
+
 
 	//printf("\n%d", position.x - app->scene->GetPlayer()->position.x);
 
@@ -140,6 +152,64 @@ bool Enemy_Goblin::Update(float dt)
 bool Enemy_Goblin::CleanUp()
 {
 	return true;
+}
+
+void Enemy_Goblin::EnemyMove(float dt)
+{
+	if (!enemyidle) {
+		if (!walkrdinWork)rddirection = Rd();
+		timeidle = 0;
+	}
+
+	if (!enemyidle) {
+		walkrdinWork = true;
+		currentAnimation = &run;
+		if (position.x < 3936) {
+			rddirection = true;
+		}
+		if (position.x > 5120) {
+			rddirection = false;
+		}
+
+		if (rddirection) {
+			pbody->body->SetLinearVelocity(b2Vec2(speed * dt, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
+			isFacingLeft = false;
+			walkFrameCount++;
+			if (walkFrameCount > 50)enemyidle = true;
+		}
+
+		if (!rddirection) {
+			pbody->body->SetLinearVelocity(b2Vec2(-speed * dt, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
+			isFacingLeft = true;
+			walkFrameCount++;
+			if (walkFrameCount > 50)enemyidle = true;
+		}
+	}
+	else {
+		if (!rdinWork)rddirection = Rd();
+		currentAnimation = &idle;
+		timeidle++;
+		if (rddirection) {
+			if (timeidle >= 100)enemyidle = false, rdinWork = true, walkFrameCount = 0, walkrdinWork = false;
+		}
+		else {
+			if (timeidle >= 200)enemyidle = false, rdinWork = true, walkFrameCount = 0, walkrdinWork = false;
+		}
+	}
+
+
+	printf("\nwalkFrameCount:%d ", walkFrameCount);
+	printf("\timeidle:%d", timeidle);
+}
+
+bool Enemy_Goblin::Rd()
+{
+	std::random_device rd;
+	std::mt19937 mt(rd());
+	std::uniform_int_distribution<int> distribution(0, 1);
+	bool rddirection = distribution(mt);
+
+	return rddirection;
 }
 
 

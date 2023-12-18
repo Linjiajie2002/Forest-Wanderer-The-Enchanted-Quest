@@ -114,8 +114,8 @@ bool Enemy_Goblin::Update(float dt)
 
 					if (timerAtaque.ReadSec() > 1) {
 						printf("1");
-						if(!isFacingLeft)attackParticle = app->par->CloseAtake(position.x + 50, position.y, 30, 30, ColliderType::CLOSEATK_ENEMY);
-						else app->par->CloseAtake(position.x, position.y, 30, 30, ColliderType::CLOSEATK_ENEMY); if (!isFacingLeft)
+						if(!isFacingLeft)attackParticle = app->par->CloseAtake(position.x+30, position.y+20, 50, 70, ColliderType::CLOSEATK_ENEMY);
+						else attackParticle = app->par->CloseAtake(position.x - 50, position.y + 20, 50, 70, ColliderType::CLOSEATK_ENEMY); if (!isFacingLeft)
 						LOG("ATACA");
 						canatake = true;
 						timerAtaque.Start();

@@ -47,7 +47,7 @@ public:
 	//fPoint GetPositionSpeed(int position);
 	//void DestroyCollision(int position);
 
-	void CloseAtake(int posX, int posY, int Weight, int Height,ColliderType CLtype);
+	PhysBody* CloseAtake(int posX, int posY, int Weight, int Height,ColliderType CLtype);
 	void DestroyParticle();
 
 

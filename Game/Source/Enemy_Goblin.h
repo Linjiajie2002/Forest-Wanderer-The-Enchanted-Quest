@@ -5,6 +5,7 @@
 #include "Entity.h"
 #include "Point.h"
 #include "Animation.h"
+#include <vector>
 
 
 struct SDL_Texture;
@@ -77,7 +78,16 @@ public:
 	bool isDead;
 	bool isTakehit;
 	bool canatake = true;
-	int atakeSpeed;
+	bool canatake_speed = true;
+	int atakeSpeed = 0;
+
+	bool isDestroyPar = false;
+
+
+	bool atacando = false;
+	Timer timerAtaque;
+
+
 private:
 
 	

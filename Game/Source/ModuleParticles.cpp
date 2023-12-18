@@ -49,15 +49,16 @@ bool ModuleParticles::CleanUp()
 	return true;
 }
 
-void ModuleParticles::CloseAtake(int posX, int posY, int Weight, int Height, ColliderType CLtype)
+PhysBody* ModuleParticles::CloseAtake(int posX, int posY, int Weight, int Height, ColliderType CLtype)
 {
 	pbody = app->physics->CreateRectangleSensor(posX, posY, Weight, Height, bodyType::STATIC);
 	pbody->ctype = CLtype;
 	pbody->body->SetFixedRotation(true);
+
+	return pbody;
 }
 
-void ModuleParticles::DestroyParticle(){
-	printf("ddddd");
+void ModuleParticles::DestroyParticle() {
 	pbody->body->GetWorld()->DestroyBody(pbody->body);
 }
 

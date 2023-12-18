@@ -52,6 +52,15 @@ public:
 	bool touchR = false;
 	bool touchL = false;
 
+	int life = 3;
+	bool isDead = false;
+	bool isTakehit = false;
+	bool AtackPlayer = false;
+	Timer attackTimer;
+	Timer timerAtaque;
+	bool canatake = false;
+	PhysBody* attackParticle;
+
 private:
 
 	SDL_Texture* Enemytexture;

@@ -114,17 +114,7 @@ bool Enemy_Goblin::Update(float dt)
 						timerAtaque.Start();
 						//isDestroyPar = true;
 					}
-
-					/*if (canatake_speed) {
-						currentAnimation = &atack;
-					}*/
-
-
-					/*if (timerAtaque.ReadSec() > 1) {
-						canatake = true;
-						timerAtaque.Start();
-					}*/
-					if(canatake)currentAnimation = &atack;
+					if (canatake)currentAnimation = &atack;
 				}
 
 			}
@@ -157,41 +147,6 @@ bool Enemy_Goblin::Update(float dt)
 			EnemyMove(dt, enemyAreaLimitL, enemyAreaLimitR);
 		}
 
-
-		//if (attackTimer.ReadSec() > 1 && canatake) {
-		//	// 触发 DestroyParticle
-		//	printf("0");
-		//	app->par->DestroyParticle();
-		//}
-
-		//while (atakeSpeed != 0) {
-		//	if (timerAtaque.ReadSec() > 0.2) {
-		//		printf("0");
-		//		app->par->DestroyParticle();
-		//		//isDestroyPar = false;
-		//		atakeSpeed--;
-		//		timerAtaque.Start();
-		//	}
-		//}
-
-
-		//if (canatake) {
-		//	canatake = false;
-		//	
-		//}
-
-
-
-		/*if (isDestroyPar) {
-			if (timerAtaque.ReadSec() > 0.1) {
-				printf("0");
-				app->par->DestroyParticle();
-				timerAtaque.Start();
-				isDestroyPar = false;
-			}
-		}*/
-
-
 		if (atack.HasFinished() && canatake) {
 			//app->par->DestroyParticle();
 			canatake = false;
@@ -208,7 +163,7 @@ bool Enemy_Goblin::Update(float dt)
 		if (!inEenemyArea) {
 			enemyOutAreaTime++;
 			if (enemyOutAreaTime >= 400) {
-
+				
 			}
 
 		}
@@ -225,20 +180,9 @@ bool Enemy_Goblin::Update(float dt)
 		//pbody->body->GetWorld()->DestroyBody(pbody->body);
 		pbody->body->SetActive(false);
 	}
-	//printf("\n%d", position.x - app->scene->GetPlayer()->position.x);
-
-	/*if (atakeSpeed != 0) {
-		if (timerAtaque.ReadSec() > 0.1) {
-			printf("0");
-			app->par->DestroyParticle();
-			timerAtaque.Start();
-			isDestroyPar = false;
-			atakeSpeed--;
-		}
-	}*/
 
 	if (attackParticle != nullptr) {
-		if (timerAtaque.ReadSec() > 0.1) {
+		if (timerAtaque.ReadMSec() > 300) { //1s == 1000ms 
 			printf("0");
 			//app->par->DestroyParticle();
 			timerAtaque.Start();

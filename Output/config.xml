@@ -31,7 +31,6 @@
 			<!--<animations Tsprite="133" x="50" y="37" Pweight="350"/> -->
 
 			<salto texturepath="Assets/Audio/Fx/SALTO_PR.ogg"/>
-			<deadenemy texturepath="Assets/Audio/Fx/DEADENEMY_PR.ogg"/>
 			<finallevel texturepath="Assets/Audio/Fx/FINALLEVEL_PR.ogg"/>
 			<escudo texturepath="Assets/Audio/Fx/ESCUDO.ogg"/>
 			<intro texturepath="Assets/Audio/Fx/INTRO.ogg"/>
@@ -59,11 +58,25 @@
 			<Enemy_Goblin Posx="790" Posy="1100" Tsprite="40" x="150" y="150" Pweight="1200" speed ="0.4" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png"/>
 			-->
 
-			<Enemy_Goblin Posx="3360" Posy="224" Tsprite="40" x="150" y="150" Pweight="1200" Area_Limit_L="3328" Area_Limit_R="3712" life="3" speed ="0.4" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png"/>
+			<Enemy_Goblin Posx="3360" Posy="224" Tsprite="40" x="150" y="150" Pweight="1200" Area_Limit_L="3328" Area_Limit_R="3712" life="3" speed ="0.4" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png">
+						<deadenemy texturepath="Assets/Audio/Fx/DEADENEMY_PR.ogg"/>
+
+			</Enemy_Goblin>
 
 
-			<Enemy_Goblin Posx="4648" Posy="1312" Tsprite="40" x="150" y="150" Pweight="1200" Area_Limit_L="3936" Area_Limit_R="5120" life="3" speed ="0.4" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png"/>
-			<Enemy_Goblin Posx="4438" Posy="1212" Tsprite="40" x="150" y="150" Pweight="1200" Area_Limit_L="3936" Area_Limit_R="5120" life="3" speed ="0.4" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png"/>
+			<Enemy_Goblin Posx="4648" Posy="1312" Tsprite="40" x="150" y="150" Pweight="1200" Area_Limit_L="3936" Area_Limit_R="5120" life="3" speed ="0.4" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png">
+						<deadenemy texturepath="Assets/Audio/Fx/DEADENEMY_PR.ogg"/>
+
+			</Enemy_Goblin>
+
+
+			
+			<Enemy_Goblin Posx="4438" Posy="1212" Tsprite="40" x="150" y="150" Pweight="1200" Area_Limit_L="3936" Area_Limit_R="5120" life="3" speed ="0.4" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png">
+						<deadenemy texturepath="Assets/Audio/Fx/DEADENEMY_PR.ogg"/>
+
+			</Enemy_Goblin>
+
+
 			<Pathfinding texturepath="Assets/Maps/pathfinding.png"/>
 		</enemy>
 

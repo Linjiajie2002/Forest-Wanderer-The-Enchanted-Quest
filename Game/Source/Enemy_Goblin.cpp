@@ -63,6 +63,9 @@ bool Enemy_Goblin::Start() {
 	pbody->listener = this;
 	currentAnimation = &idle;
 
+	//SONIDOS
+	deadenemy = app->audio->LoadFx(parameters.child("deadenemy").attribute("texturepath").as_string());
+
 	b2Filter enemyFilter;
 	enemyFilter.categoryBits = static_cast<uint16_t>(ColliderType::PLATFORM);
 	enemyFilter.maskBits = 0xFFFF & ~static_cast<uint16_t>(ColliderType::PLATFORM);  // 与任何碰撞组别的物体都发生碰撞，但不与自己发生碰撞
@@ -81,7 +84,11 @@ bool Enemy_Goblin::Update(float dt)
 
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
 	if (life <= 0) {
-		isDead = true;
+		if (!isDead) {
+			isDead = true;
+			app->audio->PlayFx(deadenemy);
+
+		}
 	}
 
 	if (!isDead) {
@@ -219,6 +226,7 @@ bool Enemy_Goblin::Update(float dt)
 
 	if (isDead) {
 		currentAnimation = &die;
+
 		//pbody->body->GetWorld()->DestroyBody(pbody->body);
 		pbody->body->SetActive(false);
 	}

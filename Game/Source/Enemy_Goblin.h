@@ -87,6 +87,7 @@ public:
 	bool atacando = false;
 	Timer timerAtaque;
 
+	int deadenemy;
 
 private:
 

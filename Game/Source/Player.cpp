@@ -89,7 +89,6 @@ bool Player::Start() {
 	pickCoinFxId = app->audio->LoadFx(parameters.child("audio").attribute("texturepath").as_string());
 	soundjump = app->audio->LoadFx(parameters.child("salto").attribute("texturepath").as_string());
 	escudo = app->audio->LoadFx(parameters.child("escudo").attribute("texturepath").as_string());
-	deadenemy = app->audio->LoadFx(parameters.child("deadenemy").attribute("texturepath").as_string());
 	finallevel = app->audio->LoadFx(parameters.child("finallevel").attribute("texturepath").as_string());
 	intro = app->audio->LoadFx(parameters.child("intro").attribute("texturepath").as_string());
 	app->audio->PlayFx(intro);

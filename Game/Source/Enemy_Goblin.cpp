@@ -124,9 +124,12 @@ bool Enemy_Goblin::Update(float dt)
 					}*/
 
 
-					if (canatake) {
-						currentAnimation = &atack;
+					if (timerAtaque.ReadSec() > 1) {
+						canatake = true;
+						timerAtaque.Start();
 					}
+					if(canatake)currentAnimation = &atack;
+					
 				}
 			}
 			else {

@@ -1,4 +1,4 @@
-#include "App.h"
+ï»¿#include "App.h"
 #include "Textures.h"
 #include "Audio.h"
 #include "Input.h"
@@ -65,7 +65,7 @@ bool Enemy_Goblin::Start() {
 
 	b2Filter enemyFilter;
 	enemyFilter.categoryBits = static_cast<uint16_t>(ColliderType::PLATFORM);
-	enemyFilter.maskBits = 0xFFFF & ~static_cast<uint16_t>(ColliderType::PLATFORM);  // ÓëÈÎºÎÅö×²×é±ğµÄÎïÌå¶¼·¢ÉúÅö×²£¬µ«²»Óë×Ô¼º·¢ÉúÅö×²
+	enemyFilter.maskBits = 0xFFFF & ~static_cast<uint16_t>(ColliderType::PLATFORM);  // Ã“Ã«ÃˆÃÂºÃÃ…Ã¶Ã—Â²Ã—Ã©Â±Ã°ÂµÃ„ÃÃ¯ÃŒÃ¥Â¶Â¼Â·Â¢Ã‰ÃºÃ…Ã¶Ã—Â²Â£Â¬ÂµÂ«Â²Â»Ã“Ã«Ã—Ã”Â¼ÂºÂ·Â¢Ã‰ÃºÃ…Ã¶Ã—Â²
 	pbody->body->GetFixtureList()[0].SetFilterData(enemyFilter);
 
 
@@ -74,10 +74,6 @@ bool Enemy_Goblin::Start() {
 
 bool Enemy_Goblin::Update(float dt)
 {
-
-
-
-
 
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
 	if (life <= 0) {
@@ -99,6 +95,7 @@ bool Enemy_Goblin::Update(float dt)
 		/*if (isFacingLeft)playerPos.x += 4;*/
 		playerPos.x += 1.2;
 		if (app->scene->GetPlayer()->inEnemyArear) {
+			attackTimer.Start();
 			if (isTakehit) {
 				currentAnimation = &take_hit;
 			}
@@ -108,29 +105,28 @@ bool Enemy_Goblin::Update(float dt)
 				}
 				else {
 
-					//if (timerAtaque.ReadSec() > 1) {
-					//	printf("1");
-					//	app->par->CloseAtake(position.x + 20, position.y, 30, 30, ColliderType::CLOSEATK_ENEMY);
-					//	//else app->par->CloseAtake(position.x, position.y, 30, 30, ColliderType::CLOSEATK_ENEMY); if (!isFacingLeft)
-					//	LOG("ATACA");
-					//	canatake = true;
-					//	atakeSpeed++;
-					//	timerAtaque.Start();
-					//	isDestroyPar = true;
-					//}
+					if (timerAtaque.ReadSec() > 1) {
+						printf("1");
+						attackParticle = app->par->CloseAtake(position.x + 20, position.y, 30, 30, ColliderType::CLOSEATK_ENEMY);
+						//else app->par->CloseAtake(position.x, position.y, 30, 30, ColliderType::CLOSEATK_ENEMY); if (!isFacingLeft)
+						LOG("ATACA");
+						canatake = true;
+						timerAtaque.Start();
+						//isDestroyPar = true;
+					}
 
 					/*if (canatake_speed) {
 						currentAnimation = &atack;
 					}*/
 
 
-					if (timerAtaque.ReadSec() > 1) {
+					/*if (timerAtaque.ReadSec() > 1) {
 						canatake = true;
 						timerAtaque.Start();
-					}
+					}*/
 					if(canatake)currentAnimation = &atack;
-					
 				}
+
 			}
 			else {
 
@@ -162,6 +158,12 @@ bool Enemy_Goblin::Update(float dt)
 		}
 
 
+		//if (attackTimer.ReadSec() > 1 && canatake) {
+		//	// è§¦å‘ DestroyParticle
+		//	printf("0");
+		//	app->par->DestroyParticle();
+		//}
+
 		//while (atakeSpeed != 0) {
 		//	if (timerAtaque.ReadSec() > 0.2) {
 		//		printf("0");
@@ -188,6 +190,7 @@ bool Enemy_Goblin::Update(float dt)
 				isDestroyPar = false;
 			}
 		}*/
+
 
 		if (atack.HasFinished() && canatake) {
 			//app->par->DestroyParticle();
@@ -233,6 +236,19 @@ bool Enemy_Goblin::Update(float dt)
 			atakeSpeed--;
 		}
 	}*/
+
+	if (attackParticle != nullptr) {
+		if (timerAtaque.ReadSec() > 0.1) {
+			printf("0");
+			//app->par->DestroyParticle();
+			timerAtaque.Start();
+			//isDestroyPar = false;
+			attackParticle->body->GetWorld()->DestroyBody(attackParticle->body);
+			attackParticle = nullptr;
+
+		}
+	}
+
 
 	if (isFacingLeft) {
 		app->render->DrawTexture(Enemytexture, position.x - 150, position.y - 120, 1.8, SDL_FLIP_HORIZONTAL, &rect);//-6

@@ -290,7 +290,10 @@ bool Player::Update(float dt)
 
 	if (ResetAtackAnimation != nullptr && ResetAtackAnimation->HasFinished()) {
 		RetAtkAni(ResetAtackAnimation, atkReset);
-		app->par->DestroyParticle();
+		if (app->par->pbody != nullptr) {
+			app->par->DestroyParticle();
+		}
+		
 	}
 
 	//if (is_close_atk) {

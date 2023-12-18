@@ -60,6 +60,7 @@ PhysBody* ModuleParticles::CloseAtake(int posX, int posY, int Weight, int Height
 
 void ModuleParticles::DestroyParticle() {
 	pbody->body->GetWorld()->DestroyBody(pbody->body);
+	pbody = nullptr;
 }
 
 bool ModuleParticles::Update(float dt)

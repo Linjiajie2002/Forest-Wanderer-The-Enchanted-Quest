@@ -86,6 +86,8 @@ public:
 
 	bool atacando = false;
 	Timer timerAtaque;
+	Timer attackTimer;
+	PhysBody* attackParticle;
 
 
 private:

@@ -85,7 +85,6 @@ public:
 	int pickCoinFxId;
 
 	int soundjump;
-	int deadenemy;
 	int finallevel;
 	int escudo;
 	int intro;

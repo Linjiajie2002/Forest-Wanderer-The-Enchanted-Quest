@@ -63,6 +63,9 @@ bool Enemy_Goblin::Start() {
 	pbody->listener = this;
 	currentAnimation = &idle;
 
+	//SONIDOS
+	deadenemy = app->audio->LoadFx(parameters.child("deadenemy").attribute("texturepath").as_string());
+
 	b2Filter enemyFilter;
 	enemyFilter.categoryBits = static_cast<uint16_t>(ColliderType::PLATFORM);
 	enemyFilter.maskBits = 0xFFFF & ~static_cast<uint16_t>(ColliderType::PLATFORM);  // ÓëÈÎºÎÅö×²×é±ðµÄÎïÌå¶¼·¢ÉúÅö×²£¬µ«²»Óë×Ô¼º·¢ÉúÅö×²
@@ -77,7 +80,11 @@ bool Enemy_Goblin::Update(float dt)
 
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
 	if (life <= 0) {
-		isDead = true;
+		if (!isDead) {
+			isDead = true;
+			app->audio->PlayFx(deadenemy);
+
+		}
 	}
 
 	if (!isDead) {
@@ -107,8 +114,8 @@ bool Enemy_Goblin::Update(float dt)
 
 					if (timerAtaque.ReadSec() > 1) {
 						printf("1");
-						attackParticle = app->par->CloseAtake(position.x + 20, position.y, 30, 30, ColliderType::CLOSEATK_ENEMY);
-						//else app->par->CloseAtake(position.x, position.y, 30, 30, ColliderType::CLOSEATK_ENEMY); if (!isFacingLeft)
+						if(!isFacingLeft)attackParticle = app->par->CloseAtake(position.x+30, position.y+20, 50, 70, ColliderType::CLOSEATK_ENEMY);
+						else attackParticle = app->par->CloseAtake(position.x - 50, position.y + 20, 50, 70, ColliderType::CLOSEATK_ENEMY); if (!isFacingLeft)
 						LOG("ATACA");
 						canatake = true;
 						timerAtaque.Start();
@@ -177,6 +184,7 @@ bool Enemy_Goblin::Update(float dt)
 
 	if (isDead) {
 		currentAnimation = &die;
+
 		//pbody->body->GetWorld()->DestroyBody(pbody->body);
 		pbody->body->SetActive(false);
 	}

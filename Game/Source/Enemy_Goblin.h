@@ -89,6 +89,7 @@ public:
 	Timer attackTimer;
 	PhysBody* attackParticle;
 
+	int deadenemy;
 
 private:
 

@@ -217,7 +217,14 @@ bool Scene::LoadState(pugi::xml_node node) {
 	
 	LOG("Despues: x: %d y: %d", player->position.x, player->position.y);
 	LOG("aaaaaaaaaaaaa %d", node.child("player").attribute("x").as_int());
-	
+	for (pugi::xml_node itemNode = node.child("enemies").child("enemy"); itemNode; itemNode = itemNode.next_sibling("enemy"))
+	{
+		if (!itemNode.attribute("active").as_bool()) {
+			app->entityManager->enemys_destroy.Add(iPoint(itemNode.attribute("x").as_int(), itemNode.attribute("y").as_int()));
+
+		}
+	}
+	app->entityManager->DestroyAllEnemis();
 	return true;
 
 }
@@ -230,7 +237,17 @@ bool Scene::SaveState(pugi::xml_node node) {
 	playerNode.append_attribute("y").set_value(player->position.y);
 	//playerNode.append_attribute("sceneLevel").set_value(app->sceneLevel);
 
+	pugi::xml_node enemyListNode = node.append_child("enemies");
+	for (int i = 0; i < app->entityManager->enemys.Count(); i++) {
+		
+		pugi::xml_node enemyNode = enemyListNode.append_child("enemy");
 
+
+		enemyNode.append_attribute("x").set_value(app->entityManager->enemys.At(i)->data->originalposition.x);
+		enemyNode.append_attribute("y").set_value(app->entityManager->enemys.At(i)->data->originalposition.y);
+		enemyNode.append_attribute("active").set_value(app->entityManager->enemys.At(i)->data->active);
+
+	}
 
 	return true;
 

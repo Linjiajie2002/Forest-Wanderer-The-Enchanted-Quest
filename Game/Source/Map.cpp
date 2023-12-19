@@ -159,9 +159,10 @@ iPoint Map::WorldToMap(int x, int y) {
 
     iPoint ret(0, 0);
 
-    if (mapData.type == MapTypes::MAPTYPE_ORTHOGONAL) {
+    if (mapData.type == MapTypes::MAPTYPE_ORTHOGONAL || mapData.type == MAPTYPE_UNKNOWN) {
         ret.x = x / mapData.tileWidth;
         ret.y = y / mapData.tileHeight;
+       
     }
 
     if (mapData.type == MapTypes::MAPTYPE_ISOMETRIC) {

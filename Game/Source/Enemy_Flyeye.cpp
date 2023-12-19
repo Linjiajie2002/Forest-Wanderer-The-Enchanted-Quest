@@ -55,6 +55,7 @@ bool Enemy_Flyeye::Start() {
 	pbody->body->GetFixtureList()[0].SetFriction(0.03);
 	pbody->listener = this;
 	currentAnimation = &idle;
+	originalposition = iPoint(position.x, position.y);
 
 	b2Filter enemyFilter;
 	enemyFilter.categoryBits = static_cast<uint16_t>(ColliderType::PLATFORM);
@@ -74,6 +75,8 @@ bool Enemy_Flyeye::Update(float dt)
 
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
 		if (life <= 0) {
+			active = false;
+
 			isDead = true;
 		}
 

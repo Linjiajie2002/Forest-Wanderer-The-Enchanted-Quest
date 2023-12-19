@@ -8,6 +8,7 @@
 #include "Shop.h"
 #include "Enemy_Goblin.h"
 #include "Enemy_Flyeye.h"
+#include "Map.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -91,9 +92,11 @@ Entity* EntityManager::CreateEntity(EntityType type)
 		break;
 	case EntityType::ENEMY_GOBLIN:
 		entity = new Enemy_Goblin(); 
+		enemys.Add(entity);
 		break;
 	case EntityType::ENEMY_FLYEYE:
 		entity = new Enemy_Flyeye();
+		enemys.Add(entity);
 		break;
 	case EntityType::ITEM:
 		entity = new Item();
@@ -129,6 +132,24 @@ void EntityManager::DestroyEntity(Entity* entity)
 void EntityManager::AddEntity(Entity* entity)
 {
 	if ( entity != nullptr) entities.Add(entity);
+}
+
+void EntityManager::DestroyAllEnemis()
+{
+	ListItem<Entity*>* item;
+	for (item = enemys.start; item != NULL; item = item->next) 
+	{
+		ListItem<iPoint>* destroyEnemy;
+		for (destroyEnemy = enemys_destroy.start; destroyEnemy != NULL; destroyEnemy = destroyEnemy->next) 
+		{
+			if (app->map->WorldToMap(destroyEnemy->data.x, destroyEnemy->data.y) == app->map->WorldToMap(item->data->originalposition.x, item->data->originalposition.y))
+			{
+				item->data->active = false;
+			}
+		}
+		
+	}
+
 }
 
 bool EntityManager::Update(float dt)

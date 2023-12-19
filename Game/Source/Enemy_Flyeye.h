@@ -25,6 +25,10 @@ public:
 
 	bool CleanUp();
 
+	void OnCollision(PhysBody* physA, PhysBody* physB);
+	void OnEndCollision(PhysBody* physA, PhysBody* physB);
+
+
 public:
 
 	bool isPicked = false;
@@ -49,6 +53,8 @@ public:
 	int countFrame = 0;
 	bool isFacingLeft;
 
+	bool inEenemyArea = true;
+
 	bool touchR = false;
 	bool touchL = false;
 
@@ -60,6 +66,13 @@ public:
 	Timer timerAtaque;
 	bool canatake = false;
 	PhysBody* attackParticle;
+
+	int enemyAreaLimitR;
+	int enemyAreaLimitL;
+
+	int lastY;
+	int lastX;
+
 
 private:
 

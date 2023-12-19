@@ -75,7 +75,7 @@ public:
 	int enemyOutAreaTime;
 	
 	int life;
-	bool isDead;
+	bool isDead = false;
 	bool isTakehit;
 	bool canatake = true;
 	bool canatake_speed = true;
@@ -90,6 +90,14 @@ public:
 	PhysBody* attackParticle;
 
 	int deadenemy;
+
+	float rangeSize = 1000.0f;
+	float leftTopX;
+	float leftTopY;
+	float rightBottomX;
+	float rightBottomY;
+
+	Player* player;
 
 private:
 

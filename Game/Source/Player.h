@@ -37,6 +37,7 @@ public:
 	void checkAtack();
 	void godMod(float dt);
 	void OnCollision(PhysBody* physA, PhysBody* physB);
+	void OnEndCollision(PhysBody* physA, PhysBody* physB);
 
 
 	void AtackAnimation(char* atackname);

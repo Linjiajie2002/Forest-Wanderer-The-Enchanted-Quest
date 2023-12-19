@@ -73,6 +73,14 @@ public:
 	int lastY;
 	int lastX;
 
+	float rangeSize = 1000.0f;
+	float leftTopX;
+	float leftTopY;
+	float rightBottomX;
+	float rightBottomY;
+
+	Player* player;
+
 
 private:
 

@@ -91,7 +91,7 @@ public:
 
 	int deadenemy;
 
-	float rangeSize = 1000.0f;
+	float rangeSize = 500.0f;
 	float leftTopX;
 	float leftTopY;
 	float rightBottomX;

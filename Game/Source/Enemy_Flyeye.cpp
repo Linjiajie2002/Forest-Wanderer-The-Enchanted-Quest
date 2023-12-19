@@ -58,180 +58,191 @@ bool Enemy_Flyeye::Start() {
 
 	b2Filter enemyFilter;
 	enemyFilter.categoryBits = static_cast<uint16_t>(ColliderType::PLATFORM);
-	enemyFilter.maskBits = 0xFFFF & ~static_cast<uint16_t>(ColliderType::PLATFORM);  // 与任何碰撞组别的物体都发生碰撞，但不与自己发生碰撞
+	enemyFilter.maskBits = 0xFFFF & ~static_cast<uint16_t>(ColliderType::PLATFORM);  //
 	pbody->body->GetFixtureList()[0].SetFilterData(enemyFilter);
+
+	player = app->scene->GetPlayer();
 
 	return true;
 }
 
 bool Enemy_Flyeye::Update(float dt)
 {
+	if (player->position.x >= leftTopX && player->position.x <= rightBottomX &&
+		player->position.y >= leftTopY && player->position.y <= rightBottomY) {
+
+		SDL_Rect rect = currentAnimation->GetCurrentFrame();
+		if (life <= 0) {
+			isDead = true;
+		}
+
+		if (!isDead) {
+			currentAnimation = &idle;
+
+			position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) + 15;
+			position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 30;
+
+			pbody->body->SetLinearVelocity(b2Vec2(0, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
+
+			iPoint origPos = app->map->WorldToMap(position.x + 16, position.y + 16);
+			iPoint playerPos = app->scene->GetPlayer()->position;
+			playerPos = app->map->WorldToMap(playerPos.x, playerPos.y);
+			playerPos.y += 1;
+			/*if (isFacingLeft)playerPos.x += 4;*/
+			playerPos.x += 1.2;
 
 
-	//SDL_Rect rect = currentAnimation->GetCurrentFrame();
-	//if (life <= 0) {
-	//	isDead = true;
-	//}
+			if (app->scene->GetPlayer()->inEnemyArear) {
+				attackTimer.Start();
+				if (isTakehit) {
+					currentAnimation = &take_hit;
+				}
+				if (AtackPlayer) {
+					if (isTakehit) {
+						currentAnimation = &take_hit;
+					}
+					else {
+						if (timerAtaque.ReadSec() > 1) {
+							printf("1");
+							attackParticle = app->par->CloseAtake(position.x + 20, position.y, 30, 30, ColliderType::CLOSEATK_ENEMY);
+							//else app->par->CloseAtake(position.x, position.y, 30, 30, ColliderType::CLOSEATK_ENEMY); if (!isFacingLeft)
+							LOG("ATACA");
+							canatake = true;
+							timerAtaque.Start();
+							//isDestroyPar = true;
+						}
+						if (canatake)currentAnimation = &atack;
+					}
 
-	//if (!isDead) {
-	//	currentAnimation = &idle;
+				}
+				else {
 
-	//	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) + 15;
-	//	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 30;
+					if (app->scene->GetPlayer()->inEnemyArear == true) {
 
-	//	pbody->body->SetLinearVelocity(b2Vec2(0, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
+						app->map->pathfinding->CreatePath(origPos, playerPos);
+						currentAnimation = &idle;
+						if (app->map->pathfinding->GetLastPath()->Count() > 1) {
+							iPoint newPositionPoint = app->map->MapToWorld(app->map->pathfinding->GetLastPath()->At(1)->x, app->map->pathfinding->GetLastPath()->At(1)->y);
+							b2Vec2 newPosition = b2Vec2(PIXEL_TO_METERS(newPositionPoint.x), PIXEL_TO_METERS(newPositionPoint.y));
+							pbody->body->SetLinearVelocity(b2Vec2(0, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
 
-	//	iPoint origPos = app->map->WorldToMap(position.x + 16, position.y + 16);
-	//	iPoint playerPos = app->scene->GetPlayer()->position;
-	//	playerPos = app->map->WorldToMap(playerPos.x, playerPos.y);
-	//	playerPos.y -= 1;
-	//	/*if (isFacingLeft)playerPos.x += 4;*/
-	//	playerPos.x += 1.2;
+							if (position.x > newPositionPoint.x) {
+								isFacingLeft = true;
+								pbody->body->SetLinearVelocity(b2Vec2(-speed * dt, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
+							}
+							else if (position.x < newPositionPoint.x) {
+								isFacingLeft = false;
+								pbody->body->SetLinearVelocity(b2Vec2(speed * dt, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
 
-
-	//	if (app->scene->GetPlayer()->inEnemyArear) {
-	//		attackTimer.Start();
-	//		if (isTakehit) {
-	//			currentAnimation = &take_hit;
-	//		}
-	//		if (AtackPlayer) {
-	//			if (isTakehit) {
-	//				currentAnimation = &take_hit;
-	//			}
-	//			else {
-	//				if (timerAtaque.ReadSec() > 1) {
-	//					printf("1");
-	//					attackParticle = app->par->CloseAtake(position.x + 20, position.y, 30, 30, ColliderType::CLOSEATK_ENEMY);
-	//					//else app->par->CloseAtake(position.x, position.y, 30, 30, ColliderType::CLOSEATK_ENEMY); if (!isFacingLeft)
-	//					LOG("ATACA");
-	//					canatake = true;
-	//					timerAtaque.Start();
-	//					//isDestroyPar = true;
-	//				}
-	//				if (canatake)currentAnimation = &atack;
-	//			}
-
-	//		}
-	//		else {
-
-	//			if (app->scene->GetPlayer()->inEnemyArear == true) {
-
-	//				app->map->pathfinding->CreatePath(origPos, playerPos);
-	//				currentAnimation = &idle;
-	//				if (app->map->pathfinding->GetLastPath()->Count() > 1) {
-	//					iPoint newPositionPoint = app->map->MapToWorld(app->map->pathfinding->GetLastPath()->At(1)->x, app->map->pathfinding->GetLastPath()->At(1)->y);
-	//					b2Vec2 newPosition = b2Vec2(PIXEL_TO_METERS(newPositionPoint.x), PIXEL_TO_METERS(newPositionPoint.y));
-	//					pbody->body->SetLinearVelocity(b2Vec2(0, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
-
-	//					if (position.x > newPositionPoint.x) {
-	//						isFacingLeft = true;
-	//						pbody->body->SetLinearVelocity(b2Vec2(-speed * dt, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
-	//					}
-	//					else if (position.x < newPositionPoint.x) {
-	//						isFacingLeft = false;
-	//						pbody->body->SetLinearVelocity(b2Vec2(speed * dt, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
-
-	//					}
-	//					/*else {
-	//						if (position.y == lastY) {
-	//							if (position.x > newPositionPoint.x) {
-	//								printf("左");
-	//								pbody->body->SetLinearVelocity(b2Vec2(speed * dt,0));
-	//							}
-	//							else {
-	//								printf("右");
-	//								pbody->body->SetLinearVelocity(b2Vec2(-speed * dt, 0));
-	//							}
-	//						}
-	//					}*/
+							}
+							/*else {
+								if (position.y == lastY) {
+									if (position.x > newPositionPoint.x) {
+										printf("左");
+										pbody->body->SetLinearVelocity(b2Vec2(speed * dt,0));
+									}
+									else {
+										printf("右");
+										pbody->body->SetLinearVelocity(b2Vec2(-speed * dt, 0));
+									}
+								}
+							}*/
 
 
 
-	//					if (position.y > newPositionPoint.y) {
-	//						pbody->body->SetLinearVelocity(b2Vec2(pbody->body->GetLinearVelocity().x - GRAVITY_X, -speed * dt));
+							if (position.y > newPositionPoint.y) {
+								pbody->body->SetLinearVelocity(b2Vec2(pbody->body->GetLinearVelocity().x - GRAVITY_X, -speed * dt));
 
-	//					}
-	//					else if (position.y < newPositionPoint.y) {
-	//						pbody->body->SetLinearVelocity(b2Vec2(pbody->body->GetLinearVelocity().x - GRAVITY_X, speed * dt));
+							}
+							else if (position.y < newPositionPoint.y) {
+								pbody->body->SetLinearVelocity(b2Vec2(pbody->body->GetLinearVelocity().x - GRAVITY_X, speed * dt));
 
-	//					}
-	//					//else {
-	//					//	if (position.x == lastX) {
-	//					//		if (position.y > newPositionPoint.y) {
-	//					//			//printf("左");
-	//					//			pbody->body->SetLinearVelocity(b2Vec2(-speed * dt, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
-	//					//		}
-	//					//		else {
-	//					//			//printf("右");
-	//					//			pbody->body->SetLinearVelocity(b2Vec2(speed * dt, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
-	//					//		}
+							}
+							//else {
+							//	if (position.x == lastX) {
+							//		if (position.y > newPositionPoint.y) {
+							//			//printf("左");
+							//			pbody->body->SetLinearVelocity(b2Vec2(-speed * dt, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
+							//		}
+							//		else {
+							//			//printf("右");
+							//			pbody->body->SetLinearVelocity(b2Vec2(speed * dt, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
+							//		}
 
-	//					//	}
-	//					//}
-	//					lastX = position.x;
-	//					lastY = position.y;
-	//				}
-	//			}
-	//		}
-	//	}
-	//	else {
-	//		//EnemyMove(dt, enemyAreaLimitL, enemyAreaLimitR);
-	//	}
+							//	}
+							//}
+							lastX = position.x;
+							lastY = position.y;
+						}
+					}
+				}
+			}
+			else {
+				//EnemyMove(dt, enemyAreaLimitL, enemyAreaLimitR);
+			}
 
-	//	if (atack.HasFinished()) {
-	//		//app->par->DestroyParticle();
-	//		canatake = false;
-	//	}
+			if (atack.HasFinished()) {
+				//app->par->DestroyParticle();
+				canatake = false;
+			}
 
-	//	if (currentAnimation->HasFinished()) {
-	//		atack.Reset();
-	//		take_hit.Reset();
+			if (currentAnimation->HasFinished()) {
+				atack.Reset();
+				take_hit.Reset();
 
-	//		if (isTakehit)isTakehit = false;
+				if (isTakehit)isTakehit = false;
 
-	//	}
+			}
 
-	//	/*if (!inEenemyArea) {
-	//		enemyOutAreaTime++;
-	//		if (enemyOutAreaTime >= 400) {
+			/*if (!inEenemyArea) {
+				enemyOutAreaTime++;
+				if (enemyOutAreaTime >= 400) {
 
-	//		}
+				}
 
-	//	}*/
-	//	for (uint i = 0; i < app->map->pathfinding->GetLastPath()->Count(); ++i)
-	//	{
-	//		//printf("%d", countFrame);
-	//		iPoint pos = app->map->MapToWorld(app->map->pathfinding->GetLastPath()->At(i)->x, app->map->pathfinding->GetLastPath()->At(i)->y);
-	//		app->render->DrawTexture(app->scene->Pathfindingtexture, pos.x, pos.y);
-	//	}
-	//}
+			}*/
+			for (uint i = 0; i < app->map->pathfinding->GetLastPath()->Count(); ++i)
+			{
+				//printf("%d", countFrame);
+				iPoint pos = app->map->MapToWorld(app->map->pathfinding->GetLastPath()->At(i)->x, app->map->pathfinding->GetLastPath()->At(i)->y);
+				app->render->DrawTexture(app->scene->Pathfindingtexture, pos.x, pos.y);
+			}
+		}
 
-	//if (isDead) {
-	//	currentAnimation = &die;
-	//	//pbody->body->GetWorld()->DestroyBody(pbody->body);
-	//	pbody->body->SetActive(false);
-	//}
+		if (isDead) {
+			currentAnimation = &die;
+			//pbody->body->GetWorld()->DestroyBody(pbody->body);
+			pbody->body->SetActive(false);
+		}
 
-	//if (attackParticle != nullptr) {
-	//	if (timerAtaque.ReadMSec() > 300) { //1s == 1000ms 
-	//		printf("0");
-	//		//app->par->DestroyParticle();
-	//		timerAtaque.Start();
-	//		//isDestroyPar = false;
-	//		attackParticle->body->GetWorld()->DestroyBody(attackParticle->body);
-	//		attackParticle = nullptr;
+		if (attackParticle != nullptr) {
+			if (timerAtaque.ReadMSec() > 300) { //1s == 1000ms 
+				printf("0");
+				//app->par->DestroyParticle();
+				timerAtaque.Start();
+				//isDestroyPar = false;
+				attackParticle->body->GetWorld()->DestroyBody(attackParticle->body);
+				attackParticle = nullptr;
 
-	//	}
-	//}
+			}
+		}
 
-	//if (isFacingLeft) {
-	//	app->render->DrawTexture(Enemytexture, position.x - 150, position.y - 120, 1.8, SDL_FLIP_HORIZONTAL, &rect);//-6
-	//}
-	//else
-	//{
-	//	app->render->DrawTexture(Enemytexture, position.x - 150, position.y - 120, 1.8, SDL_FLIP_NONE, &rect);//-6
-	//}
-	currentAnimation->Update();
+		if (isFacingLeft) {
+			app->render->DrawTexture(Enemytexture, position.x - 150, position.y - 120, 1.8, SDL_FLIP_HORIZONTAL, &rect);//-6
+		}
+		else
+		{
+			app->render->DrawTexture(Enemytexture, position.x - 150, position.y - 120, 1.8, SDL_FLIP_NONE, &rect);//-6
+		}
+		currentAnimation->Update();
+
+	}else {
+		//printf("\nOutArea");
+		leftTopX = position.x - rangeSize;
+		leftTopY = position.y - rangeSize / 2;
+		rightBottomX = position.x + rangeSize;
+		rightBottomY = position.y + rangeSize / 2;
+	}
 	return true;
 }
 

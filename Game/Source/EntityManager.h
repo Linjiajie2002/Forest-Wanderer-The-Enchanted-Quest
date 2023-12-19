@@ -32,10 +32,13 @@ public:
 	void DestroyEntity(Entity* entity);
 
 	void AddEntity(Entity* entity);
+	void DestroyAllEnemis();
 
 public:
 
 	List<Entity*> entities;
+	List<Entity*> enemys;
+	List<iPoint> enemys_destroy;
 	
 };
 

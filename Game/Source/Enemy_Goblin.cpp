@@ -64,6 +64,7 @@ bool Enemy_Goblin::Start() {
 	pbody->body->GetFixtureList()[0].SetFriction(0.03);
 	pbody->listener = this;
 	currentAnimation = &idle;
+	originalposition = iPoint(position.x, position.y);
 
 	//SONIDOS
 	//deadenemy = app->audio->LoadFx(parameters.child("deadenemy").attribute("texturepath").as_string());
@@ -91,6 +92,7 @@ bool Enemy_Goblin::Update(float dt)
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
 		if (life <= 0) {
 			if (!isDead) {
+				active = false;
 				isDead = true;
 				//app->audio->PlayFx(deadenemy);
 

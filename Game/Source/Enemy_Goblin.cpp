@@ -81,6 +81,12 @@ bool Enemy_Goblin::Update(float dt)
 {
 	if (player->position.x >= leftTopX && player->position.x <= rightBottomX &&
 		player->position.y >= leftTopY && player->position.y <= rightBottomY) {
+		printf("%d", inEenemyArea);
+		/*if (!inEenemyArea && !isDead) {
+			vel = b2Vec2(METERS_TO_PIXELS(position.x), METERS_TO_PIXELS(position.y));
+	
+			pbody->body->SetTransform(vel, pbody->body->GetAngle());
+		}*/
 
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
 		if (life <= 0) {
@@ -160,13 +166,6 @@ bool Enemy_Goblin::Update(float dt)
 
 			}
 
-			/*if (!inEenemyArea) {
-				enemyOutAreaTime++;
-				if (enemyOutAreaTime >= 400) {
-
-				}
-
-			}*///End if
 			for (uint i = 0; i < app->map->pathfinding->GetLastPath()->Count(); ++i)
 			{
 				//printf("%d", countFrame);
@@ -303,7 +302,9 @@ void Enemy_Goblin::OnEndCollision(PhysBody* physA, PhysBody* physB) {
 		AtackPlayer = false;
 		break;
 
-
+	case ColliderType::ENEMYAREA:
+		inEenemyArea = false;
+		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
 		break;

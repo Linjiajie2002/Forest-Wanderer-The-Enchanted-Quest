@@ -81,10 +81,10 @@ bool Enemy_Goblin::Update(float dt)
 {
 	if (player->position.x >= leftTopX && player->position.x <= rightBottomX &&
 		player->position.y >= leftTopY && player->position.y <= rightBottomY) {
-		printf("%d", inEenemyArea);
+		//printf("%d", inEenemyArea);
 		/*if (!inEenemyArea && !isDead) {
 			vel = b2Vec2(METERS_TO_PIXELS(position.x), METERS_TO_PIXELS(position.y));
-	
+
 			pbody->body->SetTransform(vel, pbody->body->GetAngle());
 		}*/
 
@@ -147,8 +147,9 @@ bool Enemy_Goblin::Update(float dt)
 						}
 					}
 				}//if in Enemy area
-					
-			}else {
+
+			}
+			else {
 				EnemyMove(dt, enemyAreaLimitL, enemyAreaLimitR);
 			}//if in Enemy area
 
@@ -165,57 +166,62 @@ bool Enemy_Goblin::Update(float dt)
 				if (isTakehit)isTakehit = false;
 
 			}
-
-			for (uint i = 0; i < app->map->pathfinding->GetLastPath()->Count(); ++i)
-			{
-				//printf("%d", countFrame);
-				iPoint pos = app->map->MapToWorld(app->map->pathfinding->GetLastPath()->At(i)->x, app->map->pathfinding->GetLastPath()->At(i)->y);
-				app->render->DrawTexture(app->scene->Pathfindingtexture, pos.x, pos.y);
+			if (app->debug) {
+				for (uint i = 0; i < app->map->pathfinding->GetLastPath()->Count(); ++i)
+				{
+					//printf("%d", countFrame);
+					iPoint pos = app->map->MapToWorld(app->map->pathfinding->GetLastPath()->At(i)->x, app->map->pathfinding->GetLastPath()->At(i)->y);
+					app->render->DrawTexture(app->scene->Pathfindingtexture, pos.x, pos.y);
+				}
 			}
 		}//End if Dead
 
-
-
-		if (isDead) {
-			currentAnimation = &die;
-			pbody->body->SetActive(false);
-		}
-
-		if (attackParticle != nullptr) {
-			if (timerAtaque.ReadMSec() > 300) { //1s == 1000ms 
-				printf("0");
-				//app->par->DestroyParticle();
-				timerAtaque.Start();
-				//isDestroyPar = false;
-				attackParticle->body->GetWorld()->DestroyBody(attackParticle->body);
-				attackParticle = nullptr;
+		
+			if (isFacingLeft) {
+				app->render->DrawTexture(Enemytexture, position.x - 150, position.y - 120, 1.8, SDL_FLIP_HORIZONTAL, &rect);//-6
 			}
-		}
+			else
+			{
+				app->render->DrawTexture(Enemytexture, position.x - 150, position.y - 120, 1.8, SDL_FLIP_NONE, &rect);//-6
+			}
 
-
-		if (isFacingLeft) {
-			app->render->DrawTexture(Enemytexture, position.x - 150, position.y - 120, 1.8, SDL_FLIP_HORIZONTAL, &rect);//-6
-		}
-		else
-		{
-			app->render->DrawTexture(Enemytexture, position.x - 150, position.y - 120, 1.8, SDL_FLIP_NONE, &rect);//-6
-		}
-
-
-		currentAnimation->Update();
 	}
 	else {
 		//printf("\nOutArea");
 		leftTopX = position.x - rangeSize;
-		leftTopY = position.y - rangeSize/2;
+		leftTopY = position.y - rangeSize / 2;
 		rightBottomX = position.x + rangeSize;
-		rightBottomY = position.y + rangeSize/2;
+		rightBottomY = position.y + rangeSize / 2;
 	}
+
+	if (isDead) {
+		currentAnimation = &die;
+		if (pbody != nullptr) {
+			pbody->body->GetWorld()->DestroyBody(pbody->body);
+			pbody = nullptr;
+		}
+		//pbody->body->SetActive(false);
+	}
+
+	if (attackParticle != nullptr) {
+		if (timerAtaque.ReadMSec() > 300) { //1s == 1000ms 
+			printf("0");
+			//app->par->DestroyParticle();
+			timerAtaque.Start();
+			//isDestroyPar = false;
+			attackParticle->body->GetWorld()->DestroyBody(attackParticle->body);
+			attackParticle = nullptr;
+		}
+	}
+
+	currentAnimation->Update();
 	return true;
 }
 
 bool Enemy_Goblin::CleanUp()
 {
+
+
 	return true;
 }
 

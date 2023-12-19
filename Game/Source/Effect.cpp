@@ -94,8 +94,6 @@ bool Effect::Update(float dt)
 
 bool Effect::CleanUp()
 {
-	SDL_DestroyTexture(Effecttexture);
-	SDL_DestroyTexture(Effecttexture2);
 	return true;
 }
 

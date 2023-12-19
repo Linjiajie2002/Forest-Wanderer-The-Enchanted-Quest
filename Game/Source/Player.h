@@ -7,6 +7,7 @@
 #include "SDL/include/SDL.h"
 #include "Physics.h"
 #include "Render.h"
+#include "Timer.h"
 
 struct SDL_Texture;
 
@@ -168,7 +169,8 @@ public:
 
 	bool In_defend = true;
 	bool test2 = false;
-
+	PhysBody* attackParticle;
+	Timer timerAtaque;
 	bool inEnemyArear = false;
 
 };

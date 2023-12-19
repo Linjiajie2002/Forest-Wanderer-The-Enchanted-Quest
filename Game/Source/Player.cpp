@@ -14,6 +14,7 @@
 #include "Map.h"
 #include "Effect.h"
 #include "Particle.h"
+#include "Timer.h"
 
 Player::Player() : Entity(EntityType::PLAYER)
 {
@@ -205,8 +206,8 @@ bool Player::Update(float dt)
 				*checkisAtk = true;
 				checkAtk = &close_atk;
 				atkAniname = "close_atk";
-				if(!isFacingLeft)app->par->CloseAtake(position.x + 120, position.y + 25, 70, 10, ColliderType::CLOSEATK_PLAYER);
-				else app->par->CloseAtake(position.x, position.y + 25, 70, 10, ColliderType::CLOSEATK_PLAYER);
+				if(!isFacingLeft)attackParticle = app->par->CloseAtake(position.x + 120, position.y + 25, 70, 10, ColliderType::CLOSEATK_PLAYER);
+				else attackParticle =app->par->CloseAtake(position.x-18, position.y + 25, 70, 10, ColliderType::CLOSEATK_PLAYER);
 			}
 
 
@@ -215,7 +216,8 @@ bool Player::Update(float dt)
 				*checkisAtk = true;
 				checkAtk = &sp_atk;
 				atkAniname = "sp_atk";
-
+				if (!isFacingLeft)attackParticle = app->par->CloseAtake(position.x + 160, position.y + 30, 155, 20, ColliderType::CLOSEATK_PLAYER);
+				else attackParticle =app->par->CloseAtake(position.x-58, position.y + 30, 155, 20, ColliderType::CLOSEATK_PLAYER);
 			}
 
 
@@ -289,8 +291,15 @@ bool Player::Update(float dt)
 
 	if (ResetAtackAnimation != nullptr && ResetAtackAnimation->HasFinished()) {
 		RetAtkAni(ResetAtackAnimation, atkReset);
-		if (app->par->pbody != nullptr) {
-			app->par->DestroyParticle();
+		if (attackParticle != nullptr) {
+			if (timerAtaque.ReadMSec() > 300) { //1s == 1000ms 
+				printf("0");
+				//app->par->DestroyParticle();
+				timerAtaque.Start();
+				//isDestroyPar = false;
+				attackParticle->body->GetWorld()->DestroyBody(attackParticle->body);
+				attackParticle = nullptr;
+			}
 		}
 		
 	}

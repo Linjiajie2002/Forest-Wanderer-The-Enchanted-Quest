@@ -47,12 +47,12 @@ bool Enemy_Flyeye::Awake() {
 bool Enemy_Flyeye::Start() {
 
 	Enemytexture = app->tex->Load(EnemyPath);
-	pbody = app->physics->CreateCircle(position.x - 10, position.y, 32, bodyType::DYNAMIC);
+	pbody = app->physics->CreateCircle(position.x - 10, position.y, 28, bodyType::DYNAMIC);
 
 	//pbody = app->physics->CreateCircle(position.x + 16, position.y + 16, 16, bodyType::STATIC);
 	pbody->ctype = ColliderType::ENEMY;
 	pbody->body->SetFixedRotation(true);
-	pbody->body->GetFixtureList()[0].SetFriction(0.9);
+	pbody->body->GetFixtureList()[0].SetFriction(0.03);
 	pbody->listener = this;
 	currentAnimation = &idle;
 
@@ -62,6 +62,7 @@ bool Enemy_Flyeye::Start() {
 	pbody->body->GetFixtureList()[0].SetFilterData(enemyFilter);
 
 	player = app->scene->GetPlayer();
+
 
 	return true;
 }
@@ -80,7 +81,7 @@ bool Enemy_Flyeye::Update(float dt)
 			currentAnimation = &idle;
 
 			position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) + 15;
-			position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 30;
+			position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 22;
 
 			pbody->body->SetLinearVelocity(b2Vec2(0, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
 
@@ -151,11 +152,11 @@ bool Enemy_Flyeye::Update(float dt)
 
 
 							if (position.y > newPositionPoint.y) {
-								pbody->body->SetLinearVelocity(b2Vec2(pbody->body->GetLinearVelocity().x - GRAVITY_X, -speed * dt));
+								pbody->body->SetLinearVelocity(b2Vec2(pbody->body->GetLinearVelocity().x, -speed * dt));
 
 							}
 							else if (position.y < newPositionPoint.y) {
-								pbody->body->SetLinearVelocity(b2Vec2(pbody->body->GetLinearVelocity().x - GRAVITY_X, speed * dt));
+								pbody->body->SetLinearVelocity(b2Vec2(pbody->body->GetLinearVelocity().x, speed * dt));
 
 							}
 							//else {
@@ -201,31 +202,20 @@ bool Enemy_Flyeye::Update(float dt)
 				}
 
 			}*/
-			for (uint i = 0; i < app->map->pathfinding->GetLastPath()->Count(); ++i)
-			{
-				//printf("%d", countFrame);
-				iPoint pos = app->map->MapToWorld(app->map->pathfinding->GetLastPath()->At(i)->x, app->map->pathfinding->GetLastPath()->At(i)->y);
-				app->render->DrawTexture(app->scene->Pathfindingtexture, pos.x, pos.y);
+
+			if (app->debug) {
+				for (uint i = 0; i < app->map->pathfinding->GetLastPath()->Count(); ++i)
+				{
+					//printf("%d", countFrame);
+					iPoint pos = app->map->MapToWorld(app->map->pathfinding->GetLastPath()->At(i)->x, app->map->pathfinding->GetLastPath()->At(i)->y);
+					app->render->DrawTexture(app->scene->Pathfindingtexture, pos.x, pos.y);
+				}
 			}
 		}
 
-		if (isDead) {
-			currentAnimation = &die;
-			//pbody->body->GetWorld()->DestroyBody(pbody->body);
-			pbody->body->SetActive(false);
-		}
+	
 
-		if (attackParticle != nullptr) {
-			if (timerAtaque.ReadMSec() > 300) { //1s == 1000ms 
-				printf("0");
-				//app->par->DestroyParticle();
-				timerAtaque.Start();
-				//isDestroyPar = false;
-				attackParticle->body->GetWorld()->DestroyBody(attackParticle->body);
-				attackParticle = nullptr;
 
-			}
-		}
 
 		if (isFacingLeft) {
 			app->render->DrawTexture(Enemytexture, position.x - 150, position.y - 120, 1.8, SDL_FLIP_HORIZONTAL, &rect);//-6
@@ -234,20 +224,47 @@ bool Enemy_Flyeye::Update(float dt)
 		{
 			app->render->DrawTexture(Enemytexture, position.x - 150, position.y - 120, 1.8, SDL_FLIP_NONE, &rect);//-6
 		}
-		currentAnimation->Update();
+	
 
-	}else {
+	}
+	else {
 		//printf("\nOutArea");
 		leftTopX = position.x - rangeSize;
 		leftTopY = position.y - rangeSize / 2;
 		rightBottomX = position.x + rangeSize;
 		rightBottomY = position.y + rangeSize / 2;
 	}
+
+	if (isDead) {
+		currentAnimation = &die;
+		/*if (pbody != nullptr) {
+			pbody->body->GetWorld()->DestroyBody(pbody->body);
+			pbody = nullptr;
+		}*/
+		pbody->body->SetActive(false);
+
+
+	}
+
+	if (attackParticle != nullptr) {
+		if (timerAtaque.ReadMSec() > 300) { //1s == 1000ms 
+			printf("0");
+			//app->par->DestroyParticle();
+			timerAtaque.Start();
+			//isDestroyPar = false;
+			attackParticle->body->GetWorld()->DestroyBody(attackParticle->body);
+			attackParticle = nullptr;
+
+		}
+	}
+
+	currentAnimation->Update();
 	return true;
 }
 
 bool Enemy_Flyeye::CleanUp()
 {
+
 	return true;
 }
 

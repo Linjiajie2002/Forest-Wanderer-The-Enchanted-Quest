@@ -240,11 +240,11 @@ bool Enemy_Flyeye::Update(float dt)
 
 	if (isDead) {
 		currentAnimation = &die;
-		/*if (pbody != nullptr) {
+		if (pbody != nullptr) {
 			pbody->body->GetWorld()->DestroyBody(pbody->body);
 			pbody = nullptr;
-		}*/
-		pbody->body->SetActive(false);
+		}
+		//pbody->body->SetActive(false);
 
 
 	}

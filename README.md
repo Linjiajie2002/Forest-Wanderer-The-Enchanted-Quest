@@ -14,6 +14,7 @@ Basic Controls
 - Hold S - Look down
 - A/D - Move left/right
 - J - Attack
+- I - Attack
 - R - Dead
 - ESC - Close Game
 
@@ -21,6 +22,8 @@ Debug Controls
 
 - F1 - Go to level1
 - F3 - Reset level
+- F5 - Save
+- F6 - Load
 - F9 - Show/hide Collisions and other metas
 - F10 - Toggle godmode (free movement with WASD)
 - F11 - Change frames cap
@@ -41,6 +44,7 @@ Debug Controls
 - Level 1 implemented
 - Creation of a debug mode
 - Optimized code to improve performance
+- Creationg of 2 diferent enemies (They appear only when the player approaches, to optimize, and when they appear they have a random movement system within an area)
 
 ## License
 

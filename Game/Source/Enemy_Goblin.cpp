@@ -98,7 +98,7 @@ bool Enemy_Goblin::Update(float dt)
 		else {
 			//printf("\nOutArea");
 			AtackPlayer = false;
-			atk_leftTopX = position.x - atk_rangeSize*4;
+			atk_leftTopX = position.x - atk_rangeSize * 4;
 			atk_leftTopY = position.y - atk_rangeSize;
 			atk_rightBottomX = position.x + atk_rangeSize;
 			atk_rightBottomY = position.y + atk_rangeSize;
@@ -135,13 +135,14 @@ bool Enemy_Goblin::Update(float dt)
 					}
 					else {
 
-						if (timerAtaque.ReadMSec() > 600) {
+						if (timerAtaque.ReadMSec() > 600) {		
 							if (!isFacingLeft)attackParticle = app->par->CloseAtake(position.x + 30, position.y + 20, 50, 70, ColliderType::CLOSEATK_ENEMY);
 							else attackParticle = app->par->CloseAtake(position.x - 50, position.y + 20, 50, 70, ColliderType::CLOSEATK_ENEMY);
 							canatake = true;
 							timerAtaque.Start();
 						}
-						if (canatake)currentAnimation = &atack;
+						if (canatake)currentAnimation = &atack; 
+		
 					}
 				}
 				else {
@@ -173,6 +174,7 @@ bool Enemy_Goblin::Update(float dt)
 
 			if (atack.HasFinished() && canatake) {
 				//app->par->DestroyParticle();
+				
 				canatake = false;
 			}
 
@@ -193,14 +195,14 @@ bool Enemy_Goblin::Update(float dt)
 			}
 		}//End if Dead
 
-		
-			if (isFacingLeft) {
-				app->render->DrawTexture(Enemytexture, position.x - 150, position.y - 120, 1.8, SDL_FLIP_HORIZONTAL, &rect);//-6
-			}
-			else
-			{
-				app->render->DrawTexture(Enemytexture, position.x - 150, position.y - 120, 1.8, SDL_FLIP_NONE, &rect);//-6
-			}
+
+		if (isFacingLeft) {
+			app->render->DrawTexture(Enemytexture, position.x - 150, position.y - 120, 1.8, SDL_FLIP_HORIZONTAL, &rect);//-6
+		}
+		else
+		{
+			app->render->DrawTexture(Enemytexture, position.x - 150, position.y - 120, 1.8, SDL_FLIP_NONE, &rect);//-6
+		}
 
 	}
 	else {

@@ -110,15 +110,7 @@ bool Player::Update(float dt)
 	//printf("%d \n", position.x);
 	currentAnimation = &idle;
 	vel = b2Vec2(0, pbody->body->GetLinearVelocity().y);
-
-	//printf("%d",frameCount);
-	//onWall = false;
-
-	//printf("%d", vel.y);
-
 	app->win->GetWindowSize(width, height);
-
-
 
 	if (NoControl) {
 
@@ -134,13 +126,6 @@ bool Player::Update(float dt)
 			//Set the velocity of the pbody of the player
 			vel.y -= GRAVITY_Y;
 			pbody->body->SetLinearVelocity(vel);
-
-			//printf("%d\n", vel.y);
-			//printf("PosY> %d \n", position.y);
-
-
-
-
 
 			//Jump
 			if (jumpCount > 0) {
@@ -220,9 +205,6 @@ bool Player::Update(float dt)
 				if (!isFacingLeft)attackParticle = app->par->CloseAtake(position.x + 160, position.y + 30, 155, 20, ColliderType::CLOSEATK_PLAYER);
 				else attackParticle = app->par->CloseAtake(position.x - 58, position.y + 30, 155, 20, ColliderType::CLOSEATK_PLAYER);
 			}
-
-
-
 
 			Camera();
 			//if (false) {
@@ -313,8 +295,9 @@ bool Player::Update(float dt)
 	//Die
 	if (isDead) {
 		NoControl = false;
-		SDL_Delay(20);
+		//SDL_Delay(20);
 		currentAnimation = &die;
+		pbody->body->SetLinearVelocity(b2Vec2(0, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
 	}
 	else {
 		NoControl = true;
@@ -383,6 +366,12 @@ bool Player::CleanUp()
 	delete  checkAtk;
 	delete atkReset;
 	delete atkAniname;
+	delete pbody;
+	delete attackParticle;
+	delete checkAtk;
+	delete atkReset;
+	delete atkAniname;
+
 	return true;
 }
 
@@ -637,13 +626,19 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::PLAYERLEAVE:
 		inEnemyArear = false;
 		break;
+	case ColliderType::CLOSEATK_ENEMY:
+		isDead = true;
+		inEnemyArear = false;
+		pbody->body->SetActive(false);
+		
+		break;
 
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
 		break;
 	case ColliderType::VICTORYCOLLISION:
 		app->audio->PlayFx(finallevel);
-		
+
 		isVictoria = true;
 		break;
 	}

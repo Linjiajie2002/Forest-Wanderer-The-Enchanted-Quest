@@ -102,7 +102,7 @@ bool Effect::Update(float dt)
 	}
 
 	if (!app->scene->GetPlayer()->isVictoria) {
-		printf("yes");
+		//printf("yes");
 
 		sonid_vic = true;
 
@@ -124,6 +124,7 @@ bool Effect::Update(float dt)
 
 bool Effect::CleanUp()
 {
+	
 	return true;
 }
 

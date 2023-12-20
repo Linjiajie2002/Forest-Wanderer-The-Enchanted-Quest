@@ -206,8 +206,8 @@ bool Player::Update(float dt)
 				*checkisAtk = true;
 				checkAtk = &close_atk;
 				atkAniname = "close_atk";
-				if(!isFacingLeft)attackParticle = app->par->CloseAtake(position.x + 120, position.y + 25, 70, 10, ColliderType::CLOSEATK_PLAYER);
-				else attackParticle =app->par->CloseAtake(position.x-18, position.y + 25, 70, 10, ColliderType::CLOSEATK_PLAYER);
+				if (!isFacingLeft)attackParticle = app->par->CloseAtake(position.x + 120, position.y + 25, 70, 10, ColliderType::CLOSEATK_PLAYER);
+				else attackParticle = app->par->CloseAtake(position.x - 18, position.y + 25, 70, 10, ColliderType::CLOSEATK_PLAYER);
 			}
 
 
@@ -217,31 +217,11 @@ bool Player::Update(float dt)
 				checkAtk = &sp_atk;
 				atkAniname = "sp_atk";
 				if (!isFacingLeft)attackParticle = app->par->CloseAtake(position.x + 160, position.y + 30, 155, 20, ColliderType::CLOSEATK_PLAYER);
-				else attackParticle =app->par->CloseAtake(position.x-58, position.y + 30, 155, 20, ColliderType::CLOSEATK_PLAYER);
+				else attackParticle = app->par->CloseAtake(position.x - 58, position.y + 30, 155, 20, ColliderType::CLOSEATK_PLAYER);
 			}
 
 
 
-			//if (canAtack) {
-			//	if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN) {
-			//		//if (atackTypeCount > 3) {
-			//		//	atackTypeCount = 1;
-			//		//}
-			//		//else
-			//		//{
-			//		//	atackTypeCount++;
-			//		//}
-			//		////printf("yes");
-			//		//isAtack = true;
-			//		
-			//		//printf("%d", atackTypeCount);
-			//		canAtack = true;
-			//	}
-			//	currentAnimation = &atack;
-			//
-
-			//}
-			//checkAtack();
 
 			Camera();
 			//if (false) {
@@ -258,7 +238,6 @@ bool Player::Update(float dt)
 			//	/*Camera();*/
 			//}
 
-
 		}
 		else
 		{
@@ -266,28 +245,8 @@ bool Player::Update(float dt)
 
 		}
 
-	}//if is dead
+	}//if Fuera de control
 
-
-
-	if (isDead) {
-		NoControl = false;
-	}
-	else {
-		NoControl = true;
-	}
-
-	//if (close_atk.HasFinished()) {
-	//	NoControl = true;
-	//	is_close_atk = false;
-	//	close_atk.Reset();
-	//}
-
-	//if (sp_atk.HasFinished()) {
-	//	NoControl = true;
-	//	is_sp_atk = false;
-	//	sp_atk.Reset();
-	//}
 
 	if (ResetAtackAnimation != nullptr && ResetAtackAnimation->HasFinished()) {
 		RetAtkAni(ResetAtackAnimation, atkReset);
@@ -301,28 +260,14 @@ bool Player::Update(float dt)
 				attackParticle = nullptr;
 			}
 		}
-		
+
 	}
-
-	//if (is_close_atk) {
-
-	//	AtackAnimation("close_atk");
-	//	ResetAtackAnimation = &close_atk;
-	//	atkReset = &is_close_atk;
-	//}
-
-
 
 	if (checkisAtk != nullptr && *checkisAtk) {
 		AtackAnimation(atkAniname);
 		ResetAtackAnimation = checkAtk;
 		atkReset = checkisAtk;
 	}
-	/*if (is_sp_atk) {
-		AtackAnimation("sp_atk");
-		ResetAtackAnimation = &sp_atk;
-		atkReset = &is_sp_atk;
-	}*/
 
 
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
@@ -363,8 +308,12 @@ bool Player::Update(float dt)
 
 	//Die
 	if (isDead) {
+		NoControl = false;
 		SDL_Delay(20);
 		currentAnimation = &die;
+	}
+	else {
+		NoControl = true;
 	}
 
 
@@ -392,10 +341,6 @@ bool Player::Update(float dt)
 
 	//cargar siempre despues de dibujar al player
 	app->map->UpdateDelante();
-
-
-
-
 
 	return true;
 }
@@ -579,16 +524,8 @@ void Player::keyInput(float dt) {
 
 	}
 
-
-
-
-
 }
 
-
-void Player::Jump() {
-
-}
 
 
 
@@ -704,7 +641,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 }
 
 
-void Player::OnEndCollision(PhysBody* physA, PhysBody* physB){
+void Player::OnEndCollision(PhysBody* physA, PhysBody* physB) {
 
 	/*switch (physB->ctype)
 	{

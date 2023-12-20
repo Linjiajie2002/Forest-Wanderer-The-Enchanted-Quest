@@ -89,6 +89,21 @@ bool Enemy_Goblin::Update(float dt)
 			pbody->body->SetTransform(vel, pbody->body->GetAngle());
 		}*/
 
+
+		if (player->position.x >= atk_leftTopX && player->position.x <= atk_rightBottomX &&
+			player->position.y >= atk_leftTopY && player->position.y <= atk_rightBottomY) {
+			AtackPlayer = true;
+
+		}
+		else {
+			//printf("\nOutArea");
+			AtackPlayer = false;
+			atk_leftTopX = position.x - atk_rangeSize*4;
+			atk_leftTopY = position.y - atk_rangeSize;
+			atk_rightBottomX = position.x + atk_rangeSize;
+			atk_rightBottomY = position.y + atk_rangeSize;
+		}
+
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
 		if (life <= 0) {
 			if (!isDead) {
@@ -120,7 +135,7 @@ bool Enemy_Goblin::Update(float dt)
 					}
 					else {
 
-						if (timerAtaque.ReadSec() > 1) {
+						if (timerAtaque.ReadMSec() > 600) {
 							if (!isFacingLeft)attackParticle = app->par->CloseAtake(position.x + 30, position.y + 20, 50, 70, ColliderType::CLOSEATK_ENEMY);
 							else attackParticle = app->par->CloseAtake(position.x - 50, position.y + 20, 50, 70, ColliderType::CLOSEATK_ENEMY);
 							canatake = true;

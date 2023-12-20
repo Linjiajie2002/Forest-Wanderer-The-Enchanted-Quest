@@ -28,6 +28,9 @@ public:
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 	void OnEndCollision(PhysBody* physA, PhysBody* physB);
 
+	void EnemyMove(float dt, int enemyAreaLimitL, int enemyAreaLimitR);
+	bool Rd();
+
 
 public:
 
@@ -67,17 +70,31 @@ public:
 	bool canatake = false;
 	PhysBody* attackParticle;
 
-	int enemyAreaLimitR;
-	int enemyAreaLimitL;
-
 	int lastY;
 	int lastX;
 
-	float rangeSize = 1000.0f;
+
+	int walkFrameCount = 0;
+	bool rddirection;
+	int enemywalk;
+	bool enemyidle = true;
+	int timeidle;
+	bool rdinWork = false;
+	bool walkrdinWork = true;
+	int enemyAreaLimitR, enemyAreaLimitL;
+
+	float rangeSize = 700.0f;
 	float leftTopX;
 	float leftTopY;
 	float rightBottomX;
 	float rightBottomY;
+
+
+	float atk_rangeSize = 20.0f;
+	float atk_leftTopX;
+	float atk_leftTopY;
+	float atk_rightBottomX;
+	float atk_rightBottomY;
 
 	Player* player;
 

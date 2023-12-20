@@ -51,9 +51,9 @@
 
 
 		<enemy>
-			<Enemy_Flyeye Posx="800" Posy="1100" Tsprite="32" x="150" y="150" Pweight="1200" Area_Limit_L="0" Area_Limit_R="0" life="3" speed ="0.1" texturepath="Assets/Sprite/Enemy/Fly_eye/Flyeye.png"/>
+			<Enemy_Flyeye Posx="960" Posy="416" Tsprite="32" x="150" y="150" Pweight="1200" Area_Limit_L="800" Area_Limit_R="1184" life="3" speed ="0.2" texturepath="Assets/Sprite/Enemy/Fly_eye/Flyeye.png"/>
 
-			<Enemy_Flyeye Posx="2436" Posy="1184" Tsprite="32" x="150" y="150" Pweight="1200" Area_Limit_L="1888" Area_Limit_R="2784" life="3" speed ="0.1" texturepath="Assets/Sprite/Enemy/Fly_eye/Flyeye.png"/>
+			<Enemy_Flyeye Posx="4992" Posy="672" Tsprite="32" x="150" y="150" Pweight="1200" Area_Limit_L="4704" Area_Limit_R="5216" life="3" speed ="0.2" texturepath="Assets/Sprite/Enemy/Fly_eye/Flyeye.png"/>
 
 			<!--
 			<Enemy_Goblin Posx="800" Posy="1100" Tsprite="40" x="150" y="150" Pweight="1200" speed ="0.4" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png"/>

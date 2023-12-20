@@ -10,6 +10,8 @@
 #include "Enemy_Flyeye.h"
 #include "Map.h"
 
+#include <random>
+
 Enemy_Flyeye::Enemy_Flyeye() : Entity(EntityType::ENEMY_FLYEYE)
 {
 	name.Create("enemy");
@@ -54,6 +56,8 @@ bool Enemy_Flyeye::Start() {
 	pbody->body->SetFixedRotation(true);
 	pbody->body->GetFixtureList()[0].SetFriction(0.03);
 	pbody->listener = this;
+	//pbody->body->SetGravityScale(0);
+
 	currentAnimation = &idle;
 	originalposition = iPoint(position.x, position.y);
 
@@ -73,6 +77,22 @@ bool Enemy_Flyeye::Update(float dt)
 	if (player->position.x >= leftTopX && player->position.x <= rightBottomX &&
 		player->position.y >= leftTopY && player->position.y <= rightBottomY) {
 
+
+		if (player->position.x >= atk_leftTopX && player->position.x <= atk_rightBottomX &&
+			player->position.y >= atk_leftTopY && player->position.y <= atk_rightBottomY) {
+			AtackPlayer = true;
+
+		}
+		else {
+			//printf("\nOutArea");
+			AtackPlayer = false;
+			atk_leftTopX = position.x - atk_rangeSize * 8;
+			atk_leftTopY = position.y - atk_rangeSize;
+			atk_rightBottomX = position.x + atk_rangeSize;
+			atk_rightBottomY = position.y + atk_rangeSize * 2;
+		}
+
+
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
 		if (life <= 0) {
 			active = false;
@@ -86,14 +106,15 @@ bool Enemy_Flyeye::Update(float dt)
 			position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) + 15;
 			position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 22;
 
-			pbody->body->SetLinearVelocity(b2Vec2(0, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
 
+			pbody->body->SetLinearVelocity(b2Vec2(0, 0));
+			
 			iPoint origPos = app->map->WorldToMap(position.x + 16, position.y + 16);
 			iPoint playerPos = app->scene->GetPlayer()->position;
 			playerPos = app->map->WorldToMap(playerPos.x, playerPos.y);
 			playerPos.y += 1;
 			/*if (isFacingLeft)playerPos.x += 4;*/
-			playerPos.x += 1.2;
+			playerPos.x += 2;
 
 
 			if (app->scene->GetPlayer()->inEnemyArear) {
@@ -108,8 +129,8 @@ bool Enemy_Flyeye::Update(float dt)
 					else {
 						if (timerAtaque.ReadSec() > 1) {
 							printf("1");
-							attackParticle = app->par->CloseAtake(position.x + 20, position.y, 30, 30, ColliderType::CLOSEATK_ENEMY);
-							//else app->par->CloseAtake(position.x, position.y, 30, 30, ColliderType::CLOSEATK_ENEMY); if (!isFacingLeft)
+							if(!isFacingLeft)attackParticle = app->par->CloseAtake(position.x + 30, position.y+20, 40, 60, ColliderType::CLOSEATK_ENEMY);
+							else attackParticle = app->par->CloseAtake(position.x - 50, position.y+20, 40, 60, ColliderType::CLOSEATK_ENEMY);
 							LOG("ATACA");
 							canatake = true;
 							timerAtaque.Start();
@@ -128,7 +149,7 @@ bool Enemy_Flyeye::Update(float dt)
 						if (app->map->pathfinding->GetLastPath()->Count() > 1) {
 							iPoint newPositionPoint = app->map->MapToWorld(app->map->pathfinding->GetLastPath()->At(1)->x, app->map->pathfinding->GetLastPath()->At(1)->y);
 							b2Vec2 newPosition = b2Vec2(PIXEL_TO_METERS(newPositionPoint.x), PIXEL_TO_METERS(newPositionPoint.y));
-							pbody->body->SetLinearVelocity(b2Vec2(0, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
+							//pbody->body->SetLinearVelocity(b2Vec2(0, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
 
 							if (position.x > newPositionPoint.x) {
 								isFacingLeft = true;
@@ -182,7 +203,7 @@ bool Enemy_Flyeye::Update(float dt)
 				}
 			}
 			else {
-				//EnemyMove(dt, enemyAreaLimitL, enemyAreaLimitR);
+				EnemyMove(dt, enemyAreaLimitL, enemyAreaLimitR);
 			}
 
 			if (atack.HasFinished()) {
@@ -216,7 +237,7 @@ bool Enemy_Flyeye::Update(float dt)
 			}
 		}
 
-	
+
 
 
 
@@ -227,7 +248,7 @@ bool Enemy_Flyeye::Update(float dt)
 		{
 			app->render->DrawTexture(Enemytexture, position.x - 150, position.y - 120, 1.8, SDL_FLIP_NONE, &rect);//-6
 		}
-	
+
 
 	}
 	else {
@@ -251,7 +272,7 @@ bool Enemy_Flyeye::Update(float dt)
 
 	if (attackParticle != nullptr) {
 		if (timerAtaque.ReadMSec() > 300) { //1s == 1000ms 
-			printf("0");
+			//printf("0");
 			//app->par->DestroyParticle();
 			timerAtaque.Start();
 			//isDestroyPar = false;
@@ -261,6 +282,7 @@ bool Enemy_Flyeye::Update(float dt)
 		}
 	}
 
+
 	currentAnimation->Update();
 	return true;
 }
@@ -269,6 +291,59 @@ bool Enemy_Flyeye::CleanUp()
 {
 
 	return true;
+}
+
+
+void Enemy_Flyeye::EnemyMove(float dt, int enemyAreaLimitL, int enemyAreaLimitR)
+{
+	if (!enemyidle) {
+		if (!walkrdinWork)rddirection = Rd();
+		timeidle = 0;
+		walkrdinWork = true;
+		//currentAnimation = &idle;
+		if (position.x < enemyAreaLimitL) {
+			rddirection = true;
+		}
+		if (position.x > enemyAreaLimitR) {
+			rddirection = false;
+		}
+
+		if (rddirection) {
+			pbody->body->SetLinearVelocity(b2Vec2(speed * dt, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
+			isFacingLeft = false;
+			walkFrameCount++;
+			if (walkFrameCount > 50)enemyidle = true;
+		}
+
+		if (!rddirection) {
+			pbody->body->SetLinearVelocity(b2Vec2(-speed * dt, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
+			isFacingLeft = true;
+			walkFrameCount++;
+			if (walkFrameCount > 50)enemyidle = true;
+		}
+	}
+	else {
+		if (!rdinWork)rddirection = Rd();
+		rdinWork = true;
+		currentAnimation = &idle;
+		timeidle++;
+		if (rddirection) {
+			if (timeidle >= 50)enemyidle = false, rdinWork = false, walkFrameCount = 0, walkrdinWork = false;
+		}
+		else {
+			if (timeidle >= 200)enemyidle = false, rdinWork = false, walkFrameCount = 0, walkrdinWork = false;
+		}
+	}
+}
+
+bool Enemy_Flyeye::Rd()
+{
+	std::random_device rd;
+	std::mt19937 mt(rd());
+	std::uniform_int_distribution<int> distribution(0, 1);
+	bool rddirection = distribution(mt);
+
+	return rddirection;
 }
 
 

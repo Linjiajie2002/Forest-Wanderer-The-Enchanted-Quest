@@ -97,6 +97,13 @@ public:
 	float rightBottomX;
 	float rightBottomY;
 
+
+	float atk_rangeSize = 40.0f;
+	float atk_leftTopX;
+	float atk_leftTopY;
+	float atk_rightBottomX;
+	float atk_rightBottomY;
+
 	Player* player;
 
 private:

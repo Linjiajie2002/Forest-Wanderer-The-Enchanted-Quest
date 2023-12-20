@@ -5,6 +5,7 @@
 #include "App.h"
 #include "Window.h"
 #include "Textures.h"
+#include "Map.h"
 
 #include <iostream>
 
@@ -76,10 +77,14 @@ bool ModuleFadeToBlack::Start()
 	//LOG("Preparing Fade Screen");
 
 	//fadeInOut_texture = app->tex->Load("Assets/Interface/Menu/fade.png");
-	//
+	uint windowW, windowH;
 
-	//// Enable blending mode for transparency
-	//SDL_SetRenderDrawBlendMode(app->render->renderer, SDL_BLENDMODE_BLEND);
+	app->win -> GetWindowSize(windowW, windowH);
+	screenRect = { 0,0,(int)(windowW * app->win->GetScale()),(int)(windowH * app->win->GetScale()) };
+
+	currentStep = Fade_Step::NONE;
+	// Enable blending mode for transparency
+	SDL_SetRenderDrawBlendMode(app->render->renderer, SDL_BLENDMODE_BLEND);
 	return true;
 }
 
@@ -87,33 +92,45 @@ bool ModuleFadeToBlack::Update(float dt)
 {
 
 	//// Exit this function if we are not performing a fade
-	//if (currentStep == Fade_Step::NONE) return true;
+	if (currentStep == Fade_Step::NONE) return true;
 
-	//if (currentStep == Fade_Step::TO_BLACK)
-	//{
-	//	fadeOut.Reset();
-	//	currentAnimation = &fadeIn;
-	//	++frameCount;
-	//	if (frameCount >= maxFadeFrames)
-	//	{
-	//		// TODO 1: Enable / disable the modules received when FadeToBlacks() gets called
-	//		moduleToDisable->Disable();
-	//		moduleToEnable->Enable();
+	if (currentStep == Fade_Step::TO_BLACK)
+	{
+		//	fadeOut.Reset();
+		//	currentAnimation = &fadeIn;
+		//	++frameCount;
+		if (frameCount >= maxFadeFrames)
+		{
+			// TODO 1: Enable / disable the modules received when FadeToBlacks() gets called
+			app->map->Disable();
+			moduleToDisable->Disable();
+			//moduleToEnable->Enable();
+			app->entityManager->Disable();
 
-	//		currentStep = Fade_Step::FROM_BLACK;
-	//	}
-	//}
-	//else
-	//{
-	//	fadeIn.Reset();
-	//	currentAnimation = &fadeOut;
-	//	--frameCount;
-	//	if (frameCount <= 0)
-	//	{
-	//		currentStep = Fade_Step::NONE;
-	//	}
-	//}
+			app->map->Enable();
+			moduleToEnable->Enable();
+			app->entityManager->Enable();
 
+			currentStep = Fade_Step::FROM_BLACK;
+		}
+	}
+	else
+	{
+		--frameCount;
+		if (frameCount <= 0)
+		{
+			currentStep = Fade_Step::NONE;
+		}
+	}
+	if (currentStep == Fade_Step::NONE) return true;
+
+	float fadeRatio = (float)frameCount / (float)maxFadeFrames;
+
+
+
+	// Render the black square with alpha on the screen
+	SDL_SetRenderDrawColor(app->render->renderer, 0, 0, 0, (Uint8)(fadeRatio * 255.0f));
+	SDL_RenderFillRect(app->render->renderer, &screenRect);
 
 
 	//currentAnimation->Update();
@@ -167,20 +184,20 @@ bool ModuleFadeToBlack::FadeToBlack(Module* moduleToDisable, Module* moduleToEna
 {
 	bool ret = false;
 
-	//// If we are already in a fade process, ignore this call
-	//if (currentStep == Fade_Step::NONE)
-	//{
-	//	currentStep = Fade_Step::TO_BLACK;
-	//	frameCount = 0;
-	//	maxFadeFrames = frames;
+	// If we are already in a fade process, ignore this call
+	if (currentStep == Fade_Step::NONE)
+	{
+		currentStep = Fade_Step::TO_BLACK;
+		frameCount = 0;
+		maxFadeFrames = frames;
 
-	//	// TODO 1: We need to keep track of the modules received in FadeToBlack(...)
-	//	this->moduleToDisable = moduleToDisable;
-	//	this->moduleToEnable = moduleToEnable;
-	//	//App->activeModule = moduleToEnable;
+		// TODO 1: We need to keep track of the modules received in FadeToBlack(...)
+		this->moduleToDisable = moduleToDisable;
+		this->moduleToEnable = moduleToEnable;
+		//App->activeModule = moduleToEnable;
 
-	//	ret = true;
-	//}
+		ret = true;
+	}
 
 	return ret;
 }

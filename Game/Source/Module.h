@@ -11,13 +11,20 @@ class Module
 {
 public:
 
-	Module() : active(false)
+	Module(bool start_active=true) : active(start_active)
 	{}
 
 	void Init()
 	{
 		active = true;
 	}
+
+	bool IsEnabled()const
+	{
+		return active;
+	}
+
+	
 
 	// Called before render is available
 	virtual bool Awake(pugi::xml_node&)

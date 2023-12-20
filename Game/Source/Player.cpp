@@ -15,6 +15,7 @@
 #include "Effect.h"
 #include "Particle.h"
 #include "Timer.h"
+#include "ModuleFadeToBlack.h"
 
 Player::Player() : Entity(EntityType::PLAYER)
 {
@@ -276,6 +277,8 @@ bool Player::Update(float dt)
 		app->scene->GetPlayer()->isDead = false;
 
 		pbody->body->SetTransform(vel, pbody->body->GetAngle());
+		//app->fade->FadetoBlackTransition(app->scene, app->scene);
+		/*app->fade->FadeToBlack(app->scene, app->scene);*/
 	}
 
 
@@ -283,6 +286,7 @@ bool Player::Update(float dt)
 
 		vel = b2Vec2(1, 23);
 		pbody->body->SetTransform(vel, pbody->body->GetAngle());
+		/*app->fade->FadeToBlack(app->scene, app->scene);*/
 
 	}
 

@@ -98,6 +98,8 @@ public:
 
 	Player* player;
 
+	int deadenemy;
+
 
 private:
 

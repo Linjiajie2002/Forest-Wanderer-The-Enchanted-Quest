@@ -676,6 +676,11 @@ bool Map::LoadCollision(std::string layerName) {
                         c1->ctype = ColliderType::WALL;
                        
                     }
+                    if (gid == tileset->firstgid + 15) {
+                        PhysBody* c1 = app->physics->CreateRectangleSensor(pos.x - 16, pos.y - 64, 32, 32, STATIC);
+                        c1->ctype = ColliderType::VICTORYCOLLISION;
+
+                    }
 
                     
 

@@ -92,7 +92,7 @@ bool Player::Start() {
 	escudo = app->audio->LoadFx(parameters.child("escudo").attribute("texturepath").as_string());
 	finallevel = app->audio->LoadFx(parameters.child("finallevel").attribute("texturepath").as_string());
 	intro = app->audio->LoadFx(parameters.child("intro").attribute("texturepath").as_string());
-	//app->audio->PlayFx(intro);
+	app->audio->PlayFx(intro);
 
 	currentAnimation = &idle;
 	pbody->body->SetFixedRotation(true);
@@ -167,7 +167,7 @@ bool Player::Update(float dt)
 
 				if (jumpCount == 0) {
 					// SONIDO SALTO
-					//app->audio->PlayFx(soundjump);
+					app->audio->PlayFx(soundjump);
 				}
 				//printf("Salto");
 				if (canJump) {
@@ -497,7 +497,7 @@ void Player::keyInput(float dt) {
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) {
-		//app->audio->PlayFx(escudo);
+		app->audio->PlayFx(escudo);
 
 	}
 
@@ -636,6 +636,9 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
+		break;
+	case ColliderType::VICTORYCOLLISION:
+		app->audio->PlayFx(finallevel);
 		break;
 	}
 }

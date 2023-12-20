@@ -57,6 +57,7 @@ bool Enemy_Flyeye::Start() {
 	pbody->body->GetFixtureList()[0].SetFriction(0.03);
 	pbody->listener = this;
 	//pbody->body->SetGravityScale(0);
+	deadenemy = app->audio->LoadFx(parameters.child("deadenemy").attribute("texturepath").as_string());
 
 	currentAnimation = &idle;
 	originalposition = iPoint(position.x, position.y);
@@ -98,6 +99,8 @@ bool Enemy_Flyeye::Update(float dt)
 			active = false;
 
 			isDead = true;
+			app->audio->PlayFx(deadenemy);
+
 		}
 
 		if (!isDead) {

@@ -67,7 +67,7 @@ bool Enemy_Goblin::Start() {
 	originalposition = iPoint(position.x, position.y);
 
 	//SONIDOS
-	//deadenemy = app->audio->LoadFx(parameters.child("deadenemy").attribute("texturepath").as_string());
+	deadenemy = app->audio->LoadFx(parameters.child("deadenemy").attribute("texturepath").as_string());
 
 	b2Filter enemyFilter;
 	enemyFilter.categoryBits = static_cast<uint16_t>(ColliderType::PLATFORM);
@@ -109,7 +109,7 @@ bool Enemy_Goblin::Update(float dt)
 			if (!isDead) {
 				active = false;
 				isDead = true;
-				//app->audio->PlayFx(deadenemy);
+				app->audio->PlayFx(deadenemy);
 
 			}
 		}

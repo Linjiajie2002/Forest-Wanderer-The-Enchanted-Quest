@@ -8,7 +8,7 @@
 #include "Log.h"
 #include "Animation.h"
 #include "Textures.h"
-
+#include "Audio.h"
 
 Effect::Effect() : Entity(EntityType::EFFECT)
 {
@@ -46,6 +46,14 @@ bool Effect::Awake() {
 	GhostEffect.LoadAnim("Effect", "Die4", spritePositions2);
 
 
+	EffectPath3 = parameters.child("animations5").attribute("texturepath").as_string();
+	TSprite3 = parameters.child("animations5").attribute("Tsprite").as_int();
+	SpriteX3 = parameters.child("animations5").attribute("x").as_int();
+	SpriteY3 = parameters.child("animations5").attribute("y").as_int();
+	PhotoWeight3 = parameters.child("animations5").attribute("Pweight").as_int();
+	spritePositions3 = Gravity_Void.SpritesPos(TSprite3, SpriteX3, SpriteY3, PhotoWeight3);
+	Gravity_Void.LoadAnim("Effect", "Gravity_Void_idle", spritePositions3);
+
 	/*EffectPath2 = parameters.child("animations4").attribute("texturepath").as_string();
 	TSprite2 = parameters.child("animations4").attribute("Tsprite").as_int();
 	SpriteX2 = parameters.child("animations4").attribute("x").as_int();
@@ -62,32 +70,54 @@ bool Effect::Start() {
 	Effecttexture = app->tex->Load(EffectPath);
 
 	Effecttexture2 = app->tex->Load(EffectPath2);
+
+
+	Effecttexture3 = app->tex->Load(EffectPath3);
 	/*pbody = app->physics->CreateCircle(position.x + 16, position.y + 16, 16, bodyType::DYNAMIC);
 	pbody->ctype = ColliderType::EFFECT;
 	pbody->body->SetFixedRotation(true);*/
-
 	currentAnimation = &OroEffect;
 	currentAnimation2 = &GhostEffect;
+	currentAnimation3 = &Gravity_Void;
 	return true;
+
+
+	//pbody->body->SetFixedRotation(true);
 }
 
 bool Effect::Update(float dt)
 {
-
-
-
+	pbody = app->physics->CreateRectangleSensor(6344, 1340, 70, 70, bodyType::STATIC);
+	pbody->ctype = ColliderType::VICTORYCOLLISION;
 	if (app->scene->GetPlayer()->isDead == true) {
-		
+
 		EffectFuncion();
 		OroEffect.Reset();
 
-	}else{
+	}
+	else {
 
 		ReviveEffectFuncion();
 		GhostEffect.Reset();
 	}
 
+	if (!app->scene->GetPlayer()->isVictoria) {
+		printf("yes");
 
+		sonid_vic = true;
+
+		position.x = 6304;//+ 30
+		position.y = 1312;//+ 18
+		SDL_Rect rect3 = currentAnimation3->GetCurrentFrame();
+		currentAnimation3 = &Gravity_Void;
+		app->render->DrawTexture(Effecttexture3, position.x, position.y, 0.8, SDL_FLIP_NONE, &rect3);//0.8 , 2 
+		currentAnimation3->Update();
+	}
+	else {
+
+		pbody->body->SetActive(false);
+
+	}
 	return true;
 }
 
@@ -104,7 +134,7 @@ void Effect::EffectFuncion()
 	//position.y = app->scene->GetPlayer()->position.y - 16;//+ 18
 
 	position.x = app->scene->GetPlayer()->position.x + 20;//+ 30
-	position.y = app->scene->GetPlayer()->position.y -25;//+ 18
+	position.y = app->scene->GetPlayer()->position.y - 25;//+ 18
 
 	SDL_Rect rect2 = currentAnimation2->GetCurrentFrame();
 

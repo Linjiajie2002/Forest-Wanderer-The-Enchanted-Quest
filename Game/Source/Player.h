@@ -172,6 +172,8 @@ public:
 	Timer timerAtaque;
 	bool inEnemyArear = false;
 
+	bool isVictoria = false;
+
 };
 
 #endif // __PLAYER_H__

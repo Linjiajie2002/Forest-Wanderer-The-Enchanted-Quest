@@ -639,6 +639,8 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::VICTORYCOLLISION:
 		app->audio->PlayFx(finallevel);
+		
+		isVictoria = true;
 		break;
 	}
 }

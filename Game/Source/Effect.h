@@ -30,6 +30,8 @@ public:
 
 	Animation* currentAnimation = nullptr;
 	Animation* currentAnimation2 = nullptr;
+	Animation* currentAnimation3 = nullptr;
+	
 	Animation OroEffect;
 	Animation GhostEffect;
 	Animation dieEffect;
@@ -52,8 +54,17 @@ public:
 	int PhotoWeight2;
 	SDL_Rect* spritePositions2;
 
-	bool check = false;
+	Animation Gravity_Void;
+	int TSprite3;
+	int SpriteX3;
+	int SpriteY3;
+	int PhotoWeight3;
+	SDL_Rect* spritePositions3;
 
+	
+	bool check = false;
+	bool sonid_vic = false;
+	
 private:
 
 	SDL_Texture* Effecttexture;
@@ -61,7 +72,11 @@ private:
 
 	SDL_Texture* Effecttexture2;
 	const char* EffectPath2;
+
+	SDL_Texture* Effecttexture3;
+	const char* EffectPath3;
 	PhysBody* pbody;
+	
 };
 
 #endif // __EFFECT_H__

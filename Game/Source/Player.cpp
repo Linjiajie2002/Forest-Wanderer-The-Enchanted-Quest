@@ -297,9 +297,12 @@ bool Player::Update(float dt)
 		NoControl = false;
 		//SDL_Delay(20);
 		currentAnimation = &die;
-		pbody->body->SetLinearVelocity(b2Vec2(0, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
+		//isDead = true;
+		pbody->body->SetActive(false);
+		//pbody->body->SetLinearVelocity(b2Vec2(0, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
 	}
 	else {
+		pbody->body->SetActive(true);
 		NoControl = true;
 	}
 
@@ -629,8 +632,6 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::CLOSEATK_ENEMY:
 		isDead = true;
 		inEnemyArear = false;
-		pbody->body->SetActive(false);
-		
 		break;
 
 	case ColliderType::UNKNOWN:

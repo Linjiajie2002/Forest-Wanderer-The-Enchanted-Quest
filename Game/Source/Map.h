@@ -154,6 +154,10 @@ public:
 	int fondoy;
 
 
+	int LevelMap = 1;
+
+	
+
 	iPoint startPointcolisions = iPoint(-1, -1);
 	iPoint colisionsPointsSize = iPoint(-1, -1);
 	iPoint colisionsLastCords = iPoint(-1, -1);

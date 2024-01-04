@@ -198,6 +198,7 @@
 	<map>
 		<mapfolder path="Assets/Maps/"/>
 		<mapfile path="Assets/Maps/Mapa.tmx"/>
+		<mapfile2 path="Assets/Maps/Mapa2.tmx"/>
 	</map>
 
 </config>

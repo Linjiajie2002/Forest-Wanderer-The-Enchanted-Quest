@@ -107,6 +107,14 @@ bool Player::Start() {
 bool Player::Update(float dt)
 {
 
+	if (app->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN) {
+		app->map->LevelMap = 2;
+		app->resetMap();
+		app->map->Update(dt);
+		app->map->UpdateDelante();
+		app->map->Load();
+	}
+
 	//printf("%d \n", position.x);
 	currentAnimation = &idle;
 	vel = b2Vec2(0, pbody->body->GetLinearVelocity().y);

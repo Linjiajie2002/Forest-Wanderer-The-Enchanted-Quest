@@ -61,6 +61,9 @@ public:
 	bool LoadRequest();
 
 	bool SaveRequest();
+
+	void resetMap();
+
 private:
 
 	// Load config file

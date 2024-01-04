@@ -358,6 +358,15 @@ bool App::SaveRequest() {
 	return true;
 }
 
+void App::resetMap()
+{
+	ListItem<Module*>* item;
+	item = modules.start;
+	pugi::xml_node node = configNode.child(item->data->name.GetString());
+
+	map->Awake(node);
+}
+
 bool App::LoadFromFile() {
 	bool ret = true;
 

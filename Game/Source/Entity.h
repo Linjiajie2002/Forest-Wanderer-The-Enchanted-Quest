@@ -93,7 +93,6 @@ public:
 	// want our Entity class, maybe it's not renderable...
 	iPoint position;    
 	iPoint originalposition;    
-
 	bool renderable = true;
 };
 

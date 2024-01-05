@@ -18,6 +18,12 @@
  <tileset firstgid="7837" name="Fondo2" tilewidth="32" tileheight="32" tilecount="1316" columns="28">
   <image source="Mapa2/column.png" width="912" height="1520"/>
  </tileset>
+ <tileset firstgid="9153" name="Diamond" tilewidth="32" tileheight="32" tilecount="9" columns="3">
+  <image source="../Sprite/Mapa2/DiamondCase.png" width="96" height="96"/>
+ </tileset>
+ <tileset firstgid="9162" name="DiamondCase" tilewidth="32" tileheight="32" tilecount="18" columns="6">
+  <image source="../Sprite/Mapa2/DiamondCase2.png" width="192" height="96"/>
+ </tileset>
  <layer id="7" name="Fondo" width="120" height="50">
   <properties>
    <property name="Draw" type="bool" value="true"/>
@@ -20700,8 +20706,8 @@
    <tile gid="161"/>
    <tile gid="161"/>
    <tile gid="161"/>
-   <tile gid="209"/>
-   <tile gid="210"/>
+   <tile gid="230"/>
+   <tile gid="231"/>
    <tile gid="167"/>
    <tile gid="168"/>
    <tile/>
@@ -21408,9 +21414,15 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="9162"/>
+   <tile gid="9163"/>
+   <tile gid="9164"/>
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="9165"/>
+   <tile gid="9166"/>
+   <tile gid="9167"/>
    <tile/>
    <tile/>
    <tile/>
@@ -21522,9 +21534,15 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="9168"/>
+   <tile gid="9169"/>
+   <tile gid="9170"/>
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="9171"/>
+   <tile gid="9172"/>
+   <tile gid="9173"/>
    <tile/>
    <tile/>
    <tile/>
@@ -21636,27 +21654,15 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="9174"/>
+   <tile gid="9175"/>
+   <tile gid="9176"/>
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="9177"/>
+   <tile gid="9178"/>
+   <tile gid="9179"/>
    <tile/>
    <tile/>
    <tile/>

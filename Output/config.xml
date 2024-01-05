@@ -39,13 +39,10 @@
 
 
 		</player>
-		<!--
-		<item x="256" y="515" texturepath="Assets/Textures/goldCoin.png"/>
-		 <item x="416" y="512" texturepath="Assets/Textures/goldCoin.png"/>
-		 <item x="384" y="352" texturepath="Assets/Textures/goldCoin.png"/>
-		 <item x="200" y="672" texturepath="Assets/Textures/goldCoin.png"/>
-		 <item x="500" y="672" texturepath="Assets/Textures/goldCoin.png"/>
-		-->
+		
+		<item Posx="150" Posy="950" Tsprite="6" Pweight="192" x="32" y="32" texturepath="Assets\Sprite\Mapa2\Diamond.png"/>
+		
+		
 		<itembox x="50" y="1100" texturepath="Assets/Item/ItemBox.png">
 			<animations Tsprite="40" x="34" y="41" Pweight="340"/>
 		</itembox>
@@ -83,11 +80,7 @@
 			<Pathfinding texturepath="Assets/Maps/pathfinding.png"/>
 		</enemy>
 
-
-
-
-
-
+		
 		<effect>
 			<animations1 Tsprite="16" x="48" y="48" Pweight="768" texturepath="Assets/Effecto/Die/Die.png"/>
 			<animations2 Tsprite="16" x="48" y="48" Pweight="768" texturepath="Assets/Effecto/Revive/Revive.png"/>
@@ -102,9 +95,9 @@
 
 
 	<Animations>
-		<Gravity_Void>
-			
-		</Gravity_Void>
+		<Diamond>
+			<idle start="0" end="5" speed="0.1f" loop="true"/>
+		</Diamond>
 
 		<Enemy_Flyeye>
 			<idle start="25" end="32" speed="0.2f" loop="true"/>

@@ -56,12 +56,12 @@ bool Shop::Update(float dt)
 	
 
 
-	SDL_Rect rect = currentAnimation->GetCurrentFrame();
+	//SDL_Rect rect = currentAnimation->GetCurrentFrame();
 
-	currentAnimation = &idle;
+	//currentAnimation = &idle;
 
-	app->render->DrawTexture(Shoptexture, position.x, position.y, 1.8 , SDL_FLIP_NONE,&rect);
-	currentAnimation->Update();
+	//app->render->DrawTexture(Shoptexture, position.x, position.y, 1.8 , SDL_FLIP_NONE,&rect);
+	//currentAnimation->Update();
 	return true;
 }
 

@@ -154,7 +154,7 @@ public:
 	int fondoy;
 
 
-	int LevelMap = 2;
+	int LevelMap = 1;
 
 	
 

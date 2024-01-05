@@ -108,11 +108,14 @@ bool Player::Update(float dt)
 {
 
 	if (app->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN) {
-		app->map->LevelMap = 2;
-		app->resetMap();
-		app->map->Update(dt);
-		app->map->UpdateDelante();
-		app->map->Load();
+		app->map->Disable();
+		moduleToDisable->Disable();
+		//moduleToEnable->Enable();
+		app->entityManager->Disable();
+
+		app->map->Enable();
+		moduleToEnable->Enable();
+		app->entityManager->Enable();
 	}
 
 	//printf("%d \n", position.x);

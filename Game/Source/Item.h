@@ -7,6 +7,7 @@
 #include <cmath>
 #include <tuple>
 #include "SDL/include/SDL.h"
+#include "Timer.h"
 
 struct SDL_Texture;
 
@@ -42,15 +43,28 @@ public:
 	int PhotoWeight;
 
 
-	double itemX = 150.0;  // 物品初始X坐标
-	double itemY = 950.0;  // 物品初始Y坐标
+	//double itemX = 150.0;  // 物品初始X坐标
+	//double itemY = 950.0;  // 物品初始Y坐标
 	double circleCenterX = 350.0;  // 圆心X坐标
 	double circleCenterY = 950.0;  // 圆心Y坐标
 	double circleRadius = 20.1;  // 圆半径
-	double angleIncrement =5.0;  // 每次旋转的角度增量
+	double angleIncrement = 1.0;  // 每次旋转的角度增量
 	double scaleFactor = 10.0;
 
-	int grado =30;
+	double itemX[7];      // 物品初始X坐标
+	double itemY[7];
+
+	int ND = 2;
+
+	double angleInRadians;
+	double newX;
+	double newY;
+
+	double newCX;
+	double newCY;
+
+	int i = 0;
+	Timer TimeCrear;
 
 private:
 

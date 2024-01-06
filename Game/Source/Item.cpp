@@ -8,6 +8,7 @@
 #include "Log.h"
 #include "Point.h"
 #include "Physics.h"
+#include "Timer.h"
 
 #include <tuple>
 #include <cmath>
@@ -28,7 +29,7 @@ bool Item::Awake() {
 	SpriteY = parameters.attribute("y").as_int();
 	PhotoWeight = parameters.attribute("Pweight").as_int();
 
-	
+
 	position.x = parameters.attribute("Posx").as_int();
 	position.y = parameters.attribute("Posy").as_int();
 
@@ -47,6 +48,12 @@ bool Item::Start() {
 
 	currentAnimation = &idle;
 
+	for (int i = 0; i < ND; i++)
+	{
+		itemX[i] = 150.0;
+		itemY[i] = 950.0;
+	}
+
 	return true;
 }
 
@@ -56,17 +63,47 @@ bool Item::Update(float dt)
 	currentAnimation = &idle;
 
 
-	auto newPosition = rotateAroundCircle(itemX, itemY, circleCenterX, circleCenterY, circleRadius--, angleIncrement);
+	/*if (TimeCrear.ReadSec() > 2) {
+		TimeCrear.Start();
 
-	
-	
+	}*/
+
+	/*auto newPosition = rotateAroundCircle(itemX, itemY, circleCenterX, circleCenterY, circleRadius--, angleIncrement);
 	double newX = std::get<0>(newPosition);
 	double newY = std::get<1>(newPosition);
+	app->render->DrawTexture(Diamondtexture, newX, newY, 2, SDL_FLIP_NONE, &rect);*/
+
+
+	for (int i = 0; i < ND; )
+	{
+		auto newPosition = rotateAroundCircle(itemX[i], itemY[i], circleCenterX, circleCenterY, circleRadius, angleIncrement);
+		newX = std::get<0>(newPosition);
+		newY = std::get<1>(newPosition);
+		app->render->DrawTexture(Diamondtexture, newX, newY, 2, SDL_FLIP_NONE, &rect);
+
+		if (TimeCrear.ReadSec() > 1) {
+			i++;
+		}
+
+	}
+
+	/*
+	if (TimeCrear.ReadSec() > 1) {
+		auto newPosition1 = rotateAroundCircle(itemX2, itemY2, circleCenterX, circleCenterY, circleRadius, angleIncrement);
+		newX = std::get<0>(newPosition1);
+		newY = std::get<1>(newPosition1);
+		app->render->DrawTexture(Diamondtexture, newX, newY, 2, SDL_FLIP_NONE, &rect);
+	}*/
+
+
+	//printf("%d", TimeCrear.ReadSec());
+
+
+
+	currentAnimation->Update();
 
 	/*printf("PosX: %f ", newX);
 	printf("\nPosY: %f ", newY);*/
-	app->render->DrawTexture(Diamondtexture, newX, newY, 2, SDL_FLIP_NONE, &rect);
-	currentAnimation->Update();
 
 	//printf("PosX: %d ", position.x);
 	//printf("\nPosY: %d ", position.y);
@@ -110,15 +147,12 @@ std::tuple<double, double>  Item::rotateAroundCircle(double& x, double& y, doubl
 
 
 	// 计算新的位置
-	double newX = circleCenterX +(x - circleCenterX) * cos(angleInRadians) - (y - circleCenterY) * sin(angleInRadians);
-	double newY = circleCenterY+(x - circleCenterX) * sin(angleInRadians) + (y - circleCenterY) * cos(angleInRadians);
+	double newX = circleCenterX + (x - circleCenterX) * cos(angleInRadians) - (y - circleCenterY) * sin(angleInRadians);
+	double newY = circleCenterY + (x - circleCenterX) * sin(angleInRadians) + (y - circleCenterY) * cos(angleInRadians);
 
 	// 更新物品的位置
 	x = newX;
 	y = newY;
-
-	// 更新圆的半径
-
 
 	//printf("PosX: %f ", circleRadius);
 

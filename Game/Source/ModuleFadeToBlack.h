@@ -31,10 +31,12 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+
+	void ResetMap();
 	// Called from another module
 	// Starts the fade process which has two steps, fade_out and fade_in
 	// After the first step, the modules should be switched
-	bool FadeToBlack(Module* toDisable, Module* toEnable, float frames = 60);
+	//bool FadeToBlack(Module* toDisable, Module* toEnable, float frames = 60);
 
 private:
 

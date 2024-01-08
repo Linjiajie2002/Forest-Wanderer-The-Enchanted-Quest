@@ -48,62 +48,80 @@ bool Item::Start() {
 
 	currentAnimation = &idle;
 
-	for (int i = 0; i < ND; i++)
+	/*itemX[0] = 200.0;
+	itemY[0] = 950.0;
+
+	itemX[1] = 250.0;
+	itemY[1] = 1050.0;
+
+	itemX[2] = 350.0;
+	itemY[2] = 1100.0;
+
+	itemX[3] = 450.0;
+	itemY[3] = 1050.0;
+
+	itemX[4] = 500.0;
+	itemY[4] = 950.0;
+
+	itemX[5] = 450.0;
+	itemY[5] = 850.0;
+
+	itemX[6] = 350.0;
+	itemY[6] = 800.0;
+
+	itemX[7] = 250.0;
+	itemY[7] = 850.0;*/
+
+
+
+	for (int i = 0; i < NumeroDiamante; i++)
 	{
 		itemX[i] = 150.0;
 		itemY[i] = 950.0;
 	}
+	maxDiamante = 0;
 
 	return true;
 }
 
 bool Item::Update(float dt)
 {
-	SDL_Rect rect = currentAnimation->GetCurrentFrame();
+	rect = currentAnimation->GetCurrentFrame();
 	currentAnimation = &idle;
 
+	if (TimeCrear.ReadMSec() > 850) {
+		if (maxDiamante < NumeroDiamante) {
+			maxDiamante++;
+			TimeCrear.Start();
+		}
+	}
 
-	/*if (TimeCrear.ReadSec() > 2) {
-		TimeCrear.Start();
-
-	}*/
-
-	/*auto newPosition = rotateAroundCircle(itemX, itemY, circleCenterX, circleCenterY, circleRadius--, angleIncrement);
-	double newX = std::get<0>(newPosition);
-	double newY = std::get<1>(newPosition);
-	app->render->DrawTexture(Diamondtexture, newX, newY, 2, SDL_FLIP_NONE, &rect);*/
+	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
+		DMT = true;
+	}
 
 
-	for (int i = 0; i < ND; )
-	{
-		auto newPosition = rotateAroundCircle(itemX[i], itemY[i], circleCenterX, circleCenterY, circleRadius, angleIncrement);
-		newX = std::get<0>(newPosition);
-		newY = std::get<1>(newPosition);
-		app->render->DrawTexture(Diamondtexture, newX, newY, 2, SDL_FLIP_NONE, &rect);
 
-		if (TimeCrear.ReadSec() > 1) {
-			i++;
+	if (DMT == true) {
+		for (int i = 0; i < maxDiamante; i++)
+		{
+			diamanteToCenter(itemX[i], itemY[i]);
 		}
 
 	}
+	else {
+		for (int i = 0; i < maxDiamante; i++)
+		{
+			rotateAroundCircle(itemX[i], itemY[i], circleCenterX, circleCenterY, circleRadius, angleIncrement);
+		}
+	}
 
-	/*
-	if (TimeCrear.ReadSec() > 1) {
-		auto newPosition1 = rotateAroundCircle(itemX2, itemY2, circleCenterX, circleCenterY, circleRadius, angleIncrement);
-		newX = std::get<0>(newPosition1);
-		newY = std::get<1>(newPosition1);
-		app->render->DrawTexture(Diamondtexture, newX, newY, 2, SDL_FLIP_NONE, &rect);
-	}*/
-
-
-	//printf("%d", TimeCrear.ReadSec());
 
 
 
 	currentAnimation->Update();
 
-	/*printf("PosX: %f ", newX);
-	printf("\nPosY: %f ", newY);*/
+
 
 	//printf("PosX: %d ", position.x);
 	//printf("\nPosY: %d ", position.y);
@@ -117,44 +135,40 @@ bool Item::CleanUp()
 	return true;
 }
 
-//std::tuple<double, double>  Item::rotateAroundCircle(double& x, double& y, double circleCenterX, double circleCenterY, double& circleRadius, double angleIncrement, double scaleFactor) 
-//{
-//	double angleInRadians = angleIncrement * M_PI / 180.0;
-//
-//	// 缩放到期望的圈大小
-//	double scaledX = (x - circleCenterX) / circleRadius * scaleFactor + circleCenterX;
-//	double scaledY = (y - circleCenterY) / circleRadius * scaleFactor + circleCenterY;
-//
-//	// 计算新的位置
-//	double newX = circleCenterX + (scaledX - circleCenterX) * cos(angleInRadians) - (scaledY - circleCenterY) * sin(angleInRadians);
-//	double newY = circleCenterY + (scaledX - circleCenterX) * sin(angleInRadians) + (scaledY - circleCenterY) * cos(angleInRadians);
-//
-//	// 更新物品的位置
-//	x = newX;
-//	y = newY;
-//
-//	// 逐渐减小圆的半径
-//	circleRadius -= 0.1;
-//
-//	return std::make_tuple(newX, newY);
-//}
-
-
-
-std::tuple<double, double>  Item::rotateAroundCircle(double& x, double& y, double circleCenterX, double circleCenterY, double circleRadius, double angleIncrement)
+void Item::rotateAroundCircle(double& x, double& y, double circleCenterX, double circleCenterY, double circleRadius, double angleIncrement)
 {
 	double angleInRadians = angleIncrement * M_PI / 180.0;
 
-
-	// 计算新的位置
 	double newX = circleCenterX + (x - circleCenterX) * cos(angleInRadians) - (y - circleCenterY) * sin(angleInRadians);
 	double newY = circleCenterY + (x - circleCenterX) * sin(angleInRadians) + (y - circleCenterY) * cos(angleInRadians);
 
-	// 更新物品的位置
+
 	x = newX;
 	y = newY;
 
 	//printf("PosX: %f ", circleRadius);
 
-	return std::make_tuple(newX, newY);
+	app->render->DrawTexture(Diamondtexture, newX, newY, 2, SDL_FLIP_NONE, &rect);
+
+	//return std::make_tuple(newX, newY);
+}
+
+void Item::diamanteToCenter(double& x, double& y)
+{
+
+	float timeLerp = 0.1f;
+
+	x = x * (1 - timeLerp) + circleCenterX * timeLerp;
+	y = y * (1 - timeLerp) + circleCenterY * timeLerp;
+	if ((int)x == circleCenterX && (int)y == circleCenterY) {
+		allDiamanteInCenter = true;
+	}
+
+	if (allDiamanteInCenter) {
+		app->render->DrawTexture(Diamondtexture, x-32, y-32, 4, SDL_FLIP_NONE, &rect);
+	}
+	else {
+		app->render->DrawTexture(Diamondtexture, x, y, 2, SDL_FLIP_NONE, &rect);
+	}
+
 }

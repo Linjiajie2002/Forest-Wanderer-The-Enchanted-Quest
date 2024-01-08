@@ -26,8 +26,8 @@ public:
 
 	bool CleanUp();
 
-	std::tuple<double, double> rotateAroundCircle(double& x, double& y, double circleCenterX, double circleCenterY, double circleRadius, double angleIncrement);
-	std::tuple<double, double> rotateAroundCircle(double& x, double& y, double circleCenterX, double circleCenterY, double& circleRadius, double angleIncrement, double scaleFactor);
+	void rotateAroundCircle(double& x, double& y, double circleCenterX, double circleCenterY, double circleRadius, double angleIncrement);
+	void diamanteToCenter(double& x, double& y);
 
 public:
 
@@ -47,15 +47,15 @@ public:
 	//double itemY = 950.0;  // 物品初始Y坐标
 	double circleCenterX = 350.0;  // 圆心X坐标
 	double circleCenterY = 950.0;  // 圆心Y坐标
-	double circleRadius = 20.1;  // 圆半径
+	double circleRadius = 20.0;  // 圆半径
 	double angleIncrement = 1.0;  // 每次旋转的角度增量
 	double scaleFactor = 10.0;
 
-	double itemX[7];      // 物品初始X坐标
-	double itemY[7];
+	double itemX[8];      // 物品初始X坐标
+	double itemY[8];
 
-	int ND = 2;
-
+	int NumeroDiamante = 7;
+	int maxDiamante = 0;
 	double angleInRadians;
 	double newX;
 	double newY;
@@ -63,8 +63,15 @@ public:
 	double newCX;
 	double newCY;
 
-	int i = 0;
+	bool DMT = false;
+
+	bool allDiamanteInCenter = false;
+
 	Timer TimeCrear;
+	Timer diamanteToBig;
+	bool hecreado7diamante = false;
+
+	SDL_Rect rect;
 
 private:
 

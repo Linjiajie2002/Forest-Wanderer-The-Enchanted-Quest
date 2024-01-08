@@ -407,7 +407,7 @@ void Player::Camera() {
 	//else {
 	//Camera();
 	//}
-
+	float timeLerp = 0.1f;
 	if (app->render->camera.x >= 2 && position.x < 514) {
 		app->render->camera.x = 2;
 	}
@@ -415,14 +415,16 @@ void Player::Camera() {
 		app->render->camera.x = -5370;
 	}
 	else {
-		app->render->camera.x = -position.x + (width / 2);
 
 		app->render->camera.x = (-position.x * app->win->GetScale() + (width / 2));
 
 	}
 
 
-	app->render->camera.y = (-position.y * app->win->GetScale() + (height / 2));
+
+
+
+	app->render->camera.y = (-position.y * app->win->GetScale() + (height / 2) + 200);
 
 
 	if (app->render->camera.y <= -829) {

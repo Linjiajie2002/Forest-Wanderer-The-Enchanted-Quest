@@ -70,6 +70,8 @@ struct MapLayer
 	int height;
 	uint* data;
 
+	uint8 opacity;
+
 	Properties properties;
 
 	MapLayer() : data(NULL)

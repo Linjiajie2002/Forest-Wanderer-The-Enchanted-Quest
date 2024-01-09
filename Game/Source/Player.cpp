@@ -416,7 +416,7 @@ void Player::Camera() {
 	}
 	else {
 
-		app->render->camera.x = (-position.x * app->win->GetScale() + (width / 2));
+		app->render->camera.x = (-position.x * app->win->GetScale() + (width / 2) - 50);
 
 	}
 

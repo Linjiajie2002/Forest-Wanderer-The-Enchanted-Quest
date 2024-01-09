@@ -39,20 +39,24 @@ bool Boss::Awake() {
 	atack_2.LoadAnim("Boss", "atack_2", spritePositions);
 
 
-	///*run.LoadAnim("Enemy_Flyeye", "run", spritePositions);*/
-	//take_hit.LoadAnim("Enemy_Flyeye", "take_hit", spritePositions);
-	//die.LoadAnim("Enemy_Flyeye", "die", spritePositions);
-	//atack.LoadAnim("Enemy_Flyeye", "atk", spritePositions);
+
+	boss_atack_3_texture_Path = parameters.child("boss_atack").child("atack3").attribute("texturepath").as_string();
+	TSprite = parameters.child("boss_atack").child("atack3").attribute("Tsprite").as_int();
+	SpriteX = parameters.child("boss_atack").child("atack3").attribute("x").as_int();
+	SpriteY = parameters.child("boss_atack").child("atack3").attribute("y").as_int();
+	PhotoWeight = parameters.child("boss_atack").child("atack3").attribute("Pweight").as_int();
+	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
+	atack_3.LoadAnim("Boss", "atack_3", spritePositions);
 
 	return true;
 }
 
 bool Boss::Start() {
 	boss_atack_1_texture = app->tex->Load(boss_atack_1_texture_Path);
-	boss_atack_2_texture = app->tex->Load(boss_atack_2_texture_Path);
+	boss_atack_2_texture = app->tex->Load(boss_atack_3_texture_Path);
 
 	currentAnimation1 = &atack_1;
-	currentAnimation2 = &atack_2;
+	currentAnimation2 = &atack_3;
 
 	return true;
 }
@@ -64,7 +68,7 @@ bool Boss::Update(float dt)
 
 
 	//app->render->DrawTexture(boss_atack_1_texture, 40, 570, 1 , SDL_FLIP_NONE,&rect);
-	app->render->DrawTexture(boss_atack_2_texture, 40, 650, 1, SDL_FLIP_NONE, &rect);
+	app->render->DrawTexture(boss_atack_2_texture, 40, 660, 2, SDL_FLIP_NONE, &rect);
 
 
 	currentAnimation2->Update();

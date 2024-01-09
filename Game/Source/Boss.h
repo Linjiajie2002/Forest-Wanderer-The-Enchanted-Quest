@@ -37,6 +37,7 @@ public:
 
 	Animation atack_1;
 	Animation atack_2;
+	Animation atack_3;
 	Animation die;
 	Animation take_hit;
 	Animation run;

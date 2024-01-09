@@ -65,11 +65,7 @@ bool Scene::Awake(pugi::xml_node& config)
 	}
 
 
-	for (pugi::xml_node itemNode = config.child("boss"); itemNode; itemNode = itemNode.next_sibling("boss"))
-	{
-		Boss* boss = (Boss*)app->entityManager->CreateEntity(EntityType::BOSS);
-		boss->parameters = itemNode;
-	}
+	
 
 
 
@@ -82,6 +78,12 @@ bool Scene::Awake(pugi::xml_node& config)
 		player->parameters = config.child("player");
 	}
 
+
+	for (pugi::xml_node itemNode = config.child("boss"); itemNode; itemNode = itemNode.next_sibling("boss"))
+	{
+		Boss* boss = (Boss*)app->entityManager->CreateEntity(EntityType::BOSS);
+		boss->parameters = itemNode;
+	}
 
 	//Add effect
 	for (pugi::xml_node itemNode = config.child("effect"); itemNode; itemNode = itemNode.next_sibling("effect"))

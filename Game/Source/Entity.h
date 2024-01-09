@@ -13,6 +13,7 @@ enum class EntityType
 	PLAYER,
 	ENEMY_FLYEYE,
 	ENEMY_GOBLIN,
+	BOSS,
 	ITEM,
 	ITEMBOX,
 	SHOP,

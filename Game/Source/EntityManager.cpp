@@ -9,6 +9,8 @@
 #include "Enemy_Goblin.h"
 #include "Enemy_Flyeye.h"
 #include "Map.h"
+#include "Boss.h"
+
 
 #include "Defs.h"
 #include "Log.h"
@@ -109,6 +111,9 @@ Entity* EntityManager::CreateEntity(EntityType type)
 		break;
 	case EntityType::EFFECT:
 		entity = new Effect();
+		break;
+	case EntityType::BOSS:
+		entity = new Boss();
 		break;
 	default:
 		break;

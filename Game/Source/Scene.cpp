@@ -11,6 +11,7 @@
 #include "Shop.h"
 #include "Enemy_Goblin.h"
 #include "Enemy_Flyeye.h"
+#include "Boss.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -62,6 +63,14 @@ bool Scene::Awake(pugi::xml_node& config)
 		Enemy_Flyeye* enemy_flyeye = (Enemy_Flyeye*)app->entityManager->CreateEntity(EntityType::ENEMY_FLYEYE);
 		enemy_flyeye->parameters = itemNode;
 	}
+
+
+	for (pugi::xml_node itemNode = config.child("boss"); itemNode; itemNode = itemNode.next_sibling("boss"))
+	{
+		Boss* boss = (Boss*)app->entityManager->CreateEntity(EntityType::BOSS);
+		boss->parameters = itemNode;
+	}
+
 
 
 	PathfindingPath = config.child("enemy").child("Pathfinding").attribute("texturepath").as_string();

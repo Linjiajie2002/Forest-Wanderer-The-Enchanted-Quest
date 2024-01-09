@@ -91,10 +91,23 @@
 
 		<shop Posx="120" Posy="985" Tsprite="6" x="118" y="128" Pweight="340" texturepath="Assets/Shop/Shop.png"/>
 
+		<boss>
+			<boss_real texturepath="Assets\Sprite\Boss\use\pathfinding.png"/>
+			<boss_atack>
+				<atack1 Posx="150" Posy="570" Tsprite="58" Pweight="7680" x="512" y="640" texturepath="Assets\Sprite\Boss\use\boss_atack1.png"/>
+				<atack2 Posx="150" Posy="650" Tsprite="25" Pweight="3200" x="320" y="512" texturepath="Assets\Sprite\Boss\use\boss_atack2.png"/>
+				
+			</boss_atack> 
+		</boss>
+		
 	</scene>
 
 
 	<Animations>
+		<Boss>
+			<atack_1 start="0" end="58" speed="0.15f" loop="false"/>
+			<atack_2 start="0" end="25" speed="0.2f" loop="false"/>
+		</Boss>
 		<Diamond>
 			<idle start="0" end="5" speed="0.1f" loop="true"/>
 		</Diamond>

@@ -7,6 +7,7 @@
 #include "Effect.h"
 #include "Enemy_Goblin.h"
 
+
 struct SDL_Texture;
 
 class Scene : public Module

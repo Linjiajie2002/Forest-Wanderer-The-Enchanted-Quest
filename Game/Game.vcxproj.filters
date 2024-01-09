@@ -79,6 +79,9 @@
     <ClCompile Include="Source\Pathfinding.cpp">
       <Filter>Modules\Pathfinding</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Boss.cpp">
+      <Filter>Modules\Boss</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Defs.h">
@@ -186,6 +189,9 @@
     <ClInclude Include="Source\Pathfinding.h">
       <Filter>Modules\Pathfinding</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Boss.h">
+      <Filter>Modules\Boss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
@@ -244,6 +250,9 @@
     </Filter>
     <Filter Include="Modules\Pathfinding">
       <UniqueIdentifier>{a0d41bfb-34ef-4fd3-a1c4-b663e306bad0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Boss">
+      <UniqueIdentifier>{d360e954-676a-4139-bb6c-9da13e990cde}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

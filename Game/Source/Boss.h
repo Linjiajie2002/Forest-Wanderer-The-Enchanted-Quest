@@ -5,7 +5,9 @@
 #include "Entity.h"
 #include "Point.h"
 #include "Animation.h"
+#include "Timer.h"
 
+#include"List.h"
 
 struct SDL_Texture;
 
@@ -25,6 +27,11 @@ public:
 
 	bool CleanUp();
 
+	void boss_atack_1(int playerPosX);
+	void boss_atack_2(bool inversaAtack, int numberAtack);
+	void boss_atack_3(bool inversaAtack);
+
+
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 	void OnEndCollision(PhysBody* physA, PhysBody* physB);
 
@@ -33,11 +40,11 @@ public:
 	bool isPicked = false;
 
 	Animation* currentAnimation1 = nullptr;
-	Animation* currentAnimation2 = nullptr;
+	List<Animation*> currentAnimation2 ;
 	Animation* currentAnimation3 = nullptr;
 
 	Animation atack_1;
-	Animation atack_2;
+	List<Animation> atack_2;
 	Animation atack_3;
 	Animation die;
 	Animation take_hit;
@@ -54,6 +61,22 @@ public:
 
 	bool isFacingLeft;
 
+	int attackMethod = 1 ;
+
+	//Atack 1
+	bool getPlayerPosition = false;
+	int player_x;
+	Timer atack1_Getposition;
+
+	//Atack 2
+	Timer atack2_generAtack;
+	int numeroAtack = 4;
+	int maxNumAtack = 0;
+	bool allPrint = false;
+	int distancia = 0;
+
+	//Atack3
+	bool direction_Atack = false;
 
 
 	Player* player;
@@ -76,7 +99,7 @@ private:
 	const char* boss_atack_3_texture_Path;
 
 	SDL_Rect rect_1;
-	SDL_Rect rect_2;
+	List<SDL_Rect> rect_2;
 	SDL_Rect rect_3;
 
 

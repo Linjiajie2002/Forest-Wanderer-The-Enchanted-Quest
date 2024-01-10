@@ -9,7 +9,9 @@
 #include "Physics.h"
 #include "Boss.h"
 #include "Map.h"
+#include "Timer.h"
 
+#include "List.h"
 #include <random>
 
 Boss::Boss() : Entity(EntityType::BOSS)
@@ -36,7 +38,12 @@ bool Boss::Awake() {
 	SpriteY = parameters.child("boss_atack").child("atack2").attribute("y").as_int();
 	PhotoWeight = parameters.child("boss_atack").child("atack2").attribute("Pweight").as_int();
 	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-	atack_2.LoadAnim("Boss", "atack_2", spritePositions);
+	for (int i = 0; i < numeroAtack; i++)
+	{
+		//atack_2.Add(Animation);
+		atack_2[i].LoadAnim("Boss", "atack_2", spritePositions);
+	}
+	
 
 
 
@@ -56,9 +63,24 @@ bool Boss::Start() {
 	boss_atack_2_texture = app->tex->Load(boss_atack_2_texture_Path);
 	boss_atack_3_texture = app->tex->Load(boss_atack_3_texture_Path);
 
+	
+
+
+
+	
+	
 	currentAnimation1 = &atack_1;
-	currentAnimation2 = &atack_2;
+
+	for (int i = 0; i < numeroAtack; i++)
+	{
+
+		currentAnimation2.Add(&atack_2[i]);
+		rect_2.Add(currentAnimation2[i]->GetCurrentFrame());
+
+	}
+
 	currentAnimation3 = &atack_3;
+
 
 	return true;
 }
@@ -66,43 +88,132 @@ bool Boss::Start() {
 bool Boss::Update(float dt)
 {
 
-
-
 	if (app->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN) {
 
 		inBossBattle = true;
 		tpToinBossBattle = true;
 	}
 
-	rect_1 = currentAnimation1->GetCurrentFrame();
-	app->render->DrawTexture(boss_atack_1_texture, 1350, 500, 1, SDL_FLIP_NONE, &rect_1);
-	currentAnimation1->Update();
-
-	rect_2 = currentAnimation2->GetCurrentFrame();
-	app->render->DrawTexture(boss_atack_2_texture, 1350, 570, 1.5, SDL_FLIP_NONE, &rect_2);
-	currentAnimation2->Update();
-
-	rect_3 = currentAnimation3->GetCurrentFrame();
-	app->render->DrawTexture(boss_atack_3_texture, 1350, 660, 2, SDL_FLIP_NONE, &rect_3);
-	currentAnimation3->Update();
-
-	//rect_3 = currentAnimation3->GetCurrentFrame();
-
-	////app->render->DrawTexture(boss_atack_1_texture, 40, 570, 1 , SDL_FLIP_NONE,&rect);
-	//app->render->DrawTexture(boss_atack_1_texture, 1350, 660, 2, SDL_FLIP_NONE, &rect_1);
-	//app->render->DrawTexture(boss_atack_2_texture, 1350, 660, 2, SDL_FLIP_NONE, &rect_2);
-	///**/app->render->DrawTexture(boss_atack_3_texture, 1350, 660, 2, SDL_FLIP_NONE, &rect_3); */
+	if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) {
+		getPlayerPosition = true;
+		attackMethod = 1;
+	}
 
 
-	//currentAnimation1->Update();
-	///*currentAnimation2->Update();
-	//currentAnimation3->Update();*/
+	if (inBossBattle && attackMethod == 1) {
+		if (getPlayerPosition) {
+			player_x = app->scene->GetPlayer()->position.x;
+			getPlayerPosition = false;
+		}
+		boss_atack_1(player_x);
+	}
+
+	if (currentAnimation1->HasFinished()) {
+		getPlayerPosition = true;
+		atack_1.Reset();
+		attackMethod = 2;
+	}
+
+
+	if (inBossBattle && attackMethod == 2) {
+
+		if (getPlayerPosition) {
+			player_x = app->scene->GetPlayer()->position.x;
+			getPlayerPosition = false;
+		}
+
+		if (player_x > 1899) {
+			direction_Atack = true;
+		}
+		else {
+			direction_Atack = false;
+		}
+		
+		if (atack2_generAtack.ReadMSec() > 100) {
+			if (maxNumAtack < numeroAtack) {
+				maxNumAtack++;
+				atack2_generAtack.Start();
+			}
+			else {
+				allPrint = true;
+			}
+		}
+
+		for (int i = 0; i < maxNumAtack; i++)
+		{
+			boss_atack_2(true, i);
+		}
+
+	}
+
+
+	if (currentAnimation2[3]->HasFinished() && allPrint) {
+		for (int i = 0; i < numeroAtack; i++)
+		{
+			atack_2[i].Reset();
+		}
+		
+		attackMethod = 3;
+	}
+
+
+	if (inBossBattle && attackMethod == 3) {
+		boss_atack_3(direction_Atack);
+	}
+
+
+	if (currentAnimation3->HasFinished()) {
+		atack_3.Reset();
+		getPlayerPosition = true;
+		attackMethod = 1;
+	}
+
+
+
 	return true;
 }
 
 bool Boss::CleanUp()
 {
 	return true;
+}
+
+void Boss::boss_atack_1(int player_x)
+{
+
+
+	if (player_x != 0 && player_x > 1300) {
+		//printf("\n%d ", player_x);
+		rect_1 = currentAnimation1->GetCurrentFrame();
+		app->render->DrawTexture(boss_atack_1_texture, player_x - 200, 590, 1, SDL_FLIP_NONE, &rect_1);
+		currentAnimation1->Update();
+	}
+}
+
+void Boss::boss_atack_2(bool inversaAtack, int numberAtack)
+{
+
+	distancia = 200 * numberAtack;
+
+	rect_2[numberAtack] = currentAnimation2[numberAtack]->GetCurrentFrame();
+	app->render->DrawTexture(boss_atack_2_texture, 1950 - distancia, 400, 1.5, SDL_FLIP_NONE, &rect_2[numberAtack]);
+	currentAnimation2[numberAtack]->Update();
+}
+
+void Boss::boss_atack_3(bool inversaAtack)
+{
+
+	if (inversaAtack) {
+		rect_3 = currentAnimation3->GetCurrentFrame();
+		app->render->DrawTexture(boss_atack_3_texture, 1350, 660, 2, SDL_FLIP_NONE, &rect_3);
+		currentAnimation3->Update();
+	}
+	else {
+		rect_3 = currentAnimation3->GetCurrentFrame();
+		app->render->DrawTexture(boss_atack_3_texture, 1750, 660, 2, SDL_FLIP_HORIZONTAL, &rect_3);
+		currentAnimation3->Update();
+
+	}
 }
 
 
@@ -126,7 +237,7 @@ void Boss::OnEndCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::PLAYER:
 		break;
 
-	
+
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
 		break;

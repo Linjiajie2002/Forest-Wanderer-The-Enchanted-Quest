@@ -40,7 +40,8 @@ bool Boss::Awake() {
 	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
 	for (int i = 0; i < numeroAtack; i++)
 	{
-		//atack_2.Add(Animation);
+		atack_2.Add(inicializaAnimation);
+
 		atack_2[i].LoadAnim("Boss", "atack_2", spritePositions);
 	}
 	
@@ -129,7 +130,7 @@ bool Boss::Update(float dt)
 			direction_Atack = false;
 		}
 		
-		if (atack2_generAtack.ReadMSec() > 100) {
+		if (atack2_generAtack.ReadMSec() > 200) {
 			if (maxNumAtack < numeroAtack) {
 				maxNumAtack++;
 				atack2_generAtack.Start();
@@ -141,18 +142,18 @@ bool Boss::Update(float dt)
 
 		for (int i = 0; i < maxNumAtack; i++)
 		{
-			boss_atack_2(true, i);
+			boss_atack_2(direction_Atack, i);
 		}
 
 	}
 
 
-	if (currentAnimation2[3]->HasFinished() && allPrint) {
+	if (currentAnimation2[numeroAtack-1]->HasFinished() && allPrint) {
 		for (int i = 0; i < numeroAtack; i++)
 		{
 			atack_2[i].Reset();
 		}
-		
+		maxNumAtack = 0;
 		attackMethod = 3;
 	}
 
@@ -195,9 +196,20 @@ void Boss::boss_atack_2(bool inversaAtack, int numberAtack)
 
 	distancia = 200 * numberAtack;
 
-	rect_2[numberAtack] = currentAnimation2[numberAtack]->GetCurrentFrame();
-	app->render->DrawTexture(boss_atack_2_texture, 1950 - distancia, 400, 1.5, SDL_FLIP_NONE, &rect_2[numberAtack]);
-	currentAnimation2[numberAtack]->Update();
+
+	if (inversaAtack) {
+		rect_2[numberAtack] = currentAnimation2[numberAtack]->GetCurrentFrame();
+		app->render->DrawTexture(boss_atack_2_texture, 2150 - distancia, 400, 1.5, SDL_FLIP_NONE, &rect_2[numberAtack]);
+		currentAnimation2[numberAtack]->Update();
+	}
+	else {
+		rect_2[numberAtack] = currentAnimation2[numberAtack]->GetCurrentFrame();
+		app->render->DrawTexture(boss_atack_2_texture, 1250 + distancia, 400, 1.5, SDL_FLIP_NONE, &rect_2[numberAtack]);
+		currentAnimation2[numberAtack]->Update();
+	
+	}
+
+	
 }
 
 void Boss::boss_atack_3(bool inversaAtack)

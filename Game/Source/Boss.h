@@ -49,6 +49,8 @@ public:
 	Animation die;
 	Animation take_hit;
 
+	Animation inicializaAnimation;
+
 
 	Animation SPosition;
 	SDL_Rect* spritePositions;

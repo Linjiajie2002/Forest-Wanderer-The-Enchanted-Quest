@@ -166,6 +166,10 @@ public:
 
 	PathFinding* pathfinding;
 
+
+	int bossRenderArea_R =32;
+	int bossRenderArea_L = 18;
+
 private:
 
     SString mapFileName;

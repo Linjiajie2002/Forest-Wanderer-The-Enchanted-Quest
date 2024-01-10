@@ -81,7 +81,7 @@ bool Scene::Awake(pugi::xml_node& config)
 
 	for (pugi::xml_node itemNode = config.child("boss"); itemNode; itemNode = itemNode.next_sibling("boss"))
 	{
-		Boss* boss = (Boss*)app->entityManager->CreateEntity(EntityType::BOSS);
+		boss = (Boss*)app->entityManager->CreateEntity(EntityType::BOSS);
 		boss->parameters = itemNode;
 	}
 
@@ -205,6 +205,12 @@ Enemy_Goblin* Scene::GetGoblin() {
 	return enemy_goblin;
 }
 
+
+
+Boss* Scene::GetBoss() {
+
+	return boss;
+}
 bool Scene::LoadState(pugi::xml_node node) {
 
 	/*if (app->sceneLevel != node.child("player").attribute("sceneLevel").as_int()) {

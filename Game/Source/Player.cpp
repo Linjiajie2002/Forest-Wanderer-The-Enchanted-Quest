@@ -107,19 +107,25 @@ bool Player::Start() {
 bool Player::Update(float dt)
 {
 
-	if (app->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN) {
-		app->map->LevelMap = 2;
-		app->fade->ResetMap();
-	}
+
 
 	//printf("%d \n", position.x);
 	currentAnimation = &idle;
 	vel = b2Vec2(0, pbody->body->GetLinearVelocity().y);
 	app->win->GetWindowSize(width, height);
 
+	if (app->scene->GetBoss()->inBossBattle && app->scene->GetBoss()->tpToinBossBattle) {
+		
+		pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(1950), PIXEL_TO_METERS(1100)), 0);
+		app->scene->GetBoss()->tpToinBossBattle = false;
+	}
+
 	if (NoControl) {
 
 		if (!app->godMode) {
+
+
+
 
 			pbody->body->GetFixtureList()[0].SetSensor(false);
 			vel = b2Vec2(0, pbody->body->GetLinearVelocity().y);
@@ -408,18 +414,24 @@ void Player::Camera() {
 	//Camera();
 	//}
 	float timeLerp = 0.1f;
-	if (app->render->camera.x >= 2 && position.x < 514) {
-		app->render->camera.x = 2;
-	}
-	else if (app->render->camera.x <= -5370 && position.x > 5883) {
-		app->render->camera.x = -5370;
+
+	if (app->scene->GetBoss()->inBossBattle) {
+		app->render->camera.x = -1430;
 	}
 	else {
 
-		app->render->camera.x = (-position.x * app->win->GetScale() + (width / 2) - 50);
+		if (app->render->camera.x >= 2 && position.x < 514) {
+			app->render->camera.x = 2;
+		}
+		else if (app->render->camera.x <= -5370 && position.x > 5883) {
+			app->render->camera.x = -5370;
+		}
+		else {
 
+			app->render->camera.x = (-position.x * app->win->GetScale() + (width / 2) - 50);
+
+		}
 	}
-
 
 
 

@@ -34,13 +34,14 @@ public:
 
 	Animation* currentAnimation1 = nullptr;
 	Animation* currentAnimation2 = nullptr;
+	Animation* currentAnimation3 = nullptr;
 
 	Animation atack_1;
 	Animation atack_2;
 	Animation atack_3;
 	Animation die;
 	Animation take_hit;
-	Animation run;
+
 
 	Animation SPosition;
 	SDL_Rect* spritePositions;
@@ -53,51 +54,14 @@ public:
 
 	bool isFacingLeft;
 
-	bool inEenemyArea = true;
 
-	bool touchR = false;
-	bool touchL = false;
-
-	int life = 3;
-	bool isDead = false;
-	bool isTakehit = false;
-	bool AtackPlayer = false;
-	Timer attackTimer;
-	Timer timerAtaque;
-	bool canatake = false;
-	PhysBody* attackParticle;
-
-	int lastY;
-	int lastX;
-
-
-	int walkFrameCount = 0;
-	bool rddirection;
-	int enemywalk;
-	bool enemyidle = true;
-	int timeidle;
-	bool rdinWork = false;
-	bool walkrdinWork = true;
-	int enemyAreaLimitR, enemyAreaLimitL;
-
-	float rangeSize = 700.0f;
-	float leftTopX;
-	float leftTopY;
-	float rightBottomX;
-	float rightBottomY;
-
-
-	float atk_rangeSize = 20.0f;
-	float atk_leftTopX;
-	float atk_leftTopY;
-	float atk_rightBottomX;
-	float atk_rightBottomY;
 
 	Player* player;
 
 	int deadenemy;
 
-
+	bool inBossBattle = false;
+	bool tpToinBossBattle = false;
 
 
 
@@ -110,6 +74,11 @@ private:
 	const char* boss_atack_1_texture_Path;
 	const char* boss_atack_2_texture_Path;
 	const char* boss_atack_3_texture_Path;
+
+	SDL_Rect rect_1;
+	SDL_Rect rect_2;
+	SDL_Rect rect_3;
+
 
 	SDL_Texture* Pathfindingtexture;
 	const char* PathfindingPath;

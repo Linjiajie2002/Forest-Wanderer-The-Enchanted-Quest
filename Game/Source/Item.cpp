@@ -76,8 +76,8 @@ bool Item::Start() {
 
 	for (int i = 0; i < NumeroDiamante; i++)
 	{
-		itemX[i] = 150.0;
-		itemY[i] = 950.0;
+		itemX[i] = circleCenterX-150;
+		itemY[i] = circleCenterY;
 	}
 	maxDiamante = 0;
 
@@ -112,7 +112,7 @@ bool Item::Update(float dt)
 	else {
 		for (int i = 0; i < maxDiamante; i++)
 		{
-			rotateAroundCircle(itemX[i], itemY[i], circleCenterX, circleCenterY, circleRadius, angleIncrement);
+			rotateAroundCircle(itemX[i], itemY[i], circleCenterX, circleCenterY, angleIncrement);
 		}
 	}
 
@@ -135,7 +135,7 @@ bool Item::CleanUp()
 	return true;
 }
 
-void Item::rotateAroundCircle(double& x, double& y, double circleCenterX, double circleCenterY, double circleRadius, double angleIncrement)
+void Item::rotateAroundCircle(double& x, double& y, double circleCenterX, double circleCenterY,  double angleIncrement)
 {
 	double angleInRadians = angleIncrement * M_PI / 180.0;
 

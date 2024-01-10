@@ -53,10 +53,12 @@ bool Boss::Awake() {
 
 bool Boss::Start() {
 	boss_atack_1_texture = app->tex->Load(boss_atack_1_texture_Path);
-	boss_atack_2_texture = app->tex->Load(boss_atack_3_texture_Path);
+	boss_atack_2_texture = app->tex->Load(boss_atack_2_texture_Path);
+	boss_atack_3_texture = app->tex->Load(boss_atack_3_texture_Path);
 
 	currentAnimation1 = &atack_1;
-	currentAnimation2 = &atack_3;
+	currentAnimation2 = &atack_2;
+	currentAnimation3 = &atack_3;
 
 	return true;
 }
@@ -64,14 +66,37 @@ bool Boss::Start() {
 bool Boss::Update(float dt)
 {
 
-	SDL_Rect rect = currentAnimation2->GetCurrentFrame();
 
 
-	//app->render->DrawTexture(boss_atack_1_texture, 40, 570, 1 , SDL_FLIP_NONE,&rect);
-	app->render->DrawTexture(boss_atack_2_texture, 40, 660, 2, SDL_FLIP_NONE, &rect);
+	if (app->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN) {
 
+		inBossBattle = true;
+		tpToinBossBattle = true;
+	}
 
+	rect_1 = currentAnimation1->GetCurrentFrame();
+	app->render->DrawTexture(boss_atack_1_texture, 1350, 500, 1, SDL_FLIP_NONE, &rect_1);
+	currentAnimation1->Update();
+
+	rect_2 = currentAnimation2->GetCurrentFrame();
+	app->render->DrawTexture(boss_atack_2_texture, 1350, 570, 1.5, SDL_FLIP_NONE, &rect_2);
 	currentAnimation2->Update();
+
+	rect_3 = currentAnimation3->GetCurrentFrame();
+	app->render->DrawTexture(boss_atack_3_texture, 1350, 660, 2, SDL_FLIP_NONE, &rect_3);
+	currentAnimation3->Update();
+
+	//rect_3 = currentAnimation3->GetCurrentFrame();
+
+	////app->render->DrawTexture(boss_atack_1_texture, 40, 570, 1 , SDL_FLIP_NONE,&rect);
+	//app->render->DrawTexture(boss_atack_1_texture, 1350, 660, 2, SDL_FLIP_NONE, &rect_1);
+	//app->render->DrawTexture(boss_atack_2_texture, 1350, 660, 2, SDL_FLIP_NONE, &rect_2);
+	///**/app->render->DrawTexture(boss_atack_3_texture, 1350, 660, 2, SDL_FLIP_NONE, &rect_3); */
+
+
+	//currentAnimation1->Update();
+	///*currentAnimation2->Update();
+	//currentAnimation3->Update();*/
 	return true;
 }
 
@@ -87,16 +112,6 @@ void Boss::OnCollision(PhysBody* physA, PhysBody* physB) {
 	switch (physB->ctype)
 	{
 	case ColliderType::PLAYER:
-		AtackPlayer = true;
-		break;
-
-	case ColliderType::ENEMYAREA:
-		inEenemyArea = true;
-		break;
-
-	case ColliderType::CLOSEATK_PLAYER:
-		isTakehit = true;
-		life--;
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
@@ -109,12 +124,9 @@ void Boss::OnEndCollision(PhysBody* physA, PhysBody* physB) {
 	switch (physB->ctype)
 	{
 	case ColliderType::PLAYER:
-		AtackPlayer = false;
 		break;
 
-	case ColliderType::ENEMYAREA:
-		inEenemyArea = false;
-		break;
+	
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
 		break;

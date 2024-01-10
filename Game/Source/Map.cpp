@@ -56,6 +56,11 @@ bool Map::Update(float dt)
 	ListItem<MapLayer*>* mapLayerItem;
 	mapLayerItem = mapData.maplayers.start;
 
+	if (app->scene->GetBoss()->tpToinBossBattle) {
+
+		LoadCollision("Colisions");
+	}
+
 	while (mapLayerItem != NULL) {
 
 		if (mapLayerItem->data->properties.GetProperty("Draw") != NULL && mapLayerItem->data->properties.GetProperty("Draw")->value) {
@@ -65,6 +70,14 @@ bool Map::Update(float dt)
 			fondoy = app->scene->GetPlayer()->position.y / 32;
 
 
+			if (app->scene->GetBoss()->inBossBattle) {
+				bossRenderArea_R = 35;
+				bossRenderArea_L = 35;
+			}
+			else {
+				bossRenderArea_R = 32;
+				bossRenderArea_L = 18;
+			}
 
 			//printf("fondoy, %d ", fondoy);
 
@@ -82,9 +95,9 @@ bool Map::Update(float dt)
 			}
 
 
-			for (int x = MAX(fondox - 18, 0); x < MIN(fondox + 32, mapLayerItem->data->width); x++)
+			for (int x = MAX(fondox - bossRenderArea_L, 0); x < MIN(fondox + bossRenderArea_R, mapLayerItem->data->width); x++)
 			{
-				for (int y = MAX(fondoy - 18, 0); y < MIN(fondoy + 18, mapLayerItem->data->height); y++)
+				for (int y = MAX(fondoy - 20, 0); y < MIN(fondoy + 18, mapLayerItem->data->height); y++)
 				{
 					uint gid = mapLayerItem->data->Get(x, y);
 					TileSet* tileset = GetTilesetFromTileId(gid);
@@ -114,7 +127,7 @@ bool Map::Update(float dt)
 					case 0b001: flip = SDL_FLIP_HORIZONTAL;     angle += 270;       break;
 					}
 
-					
+
 					app->render->DrawTexture(tileset->texture,
 						pos.x,
 						pos.y, flip,
@@ -739,6 +752,13 @@ bool Map::LoadCollision(std::string layerName) {
 
 					}
 
+					if (app->scene->GetBoss()->inBossBattle) {
+						if (gid == tileset->firstgid + 10) {
+							PhysBody* c1 = app->physics->CreateRectangle(pos.x, pos.y + 16, 32, 32, STATIC);
+							c1->ctype = ColliderType::WALL;
+
+						}
+					}
 
 
 

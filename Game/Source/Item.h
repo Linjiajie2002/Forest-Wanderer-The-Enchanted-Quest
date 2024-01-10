@@ -26,7 +26,7 @@ public:
 
 	bool CleanUp();
 
-	void rotateAroundCircle(double& x, double& y, double circleCenterX, double circleCenterY, double circleRadius, double angleIncrement);
+	void rotateAroundCircle(double& x, double& y, double circleCenterX, double circleCenterY, double angleIncrement);
 	void diamanteToCenter(double& x, double& y);
 
 public:
@@ -43,16 +43,12 @@ public:
 	int PhotoWeight;
 
 
-	//double itemX = 150.0;  // 物品初始X坐标
-	//double itemY = 950.0;  // 物品初始Y坐标
-	double circleCenterX = 350.0;  // 圆心X坐标
-	double circleCenterY = 950.0;  // 圆心Y坐标
-	double circleRadius = 20.0;  // 圆半径
-	double angleIncrement = 1.0;  // 每次旋转的角度增量
-	double scaleFactor = 10.0;
-
-	double itemX[8];      // 物品初始X坐标
+	double itemX[8];      
 	double itemY[8];
+	double circleCenterX = 1920.0;  
+	double circleCenterY = 900.0;  
+	double angleIncrement = 1.0;  
+
 
 	int NumeroDiamante = 7;
 	int maxDiamante = 0;

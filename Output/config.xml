@@ -105,8 +105,8 @@
 
 	<Animations>
 		<Boss>
-			<atack_1 start="0" end="58" speed="0.15f" loop="false"/>
-			<atack_2 start="0" end="25" speed="0.2f" loop="false"/>
+			<atack_1 start="0" end="58" speed="0.15f" loop="true"/>
+			<atack_2 start="0" end="25" speed="0.2f" loop="true"/>
 			<atack_3 start="0" end="22" speed="0.2f" loop="true"/>
 		</Boss>
 		<Diamond>

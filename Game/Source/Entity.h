@@ -14,6 +14,7 @@ enum class EntityType
 	ENEMY_FLYEYE,
 	ENEMY_GOBLIN,
 	BOSS,
+	BOSSITEM,
 	ITEM,
 	ITEMBOX,
 	SHOP,

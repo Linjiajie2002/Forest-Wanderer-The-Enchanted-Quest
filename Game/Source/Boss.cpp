@@ -98,6 +98,9 @@ bool Boss::Start() {
 bool Boss::Update(float dt)
 {
 
+
+	
+
 	if (app->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN) {
 
 		inBossBattle = true;

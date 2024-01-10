@@ -98,6 +98,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\Boss.cpp" />
+    <ClCompile Include="Source\BossItem.cpp" />
     <ClCompile Include="Source\Effect.cpp" />
     <ClCompile Include="Source\Enemy_Flyeye.cpp" />
     <ClCompile Include="Source\Enemy_Goblin.cpp" />
@@ -124,6 +125,7 @@
     <ClCompile Include="Source\Window.cpp" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Boss.h" />
+    <ClInclude Include="Source\BossItem.h" />
     <ClInclude Include="Source\Effect.h" />
     <ClInclude Include="Source\Enemy_Flyeye.h" />
     <ClInclude Include="Source\Enemy_Goblin.h" />

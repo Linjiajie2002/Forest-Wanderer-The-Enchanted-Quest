@@ -100,6 +100,11 @@
 				<atack4 Posx="150" Posy="650" Tsprite="48" Pweight="4096" x="256" y="256" texturepath="Assets\Sprite\Boss\use\boss_atack4.png"/>
 			</boss_atack> 
 		</boss>
+		<bossitem>
+			<boss_ball>
+				<ball_blue Posx="150" Posy="570" Tsprite="20" Pweight="2560" x="256" y="256" texturepath="Assets\Sprite\Boss\item\ball_blue.png"/>
+			</boss_ball>
+		</bossitem>
 		
 	</scene>
 
@@ -113,6 +118,12 @@
 			<atack_4_running start="16" end="32" speed="0.2f" loop="true"/>
 			<atack_4_end start="33" end="48" speed="0.4f" loop="false"/>
 		</Boss>
+
+		<BossItem>
+			<ball_blue_start start="0" end="4" speed="0.2f" loop="false"/>
+			<ball_blue_running start="5" end="9" speed="0.1f" loop="true"/>
+			<ball_blue_end start="10" end="20" speed="0.2f" loop="false"/>
+		</BossItem>
 		<Diamond>
 			<idle start="0" end="5" speed="0.1f" loop="true"/>
 		</Diamond>

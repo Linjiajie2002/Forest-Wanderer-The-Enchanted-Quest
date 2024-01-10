@@ -12,6 +12,7 @@
 #include "Enemy_Goblin.h"
 #include "Enemy_Flyeye.h"
 #include "Boss.h"
+#include "BossItem.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -65,10 +66,6 @@ bool Scene::Awake(pugi::xml_node& config)
 	}
 
 
-	
-
-
-
 	PathfindingPath = config.child("enemy").child("Pathfinding").attribute("texturepath").as_string();
 	
 	
@@ -84,6 +81,13 @@ bool Scene::Awake(pugi::xml_node& config)
 		boss = (Boss*)app->entityManager->CreateEntity(EntityType::BOSS);
 		boss->parameters = itemNode;
 	}
+
+	for (pugi::xml_node itemNode = config.child("bossitem"); itemNode; itemNode = itemNode.next_sibling("bossitem"))
+	{
+		BossItem* bossitem = (BossItem*)app->entityManager->CreateEntity(EntityType::BOSSITEM);
+		bossitem->parameters = itemNode;
+	}
+
 
 	//Add effect
 	for (pugi::xml_node itemNode = config.child("effect"); itemNode; itemNode = itemNode.next_sibling("effect"))

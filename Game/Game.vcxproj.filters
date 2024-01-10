@@ -82,6 +82,9 @@
     <ClCompile Include="Source\Boss.cpp">
       <Filter>Modules\Boss</Filter>
     </ClCompile>
+    <ClCompile Include="Source\BossItem.cpp">
+      <Filter>Modules\Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Defs.h">
@@ -191,6 +194,9 @@
     </ClInclude>
     <ClInclude Include="Source\Boss.h">
       <Filter>Modules\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BossItem.h">
+      <Filter>Modules\Item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

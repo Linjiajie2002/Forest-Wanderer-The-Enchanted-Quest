@@ -10,7 +10,7 @@
 #include "Enemy_Flyeye.h"
 #include "Map.h"
 #include "Boss.h"
-
+#include "BossItem.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -114,6 +114,9 @@ Entity* EntityManager::CreateEntity(EntityType type)
 		break;
 	case EntityType::BOSS:
 		entity = new Boss();
+		break;
+	case EntityType::BOSSITEM:
+		entity = new BossItem();
 		break;
 	default:
 		break;

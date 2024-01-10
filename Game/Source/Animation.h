@@ -19,7 +19,7 @@ public:
 	bool pingpong = false;
 	int animeFrameCount = 0;
 	int aniFrameTotal = 0;
-
+	char* aniName;
 
 private:
 	float currentFrame = 0.0f;
@@ -96,7 +96,8 @@ public:
 
 	void LoadAnim(char* Anipart, char* NombreAni, SDL_Rect* spritePositions) {
 
-		
+
+		aniName = NombreAni;
 		pugi::xml_document configFile;
 		pugi::xml_node AniInfo;
 		pugi::xml_parse_result parseResult = configFile.load_file("config.xml");
@@ -121,6 +122,12 @@ public:
 		this->loop = AniInfo.attribute("loop").as_bool();
 	}
 
+	char* getNameAnimation(){
+	
+		return aniName;
+	}
+
 };
 
+	
 #endif

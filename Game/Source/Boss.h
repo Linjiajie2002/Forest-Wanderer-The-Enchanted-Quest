@@ -30,6 +30,7 @@ public:
 	void boss_atack_1(int playerPosX);
 	void boss_atack_2(bool inversaAtack, int numberAtack);
 	void boss_atack_3(bool inversaAtack);
+	void boss_atack_4(bool inversaAtack);
 
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
@@ -42,14 +43,20 @@ public:
 	Animation* currentAnimation1 = nullptr;
 	List<Animation*> currentAnimation2 ;
 	Animation* currentAnimation3 = nullptr;
+	Animation* currentAnimation4 = nullptr;
 
 	Animation atack_1;
 	List<Animation> atack_2;
 	Animation atack_3;
+	
+	Animation atack_4_start;
+	Animation atack_4_running;
+	Animation atack_4_end;
+
 	Animation die;
 	Animation take_hit;
 
-	Animation inicializaAnimation;
+	
 
 
 	Animation SPosition;
@@ -72,6 +79,7 @@ public:
 
 	//Atack 2
 	Timer atack2_generAtack;
+	Animation inicializaAnimation;
 	int numeroAtack = 4;
 	int maxNumAtack = 0;
 	bool allPrint = false;
@@ -79,6 +87,15 @@ public:
 
 	//Atack3
 	bool direction_Atack = false;
+
+	//Atack4
+	float velocitat = 0;
+
+	float atack4_posX;
+	int atack4_posX_R= 1420;
+
+	int atack4_posX_L = 2290;
+	int atack4_posY;
 
 
 	Player* player;
@@ -95,14 +112,19 @@ private:
 	SDL_Texture* boss_atack_1_texture;
 	SDL_Texture* boss_atack_2_texture;
 	SDL_Texture* boss_atack_3_texture;
+	SDL_Texture* boss_atack_4_texture;
 
 	const char* boss_atack_1_texture_Path;
 	const char* boss_atack_2_texture_Path;
 	const char* boss_atack_3_texture_Path;
+	const char* boss_atack_4_texture_Path;
+
+
 
 	SDL_Rect rect_1;
 	List<SDL_Rect> rect_2;
 	SDL_Rect rect_3;
+	SDL_Rect rect_4;
 
 
 	SDL_Texture* Pathfindingtexture;

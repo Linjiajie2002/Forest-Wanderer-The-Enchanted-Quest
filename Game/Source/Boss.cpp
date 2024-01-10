@@ -46,8 +46,6 @@ bool Boss::Awake() {
 	}
 	
 
-
-
 	boss_atack_3_texture_Path = parameters.child("boss_atack").child("atack3").attribute("texturepath").as_string();
 	TSprite = parameters.child("boss_atack").child("atack3").attribute("Tsprite").as_int();
 	SpriteX = parameters.child("boss_atack").child("atack3").attribute("x").as_int();
@@ -56,16 +54,26 @@ bool Boss::Awake() {
 	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
 	atack_3.LoadAnim("Boss", "atack_3", spritePositions);
 
+
+	boss_atack_4_texture_Path = parameters.child("boss_atack").child("atack4").attribute("texturepath").as_string();
+	TSprite = parameters.child("boss_atack").child("atack4").attribute("Tsprite").as_int();
+	SpriteX = parameters.child("boss_atack").child("atack4").attribute("x").as_int();
+	SpriteY = parameters.child("boss_atack").child("atack4").attribute("y").as_int();
+	PhotoWeight = parameters.child("boss_atack").child("atack4").attribute("Pweight").as_int();
+	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
+	atack_4_start.LoadAnim("Boss", "atack_4_start", spritePositions);
+	atack_4_running.LoadAnim("Boss", "atack_4_running", spritePositions);
+	atack_4_end.LoadAnim("Boss", "atack_4_end", spritePositions);
+
 	return true;
 }
 
 bool Boss::Start() {
+	
 	boss_atack_1_texture = app->tex->Load(boss_atack_1_texture_Path);
 	boss_atack_2_texture = app->tex->Load(boss_atack_2_texture_Path);
 	boss_atack_3_texture = app->tex->Load(boss_atack_3_texture_Path);
-
-	
-
+	boss_atack_4_texture = app->tex->Load(boss_atack_4_texture_Path);
 
 
 	
@@ -82,6 +90,7 @@ bool Boss::Start() {
 
 	currentAnimation3 = &atack_3;
 
+	currentAnimation4 = &atack_4_start;
 
 	return true;
 }
@@ -165,11 +174,29 @@ bool Boss::Update(float dt)
 
 	if (currentAnimation3->HasFinished()) {
 		atack_3.Reset();
-		getPlayerPosition = true;
-		attackMethod = 1;
+		attackMethod = 4;
+		currentAnimation4 = &atack_4_start;
 	}
 
 
+	if (inBossBattle && attackMethod == 4) {
+		boss_atack_4(direction_Atack);
+	}
+
+	if (currentAnimation4->HasFinished()) {
+
+		if (currentAnimation4->getNameAnimation() == "atack_4_start") {
+			currentAnimation4 = &atack_4_running;
+		}
+		if (currentAnimation4->getNameAnimation() == "atack_4_end") {
+			atack_4_start.Reset();
+			atack_4_end.Reset();
+			atack_4_running.Reset();
+			getPlayerPosition = true;
+			attackMethod = 1;
+			velocitat = 0;
+		}
+	}
 
 	return true;
 }
@@ -196,36 +223,55 @@ void Boss::boss_atack_2(bool inversaAtack, int numberAtack)
 
 	distancia = 200 * numberAtack;
 
-
+	rect_2[numberAtack] = currentAnimation2[numberAtack]->GetCurrentFrame();
 	if (inversaAtack) {
-		rect_2[numberAtack] = currentAnimation2[numberAtack]->GetCurrentFrame();
 		app->render->DrawTexture(boss_atack_2_texture, 2150 - distancia, 400, 1.5, SDL_FLIP_NONE, &rect_2[numberAtack]);
-		currentAnimation2[numberAtack]->Update();
 	}
 	else {
-		rect_2[numberAtack] = currentAnimation2[numberAtack]->GetCurrentFrame();
 		app->render->DrawTexture(boss_atack_2_texture, 1250 + distancia, 400, 1.5, SDL_FLIP_NONE, &rect_2[numberAtack]);
-		currentAnimation2[numberAtack]->Update();
-	
 	}
-
-	
+	currentAnimation2[numberAtack]->Update();
 }
 
 void Boss::boss_atack_3(bool inversaAtack)
 {
-
+	rect_3 = currentAnimation3->GetCurrentFrame();
 	if (inversaAtack) {
-		rect_3 = currentAnimation3->GetCurrentFrame();
 		app->render->DrawTexture(boss_atack_3_texture, 1350, 660, 2, SDL_FLIP_NONE, &rect_3);
-		currentAnimation3->Update();
 	}
 	else {
-		rect_3 = currentAnimation3->GetCurrentFrame();
 		app->render->DrawTexture(boss_atack_3_texture, 1750, 660, 2, SDL_FLIP_HORIZONTAL, &rect_3);
-		currentAnimation3->Update();
 
 	}
+	currentAnimation3->Update();
+}
+
+void Boss::boss_atack_4(bool inversaAtack)
+{
+	rect_4 = currentAnimation4->GetCurrentFrame();
+	
+	if (currentAnimation4->getNameAnimation() == "atack_4_running") {
+		velocitat += 10.0;	
+	}
+
+	if (inversaAtack) {
+		atack4_posX = atack4_posX_R + velocitat;
+		app->render->DrawTexture(boss_atack_4_texture, atack4_posX, 1010, 0.7, SDL_FLIP_NONE, &rect_4);
+
+		if (atack4_posX >= atack4_posX_L) {
+			currentAnimation4 = &atack_4_end;
+		}
+	}
+	else {
+		atack4_posX = atack4_posX_L - velocitat;
+		app->render->DrawTexture(boss_atack_4_texture, atack4_posX, 1010, 0.7, SDL_FLIP_NONE, &rect_4);
+		if (atack4_posX <= atack4_posX_R) {
+			currentAnimation4 = &atack_4_end;
+		}
+	}
+
+	currentAnimation4->Update();
+
 }
 
 

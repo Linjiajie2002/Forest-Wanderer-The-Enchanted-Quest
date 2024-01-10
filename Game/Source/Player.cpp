@@ -415,8 +415,10 @@ void Player::Camera() {
 	//}
 	float timeLerp = 0.1f;
 
+
 	if (app->scene->GetBoss()->inBossBattle) {
 		app->render->camera.x = -1430;
+		app->render->camera.y = -501;
 	}
 	else {
 
@@ -431,20 +433,22 @@ void Player::Camera() {
 			app->render->camera.x = (-position.x * app->win->GetScale() + (width / 2) - 50);
 
 		}
+
+		app->render->camera.y = (-position.y * app->win->GetScale() + (height / 2) + 200);
+
+
+		if (app->render->camera.y <= -829) {
+			app->render->camera.y = -829;
+		}
+		if (app->render->camera.y >= 0) {
+			app->render->camera.y = 0;
+		}
 	}
 
 
 
 
-	app->render->camera.y = (-position.y * app->win->GetScale() + (height / 2) + 200);
-
-
-	if (app->render->camera.y <= -829) {
-		app->render->camera.y = -829;
-	}
-	if (app->render->camera.y >= 0) {
-		app->render->camera.y = 0;
-	}
+	
 }
 
 void Player::ShakeCamera(int xOffset, int yOffset) {

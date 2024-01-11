@@ -15,6 +15,7 @@
 #include "List.h"
 #include <random>
 
+
 BossItem::BossItem() : Entity(EntityType::BOSSITEM)
 {
 	name.Create("bossitem");
@@ -53,7 +54,24 @@ bool BossItem::Update(float dt)
 	/*currentAnimation1 = &ball_blue_running;*/
 
 	rect_1 = currentAnimation1->GetCurrentFrame();
-	app->render->DrawTexture(ball_blue_texture, 1620, 1050, 0.4, SDL_FLIP_NONE, &rect_1);
+
+	iPoint p1 = iPoint(100, 100);
+	iPoint p2 = iPoint(400, 300); 
+	iPoint p3 = iPoint(700, 100); 
+
+	double t = 0.5;  
+
+	iPoint result;
+	calculateNURBS(p1, p2, p3, t, &result);
+	
+	printf("x: %d, y: %d\n", result.x, result.y);
+	/*
+	printf("x: %d, y: %d\n", p1.x, p1.y);
+	*/
+
+	app->render->DrawTexture(ball_blue_texture, result_x, result_y, 0.4, SDL_FLIP_NONE, &rect_1);
+
+
 	currentAnimation1->Update();
 
 
@@ -68,7 +86,7 @@ bool BossItem::Update(float dt)
 		if (currentAnimation1->getNameAnimation() == "ball_blue_start") {
 			currentAnimation1->Reset();
 			currentAnimation1 = &ball_blue_running;
-			
+
 		}
 		if (currentAnimation1->getNameAnimation() == "ball_blue_end") {
 			currentAnimation1->Reset();
@@ -84,6 +102,15 @@ bool BossItem::CleanUp()
 	return true;
 }
 
+void BossItem::calculateNURBS(iPoint p1, iPoint p2, iPoint p3, double t, iPoint* result) {
+	// Implementation of calculateNURBS
+	double N1 = (1 - t) * (1 - t);
+	double N2 = 2 * t * (1 - t);
+	double N3 = t * t;
+
+	result->x = N1 * p1.x + N2 * p2.x + N3 * p3.x;
+	result->y = N1 * p1.y + N2 * p2.y + N3 * p3.y;
+}
 
 
 

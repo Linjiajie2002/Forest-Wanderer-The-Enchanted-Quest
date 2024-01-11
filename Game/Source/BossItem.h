@@ -9,8 +9,11 @@
 #include "Timer.h"
 
 #include"List.h"
+#include <stdio.h>
 
 struct SDL_Texture;
+
+
 
 class BossItem : public Entity
 {
@@ -28,7 +31,8 @@ public:
 
 	bool CleanUp();
 
-	
+	void calculateNURBS(iPoint p1, iPoint p2, iPoint p3, double t, iPoint* result);
+
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 	void OnEndCollision(PhysBody* physA, PhysBody* physB);
@@ -100,6 +104,9 @@ public:
 	bool inBossBattle = false;
 	bool tpToinBossBattle = false;
 
+
+	double result_x = 0.00;
+	double result_y = 0.00;
 
 
 private:

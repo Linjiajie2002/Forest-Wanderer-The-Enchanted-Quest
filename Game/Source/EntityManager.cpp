@@ -118,6 +118,9 @@ Entity* EntityManager::CreateEntity(EntityType type)
 	case EntityType::BOSSITEM:
 		entity = new BossItem();
 		break;
+	case EntityType::PLAYERLIFE:
+		entity = new PlayerLife();
+		break;
 	default:
 		break;
 	}

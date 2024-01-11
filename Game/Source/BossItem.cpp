@@ -71,7 +71,6 @@ bool BossItem::Update(float dt)
 
 	app->render->DrawTexture(ball_blue_texture, result_x, result_y, 0.4, SDL_FLIP_NONE, &rect_1);
 
-
 	currentAnimation1->Update();
 
 

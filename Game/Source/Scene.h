@@ -7,6 +7,7 @@
 #include "Effect.h"
 #include "Enemy_Goblin.h"
 #include "Boss.h"
+#include "PlayerLife.h"
 
 
 struct SDL_Texture;
@@ -57,6 +58,7 @@ private:
 	Enemy_Goblin* enemy_goblin;
 	Effect* effect;
 	Boss* boss;
+	PlayerLife* playerlife;
 public:
 
 	SDL_Texture* Pathfindingtexture;

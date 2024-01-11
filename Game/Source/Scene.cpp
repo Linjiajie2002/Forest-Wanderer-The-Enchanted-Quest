@@ -13,6 +13,7 @@
 #include "Enemy_Flyeye.h"
 #include "Boss.h"
 #include "BossItem.h"
+#include "PlayerLife.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -86,6 +87,12 @@ bool Scene::Awake(pugi::xml_node& config)
 	{
 		BossItem* bossitem = (BossItem*)app->entityManager->CreateEntity(EntityType::BOSSITEM);
 		bossitem->parameters = itemNode;
+	}
+
+	for (pugi::xml_node itemNode = config.child("playerlife"); itemNode; itemNode = itemNode.next_sibling("playerlife"))
+	{
+		playerlife = (PlayerLife*)app->entityManager->CreateEntity(EntityType::PLAYERLIFE);
+		playerlife->parameters = itemNode;
 	}
 
 

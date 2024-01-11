@@ -85,6 +85,9 @@
     <ClCompile Include="Source\BossItem.cpp">
       <Filter>Modules\Item</Filter>
     </ClCompile>
+    <ClCompile Include="Source\PlayerLife.cpp">
+      <Filter>Modules\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Defs.h">
@@ -197,6 +200,9 @@
     </ClInclude>
     <ClInclude Include="Source\BossItem.h">
       <Filter>Modules\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PlayerLife.h">
+      <Filter>Modules\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

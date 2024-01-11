@@ -105,11 +105,20 @@
 				<ball_blue Posx="150" Posy="570" Tsprite="20" Pweight="2560" x="256" y="256" texturepath="Assets\Sprite\Boss\item\ball_blue.png"/>
 			</boss_ball>
 		</bossitem>
+
+		<playerlife>
+			<lifebar_fin_die Posx="150" Posy="570" Tsprite="2" Pweight="36" x="18" y="18" texturepath="Assets\Effecto\LifeBar\Die.png"/>
+		</playerlife>
+		
 		
 	</scene>
 
 
 	<Animations>
+
+		<PlayerLife>
+			<lifebar_fin_die start="0" end="2" speed="0.1f" loop="true"/>
+		</PlayerLife>
 		<Boss>
 			<atack_1 start="0" end="58" speed="0.3f" loop="false"/>
 			<atack_2 start="0" end="25" speed="0.2f" loop="false"/>

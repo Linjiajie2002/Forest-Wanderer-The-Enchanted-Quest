@@ -64,7 +64,7 @@ bool BossItem::Update(float dt)
 	iPoint result;
 	calculateNURBS(p1, p2, p3, t, &result);
 	
-	printf("x: %d, y: %d\n", result.x, result.y);
+	//printf("x: %d, y: %d\n", result.x, result.y);
 	/*
 	printf("x: %d, y: %d\n", p1.x, p1.y);
 	*/

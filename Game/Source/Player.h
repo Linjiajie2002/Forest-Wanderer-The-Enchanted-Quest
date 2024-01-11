@@ -150,7 +150,7 @@ public:
 	int cameraUP;
 
 	//Shake
-	int shakeDuration = 0; 
+	int shakeDuration = 4; 
 	int shakeMagnitude = 5;
 	int firstTouchPlantform = 0;
 

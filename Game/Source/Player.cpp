@@ -108,6 +108,9 @@ bool Player::Update(float dt)
 {
 
 
+	
+	
+
 
 	//printf("%d \n", position.x);
 	currentAnimation = &idle;
@@ -218,19 +221,26 @@ bool Player::Update(float dt)
 			}
 
 			Camera();
-			//if (false) {
 
-			//	if (shakeDuration > 0) {
-			//		xOffset = (rand() % (2 * shakeMagnitude + 1)) - shakeMagnitude;
-			//		yOffset = (rand() % (2 * shakeMagnitude + 1)) - shakeMagnitude;
-			//		ShakeCamera(xOffset, yOffset);
-			//		shakeDuration--;
-			//	}
-			//	firstTouchPlantform = 1;
-			//}
-			//else {
-			//	/*Camera();*/
-			//}
+			if (app->input->GetKey(SDL_SCANCODE_P) == KEY_REPEAT) {
+				printf("WWW");
+				xOffset = (rand() % (2 * shakeMagnitude + 1)) - shakeMagnitude;
+				yOffset = (rand() % (2 * shakeMagnitude + 1)) - shakeMagnitude;
+				ShakeCamera(xOffset, yOffset);
+				shakeDuration--;
+			}
+
+			
+
+			/*	if (shakeDuration > 0) {
+					printf("WWW");
+					xOffset = (rand() % (2 * shakeMagnitude + 1)) - shakeMagnitude;
+					yOffset = (rand() % (2 * shakeMagnitude + 1)) - shakeMagnitude;
+					ShakeCamera(xOffset, yOffset);
+					shakeDuration--;
+				}
+				firstTouchPlantform = 1;
+		*/
 
 		}
 		else
@@ -453,21 +463,10 @@ void Player::Camera() {
 
 void Player::ShakeCamera(int xOffset, int yOffset) {
 
-	if (app->render->camera.x >= 2 && position.x < 514) {
-		app->render->camera.x = 2;
-	}
-	else if (app->render->camera.x <= -5370 && position.x > 5883) {
-		app->render->camera.x = -5370;
-	}
-	else {
-		app->render->camera.x = -position.x + (width / 2);
 
-		app->render->camera.x = (-position.x * app->win->GetScale() + (width / 2) + xOffset);
+	app->render->camera.x = (-position.x * app->win->GetScale() + (width / 2) - 50 + xOffset);
 
-	}
-
-
-	app->render->camera.y = (-position.y * app->win->GetScale() + (height / 2) + yOffset);
+	app->render->camera.y = (-position.y * app->win->GetScale() + (height / 2) + 200 + yOffset);
 
 
 	if (app->render->camera.y <= -829) {

@@ -109,6 +109,7 @@
 		<playerlife>
 			<lifebar_head_tail Posx="150" Posy="570" Tsprite="64" Pweight="144" x="18" y="18" texturepath="Assets\Effecto\LifeBar\lifebar_head_tail.png"/>
 			<lifebar_mid Posx="150" Posy="570" Tsprite="56" Pweight="120" x="15" y="18" texturepath="Assets\Effecto\LifeBar\lifebar_mid.png"/>
+			<lifebar_glass Posx="150" Posy="570" Tsprite="8" Pweight="512" x="64" y="80" texturepath="Assets\Effecto\LifeBar\glass.png"/>
 		</playerlife>
 		
 		
@@ -145,6 +146,9 @@
 			<Middle_takehit_wb start="33" end="40" speed="0.2f" loop="false"/>
 			<Middle_takehit_ab start="41" end="48" speed="0.2f" loop="false"/>
 			<Middle_takehit_nb start="49" end="56" speed="0.2f" loop="false"/>
+
+			<lifebar_glass_idle start="0" end="1" speed="0.1f" loop="true"/>
+			<lifebar_glass_broke start="0" end="8" speed="0.2f" loop="false"/>
 		</PlayerLife_mid>
 		
 		

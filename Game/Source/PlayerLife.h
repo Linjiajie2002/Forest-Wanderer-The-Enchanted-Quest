@@ -50,7 +50,7 @@ public:
 	Animation* currentAnimation1 = nullptr;
 	List<Animation*> currentAnimation2;
 	Animation* currentAnimation3 = nullptr;
-	
+	Animation* currentAnimation4 = nullptr;
 	//List<Animation> atack_2;
 
 	Animation Head_treatment;
@@ -76,6 +76,9 @@ public:
 	Animation Tail_idle;
 	Animation Tail_idle_nb;
 
+
+	Animation Glass_idle;
+	Animation Glass_broke;
 
 
 	Animation inicializaAnimation;
@@ -106,16 +109,17 @@ private:
 
 	SDL_Texture* lifebar_head_tail_texture;
 	SDL_Texture* lifebar_mid_texture;
-
+	SDL_Texture* lifebar_icon_texture;
 
 	const char* lifebar_head_tail_texture_Path;
 	const char* lifebar_mid_texture_Path;
+	const char* lifebar_icon_texture_Path;
 
 
 	SDL_Rect rect_1;
 	List<SDL_Rect> rect_2;
 	SDL_Rect rect_3;
-
+	SDL_Rect rect_4;
 
 	SDL_Texture* Pathfindingtexture;
 	const char* PathfindingPath;

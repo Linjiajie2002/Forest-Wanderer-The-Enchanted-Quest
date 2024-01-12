@@ -79,6 +79,16 @@ bool PlayerLife::Awake() {
 
 	}
 
+	lifebar_icon_texture_Path = parameters.child("lifebar_glass").attribute("texturepath").as_string();
+	TSprite = parameters.child("lifebar_glass").attribute("Tsprite").as_int();
+	SpriteX = parameters.child("lifebar_glass").attribute("x").as_int();
+	SpriteY = parameters.child("lifebar_glass").attribute("y").as_int();
+	PhotoWeight = parameters.child("lifebar_glass").attribute("Pweight").as_int();
+	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
+	
+	Glass_idle.LoadAnim("PlayerLife_mid", "lifebar_glass_idle", spritePositions);
+	Glass_broke.LoadAnim("PlayerLife_mid", "lifebar_glass_broke", spritePositions);
+
 	return true;
 }
 
@@ -87,6 +97,7 @@ bool PlayerLife::Start() {
 
 	lifebar_mid_texture = app->tex->Load(lifebar_mid_texture_Path);
 
+	lifebar_icon_texture = app->tex->Load(lifebar_icon_texture_Path);
 
 	currentAnimation1 = &Head_idle;
 
@@ -99,6 +110,7 @@ bool PlayerLife::Start() {
 		currentAnimation2.Add(&Middle_idle[i]);
 		rect_2.Add(currentAnimation2[i]->GetCurrentFrame());
 	}
+	currentAnimation4 = &Glass_idle;
 	return true;
 }
 
@@ -148,8 +160,10 @@ bool PlayerLife::Update(float dt)
 		getStateAnimation(lifebarState);
 	}
 
-
-
+	
+	rect_4 = currentAnimation4->GetCurrentFrame();
+	app->render->DrawTexture(lifebar_icon_texture, 10, 15, 2, SDL_FLIP_NONE, &rect_4, 0, 0);
+	currentAnimation4->Update();
 
 
 

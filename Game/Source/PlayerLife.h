@@ -96,10 +96,10 @@ public:
 
 
 	int lifePos_X;
-	int lifePos_Y = 40;
+	int lifePos_Y = 50;
 	int posXinicio = 100;
 
-	int life = 5;
+	int life = 10;
 	int lifeMark = life;
 	bool playerTakeDmg = false;
 	bool playerTakeDmg_Animation = false;

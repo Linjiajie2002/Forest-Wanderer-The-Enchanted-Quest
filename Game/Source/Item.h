@@ -9,6 +9,8 @@
 #include "SDL/include/SDL.h"
 #include "Timer.h"
 
+#include "List.h"
+
 struct SDL_Texture;
 
 class Item : public Entity
@@ -26,6 +28,7 @@ public:
 
 	bool CleanUp();
 
+	void diamanteVictoria();
 	void rotateAroundCircle(double& x, double& y, double circleCenterX, double circleCenterY, double angleIncrement);
 	void diamanteToCenter(double& x, double& y);
 
@@ -33,7 +36,13 @@ public:
 
 	bool isPicked = false;
 	Animation* currentAnimation = nullptr;
+
+	List<Animation*> currentAnimation1;
+	 
 	Animation idle;
+	List<Animation> Diamond_Counter;
+
+	Animation inicializaAnimation;
 	Animation SPosition;
 	SDL_Rect* spritePositions;
 
@@ -52,6 +61,7 @@ public:
 
 	int NumeroDiamante = 7;
 	int maxDiamante = 0;
+
 	double angleInRadians;
 	double newX;
 	double newY;
@@ -59,20 +69,29 @@ public:
 	double newCX;
 	double newCY;
 
-	bool DMT = false;
-
+	bool DiamanteToCenter = false;
 	bool allDiamanteInCenter = false;
+
+	bool victoria = false;
 
 	Timer TimeCrear;
 	Timer diamanteToBig;
+	Timer GoCenter;
 	bool hecreado7diamante = false;
 
+	bool GoCenterTime_determination;
+	int playerGetDiamante = 0;
+
 	SDL_Rect rect;
+	List<SDL_Rect> rect_1;
 
 private:
 
 	SDL_Texture* Diamondtexture;
 	const char* DiamondPath;
+
+	SDL_Texture* Diamond_Counter_texture;
+	const char* Diamond_Counter_texture_Path;
 	PhysBody* pbody;
 };
 #endif // __ITEM_H__

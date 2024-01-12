@@ -109,7 +109,7 @@
 		<playerlife>
 			<lifebar_head_tail Posx="150" Posy="570" Tsprite="64" Pweight="144" x="18" y="18" texturepath="Assets\Effecto\LifeBar\lifebar_head_tail.png"/>
 			<lifebar_mid Posx="150" Posy="570" Tsprite="56" Pweight="120" x="15" y="18" texturepath="Assets\Effecto\LifeBar\lifebar_mid.png"/>
-			<lifebar_glass Posx="150" Posy="570" Tsprite="8" Pweight="512" x="64" y="80" texturepath="Assets\Effecto\LifeBar\glass.png"/>
+			<lifebar_glass Posx="150" Posy="570" Tsprite="8" Pweight="680" x="85" y="110" texturepath="Assets\Effecto\LifeBar\glass.png"/>
 		</playerlife>
 		
 		

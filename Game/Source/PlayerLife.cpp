@@ -85,7 +85,7 @@ bool PlayerLife::Awake() {
 	SpriteY = parameters.child("lifebar_glass").attribute("y").as_int();
 	PhotoWeight = parameters.child("lifebar_glass").attribute("Pweight").as_int();
 	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-	
+
 	Glass_idle.LoadAnim("PlayerLife_mid", "lifebar_glass_idle", spritePositions);
 	Glass_broke.LoadAnim("PlayerLife_mid", "lifebar_glass_broke", spritePositions);
 
@@ -118,7 +118,7 @@ bool PlayerLife::Update(float dt)
 {
 
 	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
-		
+
 		if (life != 0) {
 			life--;
 			playerTakeDmg_Animation = true;
@@ -130,9 +130,11 @@ bool PlayerLife::Update(float dt)
 		}
 	}
 
+
+
 	if (app->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN) {
-		
-		if (life != 10) {
+
+		if (life != lifeMark) {
 			life++;
 			playerTakeHeal = true;
 		}
@@ -160,9 +162,9 @@ bool PlayerLife::Update(float dt)
 		getStateAnimation(lifebarState);
 	}
 
-	
+
 	rect_4 = currentAnimation4->GetCurrentFrame();
-	app->render->DrawTexture(lifebar_icon_texture, 10, 15, 2, SDL_FLIP_NONE, &rect_4, 0, 0);
+	app->render->DrawTexture(lifebar_icon_texture, 0, -20, 1.5, SDL_FLIP_NONE, &rect_4, 0, 0);
 	currentAnimation4->Update();
 
 
@@ -182,11 +184,32 @@ void PlayerLife::resetAnimation(Animation& ani)
 	ani.Reset();
 }
 
+void PlayerLife::playerGetHit()
+{
+	if (life != 0) {
+		life--;
+		playerTakeDmg_Animation = true;
+		playerTakeDmg = true;
+	}
+
+	if (life == 0) {
+		app->scene->GetPlayer()->isDead = true;
+	}
+}
+
+void PlayerLife::playerGetHeal()
+{
+	if (life != lifeMark) {
+		life++;
+		playerTakeHeal = true;
+	}
+}
+
 void PlayerLife::updateHeadAnimations()
 {
-	lifePos_X = 60;
+	lifePos_X = posXinicio;
 	rect_1 = currentAnimation1->GetCurrentFrame();
-	app->render->DrawTexture(lifebar_head_tail_texture, lifePos_X, 15, 2, SDL_FLIP_NONE, &rect_1, 0, 0);
+	app->render->DrawTexture(lifebar_head_tail_texture, lifePos_X, lifePos_Y, 2, SDL_FLIP_NONE, &rect_1, 0, 0);
 	currentAnimation1->Update();
 
 	if (currentAnimation1->HasFinished()) {
@@ -203,7 +226,7 @@ void PlayerLife::updateMiddleAnimations()
 	for (int i = 0; i < lifebar; i++)
 	{
 
-		if (life == 0) {
+		if (app->scene->GetPlayer()->isDead) {
 			currentAnimation2[i] = &Middle_die[i];
 		}
 		else {
@@ -216,7 +239,7 @@ void PlayerLife::updateMiddleAnimations()
 				}
 			}
 			else if (playerTakeDmg) {
-				if (life != 10) {
+				if (life != lifeMark) {
 
 					if (life == i + 1) {
 						currentAnimation2[i] = &Middle_takehit_ab[i];
@@ -230,7 +253,7 @@ void PlayerLife::updateMiddleAnimations()
 				}
 			}
 			else if (playerTakeHeal) {
-				if (life != 10) {
+				if (life != lifeMark) {
 					if (life == i + 2) {
 						currentAnimation2[i] = &Middle_treatment_ab[i];
 					}
@@ -243,9 +266,9 @@ void PlayerLife::updateMiddleAnimations()
 				}
 			}
 		}
-		lifePos_X = 96 + i * 30;
+		lifePos_X = posXinicio + 36 + i * 30;
 		rect_2[i] = currentAnimation2[i]->GetCurrentFrame();
-		app->render->DrawTexture(lifebar_mid_texture, lifePos_X, 15, 2, SDL_FLIP_NONE, &rect_2[i], 0, 0);
+		app->render->DrawTexture(lifebar_mid_texture, lifePos_X, lifePos_Y, 2, SDL_FLIP_NONE, &rect_2[i], 0, 0);
 		currentAnimation2[i]->Update();
 		if (currentAnimation2[i]->HasFinished()) {
 			Middle_takehit_ab[i].Reset();
@@ -263,7 +286,7 @@ void PlayerLife::updateTailAnimation()
 {
 
 	rect_3 = currentAnimation3->GetCurrentFrame();
-	app->render->DrawTexture(lifebar_head_tail_texture, lifePos_X + 30, 15, 2, SDL_FLIP_NONE, &rect_3, 0, 0);
+	app->render->DrawTexture(lifebar_head_tail_texture, lifePos_X + 30, lifePos_Y, 2, SDL_FLIP_NONE, &rect_3, 0, 0);
 	currentAnimation3->Update();
 
 	if (currentAnimation3->HasFinished()) {
@@ -283,16 +306,20 @@ void PlayerLife::getStateAnimation(EntityLifeBarState state)
 	case EntityLifeBarState::IDLE:
 
 		currentAnimation1 = &Head_idle;
-		if (life != 10) {
+		if (life != lifeMark) {
 			currentAnimation3 = &Tail_idle_nb;
 		}
 		else {
 			currentAnimation3 = &Tail_idle;
 		}
+		currentAnimation4 = &Glass_idle;
+		Glass_broke.Reset();
+
 		break;
 	case EntityLifeBarState::DIE:
 		currentAnimation1 = &Head_die;
 		currentAnimation3 = &Tail_die;
+		currentAnimation4 = &Glass_broke;
 		break;
 	case EntityLifeBarState::TAKEHIT:
 		if (life != 0) {
@@ -310,7 +337,7 @@ void PlayerLife::getStateAnimation(EntityLifeBarState state)
 
 		currentAnimation1 = &Head_treatment;
 
-		if (life == 10) {
+		if (life == lifeMark) {
 			currentAnimation3 = &Tail_treatment_ab;
 		}
 		else {

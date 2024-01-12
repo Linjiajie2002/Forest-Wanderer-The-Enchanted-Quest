@@ -336,11 +336,18 @@ bool Player::Update(float dt)
 		pbody->body->SetActive(false);
 		app->scene->GetPlayerLife()->life = 0;
 		//pbody->body->SetLinearVelocity(b2Vec2(0, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
+		if (isPosibleRevive) {
+			for (int i = 0; i < app->scene->GetPlayerLife()->lifeMark; i++)
+			{
+				app->scene->GetPlayerLife()->playerGetHeal();
+
+			}
+		}
 	}
 	else {
 		pbody->body->SetActive(true);
 		NoControl = true;
-
+		isPosibleRevive = true;
 		
 	}
 
@@ -670,8 +677,8 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		inEnemyArear = false;
 		break;
 	case ColliderType::CLOSEATK_ENEMY:
-		isDead = true;
-		inEnemyArear = false;
+		app->scene->GetPlayerLife()->playerGetHit();
+		//inEnemyArear = false;
 		break;
 
 	case ColliderType::UNKNOWN:

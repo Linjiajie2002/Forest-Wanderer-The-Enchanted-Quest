@@ -35,11 +35,12 @@ public:
 
 	void resetAnimation(Animation& ani);
 
+	void playerGetHit();
+	void playerGetHeal();
 	void updateHeadAnimations();
 	void updateMiddleAnimations();
 	void updateTailAnimation();
-
-
+	
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 	void OnEndCollision(PhysBody* physA, PhysBody* physB);
 
@@ -95,8 +96,11 @@ public:
 
 
 	int lifePos_X;
+	int lifePos_Y = 40;
+	int posXinicio = 100;
 
-	int life = 10;
+	int life = 5;
+	int lifeMark = life;
 	bool playerTakeDmg = false;
 	bool playerTakeDmg_Animation = false;
 	int lifebar = life - 2;

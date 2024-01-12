@@ -165,6 +165,7 @@ public:
 	bool changePeson = false;
 	bool isAir = false;
 	bool palyergethit = false;
+	bool isPosibleRevive = false;
 
 
 	bool In_defend = true;

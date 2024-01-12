@@ -200,7 +200,6 @@ bool Player::Update(float dt)
 				frameCount = 0;
 				starFram = false;
 			}
-			printf("%d", palyergethit);
 			if (app->scene->GetPlayerLife()->playerTakeDmg_Animation) {
 				
 				palyergethit = true;

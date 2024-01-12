@@ -117,6 +117,11 @@ bool PlayerLife::Update(float dt)
 		}
 	}
 
+	if (app->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN) {
+		playerTakeHeal = true;
+		life++;
+	}
+
 	updateHeadAnimations();
 	updateMiddleAnimations();
 	updateTailAnimation();
@@ -126,7 +131,11 @@ bool PlayerLife::Update(float dt)
 		lifebarState = EntityLifeBarState::DIE;
 		getStateAnimation(lifebarState);
 	}
-	else if (playerTakeDmg == true) {
+	else if (playerTakeHeal) {
+		lifebarState = EntityLifeBarState::TREATMENT;
+		getStateAnimation(lifebarState);
+	}
+	else if (playerTakeDmg) {
 		lifebarState = EntityLifeBarState::TAKEHIT;
 		getStateAnimation(lifebarState);
 	}
@@ -164,7 +173,9 @@ void PlayerLife::updateHeadAnimations()
 
 	if (currentAnimation1->HasFinished()) {
 		playerTakeDmg = false;
+		playerTakeHeal = false;
 		resetAnimation(Head_takehit);
+		resetAnimation(Head_treatment);
 	}
 
 }
@@ -178,7 +189,7 @@ void PlayerLife::updateMiddleAnimations()
 			currentAnimation2[i] = &Middle_die[i];
 		}
 		else {
-			if (playerTakeDmg == false) {
+			if (playerTakeDmg == false && playerTakeHeal == false) {
 				if (life > i + 1) {
 					currentAnimation2[i] = &Middle_idle[i];
 				}
@@ -186,7 +197,7 @@ void PlayerLife::updateMiddleAnimations()
 					currentAnimation2[i] = &Middle_idle_nb[i];
 				}
 			}
-			else {
+			else if (playerTakeDmg) {
 				if (life != 10) {
 
 					if (life == i + 1) {
@@ -200,6 +211,19 @@ void PlayerLife::updateMiddleAnimations()
 					}
 				}
 			}
+			else if (playerTakeHeal) {
+				if (life != 10) {
+					if (life == i + 2) {
+						currentAnimation2[i] = &Middle_treatment_ab[i];
+					}
+					else if (life > i + 1) {
+						currentAnimation2[i] = &Middle_treatment_wb[i];
+					}
+					else {
+						currentAnimation2[i] = &Middle_treatment_nb[i];
+					}
+				}
+			}
 		}
 		lifePos_X = 96 + i * 30;
 		rect_2[i] = currentAnimation2[i]->GetCurrentFrame();
@@ -209,6 +233,9 @@ void PlayerLife::updateMiddleAnimations()
 			Middle_takehit_ab[i].Reset();
 			Middle_takehit_wb[i].Reset();
 			Middle_takehit_nb[i].Reset();
+			Middle_treatment_ab[i].Reset();
+			Middle_treatment_wb[i].Reset();
+			Middle_treatment_nb[i].Reset();
 		}
 
 	}
@@ -224,6 +251,9 @@ void PlayerLife::updateTailAnimation()
 	if (currentAnimation3->HasFinished()) {
 		resetAnimation(Tail_takehit_nb);
 		resetAnimation(Tail_takehit_ab);
+		resetAnimation(Tail_treatment_nb);
+		resetAnimation(Tail_treatment_ab);
+
 	}
 }
 
@@ -233,7 +263,7 @@ void PlayerLife::getStateAnimation(EntityLifeBarState state)
 	switch (state)
 	{
 	case EntityLifeBarState::IDLE:
-		
+
 		currentAnimation1 = &Head_idle;
 		if (life != 10) {
 			currentAnimation3 = &Tail_idle_nb;
@@ -259,6 +289,16 @@ void PlayerLife::getStateAnimation(EntityLifeBarState state)
 		}
 		break;
 	case EntityLifeBarState::TREATMENT:
+
+		currentAnimation1 = &Head_treatment;
+
+		if (life == 10) {
+			currentAnimation3 = &Tail_treatment_ab;
+		}
+		else {
+			currentAnimation3 = &Tail_treatment_nb;
+		}
+
 		break;
 	case EntityLifeBarState::UNKNOWN:
 		break;

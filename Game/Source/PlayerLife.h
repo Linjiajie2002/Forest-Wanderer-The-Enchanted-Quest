@@ -97,6 +97,7 @@ public:
 	bool playerTakeDmg = false;
 	bool playerTakeDmg_Animation = false;
 	int lifebar = life - 2;
+	bool playerTakeHeal = false;
 
 
 

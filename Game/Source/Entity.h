@@ -8,6 +8,15 @@
 
 class PhysBody;
 
+
+
+enum class EntityLifeBarState {
+	IDLE,
+	DIE,
+	TAKEHIT,
+	TREATMENT,
+	UNKNOWN
+};
 enum class EntityType
 {
 	PLAYER,
@@ -22,6 +31,8 @@ enum class EntityType
 	EFFECT,
 	UNKNOWN
 };
+
+
 
 class Entity
 {
@@ -89,6 +100,7 @@ public:
 
 	SString name;
 	EntityType type;
+	EntityLifeBarState lifebarState;
 	bool active = true;
 	pugi::xml_node parameters; 
 

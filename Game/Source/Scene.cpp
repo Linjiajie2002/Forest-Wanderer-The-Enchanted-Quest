@@ -222,6 +222,10 @@ Boss* Scene::GetBoss() {
 
 	return boss;
 }
+PlayerLife* Scene::GetPlayerLife()
+{
+	return playerlife;
+}
 bool Scene::LoadState(pugi::xml_node node) {
 
 	/*if (app->sceneLevel != node.child("player").attribute("sceneLevel").as_int()) {

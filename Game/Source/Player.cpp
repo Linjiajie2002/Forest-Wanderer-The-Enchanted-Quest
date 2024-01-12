@@ -15,6 +15,7 @@
 #include "Effect.h"
 #include "Particle.h"
 #include "Timer.h"
+#include "PlayerLife.h"
 #include "ModuleFadeToBlack.h"
 
 Player::Player() : Entity(EntityType::PLAYER)
@@ -199,7 +200,21 @@ bool Player::Update(float dt)
 				frameCount = 0;
 				starFram = false;
 			}
-
+			printf("%d", palyergethit);
+			if (app->scene->GetPlayerLife()->playerTakeDmg_Animation) {
+				
+				palyergethit = true;
+		
+			}
+			if (palyergethit) {
+				currentAnimation = &takehit;
+			}
+	
+			if (takehit.HasFinished()) {
+				app->scene->GetPlayerLife()->playerTakeDmg_Animation = false;
+				palyergethit = false;
+				takehit.Reset();
+			}
 
 			if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN) {
 				checkisAtk = &is_close_atk;
@@ -320,17 +335,21 @@ bool Player::Update(float dt)
 		currentAnimation = &die;
 		//isDead = true;
 		pbody->body->SetActive(false);
+		app->scene->GetPlayerLife()->life = 0;
 		//pbody->body->SetLinearVelocity(b2Vec2(0, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
 	}
 	else {
 		pbody->body->SetActive(true);
 		NoControl = true;
+
+		
 	}
 
 
 
 	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) {
 		isDead = !isDead;
+		
 		die.Reset();
 	}
 

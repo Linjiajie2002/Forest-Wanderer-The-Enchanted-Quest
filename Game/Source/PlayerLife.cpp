@@ -43,6 +43,7 @@ bool PlayerLife::Awake() {
 	Tail_takehit_ab.LoadAnim("PlayerLife_head", "Tail_takehit_ab", spritePositions);
 	Tail_die.LoadAnim("PlayerLife_head", "Tail_die", spritePositions);
 	Tail_idle.LoadAnim("PlayerLife_head", "Tail_idle", spritePositions);
+	Tail_idle_nb.LoadAnim("PlayerLife_head", "Tail_idle_nb", spritePositions);
 
 
 	lifebar_mid_texture_Path = parameters.child("lifebar_mid").attribute("texturepath").as_string();
@@ -51,15 +52,32 @@ bool PlayerLife::Awake() {
 	SpriteY = parameters.child("lifebar_mid").attribute("y").as_int();
 	PhotoWeight = parameters.child("lifebar_mid").attribute("Pweight").as_int();
 	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-	
-	Middle_idle.LoadAnim("PlayerLife_mid", "Middle_idle", spritePositions);
-	Middle_treatment_wb.LoadAnim("PlayerLife_mid", "Middle_treatment_wb", spritePositions);
-	Middle_treatment_nb.LoadAnim("PlayerLife_mid", "Middle_treatment_nb", spritePositions);
-	Middle_treatment_ab.LoadAnim("PlayerLife_mid", "Middle_treatment_ab", spritePositions);
-	Middle_takehit_wb.LoadAnim("PlayerLife_mid", "Middle_takehit_wb", spritePositions);
-	Middle_takehit_nb.LoadAnim("PlayerLife_mid", "Middle_takehit_nb", spritePositions);
-	Middle_takehit_ab.LoadAnim("PlayerLife_mid", "Middle_takehit_ab", spritePositions);
-	Middle_die.LoadAnim("PlayerLife_mid", "Middle_die", spritePositions);
+
+
+
+	for (int i = 0; i < lifebar; i++)
+	{
+		Middle_idle.Add(inicializaAnimation);
+		Middle_idle_nb.Add(inicializaAnimation);
+		Middle_treatment_wb.Add(inicializaAnimation);
+		Middle_treatment_nb.Add(inicializaAnimation);
+		Middle_treatment_ab.Add(inicializaAnimation);
+		Middle_takehit_wb.Add(inicializaAnimation);
+		Middle_takehit_nb.Add(inicializaAnimation);
+		Middle_takehit_ab.Add(inicializaAnimation);
+		Middle_die.Add(inicializaAnimation);
+
+		Middle_idle[i].LoadAnim("PlayerLife_mid", "Middle_idle", spritePositions);
+		Middle_idle_nb[i].LoadAnim("PlayerLife_mid", "Middle_idle_nb", spritePositions);
+		Middle_treatment_wb[i].LoadAnim("PlayerLife_mid", "Middle_treatment_wb", spritePositions);
+		Middle_treatment_nb[i].LoadAnim("PlayerLife_mid", "Middle_treatment_nb", spritePositions);
+		Middle_treatment_ab[i].LoadAnim("PlayerLife_mid", "Middle_treatment_ab", spritePositions);
+		Middle_takehit_wb[i].LoadAnim("PlayerLife_mid", "Middle_takehit_wb", spritePositions);
+		Middle_takehit_nb[i].LoadAnim("PlayerLife_mid", "Middle_takehit_nb", spritePositions);
+		Middle_takehit_ab[i].LoadAnim("PlayerLife_mid", "Middle_takehit_ab", spritePositions);
+		Middle_die[i].LoadAnim("PlayerLife_mid", "Middle_die", spritePositions);
+
+	}
 
 	return true;
 }
@@ -72,32 +90,55 @@ bool PlayerLife::Start() {
 
 	currentAnimation1 = &Head_idle;
 
-	currentAnimation2 = &Middle_idle;
+
+	currentAnimation3 = &Tail_idle;
 
 
+	for (int i = 0; i < lifebar; i++)
+	{
+		currentAnimation2.Add(&Middle_idle[i]);
+		rect_2.Add(currentAnimation2[i]->GetCurrentFrame());
+	}
 	return true;
 }
 
 bool PlayerLife::Update(float dt)
 {
-	//36
 
-	currentAnimation1 = &Head_die;
-	rect_1 = currentAnimation1->GetCurrentFrame();
-	app->render->DrawTexture(lifebar_head_tail_texture, 60, 15, 2, SDL_FLIP_NONE, &rect_1, 0, 0);
-	currentAnimation1->Update();
+	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
+		playerTakeDmg = true;
+		if (life != 0) {
+			life--;
+			playerTakeDmg_Animation = true;
+		}
 
-
-	currentAnimation2 = &Middle_die;
-	for (int i = 0; i < 1; i++)
-	{
-		lifePos_X = 96 + i * 30;
-		rect_2 = currentAnimation2->GetCurrentFrame();
-		app->render->DrawTexture(lifebar_mid_texture, lifePos_X, 15, 2, SDL_FLIP_NONE, &rect_2, 0, 0);
-		currentAnimation2->Update();
+		if (life == 0) {
+			app->scene->GetPlayer()->isDead = true;
+		}
 	}
 
-	
+	updateHeadAnimations();
+	updateMiddleAnimations();
+	updateTailAnimation();
+
+	if (app->scene->GetPlayer()->isDead) {
+		playerTakeDmg = false;
+		lifebarState = EntityLifeBarState::DIE;
+		getStateAnimation(lifebarState);
+	}
+	else if (playerTakeDmg == true) {
+		lifebarState = EntityLifeBarState::TAKEHIT;
+		getStateAnimation(lifebarState);
+	}
+	else {
+		lifebarState = EntityLifeBarState::IDLE;
+		getStateAnimation(lifebarState);
+	}
+
+
+
+
+
 
 
 	return true;
@@ -109,6 +150,123 @@ bool PlayerLife::CleanUp()
 }
 
 
+void PlayerLife::resetAnimation(Animation& ani)
+{
+	ani.Reset();
+}
+
+void PlayerLife::updateHeadAnimations()
+{
+	lifePos_X = 60;
+	rect_1 = currentAnimation1->GetCurrentFrame();
+	app->render->DrawTexture(lifebar_head_tail_texture, lifePos_X, 15, 2, SDL_FLIP_NONE, &rect_1, 0, 0);
+	currentAnimation1->Update();
+
+	if (currentAnimation1->HasFinished()) {
+		playerTakeDmg = false;
+		resetAnimation(Head_takehit);
+	}
+
+}
+
+void PlayerLife::updateMiddleAnimations()
+{
+	for (int i = 0; i < lifebar; i++)
+	{
+
+		if (life == 0) {
+			currentAnimation2[i] = &Middle_die[i];
+		}
+		else {
+			if (playerTakeDmg == false) {
+				if (life > i + 1) {
+					currentAnimation2[i] = &Middle_idle[i];
+				}
+				else {
+					currentAnimation2[i] = &Middle_idle_nb[i];
+				}
+			}
+			else {
+				if (life != 10) {
+
+					if (life == i + 1) {
+						currentAnimation2[i] = &Middle_takehit_ab[i];
+					}
+					else if (life > i + 1) {
+						currentAnimation2[i] = &Middle_takehit_wb[i];
+					}
+					else {
+						currentAnimation2[i] = &Middle_takehit_nb[i];
+					}
+				}
+			}
+		}
+		lifePos_X = 96 + i * 30;
+		rect_2[i] = currentAnimation2[i]->GetCurrentFrame();
+		app->render->DrawTexture(lifebar_mid_texture, lifePos_X, 15, 2, SDL_FLIP_NONE, &rect_2[i], 0, 0);
+		currentAnimation2[i]->Update();
+		if (currentAnimation2[i]->HasFinished()) {
+			Middle_takehit_ab[i].Reset();
+			Middle_takehit_wb[i].Reset();
+			Middle_takehit_nb[i].Reset();
+		}
+
+	}
+}
+
+void PlayerLife::updateTailAnimation()
+{
+
+	rect_3 = currentAnimation3->GetCurrentFrame();
+	app->render->DrawTexture(lifebar_head_tail_texture, lifePos_X + 30, 15, 2, SDL_FLIP_NONE, &rect_3, 0, 0);
+	currentAnimation3->Update();
+
+	if (currentAnimation3->HasFinished()) {
+		resetAnimation(Tail_takehit_nb);
+		resetAnimation(Tail_takehit_ab);
+	}
+}
+
+
+void PlayerLife::getStateAnimation(EntityLifeBarState state)
+{
+	switch (state)
+	{
+	case EntityLifeBarState::IDLE:
+		
+		currentAnimation1 = &Head_idle;
+		if (life != 10) {
+			currentAnimation3 = &Tail_idle_nb;
+		}
+		else {
+			currentAnimation3 = &Tail_idle;
+		}
+		break;
+	case EntityLifeBarState::DIE:
+		currentAnimation1 = &Head_die;
+		currentAnimation3 = &Tail_die;
+		break;
+	case EntityLifeBarState::TAKEHIT:
+		if (life != 0) {
+			currentAnimation1 = &Head_takehit;
+		}
+
+		if (life == lifebar + 1) {
+			currentAnimation3 = &Tail_takehit_ab;
+		}
+		else {
+			currentAnimation3 = &Tail_takehit_nb;
+		}
+		break;
+	case EntityLifeBarState::TREATMENT:
+		break;
+	case EntityLifeBarState::UNKNOWN:
+		break;
+	default:
+		break;
+	}
+
+}
 
 
 void PlayerLife::OnCollision(PhysBody* physA, PhysBody* physB) {

@@ -31,6 +31,14 @@ public:
 
 	bool CleanUp();
 
+	void getStateAnimation(EntityLifeBarState state);
+
+	void resetAnimation(Animation& ani);
+
+	void updateHeadAnimations();
+	void updateMiddleAnimations();
+	void updateTailAnimation();
+
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 	void OnEndCollision(PhysBody* physA, PhysBody* physB);
@@ -40,22 +48,25 @@ public:
 	bool isPicked = false;
 
 	Animation* currentAnimation1 = nullptr;
-	Animation* currentAnimation2 = nullptr;;
-
+	List<Animation*> currentAnimation2;
+	Animation* currentAnimation3 = nullptr;
+	
+	//List<Animation> atack_2;
 
 	Animation Head_treatment;
 	Animation Head_takehit;
 	Animation Head_die;
 	Animation Head_idle;
 
-	Animation Middle_treatment_wb;
-	Animation Middle_treatment_nb;
-	Animation Middle_treatment_ab;
-	Animation Middle_takehit_wb;
-	Animation Middle_takehit_nb;
-	Animation Middle_takehit_ab;
-	Animation Middle_die;
-	Animation Middle_idle;
+	List<Animation>  Middle_treatment_wb;
+	List<Animation>  Middle_treatment_nb;
+	List<Animation>  Middle_treatment_ab;
+	List<Animation>  Middle_takehit_wb;
+	List<Animation>  Middle_takehit_nb;
+	List<Animation>  Middle_takehit_ab;
+	List<Animation>  Middle_die;
+	List<Animation>  Middle_idle;
+	List<Animation>  Middle_idle_nb;
 
 	Animation Tail_treatment_nb;
 	Animation Tail_treatment_ab;
@@ -63,10 +74,11 @@ public:
 	Animation Tail_takehit_ab;
 	Animation Tail_die;
 	Animation Tail_idle;
+	Animation Tail_idle_nb;
 
 
 
-
+	Animation inicializaAnimation;
 	Animation SPosition;
 	SDL_Rect* spritePositions;
 
@@ -78,7 +90,14 @@ public:
 
 	bool isFacingLeft;
 
+
 	int lifePos_X;
+
+	int life = 10;
+	bool playerTakeDmg = false;
+	bool playerTakeDmg_Animation = false;
+	int lifebar = life - 2;
+
 
 
 
@@ -93,7 +112,8 @@ private:
 
 
 	SDL_Rect rect_1;
-	SDL_Rect rect_2;
+	List<SDL_Rect> rect_2;
+	SDL_Rect rect_3;
 
 
 	SDL_Texture* Pathfindingtexture;

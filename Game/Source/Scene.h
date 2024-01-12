@@ -44,6 +44,7 @@ public:
 	Effect* GetEffect();
 	Enemy_Goblin* GetGoblin();
 	Boss* GetBoss();
+	PlayerLife* GetPlayerLife();
 
 	bool LoadState(pugi::xml_node node);
 

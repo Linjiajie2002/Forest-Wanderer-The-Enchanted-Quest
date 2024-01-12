@@ -106,10 +106,11 @@ bool PlayerLife::Update(float dt)
 {
 
 	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
-		playerTakeDmg = true;
+		
 		if (life != 0) {
 			life--;
 			playerTakeDmg_Animation = true;
+			playerTakeDmg = true;
 		}
 
 		if (life == 0) {
@@ -118,8 +119,11 @@ bool PlayerLife::Update(float dt)
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN) {
-		playerTakeHeal = true;
-		life++;
+		
+		if (life != 10) {
+			life++;
+			playerTakeHeal = true;
+		}
 	}
 
 	updateHeadAnimations();

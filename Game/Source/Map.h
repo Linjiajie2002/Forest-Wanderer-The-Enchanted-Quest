@@ -119,6 +119,8 @@ public:
     // Called before render is available
     bool Awake(pugi::xml_node& conf);
 
+	bool Start();
+
 	// Called each loop iteration
 	bool Update(float dt);
 	bool UpdateDelante();
@@ -156,7 +158,7 @@ public:
 	int fondoy;
 
 
-	int LevelMap = 2;
+	int LevelMap = 1;
 
 	
 
@@ -173,6 +175,8 @@ public:
 private:
 
     SString mapFileName;
+    SString mapFileNameMapa1;
+    SString mapFileNameMapa2;
 	SString mapFolder;
     bool mapLoaded;
 	MapLayer* navigationLayer;

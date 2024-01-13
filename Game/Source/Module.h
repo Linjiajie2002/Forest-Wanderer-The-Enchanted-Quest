@@ -16,7 +16,7 @@ public:
 
 	void Init()
 	{
-		active = true;
+		//active = true;
 	}
 
 	bool IsEnabled()const
@@ -24,7 +24,26 @@ public:
 		return active;
 	}
 
-	
+
+	void Enable()
+	{
+		if (!active)
+		{
+			active = true;
+			Start();
+		}
+	}
+
+	void Disable()
+	{
+		// TODO 0: Call CleanUp() for disabling a module
+		if (active)
+		{
+			active = false;
+			CleanUp();
+		}
+	}
+
 
 	// Called before render is available
 	virtual bool Awake(pugi::xml_node&)
@@ -76,30 +95,8 @@ public:
 	SString name;
 	bool active;
 
-private:
-	bool isEnabled = true;
 
-public:
 	
-
-	void Module::Enable()
-	{
-		if (!isEnabled)
-		{
-			isEnabled = true;
-			Start();
-		}
-	}
-
-	void Module::Disable()
-	{
-		// TODO 0: Call CleanUp() for disabling a module
-		if (isEnabled)
-		{
-			isEnabled = false;
-			CleanUp();
-		}
-	}
 
 
 };

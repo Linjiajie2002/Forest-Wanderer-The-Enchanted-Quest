@@ -29,23 +29,43 @@ bool Map::Awake(pugi::xml_node& config)
 	bool ret = true;
 
 
-	printf("%d", LevelMap);
+	/*printf("%d", LevelMap);
 	if (LevelMap == 1) {
 		mapFileName = config.child("mapfile").attribute("path").as_string();
 	}
 	else {
 		mapFileName = config.child("mapfile2").attribute("path").as_string();
-	}
+	}*/
 
-
+	mapFileNameMapa1= config.child("mapfile").attribute("path").as_string();
+	mapFileNameMapa2= config.child("mapfile2").attribute("path").as_string();
 
 	mapFolder = config.child("mapfolder").attribute("path").as_string();
 
+	if (LevelMap == 1) {
+		mapFileName = mapFileNameMapa1;
+	}
+	else {
+		mapFileName = mapFileNameMapa2;
 
+	}
 
 	return ret;
 }
 
+bool Map::Start() {
+
+	if (LevelMap == 1) {
+		mapFileName = mapFileNameMapa1;
+	}
+	else {
+		mapFileName = mapFileNameMapa2;
+
+	}
+
+	return true;
+
+}
 bool Map::Update(float dt)
 {
 
@@ -302,6 +322,7 @@ bool Map::CleanUp()
 		RELEASE(layerItem->data);
 		layerItem = layerItem->next;
 	}
+	mapData.maplayers.Clear();
 
 	return true;
 }

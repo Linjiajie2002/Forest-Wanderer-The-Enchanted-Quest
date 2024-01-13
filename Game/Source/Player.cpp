@@ -290,14 +290,22 @@ bool Player::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
 
-		vel = b2Vec2(1, 23);
-		app->scene->GetPlayer()->isDead = false;
+		app->map->LevelMap = 1;
 
-		pbody->body->SetTransform(vel, pbody->body->GetAngle());
 		//app->fade->FadetoBlackTransition(app->scene, app->scene);
-		/*app->fade->FadeToBlack(app->scene, app->scene);*/
+		app->fade->FadeToBlack(app->scene, app->scene);
 	}
+	
+	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
 
+		
+
+		app->map->LevelMap = 2;
+
+		//app->fade->FadetoBlackTransition(app->scene, app->scene);
+		app->fade->FadeToBlack(app->scene, app->scene);
+
+	}
 
 	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
 
@@ -686,7 +694,10 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::VICTORYCOLLISION:
 		app->audio->PlayFx(finallevel);
+		app->map->LevelMap = 2;
 
+		//app->fade->FadetoBlackTransition(app->scene, app->scene);
+		app->fade->FadeToBlack(app->scene, app->scene);
 		isVictoria = true;
 		break;
 	}

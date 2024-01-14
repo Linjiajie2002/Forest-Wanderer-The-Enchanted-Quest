@@ -32,15 +32,25 @@ bool BossItem::Awake() {
 	SpriteY = parameters.child("boss_ball").child("ball_blue").attribute("y").as_int();
 	PhotoWeight = parameters.child("boss_ball").child("ball_blue").attribute("Pweight").as_int();
 	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
+
 	ball_blue_start.LoadAnim("BossItem", "ball_blue_start", spritePositions);
 	ball_blue_running.LoadAnim("BossItem", "ball_blue_running", spritePositions);
 	ball_blue_end.LoadAnim("BossItem", "ball_blue_end", spritePositions);
+
+	ball_red_start.LoadAnim("BossItem", "ball_red_start", spritePositions);
+	ball_red_running.LoadAnim("BossItem", "ball_red_running", spritePositions);
+	ball_red_end.LoadAnim("BossItem", "ball_red_end", spritePositions);
+
+	ball_yellow_start.LoadAnim("BossItem", "ball_yellow_start", spritePositions);
+	ball_yellow_running.LoadAnim("BossItem", "ball_yellow_running", spritePositions);
+	ball_yellow_end.LoadAnim("BossItem", "ball_yellow_end", spritePositions);
 
 	return true;
 }
 
 bool BossItem::Start() {
 	ball_blue_texture = app->tex->Load(ball_blue_texture_Path);
+
 	currentAnimation1 = &ball_blue_start;
 
 	pbody = app->physics->CreateCircle(energyPos_X + 52, energyPos_Y + 52, 28, bodyType::STATIC);
@@ -55,9 +65,17 @@ bool BossItem::Start() {
 bool BossItem::Update(float dt)
 {
 	/*currentAnimation1 = &ball_blue_running;*/
+	if (app->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN) {
+		currentAnimation1->Reset();
+		currentAnimation1 = &ball_blue_end;
+	}
 
-
-	if (crearBall)ballPosition = randPosition(), crearBall = false, deleteBall.Start();
+	if (crearBall) {
+		ballPosition = randPosition();
+		ballType = randBall();
+		deleteBall.Start();
+		crearBall = false;
+	}
 
 
 	if (ballPosition.x > 0 && ballPosition.y > 0 && timeWait.ReadMSec() > 2000) {
@@ -66,34 +84,33 @@ bool BossItem::Update(float dt)
 
 
 
-	if (app->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN) {
-		currentAnimation1->Reset();
-		currentAnimation1 = &ball_blue_end;
-	}
+	
 
-	if (deleteBall.ReadMSec() >= 7000) {
+	if (deleteBall.ReadMSec() >= 5000) {
 		deleteBall.Start();
+
+
+		if (firstBall == false) {
+			if (currentAnimation1->getNameAnimation() == "ball_blue_running") {
+				currentAnimation1 = &ball_blue_end;
+			}
+			else if (currentAnimation1->getNameAnimation() == "ball_red_running") {
+				currentAnimation1 = &ball_red_end;
+			}
+			else if (currentAnimation1->getNameAnimation() == "ball_yellow_running") {
+				currentAnimation1 = &ball_yellow_end;
+			}
+		}
+		else {
+			currentAnimation1 = &ball_blue_end;
+		}
+
 		currentAnimation1->Reset();
-		currentAnimation1 = &ball_blue_end;
 	}
 
+	actualizarAnimacion();
 
 
-	if (currentAnimation1->HasFinished())
-	{
-
-		if (currentAnimation1->getNameAnimation() == "ball_blue_start") {
-			currentAnimation1->Reset();
-			currentAnimation1 = &ball_blue_running;
-
-		}
-		if (currentAnimation1->getNameAnimation() == "ball_blue_end") {
-			currentAnimation1->Reset();
-			currentAnimation1 = &ball_blue_start;
-			crearBall = true;
-			timeWait.Start();
-		}
-	}
 
 	return true;
 }
@@ -107,26 +124,30 @@ bool BossItem::CleanUp()
 
 
 
-void BossItem::randCreatEnergyBall(iPoint ballPosition, int tipo)
+void BossItem::randCreatEnergyBall(iPoint ballPosition)
+{
+	//printf("%d", ballType);
+	rect_1 = currentAnimation1->GetCurrentFrame();
+	app->render->DrawTexture(ball_blue_texture, ballPosition.x, ballPosition.y, 0.4, SDL_FLIP_NONE, &rect_1);
+	currentAnimation1->Update();
+}
+
+void BossItem::CheckBallStarT(int tipo)
 {
 
-	rect_1 = currentAnimation1->GetCurrentFrame();
+	
+	if (firstBall == false) {
 
-	if (tipo == 0) {
-		app->render->DrawTexture(ball_blue_texture, ballPosition.x, ballPosition.y, 0.4, SDL_FLIP_NONE, &rect_1);
+		if (tipo == 0) {
+			currentAnimation1 = &ball_blue_start;
+		}
+		else if (tipo == 1) {
+			currentAnimation1 = &ball_red_start;
+		}
+		else {
+			currentAnimation1 = &ball_yellow_start;
+		}
 	}
-	//else if (tipo == 1) {
-	//	app->render->DrawTexture(ball_red_texture, ballPosition.x, ballPosition.y, 0.4, SDL_FLIP_NONE, &rect_1);
-	//}
-	//else {
-	//	app->render->DrawTexture(ball_yello_texture, ballPosition.x, ballPosition.y, 0.4, SDL_FLIP_NONE, &rect_1);
-	//}
-
-
-	currentAnimation1->Update();
-
-
-
 }
 
 iPoint BossItem::randPosition()
@@ -134,7 +155,7 @@ iPoint BossItem::randPosition()
 
 	std::random_device rd;
 	std::mt19937 gen(rd());
-	std::uniform_int_distribution<> dis_X(1440, 2400);
+	std::uniform_int_distribution<> dis_X(1440, 2300);
 	std::uniform_int_distribution<> dis_Y(896, 1088);
 
 	iPoint Result;
@@ -143,6 +164,65 @@ iPoint BossItem::randPosition()
 	Result.y = dis_Y(gen);
 
 	return Result;
+}
+
+int BossItem::randBall()
+{
+
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<> dis(0, 2);
+	int Result;
+
+	Result = dis(gen);
+	return Result;
+}
+
+void BossItem::actualizarAnimacion()
+{
+	if (currentAnimation1->HasFinished())
+	{
+		if (currentAnimation1->getNameAnimation() == "ball_yellow_start") {
+			currentAnimation1->Reset();
+			currentAnimation1 = &ball_yellow_running;
+		}
+
+		if (currentAnimation1->getNameAnimation() == "ball_red_start") {
+			ball_red_start.Reset();
+			currentAnimation1 = &ball_red_running;
+		}
+
+		if (currentAnimation1->getNameAnimation() == "ball_blue_start") {
+			currentAnimation1->Reset();
+			currentAnimation1 = &ball_blue_running;
+		}
+
+
+		if (currentAnimation1->getNameAnimation() == "ball_yellow_end") {
+			currentAnimation1->Reset();
+			crearBall = true;
+			CheckBallStarT(ballType);
+			timeWait.Start();
+		}
+
+		if (currentAnimation1->getNameAnimation() == "ball_red_end") {
+			currentAnimation1->Reset();
+			crearBall = true;
+			CheckBallStarT(ballType);
+			timeWait.Start();
+		}
+
+		if (currentAnimation1->getNameAnimation() == "ball_blue_end") {
+			currentAnimation1->Reset();
+			crearBall = true;
+			firstBall = false;
+			CheckBallStarT(ballType);
+			timeWait.Start();
+		}
+
+
+	}
+
 }
 
 void BossItem::OnCollision(PhysBody* physA, PhysBody* physB) {

@@ -31,8 +31,12 @@ public:
 	bool CleanUp();
 
 
-	void randCreatEnergyBall(iPoint ballPosition,int tipo);
+	void randCreatEnergyBall(iPoint ballPosition);
+	void CheckBallStarT(int tipo);
 	iPoint randPosition();
+	int randBall();
+
+	void actualizarAnimacion();
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 	void OnEndCollision(PhysBody* physA, PhysBody* physB);
 
@@ -53,6 +57,14 @@ public:
 	Animation ball_blue_running;
 	Animation ball_blue_end;
 
+	Animation ball_red_start;
+	Animation ball_red_running;
+	Animation ball_red_end;
+
+	Animation ball_yellow_start;
+	Animation ball_yellow_running;
+	Animation ball_yellow_end;
+
 	Animation die;
 	Animation take_hit;
 
@@ -71,12 +83,13 @@ public:
 	bool isFacingLeft;
 
 	bool crearBall = false;
-
+	bool firstBall = true;
 
 	float energyPos_X = 1920;
 	float energyPos_Y = 780;
 
 	iPoint ballPosition;
+	int ballType;
 
 	Timer deleteBall;
 	Timer timeWait;

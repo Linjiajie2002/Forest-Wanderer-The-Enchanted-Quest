@@ -81,6 +81,10 @@ bool Map::Update(float dt)
 		LoadCollision("Colisions");
 	}
 
+	/*if (app->scene->GetItem()->victoria) {
+		LoadCollision("Colisions");
+	}*/
+
 	while (mapLayerItem != NULL) {
 
 		if (mapLayerItem->data->properties.GetProperty("Draw") != NULL && mapLayerItem->data->properties.GetProperty("Draw")->value) {
@@ -633,11 +637,6 @@ bool Map::LoadCollision(std::string layerName) {
 
 					}
 
-
-
-
-
-
 					if (gid == tileset->firstgid + 1) {
 
 
@@ -772,12 +771,20 @@ bool Map::LoadCollision(std::string layerName) {
 						c1->ctype = ColliderType::VICTORYCOLLISION;
 
 					}
+					
 
 					if (app->scene->GetBoss()->inBossBattle) {
 						if (gid == tileset->firstgid + 10) {
 							PhysBody* c1 = app->physics->CreateRectangle(pos.x, pos.y + 16, 32, 32, STATIC);
 							c1->ctype = ColliderType::WALL;
 
+						}
+					}
+					else {
+						
+						if (gid == tileset->firstgid + 10) {
+							PhysBody* c1 = app->physics->CreateRectangleSensor(pos.x, pos.y + 16, 32, 32, STATIC);
+							c1->ctype = ColliderType::UNKNOWN;
 						}
 					}
 

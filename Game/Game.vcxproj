@@ -97,6 +97,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Angel.cpp" />
     <ClCompile Include="Source\Boss.cpp" />
     <ClCompile Include="Source\BossItem.cpp" />
     <ClCompile Include="Source\Effect.cpp" />
@@ -124,6 +125,7 @@
     <ClCompile Include="Source\Textures.cpp" />
     <ClCompile Include="Source\Timer.cpp" />
     <ClCompile Include="Source\Window.cpp" />
+    <ClInclude Include="Source\Angel.h" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Boss.h" />
     <ClInclude Include="Source\BossItem.h" />

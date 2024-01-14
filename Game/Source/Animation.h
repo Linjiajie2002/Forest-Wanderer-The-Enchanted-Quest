@@ -19,7 +19,7 @@ public:
 	bool pingpong = false;
 	int animeFrameCount = 0;
 	int aniFrameTotal = 0;
-	char* aniName;
+	const char* aniName;
 
 private:
 	float currentFrame = 0.0f;
@@ -94,7 +94,7 @@ public:
 		return anirec;
 	}
 
-	void LoadAnim(char* Anipart, char* NombreAni, SDL_Rect* spritePositions) {
+	void LoadAnim(char* Anipart, const char* NombreAni, SDL_Rect* spritePositions) {
 
 
 		aniName = NombreAni;
@@ -122,7 +122,7 @@ public:
 		this->loop = AniInfo.attribute("loop").as_bool();
 	}
 
-	char* getNameAnimation(){
+	const char* getNameAnimation(){
 	
 		return aniName;
 	}

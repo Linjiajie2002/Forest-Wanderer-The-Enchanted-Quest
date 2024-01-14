@@ -78,6 +78,8 @@ bool Player::Awake() {
 
 bool Player::Start() {
 
+
+	printf("start");
 	//initilize textures
 	texture = app->tex->Load(texturePath);
 
@@ -298,13 +300,11 @@ bool Player::Update(float dt)
 	
 	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
 
-		
-
+	
 		app->map->LevelMap = 2;
 
 		//app->fade->FadetoBlackTransition(app->scene, app->scene);
 		app->fade->FadeToBlack(app->scene, app->scene);
-
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
@@ -429,6 +429,8 @@ bool Player::CleanUp()
 	delete atkReset;
 	delete atkAniname;
 
+	printf("\nPlayerX: %d", position.x);
+	printf("\nPlayerY: %d", position.y);
 	return true;
 }
 

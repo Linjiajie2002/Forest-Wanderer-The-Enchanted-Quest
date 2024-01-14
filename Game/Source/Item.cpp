@@ -9,6 +9,7 @@
 #include "Point.h"
 #include "Physics.h"
 #include "Timer.h"
+#include "Map.h"
 
 #include <stdio.h>
 #include <tuple>
@@ -45,23 +46,16 @@ bool Item::Awake() {
 	PhotoWeight = parameters.child("Diamond_Counter").attribute("Pweight").as_int();
 	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
 
+	/*std::string counterString = "Diamond_Counter_" + std::to_string(1);
+	Diamond_Counter[1].LoadAnim("Diamond", counterString.c_str(), spritePositions);*/
 
-	Diamond_Counter.Add(inicializaAnimation);
-	Diamond_Counter[0].LoadAnim("Diamond", "Diamond_Counter_1", spritePositions);
-	Diamond_Counter.Add(inicializaAnimation);
-	Diamond_Counter[1].LoadAnim("Diamond", "Diamond_Counter_2", spritePositions);
-	Diamond_Counter.Add(inicializaAnimation);
-	Diamond_Counter[2].LoadAnim("Diamond", "Diamond_Counter_3", spritePositions);
-	Diamond_Counter.Add(inicializaAnimation);
-	Diamond_Counter[3].LoadAnim("Diamond", "Diamond_Counter_4", spritePositions);
-	Diamond_Counter.Add(inicializaAnimation);
-	Diamond_Counter[4].LoadAnim("Diamond", "Diamond_Counter_5", spritePositions);
-	Diamond_Counter.Add(inicializaAnimation);
-	Diamond_Counter[5].LoadAnim("Diamond", "Diamond_Counter_6", spritePositions);
-	Diamond_Counter.Add(inicializaAnimation);
-	Diamond_Counter[6].LoadAnim("Diamond", "Diamond_Counter_7", spritePositions);
-	Diamond_Counter.Add(inicializaAnimation);
-	Diamond_Counter[7].LoadAnim("Diamond", "Diamond_Counter_8", spritePositions);
+	for (int i = 0; i < 9; i++)
+	{
+		std::string counterString = "Diamond_Counter_" + std::to_string(i);
+		Diamond_Counter.Add(inicializaAnimation);
+		Diamond_Counter[i].LoadAnim("Diamond", counterString.c_str(), spritePositions);
+	}
+
 
 	return true;
 }
@@ -76,10 +70,11 @@ bool Item::Start() {
 
 	currentAnimation = &idle;
 
-	for (int i = 0; i < 8; i++)
+	for (int i = 0; i < 9; i++)
 	{
 		currentAnimation1.Add(&Diamond_Counter[i]);
 		rect_1.Add(currentAnimation1[i]->GetCurrentFrame());
+		
 	}
 
 
@@ -104,13 +99,13 @@ bool Item::Update(float dt)
 
 	if (victoria) {
 		GoCenterTime_determination = true;
-		
+		app->scene->GetAngel()->Enter = true;
 		diamanteVictoria();
 	}
 
-	
 
-	for (int i = 0; i < playerGetDiamante + 1; i++)
+
+	for (int i = 0; i < playerGetDiamante + 2; i++)
 	{
 		rect_1[i] = currentAnimation1[i]->GetCurrentFrame();
 		app->render->DrawTexture(Diamond_Counter_texture, 416, app->scene->GetPlayerLife()->lifePos_Y - 44, 2, SDL_FLIP_NONE, &rect_1[i], 0, 0);
@@ -120,12 +115,14 @@ bool Item::Update(float dt)
 
 
 	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
-		playerGetDiamante++;
+
+		if(playerGetDiamante != 7)playerGetDiamante++;
+		DiamanteToCenter = true;
 	}
 
 	rect = currentAnimation->GetCurrentFrame();
 	currentAnimation->Update();
-	
+
 
 	//printf("PosX: %d ", position.x);
 	//printf("\nPosY: %d ", position.y);
@@ -141,8 +138,8 @@ bool Item::CleanUp()
 
 void Item::diamanteVictoria()
 {
-	
-	
+
+
 
 	if (TimeCrear.ReadMSec() > 850) {
 		if (maxDiamante < NumeroDiamante) {
@@ -154,7 +151,7 @@ void Item::diamanteVictoria()
 	if (DiamanteToCenter == true) {
 		for (int i = 0; i < maxDiamante; i++)
 		{
-			
+
 
 			diamanteToCenter(itemX[i], itemY[i]);
 		}
@@ -163,7 +160,6 @@ void Item::diamanteVictoria()
 	else {
 		for (int i = 0; i < maxDiamante; i++)
 		{
-			DiamanteToCenter = true;
 			rotateAroundCircle(itemX[i], itemY[i], circleCenterX, circleCenterY, angleIncrement);
 		}
 	}
@@ -171,7 +167,7 @@ void Item::diamanteVictoria()
 
 void Item::rotateAroundCircle(double& x, double& y, double circleCenterX, double circleCenterY, double angleIncrement)
 {
-	
+
 	double angleInRadians = angleIncrement * M_PI / 180.0;
 
 	double newX = circleCenterX + (x - circleCenterX) * cos(angleInRadians) - (y - circleCenterY) * sin(angleInRadians);
@@ -195,10 +191,11 @@ void Item::diamanteToCenter(double& x, double& y)
 
 	x = x * (1 - timeLerp) + circleCenterX * timeLerp;
 	y = y * (1 - timeLerp) + circleCenterY * timeLerp;
+
 	if ((int)x == circleCenterX && (int)y == circleCenterY) {
 		allDiamanteInCenter = true;
 	}
-	
+
 
 	if (allDiamanteInCenter) {
 		app->render->DrawTexture(Diamondtexture, x - 32, y - 32, 4, SDL_FLIP_NONE, &rect);
@@ -207,6 +204,6 @@ void Item::diamanteToCenter(double& x, double& y)
 		app->render->DrawTexture(Diamondtexture, x, y, 2, SDL_FLIP_NONE, &rect);
 	}
 
-	
+
 
 }

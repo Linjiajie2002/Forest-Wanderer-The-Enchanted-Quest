@@ -88,6 +88,9 @@
     <ClCompile Include="Source\PlayerLife.cpp">
       <Filter>Modules\Player</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Angel.cpp">
+      <Filter>Modules\Angel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Defs.h">
@@ -204,6 +207,9 @@
     <ClInclude Include="Source\PlayerLife.h">
       <Filter>Modules\Player</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Angel.h">
+      <Filter>Modules\Angel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
@@ -265,6 +271,9 @@
     </Filter>
     <Filter Include="Modules\Boss">
       <UniqueIdentifier>{d360e954-676a-4139-bb6c-9da13e990cde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Angel">
+      <UniqueIdentifier>{3da5697f-763f-463d-a768-c0a037d8982b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

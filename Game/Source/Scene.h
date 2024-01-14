@@ -8,7 +8,8 @@
 #include "Enemy_Goblin.h"
 #include "Boss.h"
 #include "PlayerLife.h"
-
+#include "Angel.h"
+#include "Item.h"
 
 struct SDL_Texture;
 
@@ -46,6 +47,8 @@ public:
 	Enemy_Goblin* GetGoblin();
 	Boss* GetBoss();
 	PlayerLife* GetPlayerLife();
+	Angel* GetAngel();
+	Item* GetItem();
 
 	bool LoadState(pugi::xml_node node);
 
@@ -61,6 +64,8 @@ private:
 	Effect* effect;
 	Boss* boss;
 	PlayerLife* playerlife;
+	Angel*angel;
+	Item* item;
 public:
 
 	SDL_Texture* Pathfindingtexture;

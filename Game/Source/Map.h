@@ -158,7 +158,7 @@ public:
 	int fondoy;
 
 
-	int LevelMap = 1;
+	int LevelMap = 2;
 
 	
 
@@ -171,6 +171,8 @@ public:
 
 	int bossRenderArea_R =32;
 	int bossRenderArea_L = 18;
+
+	bool deleteWallInbossFight = false;  
 
 private:
 

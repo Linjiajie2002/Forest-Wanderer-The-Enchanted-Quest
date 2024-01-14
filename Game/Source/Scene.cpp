@@ -14,6 +14,7 @@
 #include "Boss.h"
 #include "BossItem.h"
 #include "PlayerLife.h"
+#include "Angel.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -37,9 +38,11 @@ bool Scene::Awake(pugi::xml_node& config)
 	// Check https://pugixml.org/docs/quickstart.html#access
 	for (pugi::xml_node itemNode = config.child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
 	{
-		Item* item = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
+		item = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
 		item->parameters = itemNode;
 	}
+	
+	
 
 	//Add itembox
 	for (pugi::xml_node itemNode = config.child("itembox"); itemNode; itemNode = itemNode.next_sibling("itembox"))
@@ -88,6 +91,13 @@ bool Scene::Awake(pugi::xml_node& config)
 		BossItem* bossitem = (BossItem*)app->entityManager->CreateEntity(EntityType::BOSSITEM);
 		bossitem->parameters = itemNode;
 	}
+
+	for (pugi::xml_node itemNode = config.child("angel"); itemNode; itemNode = itemNode.next_sibling("angel"))
+	{
+		angel = (Angel*)app->entityManager->CreateEntity(EntityType::ANGEL);
+		angel->parameters = itemNode;
+	}
+
 
 	for (pugi::xml_node itemNode = config.child("playerlife"); itemNode; itemNode = itemNode.next_sibling("playerlife"))
 	{
@@ -226,6 +236,17 @@ PlayerLife* Scene::GetPlayerLife()
 {
 	return playerlife;
 }
+
+Angel* Scene::GetAngel()
+{
+	return angel;
+}
+
+Item* Scene::GetItem()
+{
+	return item;
+}
+
 bool Scene::LoadState(pugi::xml_node node) {
 
 	/*if (app->sceneLevel != node.child("player").attribute("sceneLevel").as_int()) {

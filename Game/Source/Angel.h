@@ -1,6 +1,6 @@
 #pragma once
-#ifndef __BOSSITEM_H__
-#define __BOSSITEM_H__
+#ifndef __ANGEL_H__
+#define __ANGEL_H__
 
 #include "Entity.h"
 #include "Point.h"
@@ -8,19 +8,16 @@
 #include "Timer.h"
 
 #include"List.h"
-#include <stdio.h>
 
 struct SDL_Texture;
 
-
-
-class BossItem : public Entity
+class Angel : public Entity
 {
 public:
 
-	BossItem();
+	Angel();
 
-	virtual ~BossItem();
+	virtual ~Angel();
 
 	bool Awake();
 
@@ -30,8 +27,7 @@ public:
 
 	bool CleanUp();
 
-	void calculateNURBS(iPoint p1, iPoint p2, iPoint p3, double t, iPoint* result);
-
+	
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 	void OnEndCollision(PhysBody* physA, PhysBody* physB);
@@ -41,20 +37,28 @@ public:
 	bool isPicked = false;
 
 	Animation* currentAnimation1 = nullptr;
-	List<Animation*> currentAnimation2;
+	Animation* currentAnimation2 = nullptr;
 	Animation* currentAnimation3 = nullptr;
 	Animation* currentAnimation4 = nullptr;
 
-	Animation atack_1;
-	List<Animation> atack_2;
-	Animation atack_3;
+	Animation angel_blue_start;
+	Animation angel_blue_idle;
+	Animation angel_blue_die;
 
-	Animation ball_blue_start;
-	Animation ball_blue_running;
-	Animation ball_blue_end;
 
-	Animation die;
-	Animation take_hit;
+	Animation angel_red_start;
+	Animation angel_red_idle;
+	Animation angel_red_die;
+
+	Animation angel_yellow_start;
+	Animation angel_yellow_idle;
+	Animation angel_yellow_die;
+
+
+
+	Animation angel_blue_bar;
+
+	
 
 
 
@@ -97,31 +101,28 @@ public:
 	int atack4_posX_L = 2290;
 	int atack4_posY;
 
-
 	int deadenemy;
 
-
-
-	double result_x = 0.00;
-	double result_y = 0.00;
+	bool Enter = false;
+	bool deleteAngel = false;
 
 
 private:
 
-	SDL_Texture* ball_blue_texture;
-	SDL_Texture* boss_atack_2_texture;
-	SDL_Texture* boss_atack_3_texture;
+	SDL_Texture* angel_blue_texture;
+	SDL_Texture* angel_red_texture;
+	SDL_Texture* angel_yellow_texture;
 	SDL_Texture* boss_atack_4_texture;
 
-	const char* ball_blue_texture_Path;
-	const char* boss_atack_2_texture_Path;
-	const char* boss_atack_3_texture_Path;
+	const char* angel_blue_texture_Path;
+	const char* angel_red_texture_Path;
+	const char* angel_yellow_texture_Path;
 	const char* boss_atack_4_texture_Path;
 
 
 
 	SDL_Rect rect_1;
-	List<SDL_Rect> rect_2;
+	SDL_Rect rect_2;
 	SDL_Rect rect_3;
 	SDL_Rect rect_4;
 

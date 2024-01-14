@@ -102,9 +102,10 @@ bool Boss::Update(float dt)
 	
 
 	if (app->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN) {
-
+		app->scene->GetAngel()->Enter = true;
 		inBossBattle = true;
 		tpToinBossBattle = true;
+		app->scene->GetItem()->victoria = false;
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) {
@@ -112,6 +113,11 @@ bool Boss::Update(float dt)
 		attackMethod = 1;
 	}
 
+	if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN) {
+		inBossBattle = false;
+		app->scene->GetItem()->victoria = true;
+		
+	}
 
 	if (inBossBattle && attackMethod == 1) {
 		if (getPlayerPosition) {

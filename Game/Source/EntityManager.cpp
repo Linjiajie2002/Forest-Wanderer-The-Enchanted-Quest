@@ -11,6 +11,7 @@
 #include "Map.h"
 #include "Boss.h"
 #include "BossItem.h"
+#include "Angel.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -74,12 +75,13 @@ bool EntityManager::CleanUp()
 
 	while (item != NULL && ret == true)
 	{
+		
 		ret = item->data->CleanUp();
 		item = item->prev;
 	}
 
 	entities.Clear();
-
+	
 	return ret;
 }
 
@@ -114,6 +116,9 @@ Entity* EntityManager::CreateEntity(EntityType type)
 		break;
 	case EntityType::BOSS:
 		entity = new Boss();
+		break;
+	case EntityType::ANGEL:
+		entity = new Angel();
 		break;
 	case EntityType::BOSSITEM:
 		entity = new BossItem();
@@ -169,11 +174,25 @@ bool EntityManager::Update(float dt)
 	ListItem<Entity*>* item;
 	Entity* pEntity = NULL;
 
-	for (item = entities.start; item != NULL && ret == true; item = item->next)
+	/*for (item = entities.start; item != NULL && ret == true; item = item->next)
 	{
 		pEntity = item->data;
 
 		if (pEntity->active == false) continue;
+		ret = item->data->Update(dt);
+	}*/
+
+
+	for (item = entities.start; item != NULL && ret == true; item = item->next)
+	{
+		pEntity = item->data;
+
+		if (pEntity->active == false) {
+
+
+			item->data->Update(dt);
+			continue;
+		};
 		ret = item->data->Update(dt);
 	}
 

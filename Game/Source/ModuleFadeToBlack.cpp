@@ -6,6 +6,8 @@
 #include "Window.h"
 #include "Textures.h"
 #include "Map.h"
+#include "Player.h"
+#include "Scene.h"
 
 #include <iostream>
 
@@ -33,6 +35,7 @@ bool ModuleFadeToBlack::Start()
 
 bool ModuleFadeToBlack::Update(float dt)
 {
+
     if (currentStep == Fade_Step::NONE) return true;
 
     if (currentStep == Fade_Step::TO_BLACK)
@@ -44,19 +47,21 @@ bool ModuleFadeToBlack::Update(float dt)
             app->map->Disable();
 			//moduleToDisable->Disable();
 			this->moduleToDisable->Disable();
-
             app->entityManager->Disable();
-
+			
 
             /*app->physics->Disable();
             app->physics->Enable();*/
             /*app->physics->CleanUp();*/
 
 
+			
+
             app->map->Enable();
             moduleToEnable->Enable();
             app->entityManager->Enable();
-            
+			app->scene->GetPlayer()->Enable();
+			
 
             currentStep = Fade_Step::FROM_BLACK;
         }

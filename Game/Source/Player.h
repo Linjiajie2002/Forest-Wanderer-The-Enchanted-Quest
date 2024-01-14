@@ -176,6 +176,8 @@ public:
 
 	bool isVictoria = false;
 
+	bool enble = false;
+
 };
 
 #endif // __PLAYER_H__

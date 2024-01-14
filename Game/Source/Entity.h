@@ -25,6 +25,7 @@ enum class EntityType
 	ENEMY_GOBLIN,
 	BOSS,
 	BOSSITEM,
+	ANGEL, 
 	ITEM,
 	ITEMBOX,
 	SHOP,

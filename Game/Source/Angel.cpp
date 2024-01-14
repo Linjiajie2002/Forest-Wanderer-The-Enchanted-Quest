@@ -96,22 +96,12 @@ bool Angel::Start() {
 bool Angel::Update(float dt)
 {
 
-	
-	if (app->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN) {
-		
-	}
-
-	if (bluebar && getPoint == false) {
-		countBar++;
-		currentAnimation6->Update();
-		if (countBar == 11) {
-			bluebar = false;
-			getPoint = true;
-		}
-	}
+	printf("\nBlueball: %d", blueball);
+	printf("\nRedball: %d", redball);
+	printf("\nYellowball: %d", yelloweball);	
 
 
-
+	CheckPoint();
 
 	if (app->scene->GetItem()->victoria && Enter)
 	{
@@ -180,10 +170,9 @@ bool Angel::Update(float dt)
 
 	rect_4 = currentAnimation4->GetCurrentFrame();
 	app->render->DrawTexture(angel_borde_red_texture, 1573, 770, 2, SDL_FLIP_NONE, &rect_4);
-	currentAnimation4->Update();
 	rect_5 = currentAnimation5->GetCurrentFrame();
 	app->render->DrawTexture(angel_borde_yellow_texture, 1923, 770, 2, SDL_FLIP_NONE, &rect_5);
-	currentAnimation5->Update();
+
 
 	rect_6 = currentAnimation6->GetCurrentFrame();
 	app->render->DrawTexture(angel_borde_blue_texture, 2273, 770, 2, SDL_FLIP_NONE, &rect_6);
@@ -199,10 +188,45 @@ bool Angel::CleanUp()
 	return true;
 }
 
-void Angel::GetPoint()
+void Angel::GetPoint(int color)
 {
+	ballColor = color;
 	bluebar = true;
 	countBar = 0;
+}
+
+void Angel::CheckPoint()
+{
+	if (bluebar && getPoint == false) {
+		countBar++;
+		if (ballColor == 0 && blueball != 5) {
+			currentAnimation6->Update();
+
+		}
+		else if (ballColor == 1 && redball != 5) {
+			currentAnimation4->Update();
+
+		}
+		else if (ballColor == 2 && yelloweball != 5) {
+			currentAnimation5->Update();
+		}
+
+		if (countBar == 11) {
+			bluebar = false;
+			getPoint = true;
+
+			if (ballColor == 0 && blueball != 5) {
+				blueball++;
+			}
+			else if (ballColor == 1 && redball != 5) {
+				redball++;
+			}
+			else if (ballColor == 2 && yelloweball != 5) {
+				yelloweball++;
+			}
+
+		}
+	}
 }
 
 

@@ -27,8 +27,8 @@ public:
 
 	bool CleanUp();
 
-	void GetPoint();
-
+	void GetPoint(int color);
+	void CheckPoint();
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 	void OnEndCollision(PhysBody* physA, PhysBody* physB);
 
@@ -72,7 +72,7 @@ public:
 	int SpriteY;
 	int PhotoWeight;
 	float speed;
-
+	int ballColor;
 	bool isFacingLeft;
 	bool getPoint = false;
 
@@ -109,6 +109,10 @@ public:
 
 	bool Enter = false;
 	bool deleteAngel = false;
+
+	int blueball = 0;
+	int redball = 0;
+	int yelloweball = 0;
 
 
 private:

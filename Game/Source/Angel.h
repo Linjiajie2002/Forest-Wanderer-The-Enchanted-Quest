@@ -27,7 +27,7 @@ public:
 
 	bool CleanUp();
 
-	
+	void GetPoint();
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 	void OnEndCollision(PhysBody* physA, PhysBody* physB);
@@ -74,6 +74,7 @@ public:
 	float speed;
 
 	bool isFacingLeft;
+	bool getPoint = false;
 
 	int attackMethod = 1;
 

@@ -98,17 +98,19 @@ bool Angel::Update(float dt)
 
 	
 	if (app->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN) {
-		bluebar = true;
-		countBar = 0;
+		
 	}
 
-	if (bluebar) {
+	if (bluebar && getPoint == false) {
 		countBar++;
 		currentAnimation6->Update();
 		if (countBar == 11) {
 			bluebar = false;
+			getPoint = true;
 		}
 	}
+
+
 
 
 	if (app->scene->GetItem()->victoria && Enter)
@@ -138,6 +140,8 @@ bool Angel::Update(float dt)
 		currentAnimation2 = &angel_yellow_idle;
 		currentAnimation3 = &angel_blue_idle;
 		app->scene->GetBossItem()->crearBall = true;
+		app->scene->GetBossItem()->timeWait.Start();
+		app->scene->GetBossItem()->deleteBall.Start();
 		angel_red_start.Reset();
 		angel_yellow_start.Reset();
 		angel_blue_start.Reset();
@@ -193,6 +197,12 @@ bool Angel::Update(float dt)
 bool Angel::CleanUp()
 {
 	return true;
+}
+
+void Angel::GetPoint()
+{
+	bluebar = true;
+	countBar = 0;
 }
 
 

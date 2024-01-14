@@ -84,6 +84,11 @@ public:
 
 	bool crearBall = false;
 	bool firstBall = true;
+	bool crearBoyd = false;
+	bool playerTouchBall = false;
+	bool oneTouch = false;
+
+	int ballColor;
 
 	float energyPos_X = 1920;
 	float energyPos_Y = 780;

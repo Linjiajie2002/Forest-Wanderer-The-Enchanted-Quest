@@ -52,11 +52,8 @@ bool BossItem::Start() {
 	ball_blue_texture = app->tex->Load(ball_blue_texture_Path);
 
 	currentAnimation1 = &ball_blue_start;
+	ballColor = 0;
 
-	pbody = app->physics->CreateCircle(energyPos_X + 52, energyPos_Y + 52, 28, bodyType::STATIC);
-	pbody->ctype = ColliderType::ENERGYBALL;
-	pbody->body->SetFixedRotation(true);
-	pbody->listener = this;
 
 
 	return true;
@@ -73,8 +70,8 @@ bool BossItem::Update(float dt)
 	if (crearBall) {
 		ballPosition = randPosition();
 		ballType = randBall();
-		deleteBall.Start();
 		crearBall = false;
+		crearBoyd = true;
 	}
 
 
@@ -84,12 +81,11 @@ bool BossItem::Update(float dt)
 
 
 
-	
 
-	if (deleteBall.ReadMSec() >= 5000) {
+	if (deleteBall.ReadMSec() >= 5000 || playerTouchBall && oneTouch) {
 		deleteBall.Start();
-
-
+		playerTouchBall = false;
+		oneTouch = false;
 		if (firstBall == false) {
 			if (currentAnimation1->getNameAnimation() == "ball_blue_running") {
 				currentAnimation1 = &ball_blue_end;
@@ -128,6 +124,26 @@ void BossItem::randCreatEnergyBall(iPoint ballPosition)
 {
 	//printf("%d", ballType);
 	rect_1 = currentAnimation1->GetCurrentFrame();
+	if (crearBoyd) {
+		if (ballColor == 0) {
+			printf("À¶É«");
+		}
+		else if (ballColor == 1) {
+			printf("ºìÉ«");
+		}
+		else if (ballColor == 2) {
+			printf("»ÆÉ«");
+		}
+
+
+		pbody = app->physics->CreateCircleSensor(ballPosition.x + 52, ballPosition.y + 52, 28, bodyType::STATIC);
+		pbody->ctype = ColliderType::ENERGYBALL;
+		pbody->body->SetFixedRotation(true);
+		pbody->listener = this;
+		crearBoyd = false;
+		app->scene->GetAngel()->getPoint = false;
+	}
+
 	app->render->DrawTexture(ball_blue_texture, ballPosition.x, ballPosition.y, 0.4, SDL_FLIP_NONE, &rect_1);
 	currentAnimation1->Update();
 }
@@ -135,17 +151,20 @@ void BossItem::randCreatEnergyBall(iPoint ballPosition)
 void BossItem::CheckBallStarT(int tipo)
 {
 
-	
+
 	if (firstBall == false) {
 
 		if (tipo == 0) {
 			currentAnimation1 = &ball_blue_start;
+			ballColor = 0;
 		}
 		else if (tipo == 1) {
 			currentAnimation1 = &ball_red_start;
+			ballColor = 1;
 		}
 		else {
 			currentAnimation1 = &ball_yellow_start;
+			ballColor = 2;
 		}
 	}
 }
@@ -185,16 +204,19 @@ void BossItem::actualizarAnimacion()
 		if (currentAnimation1->getNameAnimation() == "ball_yellow_start") {
 			currentAnimation1->Reset();
 			currentAnimation1 = &ball_yellow_running;
+			oneTouch = true;
 		}
 
 		if (currentAnimation1->getNameAnimation() == "ball_red_start") {
 			ball_red_start.Reset();
 			currentAnimation1 = &ball_red_running;
+			oneTouch = true;
 		}
 
 		if (currentAnimation1->getNameAnimation() == "ball_blue_start") {
 			currentAnimation1->Reset();
 			currentAnimation1 = &ball_blue_running;
+			oneTouch = true;
 		}
 
 
@@ -203,6 +225,12 @@ void BossItem::actualizarAnimacion()
 			crearBall = true;
 			CheckBallStarT(ballType);
 			timeWait.Start();
+			if (pbody != nullptr) {
+				pbody->body->GetWorld()->DestroyBody(pbody->body);
+				pbody = nullptr;
+			}
+			oneTouch = false;
+			playerTouchBall = false;
 		}
 
 		if (currentAnimation1->getNameAnimation() == "ball_red_end") {
@@ -210,6 +238,12 @@ void BossItem::actualizarAnimacion()
 			crearBall = true;
 			CheckBallStarT(ballType);
 			timeWait.Start();
+			if (pbody != nullptr) {
+				pbody->body->GetWorld()->DestroyBody(pbody->body);
+				pbody = nullptr;
+			}
+			oneTouch = false;
+			playerTouchBall = false;
 		}
 
 		if (currentAnimation1->getNameAnimation() == "ball_blue_end") {
@@ -218,6 +252,12 @@ void BossItem::actualizarAnimacion()
 			firstBall = false;
 			CheckBallStarT(ballType);
 			timeWait.Start();
+			if (pbody != nullptr) {
+				pbody->body->GetWorld()->DestroyBody(pbody->body);
+				pbody = nullptr;
+			}
+			oneTouch = false;
+			playerTouchBall = false;
 		}
 
 
@@ -230,6 +270,7 @@ void BossItem::OnCollision(PhysBody* physA, PhysBody* physB) {
 	switch (physB->ctype)
 	{
 	case ColliderType::PLAYER:
+
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
@@ -242,6 +283,8 @@ void BossItem::OnEndCollision(PhysBody* physA, PhysBody* physB) {
 	switch (physB->ctype)
 	{
 	case ColliderType::PLAYER:
+		playerTouchBall = true;
+		app->scene->GetAngel()->GetPoint();
 		break;
 
 

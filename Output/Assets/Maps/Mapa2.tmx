@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="120" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="20" nextobjectid="6">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="120" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="20" nextobjectid="6">
  <tileset firstgid="1" name="MapMetadata" tilewidth="32" tileheight="32" tilecount="16" columns="4">
   <image source="MapMetadata.png" width="128" height="128"/>
  </tileset>
@@ -21295,6 +21295,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="393"/>
+   <tile gid="393"/>
    <tile/>
    <tile/>
    <tile/>
@@ -21411,18 +21413,22 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="393"/>
+   <tile gid="393"/>
+   <tile gid="393"/>
+   <tile gid="393"/>
+   <tile gid="393"/>
+   <tile gid="393"/>
+   <tile gid="393"/>
+   <tile gid="393"/>
+   <tile gid="393"/>
+   <tile gid="393"/>
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="9162"/>
-   <tile gid="9163"/>
-   <tile gid="9164"/>
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="9165"/>
-   <tile gid="9166"/>
-   <tile gid="9167"/>
    <tile/>
    <tile/>
    <tile/>
@@ -21527,22 +21533,25 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="393"/>
+   <tile gid="393"/>
+   <tile gid="393"/>
+   <tile gid="393"/>
+   <tile gid="393"/>
    <tile/>
+   <tile gid="393"/>
+   <tile gid="393"/>
+   <tile gid="393"/>
+   <tile gid="393"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="9168"/>
-   <tile gid="9169"/>
-   <tile gid="9170"/>
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="9171"/>
-   <tile gid="9172"/>
-   <tile gid="9173"/>
    <tile/>
    <tile/>
    <tile/>
@@ -21644,25 +21653,16 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="393"/>
+   <tile gid="393"/>
+   <tile gid="393"/>
+   <tile gid="393"/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="9174"/>
-   <tile gid="9175"/>
-   <tile gid="9176"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="9177"/>
-   <tile gid="9178"/>
-   <tile gid="9179"/>
+   <tile gid="393"/>
+   <tile gid="393"/>
+   <tile gid="393"/>
+   <tile gid="393"/>
    <tile/>
    <tile/>
    <tile/>

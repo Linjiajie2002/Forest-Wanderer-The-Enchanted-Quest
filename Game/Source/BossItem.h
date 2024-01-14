@@ -87,6 +87,7 @@ public:
 	bool crearBoyd = false;
 	bool playerTouchBall = false;
 	bool oneTouch = false;
+	
 
 	int ballColor;
 

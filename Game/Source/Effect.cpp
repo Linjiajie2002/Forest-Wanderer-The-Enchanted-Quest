@@ -37,22 +37,30 @@ bool Effect::Awake() {
 	spritePositions2 = SPosition2.SpritesPos(TSprite2, SpriteX2, SpriteY2, PhotoWeight2);
 	GhostEffect.LoadAnim("Effect", "GhostEffect", spritePositions2);*/
 
-	EffectPath2 = parameters.child("animations3").attribute("texturepath").as_string();
-	TSprite2 = parameters.child("animations3").attribute("Tsprite").as_int();
-	SpriteX2 = parameters.child("animations3").attribute("x").as_int();
-	SpriteY2 = parameters.child("animations3").attribute("y").as_int();
-	PhotoWeight2 = parameters.child("animations3").attribute("Pweight").as_int();
-	spritePositions2 = SPosition2.SpritesPos(TSprite2, SpriteX2, SpriteY2, PhotoWeight2);
-	GhostEffect.LoadAnim("Effect", "Die4", spritePositions2);
+	EffectPath2 = parameters.child("animations2").attribute("texturepath").as_string();
+	TSprite = parameters.child("animations2").attribute("Tsprite").as_int();
+	SpriteX = parameters.child("animations2").attribute("x").as_int();
+	SpriteY = parameters.child("animations2").attribute("y").as_int();
+	PhotoWeight = parameters.child("animations2").attribute("Pweight").as_int();
+	spritePositions = SPosition2.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
+	GhostEffect.LoadAnim("Effect", "Die", spritePositions);
+
+	EffectPath3 = parameters.child("animations3").attribute("texturepath").as_string();
+	TSprite = parameters.child("animations3").attribute("Tsprite").as_int();
+	SpriteX = parameters.child("animations3").attribute("x").as_int();
+	SpriteY = parameters.child("animations3").attribute("y").as_int();
+	PhotoWeight = parameters.child("animations3").attribute("Pweight").as_int();
+	spritePositions = Gravity_Void.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
+	DiamanteEffect.LoadAnim("Effect", "DiamanteEffect", spritePositions);
 
 
-	EffectPath3 = parameters.child("animations5").attribute("texturepath").as_string();
-	TSprite3 = parameters.child("animations5").attribute("Tsprite").as_int();
-	SpriteX3 = parameters.child("animations5").attribute("x").as_int();
-	SpriteY3 = parameters.child("animations5").attribute("y").as_int();
-	PhotoWeight3 = parameters.child("animations5").attribute("Pweight").as_int();
-	spritePositions3 = Gravity_Void.SpritesPos(TSprite3, SpriteX3, SpriteY3, PhotoWeight3);
-	Gravity_Void.LoadAnim("Effect", "Gravity_Void_idle", spritePositions3);
+	EffectPath4 = parameters.child("animations4").attribute("texturepath").as_string();
+	TSprite = parameters.child("animations4").attribute("Tsprite").as_int();
+	SpriteX = parameters.child("animations4").attribute("x").as_int();
+	SpriteY = parameters.child("animations4").attribute("y").as_int();
+	PhotoWeight = parameters.child("animations4").attribute("Pweight").as_int();
+	spritePositions = Gravity_Void.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
+	Gravity_Void.LoadAnim("Effect", "Gravity_Void_idle", spritePositions);
 
 	/*EffectPath2 = parameters.child("animations4").attribute("texturepath").as_string();
 	TSprite2 = parameters.child("animations4").attribute("Tsprite").as_int();
@@ -68,17 +76,16 @@ bool Effect::Awake() {
 bool Effect::Start() {
 
 	Effecttexture = app->tex->Load(EffectPath);
-
 	Effecttexture2 = app->tex->Load(EffectPath2);
-
-
 	Effecttexture3 = app->tex->Load(EffectPath3);
+	Effecttexture4 = app->tex->Load(EffectPath4);
 	/*pbody = app->physics->CreateCircle(position.x + 16, position.y + 16, 16, bodyType::DYNAMIC);
 	pbody->ctype = ColliderType::EFFECT;
 	pbody->body->SetFixedRotation(true);*/
 	currentAnimation = &OroEffect;
 	currentAnimation2 = &GhostEffect;
-	currentAnimation3 = &Gravity_Void;
+	currentAnimation3 = &DiamanteEffect;
+	currentAnimation4 = &Gravity_Void;
 	return true;
 
 
@@ -108,23 +115,26 @@ bool Effect::Update(float dt)
 
 		position.x = 6304;//+ 30
 		position.y = 1312;//+ 18
-		SDL_Rect rect3 = currentAnimation3->GetCurrentFrame();
-		currentAnimation3 = &Gravity_Void;
-		app->render->DrawTexture(Effecttexture3, position.x, position.y, 0.8, SDL_FLIP_NONE, &rect3);//0.8 , 2 
-		currentAnimation3->Update();
+		SDL_Rect rect4 = currentAnimation4->GetCurrentFrame();
+		currentAnimation4 = &Gravity_Void;
+		app->render->DrawTexture(Effecttexture4, position.x, position.y, 0.8, SDL_FLIP_NONE, &rect4);//0.8 , 2 
+		currentAnimation4->Update();
 	}
 	else {
 
 		pbody->body->SetActive(false);
 
 	}
+	
+	
+
 	return true;
 }
 
 
 bool Effect::CleanUp()
 {
-	
+
 	return true;
 }
 
@@ -159,3 +169,12 @@ void Effect::ReviveEffectFuncion()
 	currentAnimation->Update();
 
 }
+
+void Effect::LastEffect()
+{
+	SDL_Rect rect3 = currentAnimation3->GetCurrentFrame();
+	currentAnimation3 = &DiamanteEffect;
+	app->render->DrawTexture(Effecttexture3, 1850, 700, 0.5, SDL_FLIP_NONE, &rect3);
+	currentAnimation3->Update();
+}
+

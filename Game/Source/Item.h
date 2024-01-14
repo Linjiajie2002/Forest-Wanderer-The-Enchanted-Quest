@@ -30,12 +30,17 @@ public:
 
 	void diamanteVictoria();
 	void rotateAroundCircle(double& x, double& y, double circleCenterX, double circleCenterY, double angleIncrement);
+	void DestroyedDiamante();
 	void diamanteToCenter(double& x, double& y);
+	void LastDiamante();
+
+	void OnCollision(PhysBody* physA, PhysBody* physB);
 
 public:
 
 	bool isPicked = false;
 	Animation* currentAnimation = nullptr;
+	Animation* currentAnimation2 = nullptr;
 
 	List<Animation*> currentAnimation1;
 	 
@@ -73,6 +78,9 @@ public:
 	bool allDiamanteInCenter = false;
 
 	bool victoria = false;
+	bool lastDiamenteIsCreat = true;
+	bool playerTakeDiamante = false;
+	
 
 	Timer TimeCrear;
 	Timer diamanteToBig;
@@ -83,6 +91,7 @@ public:
 	int playerGetDiamante = 0;
 
 	SDL_Rect rect;
+	SDL_Rect rect_2;
 	List<SDL_Rect> rect_1;
 
 private:

@@ -25,12 +25,14 @@ public:
 
 	void EffectFuncion();
 	void ReviveEffectFuncion();
+	void LastEffect();
 
 public:
 
 	Animation* currentAnimation = nullptr;
 	Animation* currentAnimation2 = nullptr;
 	Animation* currentAnimation3 = nullptr;
+	Animation* currentAnimation4 = nullptr;
 	
 	Animation OroEffect;
 	Animation GhostEffect;
@@ -45,22 +47,9 @@ public:
 	int PhotoWeight;
 	SDL_Rect* spritePositions;
 	
-
-
 	Animation SPosition2;
-	int TSprite2;
-	int SpriteX2;
-	int SpriteY2;
-	int PhotoWeight2;
-	SDL_Rect* spritePositions2;
-
 	Animation Gravity_Void;
-	int TSprite3;
-	int SpriteX3;
-	int SpriteY3;
-	int PhotoWeight3;
-	SDL_Rect* spritePositions3;
-
+	Animation DiamanteEffect;
 	
 	bool check = false;
 	bool sonid_vic = false;
@@ -75,6 +64,9 @@ private:
 
 	SDL_Texture* Effecttexture3;
 	const char* EffectPath3;
+
+	SDL_Texture* Effecttexture4;
+	const char* EffectPath4;
 	PhysBody* pbody;
 	
 };

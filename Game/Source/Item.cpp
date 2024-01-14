@@ -65,16 +65,16 @@ bool Item::Start() {
 	Diamondtexture = app->tex->Load(DiamondPath);
 	Diamond_Counter_texture = app->tex->Load(Diamond_Counter_texture_Path);
 
-	pbody = app->physics->CreateCircle(position.x + 16, position.y + 16, 16, bodyType::DYNAMIC);
-	pbody->ctype = ColliderType::ITEM;
+	/*pbody = app->physics->CreateCircle(position.x + 16, position.y + 16, 16, bodyType::DYNAMIC);
+	pbody->ctype = ColliderType::ITEM;*/
 
 	currentAnimation = &idle;
-
+	currentAnimation2 = &idle;
 	for (int i = 0; i < 9; i++)
 	{
 		currentAnimation1.Add(&Diamond_Counter[i]);
 		rect_1.Add(currentAnimation1[i]->GetCurrentFrame());
-		
+
 	}
 
 
@@ -100,6 +100,7 @@ bool Item::Update(float dt)
 	if (victoria) {
 		GoCenterTime_determination = true;
 		app->scene->GetAngel()->Enter = true;
+		app->scene->GetBoss()->inBossBattle = false;
 		diamanteVictoria();
 	}
 
@@ -116,12 +117,14 @@ bool Item::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
 
-		if(playerGetDiamante != 7)playerGetDiamante++;
-		DiamanteToCenter = true;
+		if (playerGetDiamante != 7)playerGetDiamante++;
+		//DiamanteToCenter = true;
 	}
 
 	rect = currentAnimation->GetCurrentFrame();
 	currentAnimation->Update();
+
+	
 
 
 	//printf("PosX: %d ", position.x);
@@ -184,6 +187,15 @@ void Item::rotateAroundCircle(double& x, double& y, double circleCenterX, double
 	//return std::make_tuple(newX, newY);
 }
 
+void Item::DestroyedDiamante()
+{
+
+
+	playerTakeDiamante = true;
+
+
+}
+
 void Item::diamanteToCenter(double& x, double& y)
 {
 
@@ -206,4 +218,55 @@ void Item::diamanteToCenter(double& x, double& y)
 
 
 
+}
+
+void Item::LastDiamante()
+{
+	app->scene->GetEffect()->LastEffect();
+	if (app->scene->GetEffect()->currentAnimation3->HasFinished() && lastDiamenteIsCreat) {
+		rect_2 = currentAnimation2->GetCurrentFrame();
+
+		currentAnimation2->Update();
+
+		pbody = app->physics->CreateCircle(1915 + 32, 765 + 32, 28, bodyType::DYNAMIC);
+		pbody->ctype = ColliderType::ENERGYBALL;
+		pbody->body->SetFixedRotation(true);
+		pbody->listener = this;
+		lastDiamenteIsCreat = false;
+	}
+
+
+	if (pbody != nullptr && playerTakeDiamante == false) {
+		printf("%d", playerTakeDiamante);
+		pbody->body->SetLinearVelocity(b2Vec2(0, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
+		position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 30;
+		position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 30;
+	}
+
+	if (!playerTakeDiamante) {
+		app->render->DrawTexture(Diamondtexture, position.x, position.y, 2, SDL_FLIP_NONE, &rect_2);
+	}
+	else {
+		if (pbody != nullptr) {
+
+			pbody->body->GetWorld()->DestroyBody(pbody->body);
+			pbody = nullptr;
+		}
+	}
+
+}
+
+
+void Item::OnCollision(PhysBody* physA, PhysBody* physB) {
+
+	switch (physB->ctype)
+	{
+	case ColliderType::PLAYER:
+		DestroyedDiamante();
+		if (playerGetDiamante != 7)playerGetDiamante++;
+		break;
+	case ColliderType::UNKNOWN:
+		LOG("Collision UNKNOWN");
+		break;
+	}
 }

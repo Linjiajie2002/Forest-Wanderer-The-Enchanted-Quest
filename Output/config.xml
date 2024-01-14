@@ -85,11 +85,12 @@
 
 
 		<effect>
-			<animations1 Tsprite="16" x="48" y="48" Pweight="768" texturepath="Assets/Effecto/Die/Die.png"/>
-			<animations2 Tsprite="16" x="48" y="48" Pweight="768" texturepath="Assets/Effecto/Revive/Revive.png"/>
-			<animations3 Tsprite="26" x="90" y="115" Pweight="450" texturepath="Assets/Effecto/Die/Die4.png"/>
-			<animations4 Tsprite="14" x="110" y="110" Pweight="440" texturepath="Assets/Effecto/Die/Die3.png"/>
-			<animations5 Tsprite="20" x="96" y="80" Pweight="384" texturepath="Assets/Effecto/Gravity-SpriteSheet.png"/>
+			<animations1 Tsprite="16" x="48" y="48" Pweight="768" texturepath="Assets/Effecto/Die/Revive.png"/>
+			<animations2 Tsprite="26" x="90" y="115" Pweight="450" texturepath="Assets/Effecto/Die/Die.png"/>
+			<animations3 Tsprite="28" x="384" y="384" Pweight="3840" texturepath="Assets/Sprite/Mapa2/LastEffect.png"/>
+			<animations4 Tsprite="20" x="96" y="80" Pweight="384" texturepath="Assets/Effecto/Gravity-SpriteSheet.png"/>
+			
+			
 		</effect>
 
 		<shop Posx="120" Posy="985" Tsprite="6" x="118" y="128" Pweight="340" texturepath="Assets/Shop/Shop.png"/>
@@ -294,8 +295,9 @@
 			<OroEffect start="0" end="16" speed="0.20f" loop="false"/>
 			<GhostEffect start="0" end="16" speed="0.20f" loop="false"/>
 			<HealEffect start="0" end="14" speed="0.40f" loop="false"/>
-			<Die4 start="0" end="26" speed="0.50f" loop="false"/>
+			<Die start="0" end="26" speed="0.50f" loop="false"/>
 			<Gravity_Void_idle start="0" end="20" speed="0.2f" loop="true"/>
+			<DiamanteEffect start="0" end="28" speed="0.2f" loop="false"/>
 		</Effect>
 
 		<ItemBox>

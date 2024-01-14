@@ -67,7 +67,7 @@ bool BossItem::Update(float dt)
 		currentAnimation1 = &ball_blue_end;
 	}
 
-	if (crearBall) {
+	if (crearBall && app->scene->GetBoss()->inBossBattle) {
 		ballPosition = randPosition();
 		ballType = randBall();
 		crearBall = false;
@@ -75,7 +75,7 @@ bool BossItem::Update(float dt)
 	}
 
 
-	if (ballPosition.x > 0 && ballPosition.y > 0 && timeWait.ReadMSec() > 2000) {
+	if (ballPosition.x > 0 && ballPosition.y > 0 && timeWait.ReadMSec() > 2000 && app->scene->GetBoss()->inBossBattle) {
 		randCreatEnergyBall(ballPosition);
 	}
 
@@ -125,17 +125,6 @@ void BossItem::randCreatEnergyBall(iPoint ballPosition)
 	//printf("%d", ballType);
 	rect_1 = currentAnimation1->GetCurrentFrame();
 	if (crearBoyd) {
-		/*if (ballColor == 0) {
-			printf("蓝色");
-		}
-		else if (ballColor == 1) {
-			printf("红色");
-		}
-		else if (ballColor == 2) {
-			printf("黄色");
-		}*/
-
-
 		pbody = app->physics->CreateCircleSensor(ballPosition.x + 52, ballPosition.y + 52, 28, bodyType::STATIC);
 		pbody->ctype = ColliderType::ENERGYBALL;
 		pbody->body->SetFixedRotation(true);
@@ -284,17 +273,7 @@ void BossItem::OnEndCollision(PhysBody* physA, PhysBody* physB) {
 	{
 	case ColliderType::PLAYER:
 		playerTouchBall = true;
-		
 		app->scene->GetAngel()->GetPoint(ballColor);
-		if (ballColor == 0) {
-			printf("蓝色");
-		}
-		else if (ballColor == 1) {
-			printf("红色");
-		}
-		else if (ballColor == 2) {
-			printf("黄色");
-		}
 		break;
 
 

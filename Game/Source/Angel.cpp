@@ -96,24 +96,34 @@ bool Angel::Start() {
 bool Angel::Update(float dt)
 {
 
-	printf("\nBlueball: %d", blueball);
+	/*printf("\nBlueball: %d", blueball);
 	printf("\nRedball: %d", redball);
-	printf("\nYellowball: %d", yelloweball);	
+	printf("\nYellowball: %d", yelloweball);*/
 
 
 	CheckPoint();
 
-	if (app->scene->GetItem()->victoria && Enter)
-	{
-		//printf("\n%s", currentAnimation1->getNameAnimation());
-
+	if (blueball == 5 && redball == 5 && yelloweball == 5) {
 		currentAnimation1 = &angel_red_die;
 		currentAnimation2 = &angel_yellow_die;
 		currentAnimation3 = &angel_blue_die;
 		Enter = false;
-
+		
+		app->scene->GetItem()->LastDiamante();
 	}
-	else if (app->scene->GetBoss()->inBossBattle && Enter) {
+
+	//if (app->scene->GetItem()->victoria && Enter)
+	//{
+	//	//printf("\n%s", currentAnimation1->getNameAnimation());
+
+	//	currentAnimation1 = &angel_red_die;
+	//	currentAnimation2 = &angel_yellow_die;
+	//	currentAnimation3 = &angel_blue_die;
+	//	Enter = false;
+
+	//}
+	//else 
+	if (app->scene->GetBoss()->inBossBattle && Enter) {
 		currentAnimation1 = &angel_red_start;
 		currentAnimation2 = &angel_yellow_start;
 		currentAnimation3 = &angel_blue_start;
@@ -136,6 +146,9 @@ bool Angel::Update(float dt)
 		angel_yellow_start.Reset();
 		angel_blue_start.Reset();
 
+		app->scene->GetBoss()->getPlayerPosition = true;
+		app->scene->GetBoss()->attackMethod = 1;
+		
 
 	}
 
@@ -146,6 +159,7 @@ bool Angel::Update(float dt)
 		angel_red_die.Reset();
 		angel_yellow_die.Reset();
 		angel_blue_die.Reset();
+
 
 		currentAnimation1 = &angel_red_start;
 		currentAnimation2 = &angel_yellow_start;
@@ -165,17 +179,23 @@ bool Angel::Update(float dt)
 		rect_3 = currentAnimation3->GetCurrentFrame();
 		app->render->DrawTexture(angel_blue_texture, 2250, 600, 0.5, SDL_FLIP_NONE, &rect_3);
 		currentAnimation3->Update();
+
+		rect_4 = currentAnimation4->GetCurrentFrame();
+		app->render->DrawTexture(angel_borde_red_texture, 1573, 770, 2, SDL_FLIP_NONE, &rect_4);
+
+		rect_5 = currentAnimation5->GetCurrentFrame();
+		app->render->DrawTexture(angel_borde_yellow_texture, 1923, 770, 2, SDL_FLIP_NONE, &rect_5);
+
+
+		rect_6 = currentAnimation6->GetCurrentFrame();
+		app->render->DrawTexture(angel_borde_blue_texture, 2273, 770, 2, SDL_FLIP_NONE, &rect_6);
+	}
+	else {
+		app->scene->GetBoss()->inBossBattle = false;
 	}
 
 
-	rect_4 = currentAnimation4->GetCurrentFrame();
-	app->render->DrawTexture(angel_borde_red_texture, 1573, 770, 2, SDL_FLIP_NONE, &rect_4);
-	rect_5 = currentAnimation5->GetCurrentFrame();
-	app->render->DrawTexture(angel_borde_yellow_texture, 1923, 770, 2, SDL_FLIP_NONE, &rect_5);
 
-
-	rect_6 = currentAnimation6->GetCurrentFrame();
-	app->render->DrawTexture(angel_borde_blue_texture, 2273, 770, 2, SDL_FLIP_NONE, &rect_6);
 
 
 

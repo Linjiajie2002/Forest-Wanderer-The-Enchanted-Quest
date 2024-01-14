@@ -37,6 +37,7 @@ enum class ColliderType {
 	CLOSEATK_PLAYER,
 	CLOSEATK_ENEMY,
 	VICTORYCOLLISION,
+	ENERGYBALL,
 	UNKNOWN
 	// ..
 };

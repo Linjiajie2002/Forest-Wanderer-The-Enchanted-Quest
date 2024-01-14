@@ -224,7 +224,7 @@ bool Enemy_Goblin::Update(float dt)
 
 	if (attackParticle != nullptr) {
 		if (timerAtaque.ReadMSec() > 300) { //1s == 1000ms 
-			printf("0");
+			//printf("0");
 			//app->par->DestroyParticle();
 			timerAtaque.Start();
 			//isDestroyPar = false;

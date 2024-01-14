@@ -30,9 +30,9 @@ public:
 
 	bool CleanUp();
 
-	void calculateNURBS(iPoint p1, iPoint p2, iPoint p3, double t, iPoint* result);
 
-
+	void randCreatEnergyBall(iPoint ballPosition,int tipo);
+	iPoint randPosition();
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 	void OnEndCollision(PhysBody* physA, PhysBody* physB);
 
@@ -70,41 +70,16 @@ public:
 
 	bool isFacingLeft;
 
-	int attackMethod = 1;
-
-	//Atack 1
-	bool getPlayerPosition = false;
-	int player_x;
-	Timer atack1_Getposition;
-
-	//Atack 2
-	Timer atack2_generAtack;
-	Animation inicializaAnimation;
-	int numeroAtack = 4;
-	int maxNumAtack = 0;
-	bool allPrint = false;
-	int distancia = 0;
-
-	//Atack3
-	bool direction_Atack = false;
-
-	//Atack4
-	float velocitat = 0;
-
-	float atack4_posX;
-	int atack4_posX_R = 1420;
-
-	int atack4_posX_L = 2290;
-	int atack4_posY;
+	bool crearBall = false;
 
 
-	int deadenemy;
+	float energyPos_X = 1920;
+	float energyPos_Y = 780;
 
+	iPoint ballPosition;
 
-
-	double result_x = 0.00;
-	double result_y = 0.00;
-
+	Timer deleteBall;
+	Timer timeWait;
 
 private:
 

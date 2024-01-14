@@ -46,7 +46,21 @@ bool Angel::Awake() {
 	angel_yellow_die.LoadAnim("angel", "angel_all_die", spritePositions);
 
 
-	printf("%d", SpriteX);
+
+
+	angel_borde_blue_texture_Path = parameters.child("borde").child("angel_texture1").attribute("texturepath").as_string();
+	angel_borde_red_texture_Path = parameters.child("borde").child("angel_texture2").attribute("texturepath").as_string();
+	angel_borde_yellow_texture_Path = parameters.child("borde").child("angel_texture3").attribute("texturepath").as_string();
+	TSprite = parameters.child("borde").attribute("Tsprite").as_int();
+	SpriteX = parameters.child("borde").attribute("x").as_int();
+	SpriteY = parameters.child("borde").attribute("y").as_int();
+	PhotoWeight = parameters.child("borde").attribute("Pweight").as_int();
+	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
+
+	angel_borde_red_idle.LoadAnim("angel_borde", "angel_borde_blue", spritePositions);
+	angel_borde_yellow_idle.LoadAnim("angel_borde", "angel_borde_blue", spritePositions);
+	angel_borde_blue_idle.LoadAnim("angel_borde", "angel_borde_blue", spritePositions);
+
 	return true;
 }
 
@@ -58,6 +72,9 @@ bool Angel::Start() {
 	angel_red_texture = app->tex->Load(angel_red_texture_Path);
 	angel_yellow_texture = app->tex->Load(angel_yellow_texture_Path);
 
+	angel_borde_blue_texture = app->tex->Load(angel_borde_blue_texture_Path);
+	angel_borde_red_texture = app->tex->Load(angel_borde_red_texture_Path);
+	angel_borde_yellow_texture = app->tex->Load(angel_borde_yellow_texture_Path);
 
 
 
@@ -67,11 +84,31 @@ bool Angel::Start() {
 
 	currentAnimation3 = &angel_blue_idle;
 
+	currentAnimation4 = &angel_borde_red_idle;
+
+	currentAnimation5 = &angel_borde_yellow_idle;
+
+	currentAnimation6 = &angel_borde_blue_idle;
+
 	return true;
 }
 
 bool Angel::Update(float dt)
 {
+
+	
+	if (app->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN) {
+		bluebar = true;
+		countBar = 0;
+	}
+
+	if (bluebar) {
+		countBar++;
+		currentAnimation6->Update();
+		if (countBar == 11) {
+			bluebar = false;
+		}
+	}
 
 
 	if (app->scene->GetItem()->victoria && Enter)
@@ -82,7 +119,7 @@ bool Angel::Update(float dt)
 		currentAnimation2 = &angel_yellow_die;
 		currentAnimation3 = &angel_blue_die;
 		Enter = false;
-		
+
 	}
 	else if (app->scene->GetBoss()->inBossBattle && Enter) {
 		currentAnimation1 = &angel_red_start;
@@ -100,7 +137,7 @@ bool Angel::Update(float dt)
 		currentAnimation1 = &angel_red_idle;
 		currentAnimation2 = &angel_yellow_idle;
 		currentAnimation3 = &angel_blue_idle;
-
+		app->scene->GetBossItem()->crearBall = true;
 		angel_red_start.Reset();
 		angel_yellow_start.Reset();
 		angel_blue_start.Reset();
@@ -108,7 +145,7 @@ bool Angel::Update(float dt)
 
 	}
 
-	
+
 
 	if (currentAnimation1->HasFinished() && currentAnimation1->getNameAnimation() == "angel_all_die") {
 		deleteAngel = true;
@@ -137,6 +174,18 @@ bool Angel::Update(float dt)
 	}
 
 
+	rect_4 = currentAnimation4->GetCurrentFrame();
+	app->render->DrawTexture(angel_borde_red_texture, 1573, 770, 2, SDL_FLIP_NONE, &rect_4);
+	currentAnimation4->Update();
+	rect_5 = currentAnimation5->GetCurrentFrame();
+	app->render->DrawTexture(angel_borde_yellow_texture, 1923, 770, 2, SDL_FLIP_NONE, &rect_5);
+	currentAnimation5->Update();
+
+	rect_6 = currentAnimation6->GetCurrentFrame();
+	app->render->DrawTexture(angel_borde_blue_texture, 2273, 770, 2, SDL_FLIP_NONE, &rect_6);
+
+
+
 
 	return true;
 }
@@ -145,6 +194,7 @@ bool Angel::CleanUp()
 {
 	return true;
 }
+
 
 
 void Angel::OnCollision(PhysBody* physA, PhysBody* physB) {

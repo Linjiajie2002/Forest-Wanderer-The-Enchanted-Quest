@@ -88,7 +88,7 @@ bool Scene::Awake(pugi::xml_node& config)
 
 	for (pugi::xml_node itemNode = config.child("bossitem"); itemNode; itemNode = itemNode.next_sibling("bossitem"))
 	{
-		BossItem* bossitem = (BossItem*)app->entityManager->CreateEntity(EntityType::BOSSITEM);
+		bossitem = (BossItem*)app->entityManager->CreateEntity(EntityType::BOSSITEM);
 		bossitem->parameters = itemNode;
 	}
 
@@ -245,6 +245,11 @@ Angel* Scene::GetAngel()
 Item* Scene::GetItem()
 {
 	return item;
+}
+
+BossItem* Scene::GetBossItem()
+{
+	return bossitem;
 }
 
 bool Scene::LoadState(pugi::xml_node node) {

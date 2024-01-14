@@ -14,6 +14,7 @@
 
 #include "List.h"
 #include <random>
+#include <cstdlib>
 
 
 BossItem::BossItem() : Entity(EntityType::BOSSITEM)
@@ -40,10 +41,12 @@ bool BossItem::Awake() {
 
 bool BossItem::Start() {
 	ball_blue_texture = app->tex->Load(ball_blue_texture_Path);
-
-
 	currentAnimation1 = &ball_blue_start;
 
+	pbody = app->physics->CreateCircle(energyPos_X + 52, energyPos_Y + 52, 28, bodyType::STATIC);
+	pbody->ctype = ColliderType::ENERGYBALL;
+	pbody->body->SetFixedRotation(true);
+	pbody->listener = this;
 
 
 	return true;
@@ -53,31 +56,28 @@ bool BossItem::Update(float dt)
 {
 	/*currentAnimation1 = &ball_blue_running;*/
 
-	rect_1 = currentAnimation1->GetCurrentFrame();
 
-	iPoint p1 = iPoint(100, 100);
-	iPoint p2 = iPoint(400, 300); 
-	iPoint p3 = iPoint(700, 100); 
+	if (crearBall)ballPosition = randPosition(), crearBall = false, deleteBall.Start();
 
-	double t = 0.5;  
 
-	iPoint result;
-	calculateNURBS(p1, p2, p3, t, &result);
-	
-	//printf("x: %d, y: %d\n", result.x, result.y);
-	/*
-	printf("x: %d, y: %d\n", p1.x, p1.y);
-	*/
+	if (ballPosition.x > 0 && ballPosition.y > 0 && timeWait.ReadMSec() > 2000) {
+		randCreatEnergyBall(ballPosition);
+	}
 
-	app->render->DrawTexture(ball_blue_texture, result_x, result_y, 0.4, SDL_FLIP_NONE, &rect_1);
-
-	currentAnimation1->Update();
 
 
 	if (app->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN) {
 		currentAnimation1->Reset();
 		currentAnimation1 = &ball_blue_end;
 	}
+
+	if (deleteBall.ReadMSec() >= 7000) {
+		deleteBall.Start();
+		currentAnimation1->Reset();
+		currentAnimation1 = &ball_blue_end;
+	}
+
+
 
 	if (currentAnimation1->HasFinished())
 	{
@@ -90,6 +90,8 @@ bool BossItem::Update(float dt)
 		if (currentAnimation1->getNameAnimation() == "ball_blue_end") {
 			currentAnimation1->Reset();
 			currentAnimation1 = &ball_blue_start;
+			crearBall = true;
+			timeWait.Start();
 		}
 	}
 
@@ -101,18 +103,47 @@ bool BossItem::CleanUp()
 	return true;
 }
 
-void BossItem::calculateNURBS(iPoint p1, iPoint p2, iPoint p3, double t, iPoint* result) {
-	// Implementation of calculateNURBS
-	double N1 = (1 - t) * (1 - t);
-	double N2 = 2 * t * (1 - t);
-	double N3 = t * t;
 
-	result->x = N1 * p1.x + N2 * p2.x + N3 * p3.x;
-	result->y = N1 * p1.y + N2 * p2.y + N3 * p3.y;
+
+
+
+void BossItem::randCreatEnergyBall(iPoint ballPosition, int tipo)
+{
+
+	rect_1 = currentAnimation1->GetCurrentFrame();
+
+	if (tipo == 0) {
+		app->render->DrawTexture(ball_blue_texture, ballPosition.x, ballPosition.y, 0.4, SDL_FLIP_NONE, &rect_1);
+	}
+	//else if (tipo == 1) {
+	//	app->render->DrawTexture(ball_red_texture, ballPosition.x, ballPosition.y, 0.4, SDL_FLIP_NONE, &rect_1);
+	//}
+	//else {
+	//	app->render->DrawTexture(ball_yello_texture, ballPosition.x, ballPosition.y, 0.4, SDL_FLIP_NONE, &rect_1);
+	//}
+
+
+	currentAnimation1->Update();
+
+
+
 }
 
+iPoint BossItem::randPosition()
+{
 
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<> dis_X(1440, 2400);
+	std::uniform_int_distribution<> dis_Y(896, 1088);
 
+	iPoint Result;
+
+	Result.x = dis_X(gen);
+	Result.y = dis_Y(gen);
+
+	return Result;
+}
 
 void BossItem::OnCollision(PhysBody* physA, PhysBody* physB) {
 

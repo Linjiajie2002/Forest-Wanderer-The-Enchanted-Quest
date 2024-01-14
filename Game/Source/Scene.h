@@ -10,6 +10,7 @@
 #include "PlayerLife.h"
 #include "Angel.h"
 #include "Item.h"
+#include "BossItem.h"
 
 struct SDL_Texture;
 
@@ -49,6 +50,7 @@ public:
 	PlayerLife* GetPlayerLife();
 	Angel* GetAngel();
 	Item* GetItem();
+	BossItem* GetBossItem();
 
 	bool LoadState(pugi::xml_node node);
 
@@ -66,6 +68,7 @@ private:
 	PlayerLife* playerlife;
 	Angel*angel;
 	Item* item;
+	BossItem* bossitem;
 public:
 
 	SDL_Texture* Pathfindingtexture;

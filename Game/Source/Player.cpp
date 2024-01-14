@@ -79,7 +79,6 @@ bool Player::Awake() {
 bool Player::Start() {
 
 
-	printf("start");
 	//initilize textures
 	texture = app->tex->Load(texturePath);
 
@@ -96,7 +95,7 @@ bool Player::Start() {
 	escudo = app->audio->LoadFx(parameters.child("escudo").attribute("texturepath").as_string());
 	finallevel = app->audio->LoadFx(parameters.child("finallevel").attribute("texturepath").as_string());
 	intro = app->audio->LoadFx(parameters.child("intro").attribute("texturepath").as_string());
-	app->audio->PlayFx(intro);
+	//app->audio->PlayFx(intro);
 
 	currentAnimation = &idle;
 	pbody->body->SetFixedRotation(true);

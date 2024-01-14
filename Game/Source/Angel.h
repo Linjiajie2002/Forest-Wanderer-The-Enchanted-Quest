@@ -40,6 +40,8 @@ public:
 	Animation* currentAnimation2 = nullptr;
 	Animation* currentAnimation3 = nullptr;
 	Animation* currentAnimation4 = nullptr;
+	Animation* currentAnimation5 = nullptr;
+	Animation* currentAnimation6 = nullptr;
 
 	Animation angel_blue_start;
 	Animation angel_blue_idle;
@@ -56,10 +58,9 @@ public:
 
 
 
-	Animation angel_blue_bar;
-
-	
-
+	Animation angel_borde_red_idle;
+	Animation angel_borde_yellow_idle;
+	Animation angel_borde_blue_idle;
 
 
 
@@ -76,6 +77,8 @@ public:
 
 	int attackMethod = 1;
 
+	bool bluebar = false;
+	int countBar = 0;
 	//Atack 1
 	bool getPlayerPosition = false;
 	int player_x;
@@ -112,12 +115,18 @@ private:
 	SDL_Texture* angel_blue_texture;
 	SDL_Texture* angel_red_texture;
 	SDL_Texture* angel_yellow_texture;
-	SDL_Texture* boss_atack_4_texture;
+
+	SDL_Texture* angel_borde_blue_texture;
+	SDL_Texture* angel_borde_red_texture;
+	SDL_Texture* angel_borde_yellow_texture;
 
 	const char* angel_blue_texture_Path;
 	const char* angel_red_texture_Path;
 	const char* angel_yellow_texture_Path;
-	const char* boss_atack_4_texture_Path;
+
+	const char* angel_borde_blue_texture_Path;
+	const char* angel_borde_red_texture_Path;
+	const char* angel_borde_yellow_texture_Path;
 
 
 
@@ -125,7 +134,8 @@ private:
 	SDL_Rect rect_2;
 	SDL_Rect rect_3;
 	SDL_Rect rect_4;
-
+	SDL_Rect rect_5;
+	SDL_Rect rect_6;
 
 	SDL_Texture* Pathfindingtexture;
 	const char* PathfindingPath;

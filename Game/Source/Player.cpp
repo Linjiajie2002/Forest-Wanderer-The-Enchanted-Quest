@@ -426,6 +426,10 @@ bool Player::CleanUp()
 
 	printf("\nPlayerX: %d", position.x);
 	printf("\nPlayerY: %d", position.y);
+
+	app->physics->GetWorld()->DestroyBody(pbody->body);
+	SDL_DestroyTexture(texture);
+
 	return true;
 }
 

@@ -36,12 +36,7 @@ bool Scene::Awake(pugi::xml_node& config)
 
 	// iterate all objects in the scene
 	// Check https://pugixml.org/docs/quickstart.html#access
-	for (pugi::xml_node itemNode = config.child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
-	{
-		item = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
-		item->parameters = itemNode;
-	}
-	
+
 	
 
 	//Add itembox
@@ -50,6 +45,7 @@ bool Scene::Awake(pugi::xml_node& config)
 		ItemBox* itembox = (ItemBox*)app->entityManager->CreateEntity(EntityType::ITEMBOX);
 		itembox->parameters = itemNode;
 	}
+
 
 	for (pugi::xml_node itemNode = config.child("shop"); itemNode; itemNode = itemNode.next_sibling("shop"))
 	{
@@ -80,10 +76,13 @@ bool Scene::Awake(pugi::xml_node& config)
 	}
 
 
-	for (pugi::xml_node itemNode = config.child("boss"); itemNode; itemNode = itemNode.next_sibling("boss"))
+
+	
+
+	for (pugi::xml_node itemNode = config.child("angel"); itemNode; itemNode = itemNode.next_sibling("angel"))
 	{
-		boss = (Boss*)app->entityManager->CreateEntity(EntityType::BOSS);
-		boss->parameters = itemNode;
+		angel = (Angel*)app->entityManager->CreateEntity(EntityType::ANGEL);
+		angel->parameters = itemNode;
 	}
 
 	for (pugi::xml_node itemNode = config.child("bossitem"); itemNode; itemNode = itemNode.next_sibling("bossitem"))
@@ -92,10 +91,10 @@ bool Scene::Awake(pugi::xml_node& config)
 		bossitem->parameters = itemNode;
 	}
 
-	for (pugi::xml_node itemNode = config.child("angel"); itemNode; itemNode = itemNode.next_sibling("angel"))
+	for (pugi::xml_node itemNode = config.child("boss"); itemNode; itemNode = itemNode.next_sibling("boss"))
 	{
-		angel = (Angel*)app->entityManager->CreateEntity(EntityType::ANGEL);
-		angel->parameters = itemNode;
+		boss = (Boss*)app->entityManager->CreateEntity(EntityType::BOSS);
+		boss->parameters = itemNode;
 	}
 
 
@@ -104,6 +103,13 @@ bool Scene::Awake(pugi::xml_node& config)
 		playerlife = (PlayerLife*)app->entityManager->CreateEntity(EntityType::PLAYERLIFE);
 		playerlife->parameters = itemNode;
 	}
+
+	for (pugi::xml_node itemNode = config.child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
+	{
+		item = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
+		item->parameters = itemNode;
+	}
+	
 
 
 	//Add effect

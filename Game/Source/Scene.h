@@ -61,10 +61,10 @@ private:
 	float textPosX, textPosY = 0;
 	uint texW, texH;
 	uint windowW, windowH;
-	Player* player;
+	Player* player = new Player;
 	Enemy_Goblin* enemy_goblin;
 	Effect* effect;
-	Boss* boss;
+	Boss* boss = new Boss;
 	PlayerLife* playerlife;
 	Angel*angel;
 	Item* item;

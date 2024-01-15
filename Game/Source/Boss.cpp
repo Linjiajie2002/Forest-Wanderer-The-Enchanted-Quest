@@ -218,13 +218,21 @@ bool Boss::CleanUp()
 void Boss::boss_atack_1(int player_x)
 {
 
-
 	if (player_x != 0 && player_x > 1300) {
 		//printf("\n%d ", player_x);
 		rect_1 = currentAnimation1->GetCurrentFrame();
 		app->render->DrawTexture(boss_atack_1_texture, player_x - 200, 590, 1, SDL_FLIP_NONE, &rect_1);
 		currentAnimation1->Update();
 	}
+	//if (crearCollision) {
+	//	pbody = app->physics->CreateRectangleSensor(1920, 850, 28,29, bodyType::STATIC);
+	//	pbody->ctype = ColliderType::ENERGYBALL;
+	//	pbody->body->SetFixedRotation(true);
+	//	pbody->listener = this;
+	//	crearCollision = false;
+
+	//}
+
 }
 
 void Boss::boss_atack_2(bool inversaAtack, int numberAtack)

@@ -42,6 +42,8 @@ bool Map::Awake(pugi::xml_node& config)
 
 	mapFolder = config.child("mapfolder").attribute("path").as_string();
 
+
+
 	if (LevelMap == 1) {
 		mapFileName = mapFileNameMapa1;
 	}
@@ -815,10 +817,8 @@ bool Map::LoadCollision(std::string layerName) {
 					}
 					/*else {
 						
-						if (gid == tileset->firstgid + 10) {
-							PhysBody* c1 = app->physics->CreateRectangleSensor(pos.x, pos.y + 16, 32, 32, STATIC);
-							c1->ctype = ColliderType::UNKNOWN;
-						}
+						CleanUp();
+
 					}*/
 
 

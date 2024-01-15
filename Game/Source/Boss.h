@@ -105,6 +105,7 @@ public:
 	bool inBossBattle = false;
 	bool tpToinBossBattle = false;
 
+	bool crearCollision = false;
 
 
 private:

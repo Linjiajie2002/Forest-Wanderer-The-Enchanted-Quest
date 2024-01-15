@@ -25,25 +25,133 @@
 	</audio>
 
 	<scene>
-		<player x="40" y="1100" speed="0.4f" crouchspeed="0.1f" jumpforce="15" texturepath="Assets/Sprite/Player/Player.png" >
+		<nivel_1>
 
-			<!--x="40" y="1100"-->
-			<animations Tsprite="374" x="288" y="128" Pweight="6336"/>
-			<!--<animations Tsprite="133" x="50" y="37" Pweight="350"/> -->
+			<shop Posx="120" Posy="985" Tsprite="6" x="118" y="128" Pweight="340" texturepath="Assets/Shop/Shop.png"/>
+			<player x="40" y="1100" speed="0.4f" crouchspeed="0.1f" jumpforce="15" texturepath="Assets/Sprite/Player/Player.png"  >
 
-			<salto texturepath="Assets/Audio/Fx/SALTO_PR.ogg"/>
-			<finallevel texturepath="Assets/Audio/Fx/FINALLEVEL_PR.ogg"/>
-			<escudo texturepath="Assets/Audio/Fx/ESCUDO.ogg"/>
-			<intro texturepath="Assets/Audio/Fx/INTRO.ogg"/>
+				<!--x="40" y="1100"-->
+				<animations Tsprite="374" x="288" y="128" Pweight="6336"/>
+				<!--<animations Tsprite="133" x="50" y="37" Pweight="350"/> -->
+
+				<salto texturepath="Assets/Audio/Fx/SALTO_PR.ogg"/>
+				<finallevel texturepath="Assets/Audio/Fx/FINALLEVEL_PR.ogg"/>
+				<escudo texturepath="Assets/Audio/Fx/ESCUDO.ogg"/>
+				<intro texturepath="Assets/Audio/Fx/INTRO.ogg"/>
+			</player>
+
+			<item>
+				<Diamond Posx="150" Posy="950" Tsprite="6" Pweight="192" x="32" y="32" texturepath="Assets\Sprite\Mapa2\Diamond.png"/>
+				<Diamond_Counter Posx="150" Posy="950" Tsprite="8" Pweight="192" x="114" y="40" texturepath="Assets\Sprite\Mapa2\Diamond_Counter.png"/>
+			</item>
+
+			<enemy>
+				<Enemy_Flyeye Posx="960" Posy="416" Tsprite="32" x="150" y="150" Pweight="1200" Area_Limit_L="800" Area_Limit_R="1184" life="3" speed ="0.2" texturepath="Assets/Sprite/Enemy/Fly_eye/Flyeye.png"/>
+
+				<Enemy_Flyeye Posx="4992" Posy="672" Tsprite="32" x="150" y="150" Pweight="1200" Area_Limit_L="4704" Area_Limit_R="5216" life="3" speed ="0.2" texturepath="Assets/Sprite/Enemy/Fly_eye/Flyeye.png"/>
+
+				<!--
+			<Enemy_Goblin Posx="800" Posy="1100" Tsprite="40" x="150" y="150" Pweight="1200" speed ="0.4" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png"/>
+			<Enemy_Goblin Posx="790" Posy="1100" Tsprite="40" x="150" y="150" Pweight="1200" speed ="0.4" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png"/>
+			-->
+
+				<Enemy_Goblin Posx="3360" Posy="224" Tsprite="40" x="150" y="150" Pweight="1200" Area_Limit_L="3328" Area_Limit_R="3712" life="3" speed ="0.4" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png">
+					<deadenemy texturepath="Assets/Audio/Fx/DEADENEMY_PR.ogg"/>
+
+				</Enemy_Goblin>
+
+
+				<Enemy_Goblin Posx="4648" Posy="1312" Tsprite="40" x="150" y="150" Pweight="1200" Area_Limit_L="3936" Area_Limit_R="5120" life="3" speed ="0.4" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png">
+					<deadenemy texturepath="Assets/Audio/Fx/DEADENEMY_PR.ogg"/>
+
+				</Enemy_Goblin>
 
 
 
-		</player>
+				<Enemy_Goblin Posx="4438" Posy="1212" Tsprite="40" x="150" y="150" Pweight="1200" Area_Limit_L="3936" Area_Limit_R="5120" life="3" speed ="0.4" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png">
+					<deadenemy texturepath="Assets/Audio/Fx/DEADENEMY_PR.ogg"/>
 
-		<item>
-			<Diamond Posx="150" Posy="950" Tsprite="6" Pweight="192" x="32" y="32" texturepath="Assets\Sprite\Mapa2\Diamond.png"/>
-			<Diamond_Counter Posx="150" Posy="950" Tsprite="8" Pweight="192" x="114" y="40" texturepath="Assets\Sprite\Mapa2\Diamond_Counter.png"/>
-		</item>
+				</Enemy_Goblin>
+
+				
+				<Pathfinding texturepath="Assets/Maps/pathfinding.png"/>
+
+				<effect>
+					<animations1 Tsprite="16" x="48" y="48" Pweight="768" texturepath="Assets/Effecto/Die/Revive.png"/>
+					<animations2 Tsprite="26" x="90" y="115" Pweight="450" texturepath="Assets/Effecto/Die/Die.png"/>
+					<animations3 Tsprite="28" x="384" y="384" Pweight="3840" texturepath="Assets/Sprite/Mapa2/LastEffect.png"/>
+					<animations4 Tsprite="20" x="96" y="80" Pweight="384" texturepath="Assets/Effecto/Gravity-SpriteSheet.png"/> 
+				</effect>
+			</enemy>
+			<playerlife>
+				<lifebar_head_tail Posx="150" Posy="570" Tsprite="64" Pweight="144" x="18" y="18" texturepath="Assets\Effecto\LifeBar\lifebar_head_tail.png"/>
+				<lifebar_mid Posx="150" Posy="570" Tsprite="56" Pweight="120" x="15" y="18" texturepath="Assets\Effecto\LifeBar\lifebar_mid.png"/>
+				<lifebar_glass Posx="150" Posy="570" Tsprite="8" Pweight="680" x="85" y="110" texturepath="Assets\Effecto\LifeBar\glass.png"/>
+			</playerlife>
+		</nivel_1>
+
+		<nivel_2>
+			<shop Posx="120" Posy="985" Tsprite="6" x="118" y="128" Pweight="340" texturepath="Assets/Shop/Shop.png"/>
+			<player x="40" y="1100" speed="0.4f" crouchspeed="0.1f" jumpforce="15" texturepath="Assets/Sprite/Player/Player.png" >
+
+				<!--x="40" y="1100"-->
+				<animations Tsprite="374" x="288" y="128" Pweight="6336"/>
+				<!--<animations Tsprite="133" x="50" y="37" Pweight="350"/> -->
+
+				<salto texturepath="Assets/Audio/Fx/SALTO_PR.ogg"/>
+				<finallevel texturepath="Assets/Audio/Fx/FINALLEVEL_PR.ogg"/>
+				<escudo texturepath="Assets/Audio/Fx/ESCUDO.ogg"/>
+				<intro texturepath="Assets/Audio/Fx/INTRO.ogg"/>
+			</player>
+
+			<item>
+				<Diamond Posx="150" Posy="950" Tsprite="6" Pweight="192" x="32" y="32" texturepath="Assets\Sprite\Mapa2\Diamond.png"/>
+				<Diamond_Counter Posx="150" Posy="950" Tsprite="8" Pweight="192" x="114" y="40" texturepath="Assets\Sprite\Mapa2\Diamond_Counter.png"/>
+			</item>
+			<Pathfinding texturepath="Assets/Maps/pathfinding.png"/>
+			<effect>
+				<animations1 Tsprite="16" x="48" y="48" Pweight="768" texturepath="Assets/Effecto/Die/Revive.png"/>
+				<animations2 Tsprite="26" x="90" y="115" Pweight="450" texturepath="Assets/Effecto/Die/Die.png"/>
+				<animations3 Tsprite="28" x="384" y="384" Pweight="3840" texturepath="Assets/Sprite/Mapa2/LastEffect.png"/>
+				<animations4 Tsprite="20" x="96" y="80" Pweight="384" texturepath="Assets/Effecto/Gravity-SpriteSheet.png"/>
+			</effect>
+
+
+			<boss>
+				<boss_real texturepath="Assets\Sprite\Boss\use\pathfinding.png"/>
+				<boss_atack>
+					<atack1 Posx="150" Posy="570" Tsprite="58" Pweight="7680" x="512" y="640" texturepath="Assets\Sprite\Boss\use\boss_atack1.png"/>
+					<atack2 Posx="150" Posy="650" Tsprite="25" Pweight="3200" x="320" y="512" texturepath="Assets\Sprite\Boss\use\boss_atack2.png"/>
+					<atack3 Posx="150" Posy="650" Tsprite="22" Pweight="4224" x="384" y="256" texturepath="Assets\Sprite\Boss\use\boss_atack3.png"/>
+					<atack4 Posx="150" Posy="650" Tsprite="48" Pweight="4096" x="256" y="256" texturepath="Assets\Sprite\Boss\use\boss_atack4.png"/>
+				</boss_atack>
+			</boss>
+			<bossitem>
+				<boss_ball>
+					<ball_blue Posx="150" Posy="570" Tsprite="60" Pweight="2560" x="256" y="256" texturepath="Assets\Sprite\Boss\item\ball_blue.png"/>
+				</boss_ball>
+			</bossitem>
+
+			<angel>
+				<angel_all Posx="150" Posy="570" Tsprite="55" Pweight="3840" x="256" y="384">
+					<angel_texture1 texturepath="Assets\Sprite\Angel\blue.png"/>
+					<angel_texture2 texturepath="Assets\Sprite\Angel\red.png"/>
+					<angel_texture3 texturepath="Assets\Sprite\Angel\yellow.png"/>
+				</angel_all>
+
+				<borde Posx="150" Posy="570" Tsprite="6" Pweight="252" x="42" y="11">
+					<angel_texture1 texturepath="Assets\Sprite\Angel\blue_bar.png"/>
+					<angel_texture2 texturepath="Assets\Sprite\Angel\red_bar.png"/>
+					<angel_texture3 texturepath="Assets\Sprite\Angel\yellow_bar.png"/>
+				</borde>
+			</angel>
+			<playerlife>
+				<lifebar_head_tail Posx="150" Posy="570" Tsprite="64" Pweight="144" x="18" y="18" texturepath="Assets\Effecto\LifeBar\lifebar_head_tail.png"/>
+				<lifebar_mid Posx="150" Posy="570" Tsprite="56" Pweight="120" x="15" y="18" texturepath="Assets\Effecto\LifeBar\lifebar_mid.png"/>
+				<lifebar_glass Posx="150" Posy="570" Tsprite="8" Pweight="680" x="85" y="110" texturepath="Assets\Effecto\LifeBar\glass.png"/>
+			</playerlife>
+
+		</nivel_2>
 
 
 		<itembox x="50" y="1100" texturepath="Assets/Item/ItemBox.png">
@@ -51,86 +159,15 @@
 		</itembox>
 
 
-		<enemy>
-			<Enemy_Flyeye Posx="960" Posy="416" Tsprite="32" x="150" y="150" Pweight="1200" Area_Limit_L="800" Area_Limit_R="1184" life="3" speed ="0.2" texturepath="Assets/Sprite/Enemy/Fly_eye/Flyeye.png"/>
-
-			<Enemy_Flyeye Posx="4992" Posy="672" Tsprite="32" x="150" y="150" Pweight="1200" Area_Limit_L="4704" Area_Limit_R="5216" life="3" speed ="0.2" texturepath="Assets/Sprite/Enemy/Fly_eye/Flyeye.png"/>
-
-			<!--
-			<Enemy_Goblin Posx="800" Posy="1100" Tsprite="40" x="150" y="150" Pweight="1200" speed ="0.4" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png"/>
-			<Enemy_Goblin Posx="790" Posy="1100" Tsprite="40" x="150" y="150" Pweight="1200" speed ="0.4" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png"/>
-			-->
-
-			<Enemy_Goblin Posx="3360" Posy="224" Tsprite="40" x="150" y="150" Pweight="1200" Area_Limit_L="3328" Area_Limit_R="3712" life="3" speed ="0.4" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png">
-				<deadenemy texturepath="Assets/Audio/Fx/DEADENEMY_PR.ogg"/>
-
-			</Enemy_Goblin>
-
-
-			<Enemy_Goblin Posx="4648" Posy="1312" Tsprite="40" x="150" y="150" Pweight="1200" Area_Limit_L="3936" Area_Limit_R="5120" life="3" speed ="0.4" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png">
-				<deadenemy texturepath="Assets/Audio/Fx/DEADENEMY_PR.ogg"/>
-
-			</Enemy_Goblin>
-
-
-
-			<Enemy_Goblin Posx="4438" Posy="1212" Tsprite="40" x="150" y="150" Pweight="1200" Area_Limit_L="3936" Area_Limit_R="5120" life="3" speed ="0.4" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png">
-				<deadenemy texturepath="Assets/Audio/Fx/DEADENEMY_PR.ogg"/>
-
-			</Enemy_Goblin>
-
-
-			<Pathfinding texturepath="Assets/Maps/pathfinding.png"/>
-		</enemy>
-
-
-		<effect>
-			<animations1 Tsprite="16" x="48" y="48" Pweight="768" texturepath="Assets/Effecto/Die/Revive.png"/>
-			<animations2 Tsprite="26" x="90" y="115" Pweight="450" texturepath="Assets/Effecto/Die/Die.png"/>
-			<animations3 Tsprite="28" x="384" y="384" Pweight="3840" texturepath="Assets/Sprite/Mapa2/LastEffect.png"/>
-			<animations4 Tsprite="20" x="96" y="80" Pweight="384" texturepath="Assets/Effecto/Gravity-SpriteSheet.png"/>
-			
-			
-		</effect>
-
-		<shop Posx="120" Posy="985" Tsprite="6" x="118" y="128" Pweight="340" texturepath="Assets/Shop/Shop.png"/>
-
-		<boss>
-			<boss_real texturepath="Assets\Sprite\Boss\use\pathfinding.png"/>
-			<boss_atack>
-				<atack1 Posx="150" Posy="570" Tsprite="58" Pweight="7680" x="512" y="640" texturepath="Assets\Sprite\Boss\use\boss_atack1.png"/>
-				<atack2 Posx="150" Posy="650" Tsprite="25" Pweight="3200" x="320" y="512" texturepath="Assets\Sprite\Boss\use\boss_atack2.png"/>
-				<atack3 Posx="150" Posy="650" Tsprite="22" Pweight="4224" x="384" y="256" texturepath="Assets\Sprite\Boss\use\boss_atack3.png"/>
-				<atack4 Posx="150" Posy="650" Tsprite="48" Pweight="4096" x="256" y="256" texturepath="Assets\Sprite\Boss\use\boss_atack4.png"/>
-			</boss_atack>
-		</boss>
-		<bossitem>
-			<boss_ball>
-				<ball_blue Posx="150" Posy="570" Tsprite="60" Pweight="2560" x="256" y="256" texturepath="Assets\Sprite\Boss\item\ball_blue.png"/>
-			</boss_ball>
-		</bossitem>
-
-		<angel>
-			<angel_all Posx="150" Posy="570" Tsprite="55" Pweight="3840" x="256" y="384">
-				<angel_texture1 texturepath="Assets\Sprite\Angel\blue.png"/>
-				<angel_texture2 texturepath="Assets\Sprite\Angel\red.png"/>
-				<angel_texture3 texturepath="Assets\Sprite\Angel\yellow.png"/>
-			</angel_all>
-
-			<borde Posx="150" Posy="570" Tsprite="6" Pweight="252" x="42" y="11">
-				<angel_texture1 texturepath="Assets\Sprite\Angel\blue_bar.png"/>
-				<angel_texture2 texturepath="Assets\Sprite\Angel\red_bar.png"/>
-				<angel_texture3 texturepath="Assets\Sprite\Angel\yellow_bar.png"/>
-			</borde>
-
-		</angel>
 		
+
+
 		
-		<playerlife>
-			<lifebar_head_tail Posx="150" Posy="570" Tsprite="64" Pweight="144" x="18" y="18" texturepath="Assets\Effecto\LifeBar\lifebar_head_tail.png"/>
-			<lifebar_mid Posx="150" Posy="570" Tsprite="56" Pweight="120" x="15" y="18" texturepath="Assets\Effecto\LifeBar\lifebar_mid.png"/>
-			<lifebar_glass Posx="150" Posy="570" Tsprite="8" Pweight="680" x="85" y="110" texturepath="Assets\Effecto\LifeBar\glass.png"/>
-		</playerlife>
+
+		
+
+
+
 
 
 	</scene>
@@ -144,45 +181,29 @@
 			<angel_all_die start="36" end="55" speed="0.2f" loop="false"/>
 			<angel_all_bar start="0" end="1" speed="0.2f" loop="true"/>
 
-			<!--
-			<angel_blue_start start="0" end="20" speed="0.2f" loop="false"/>
-			<angel_blue_idle start="20" end="35" speed="0.2f" loop="true"/>
-			<angel_blue_die start="36" end="55" speed="0.2f" loop="false"/>
-			<angel_blue_bar start="0" end="1" speed="0.2f" loop="true"/>
-
-			<angel_yellow_start start="0" end="20" speed="0.1f" loop="false"/>
-			<angel_yellow_idle start="20" end="35" speed="0.1f" loop="true"/>
-			<angel_yellow_die start="36" end="55" speed="0.1f" loop="false"/>
-			<angel_yellow_bar start="0" end="1" speed="0.1f" loop="true"/>
-
-			<angel_red_start start="0" end="20" speed="0.1f" loop="false"/>
-			<angel_red_idle start="20" end="35" speed="0.1f" loop="true"/>
-			<angel_red_die start="36" end="55" speed="0.1f" loop="false"/>
-			<angel_red_bar start="0" end="1" speed="0.1f" loop="true"/>
-			-->
 		</angel>
-		
+
 		<angel_borde>
 			<angel_borde_blue start="0" end="6" speed="0.1f" loop="true"/>
 		</angel_borde>
-		
+
 		<PlayerLife_head>
 			<Head_idle start="0" end="1" speed="0.1f" loop="true"/>
 			<Head_die start="1" end="3" speed="0.2f" loop="false"/>
 			<Head_treatment start="9" end="14" speed="0.2f" loop="false"/>
-			
+
 			<Head_takehit start="17" end="24" speed="0.2f" loop="false"/>
-			
+
 			<Tail_idle start="24" end="25" speed="0.1f" loop="true"/>
 			<Tail_idle_nb start="32" end="33" speed="0.1f" loop="false"/>
 			<Tail_die start="25" end="27" speed="0.2f" loop="false"/>
 			<Tail_treatment_ab start="33" end="38" speed="0.2f" loop="false"/>
 			<Tail_treatment_nb start="41" end="46" speed="0.2f" loop="false"/>
-			
+
 			<Tail_takehit_ab start="49" end="56" speed="0.2f" loop="false"/>
 			<Tail_takehit_nb start="57" end="64" speed="0.2f" loop="false"/>
 		</PlayerLife_head>
-			
+
 		<PlayerLife_mid>
 			<Middle_idle start="0" end="1" speed="0.1f" loop="true"/>
 			<Middle_idle_nb start="17" end="18" speed="0.2f" loop="false"/>
@@ -198,8 +219,8 @@
 			<lifebar_glass_idle start="0" end="1" speed="0.1f" loop="true"/>
 			<lifebar_glass_broke start="0" end="8" speed="0.2f" loop="false"/>
 		</PlayerLife_mid>
-		
-		
+
+
 		<Boss>
 			<atack_1 start="0" end="58" speed="0.3f" loop="false"/>
 			<atack_2 start="0" end="25" speed="0.2f" loop="false"/>

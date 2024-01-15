@@ -85,6 +85,8 @@ public:
 	bool allPrint = false;
 	int distancia = 0;
 
+	int aumentaDistanciaColison = 0;
+	int aumentaDistanciaColison_suport = 0;
 	//Atack3
 	bool direction_Atack = false;
 
@@ -98,6 +100,8 @@ public:
 	int atack4_posY;
 
 
+	int atack2_posY;
+
 	Player* player;
 
 	int deadenemy;
@@ -108,9 +112,20 @@ public:
 	bool crearCollision = false;
 
 	Timer atack1_Collision;
+	
+	List<Timer> atack2_Collision;
 
 	bool atackTouch = false;
 
+	struct PhysBodyWithTimer {
+		PhysBody* pbody2;
+		Timer timer;
+
+		// Constructor para facilitar la creaci¨®n
+		PhysBodyWithTimer(PhysBody* pb) : pbody2(pb) {}
+	};
+
+	std::vector<PhysBodyWithTimer> physBodiesWithTimers;
 private:
 
 	SDL_Texture* boss_atack_1_texture;
@@ -134,7 +149,8 @@ private:
 	SDL_Texture* Pathfindingtexture;
 	const char* PathfindingPath;
 	PhysBody* pbody;
-	PhysBody* pbody1;
+	PhysBody* pbody2;
+	std::vector<PhysBody*> physBodies;
 };
 
 #endif // __ITEM_H__

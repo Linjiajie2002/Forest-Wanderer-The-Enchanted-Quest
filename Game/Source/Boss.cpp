@@ -123,6 +123,7 @@ bool Boss::Update(float dt)
 
 	}
 
+
 	if (inBossBattle && attackMethod == 1) {
 		if (getPlayerPosition) {
 			player_x = app->scene->GetPlayer()->position.x;
@@ -151,7 +152,7 @@ bool Boss::Update(float dt)
 		if (getPlayerPosition) {
 			player_x = app->scene->GetPlayer()->position.x;
 			getPlayerPosition = false;
-
+			atack1_Collision.Start();
 		}
 		if (player_x > 1899) {
 			direction_Atack = true;
@@ -164,6 +165,10 @@ bool Boss::Update(float dt)
 			if (maxNumAtack < numeroAtack) {
 				maxNumAtack++;
 				atack2_generAtack.Start();
+				crearCollision = true;
+				aumentaDistanciaColison = aumentaDistanciaColison_suport * 195;
+				aumentaDistanciaColison_suport++;
+
 			}
 			else {
 				allPrint = true;
@@ -183,9 +188,28 @@ bool Boss::Update(float dt)
 		for (int i = 0; i < numeroAtack; i++)
 		{
 			atack_2[i].Reset();
+
+
 		}
+
+		for (auto& body : physBodies) {
+			if (body != nullptr) {
+				body->body->GetWorld()->DestroyBody(body->body);
+				delete body;
+				body = nullptr;
+
+			}
+		}
+
+		physBodies.clear();
+
+		app->scene->GetPlayerLife()->playerTakeBossDmg = false;
+		aumentaDistanciaColison = 0;
+		aumentaDistanciaColison_suport = 0;
 		maxNumAtack = 0;
 		attackMethod = 3;
+
+
 	}
 
 
@@ -195,8 +219,9 @@ bool Boss::Update(float dt)
 			getPlayerPosition = false;
 			atack1_Collision.Start();
 		}
-		boss_atack_3(direction_Atack);
 		crearCollision = true;
+		boss_atack_3(direction_Atack);
+		
 
 	}
 
@@ -263,7 +288,6 @@ void Boss::boss_atack_1(int player_x)
 		rect_1 = currentAnimation1->GetCurrentFrame();
 		app->render->DrawTexture(boss_atack_1_texture, player_x - 200, 590, 1, SDL_FLIP_NONE, &rect_1);
 		currentAnimation1->Update();
-
 		if (atack1_Collision.ReadMSec() >= 1000) {
 			if (pbody == nullptr && crearCollision) {
 				pbody = app->physics->CreateRectangleSensor(player_x + 50, 1080, 300, 150, bodyType::STATIC);
@@ -275,8 +299,6 @@ void Boss::boss_atack_1(int player_x)
 		}
 	}
 
-
-
 }
 
 void Boss::boss_atack_2(bool inversaAtack, int numberAtack)
@@ -287,9 +309,54 @@ void Boss::boss_atack_2(bool inversaAtack, int numberAtack)
 	rect_2[numberAtack] = currentAnimation2[numberAtack]->GetCurrentFrame();
 	if (inversaAtack) {
 		app->render->DrawTexture(boss_atack_2_texture, 2150 - distancia, 400, 1.5, SDL_FLIP_NONE, &rect_2[numberAtack]);
+
+
+		if (crearCollision) {
+			pbody2 = app->physics->CreateRectangleSensor(2380 - aumentaDistanciaColison, 900 - atack2_posY, 150, 200, bodyType::DYNAMIC);
+			pbody2->ctype = ColliderType::BOSSATACK;
+			pbody2->body->SetFixedRotation(true);
+			pbody2->listener = this;
+			crearCollision = false;
+			physBodies.push_back(pbody2);
+		
+			
+			physBodiesWithTimers.emplace_back(pbody2);
+		}
+
+		for (auto& physBodyWithTimer : physBodiesWithTimers) {
+			if (physBodyWithTimer.pbody2 != nullptr) {
+				// Verifica si ha pasado suficiente tiempo desde la creaci¨®n
+				if (physBodyWithTimer.timer.ReadMSec() >= 850) {
+					physBodyWithTimer.pbody2->body->SetLinearVelocity(b2Vec2(0, 50));
+				}
+			}
+		}
+
+
 	}
 	else {
 		app->render->DrawTexture(boss_atack_2_texture, 1250 + distancia, 400, 1.5, SDL_FLIP_NONE, &rect_2[numberAtack]);
+
+		if (crearCollision) {
+			pbody2 = app->physics->CreateRectangleSensor(1500 + aumentaDistanciaColison, 900 - atack2_posY, 150, 200, bodyType::DYNAMIC);
+			pbody2->ctype = ColliderType::BOSSATACK;
+			pbody2->body->SetFixedRotation(true);
+			pbody2->listener = this;
+			crearCollision = false;
+			physBodies.push_back(pbody2);
+
+			physBodiesWithTimers.emplace_back(pbody2);
+		}
+
+		for (auto& physBodyWithTimer : physBodiesWithTimers) {
+			if (physBodyWithTimer.pbody2 != nullptr) {
+				// Verifica si ha pasado suficiente tiempo desde la creaci¨®n
+				if (physBodyWithTimer.timer.ReadMSec() >= 850) {
+					physBodyWithTimer.pbody2->body->SetLinearVelocity(b2Vec2(0, 50));
+				}
+			}
+		}
+
 	}
 	currentAnimation2[numberAtack]->Update();
 }
@@ -299,14 +366,17 @@ void Boss::boss_atack_3(bool inversaAtack)
 	rect_3 = currentAnimation3->GetCurrentFrame();
 	if (inversaAtack) {
 		app->render->DrawTexture(boss_atack_3_texture, 1350, 660, 2, SDL_FLIP_NONE, &rect_3);
-
+		
 		if (atack1_Collision.ReadMSec() >= 1200) {
+		
 			if (pbody == nullptr && crearCollision) {
+				printf("entra");
 				pbody = app->physics->CreateRectangleSensor(1870, 1000, 150, 300, bodyType::STATIC);
 				pbody->ctype = ColliderType::BOSSATACK;
 				pbody->body->SetFixedRotation(true);
 				pbody->listener = this;
 				crearCollision = false;
+
 			}
 		}
 	}
@@ -335,22 +405,22 @@ void Boss::boss_atack_4(bool inversaAtack)
 
 	if (inversaAtack) {
 
-	
+
 		if (currentAnimation4->getNameAnimation() == "atack_4_running") {
 			if (pbody != nullptr) {
 				pbody->body->SetLinearVelocity(b2Vec2(8, 0));
-				atack4_posX_R = METERS_TO_PIXELS(pbody->body->GetTransform().p.x)-90;
+				atack4_posX_R = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 90;
 
 			}
 		}
 
-			if (pbody == nullptr && crearCollision) {
-				pbody = app->physics->CreateTriangleSensor(atack4_posX_R + 100, 1010, 150, bodyType::DYNAMIC);
-				pbody->ctype = ColliderType::BOSSATACK;
-				pbody->body->SetFixedRotation(true);
-				pbody->listener = this;
-				crearCollision = false;
-			}
+		if (pbody == nullptr && crearCollision) {
+			pbody = app->physics->CreateTriangleSensor(atack4_posX_R + 100, 1010, 150, bodyType::DYNAMIC);
+			pbody->ctype = ColliderType::BOSSATACK;
+			pbody->body->SetFixedRotation(true);
+			pbody->listener = this;
+			crearCollision = false;
+		}
 
 		app->render->DrawTexture(boss_atack_4_texture, atack4_posX_R, 1010, 0.7, SDL_FLIP_NONE, &rect_4);
 

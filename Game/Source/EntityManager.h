@@ -31,6 +31,8 @@ public:
 
 	void DestroyEntity(Entity* entity);
 
+	void DestroyAllEntities();
+
 	void AddEntity(Entity* entity);
 	void DestroyAllEnemis();
 

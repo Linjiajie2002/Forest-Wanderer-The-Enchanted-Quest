@@ -64,6 +64,8 @@ public:
 
 	void resetMap();
 
+	uint64 GetFrameCount();
+
 private:
 
 	// Load config file
@@ -87,6 +89,8 @@ private:
 	bool LoadFromFile();
 
 	bool SaveFromFile();
+
+	
 
 
 public:

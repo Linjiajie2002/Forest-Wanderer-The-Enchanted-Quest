@@ -366,6 +366,11 @@ void App::resetMap()
 
 	map->Awake(node);
 }
+uint64 App::GetFrameCount()
+{
+	return frameCount;
+
+}
 
 bool App::LoadFromFile() {
 	bool ret = true;

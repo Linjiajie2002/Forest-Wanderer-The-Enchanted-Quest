@@ -88,6 +88,30 @@ struct MapLayer
 	}
 };
 
+struct MapObject {
+
+	uint id;
+	uint x;
+	uint y;
+	uint width;
+	uint height;
+	List<uint> points;
+};
+
+struct MapObjects
+{
+	SString	name;
+	int id;
+	int x;
+	int y;
+	int width;
+	int height;
+	List<MapObject*> objects;
+
+	Properties properties;
+
+};
+
 struct MapData
 {
 	int width;
@@ -98,6 +122,8 @@ struct MapData
 	MapTypes type;
 
 	List<MapLayer*> maplayers;
+	List<MapObjects*> mapObjects;
+	
 
 };
 
@@ -184,6 +210,9 @@ private:
 	MapLayer* navigationLayer;
 	int blockedGid = 635;
 	int blockedGid2 = 627;
+	List<PhysBody*> collisionsList;
+	List<PhysBody*> traspasedPlatformList;
+
 };
 
 #endif // __MAP_H__

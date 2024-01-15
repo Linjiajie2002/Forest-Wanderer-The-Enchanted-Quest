@@ -328,6 +328,33 @@ bool Map::CleanUp()
 	}
 	mapData.maplayers.Clear();
 
+	// Remove all groupobject
+	ListItem<MapObjects*>* objectsItem;
+	objectsItem = mapData.mapObjects.start;
+
+	while (objectsItem != NULL)
+	{
+		RELEASE(objectsItem->data);
+		objectsItem = objectsItem->next;
+	}
+	mapData.mapObjects.Clear();
+
+
+
+
+	// Remove all colisions
+	ListItem<PhysBody*>* collision;
+	collision = collisionsList.start;
+	while (collision != NULL) {
+
+		app->physics->GetWorld()->DestroyBody(collision->data->body);
+		collision = collision->next;
+	}
+	collisionsList.Clear();
+
+	//Remove traspassed list
+	traspasedPlatformList.Clear();
+
 	return true;
 }
 
@@ -630,11 +657,12 @@ bool Map::LoadCollision(std::string layerName) {
 					iPoint pos = MapToWorld(x, y);
 
 					//tipo
+					PhysBody* c1;
 					if (gid == tileset->firstgid) {
 
-						PhysBody* c1 = app->physics->CreateRectangle(pos.x + 16, pos.y + 16, 32, 32, STATIC);
+						c1 = app->physics->CreateRectangle(pos.x + 16, pos.y + 16, 32, 32, STATIC);
 						c1->ctype = ColliderType::PLATFORM;
-
+						collisionsList.Add(c1);
 					}
 
 					if (gid == tileset->firstgid + 1) {
@@ -656,9 +684,9 @@ bool Map::LoadCollision(std::string layerName) {
 						//if (x == colisionsLastCords.x) {
 						if (colisionsPointsSize.y != -1) {
 
-							PhysBody* c1 = app->physics->CreateRectangle(startPointcolisions.x + 16, startPointcolisions.y + colisionsPointsSize.y / 2, 32, colisionsPointsSize.y, STATIC);
+							c1 = app->physics->CreateRectangle(startPointcolisions.x + 16, startPointcolisions.y + colisionsPointsSize.y / 2, 32, colisionsPointsSize.y, STATIC);
 							c1->ctype = ColliderType::WALL;
-
+							collisionsList.Add(c1);
 
 							colisionsPointsSize.x = -1;
 							colisionsPointsSize.y = -1;
@@ -706,9 +734,9 @@ bool Map::LoadCollision(std::string layerName) {
 							puntos[4] =  + 16;
 							puntos[5] = + 16;*/
 
-						PhysBody* c1 = app->physics->CreateChain(pos.x + 16, pos.y + 16, puntos, 6, STATIC);
+						c1 = app->physics->CreateChain(pos.x + 16, pos.y + 16, puntos, 6, STATIC);
 						c1->ctype = ColliderType::PLATFORM;
-
+						collisionsList.Add(c1);
 
 					}
 					if (gid == tileset->firstgid + 6) {
@@ -726,38 +754,42 @@ bool Map::LoadCollision(std::string layerName) {
 						puntos[4] = +16;
 						puntos[5] = +16;
 
-						PhysBody* c1 = app->physics->CreateChain(pos.x + 16, pos.y + 16, puntos, 6, STATIC);
+						c1 = app->physics->CreateChain(pos.x + 16, pos.y + 16, puntos, 6, STATIC);
 						c1->ctype = ColliderType::PLATFORM;
-
+						collisionsList.Add(c1);
 					}
 
 					if (gid == tileset->firstgid + 8) {
-						PhysBody* c1 = app->physics->CreateRectangleSensor(pos.x + 16, pos.y + 16, 32, 32, STATIC);
+						c1 = app->physics->CreateRectangleSensor(pos.x + 16, pos.y + 16, 32, 32, STATIC);
 						c1->ctype = ColliderType::PLAYERLEAVE;
+						collisionsList.Add(c1);
 					}
 
 					if (gid == tileset->firstgid + 9) {
 
-						PhysBody* c1 = app->physics->CreateRectangleSensor(pos.x + 16, pos.y + 16, 32, 32, STATIC);
+						c1 = app->physics->CreateRectangleSensor(pos.x + 16, pos.y + 16, 32, 32, STATIC);
 						c1->ctype = ColliderType::ENEMYAREA;
+						collisionsList.Add(c1);
 					}
 
 
 					if (gid == tileset->firstgid + 11) {
-						PhysBody* c1 = app->physics->CreateRectangle(pos.x - 16, pos.y + 16, 32, 32, STATIC);
+						c1 = app->physics->CreateRectangle(pos.x - 16, pos.y + 16, 32, 32, STATIC);
 						c1->ctype = ColliderType::WALL;
+						collisionsList.Add(c1);
 
 					}
 
 					if (gid == tileset->firstgid + 12) {
-						PhysBody* c1 = app->physics->CreateRectangle(pos.x - 16, pos.y + 245, 32, 32, STATIC);
+						c1 = app->physics->CreateRectangle(pos.x - 16, pos.y + 245, 32, 32, STATIC);
 						c1->ctype = ColliderType::DEADPLATFORM;
-
+						collisionsList.Add(c1);
 					}
 
 					if (gid == tileset->firstgid + 13) {
-						PhysBody* c1 = app->physics->CreateRectangle(pos.x + 64, pos.y + 16, 32, 32, STATIC);
+						c1 = app->physics->CreateRectangle(pos.x + 64, pos.y + 16, 32, 32, STATIC);
 						c1->ctype = ColliderType::WALL;
+						collisionsList.Add(c1);
 
 					}
 
@@ -767,26 +799,27 @@ bool Map::LoadCollision(std::string layerName) {
 
 					}
 					if (gid == tileset->firstgid + 15) {
-						PhysBody* c1 = app->physics->CreateRectangleSensor(pos.x + 16, pos.y + 16, 32, 32, STATIC);
+						c1 = app->physics->CreateRectangleSensor(pos.x + 16, pos.y + 16, 32, 32, STATIC);
 						c1->ctype = ColliderType::VICTORYCOLLISION;
+						collisionsList.Add(c1);
 
 					}
 					
 
 					if (app->scene->GetBoss()->inBossBattle) {
 						if (gid == tileset->firstgid + 10) {
-							PhysBody* c1 = app->physics->CreateRectangle(pos.x, pos.y + 16, 32, 32, STATIC);
+							c1 = app->physics->CreateRectangle(pos.x, pos.y + 16, 32, 32, STATIC);
 							c1->ctype = ColliderType::WALL;
-
+							collisionsList.Add(c1);
 						}
 					}
-					else {
+					/*else {
 						
 						if (gid == tileset->firstgid + 10) {
 							PhysBody* c1 = app->physics->CreateRectangleSensor(pos.x, pos.y + 16, 32, 32, STATIC);
 							c1->ctype = ColliderType::UNKNOWN;
 						}
-					}
+					}*/
 
 
 

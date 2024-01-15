@@ -145,6 +145,16 @@ void EntityManager::DestroyEntity(Entity* entity)
 	}
 }
 
+void EntityManager::DestroyAllEntities()
+{
+	ListItem<Entity*>* item;
+	for (item = entities.start; item != NULL; item = item->next)
+	{
+		entities.Del(item);
+	}
+
+}
+
 void EntityManager::AddEntity(Entity* entity)
 {
 	if ( entity != nullptr) entities.Add(entity);

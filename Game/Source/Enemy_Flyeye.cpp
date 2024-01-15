@@ -293,6 +293,9 @@ bool Enemy_Flyeye::Update(float dt)
 bool Enemy_Flyeye::CleanUp()
 {
 
+	app->physics->GetWorld()->DestroyBody(pbody->body);
+	SDL_DestroyTexture(Enemytexture);
+
 	return true;
 }
 

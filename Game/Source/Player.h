@@ -31,7 +31,7 @@ public:
 
 
 
-	void Camera();
+	void Camera(float dt);
 	void ShakeCamera(int xOffset, int yOffset);
 	void keyInput(float dt);
 	void checkAtack();
@@ -177,6 +177,10 @@ public:
 	bool isVictoria = false;
 
 	bool enble = false;
+
+	int yCameraOffset = 0;
+
+
 
 };
 

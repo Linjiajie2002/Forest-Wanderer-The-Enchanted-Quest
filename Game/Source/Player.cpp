@@ -110,17 +110,13 @@ bool Player::Update(float dt)
 {
 
 
-	
-	
-
-
 	//printf("%d \n", position.x);
 	currentAnimation = &idle;
 	vel = b2Vec2(0, pbody->body->GetLinearVelocity().y);
 	app->win->GetWindowSize(width, height);
 
 	if (app->scene->GetBoss()->inBossBattle && app->scene->GetBoss()->tpToinBossBattle) {
-		
+
 		pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(1950), PIXEL_TO_METERS(1100)), 0);
 		app->scene->GetBoss()->tpToinBossBattle = false;
 	}
@@ -202,14 +198,14 @@ bool Player::Update(float dt)
 				starFram = false;
 			}
 			if (app->scene->GetPlayerLife()->playerTakeDmg_Animation) {
-				
+
 				palyergethit = true;
-		
+
 			}
 			if (palyergethit) {
 				currentAnimation = &takehit;
 			}
-	
+
 			if (takehit.HasFinished()) {
 				app->scene->GetPlayerLife()->playerTakeDmg_Animation = false;
 				palyergethit = false;
@@ -235,7 +231,7 @@ bool Player::Update(float dt)
 				else attackParticle = app->par->CloseAtake(position.x - 58, position.y + 30, 155, 20, ColliderType::CLOSEATK_PLAYER);
 			}
 
-			Camera();
+			Camera(dt);
 
 			if (app->input->GetKey(SDL_SCANCODE_P) == KEY_REPEAT) {
 				printf("WWW");
@@ -245,7 +241,7 @@ bool Player::Update(float dt)
 				shakeDuration--;
 			}
 
-			
+
 
 			/*	if (shakeDuration > 0) {
 					printf("WWW");
@@ -296,10 +292,10 @@ bool Player::Update(float dt)
 		//app->fade->FadetoBlackTransition(app->scene, app->scene);
 		app->fade->FadeToBlack(app->scene, app->scene);
 	}
-	
+
 	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
 
-	
+
 		app->map->LevelMap = 2;
 
 		//app->fade->FadetoBlackTransition(app->scene, app->scene);
@@ -355,14 +351,14 @@ bool Player::Update(float dt)
 		pbody->body->SetActive(true);
 		NoControl = true;
 		isPosibleRevive = true;
-		
+
 	}
 
 
 
 	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) {
 		isDead = !isDead;
-		
+
 		die.Reset();
 	}
 
@@ -433,7 +429,7 @@ bool Player::CleanUp()
 	return true;
 }
 
-void Player::Camera() {
+void Player::Camera(float dt) {
 
 
 	//Camera
@@ -457,7 +453,9 @@ void Player::Camera() {
 	//else {
 	//Camera();
 	//}
-	float timeLerp = 0.1f;
+
+
+	/*float timeLerp = 0.1f;
 
 
 	if (app->scene->GetBoss()->inBossBattle) {
@@ -487,12 +485,48 @@ void Player::Camera() {
 		if (app->render->camera.y >= 0) {
 			app->render->camera.y = 0;
 		}
+	}*/
+
+	uint windowH;
+	uint windowW;
+	app->win->GetWindowSize(windowW, windowH);
+
+
+	if (app->scene->GetBoss()->inBossBattle) {
+		app->render->camera.x = -1430;
+		app->render->camera.y = -501;
+	}
+	else {
+
+		int targetPosX;
+		if (isFacingLeft) {
+			targetPosX = (-position.x * app->win->GetScale() + (windowW / 2) - 150);
+		}
+		else {
+			targetPosX = (-position.x * app->win->GetScale() + (windowW / 2) - 150);
+		}
+
+		int targetPosY = (-position.y * app->win->GetScale() + (windowH / 2) - 10) + yCameraOffset + 210;
+
+		targetPosY = MAX(targetPosY, -2980);
+		targetPosX = MIN(targetPosX, -100);
+
+		targetPosX += (isFacingLeft) ? 75 : 100;
+
+
+
+		//El if este es un fix para el modo release
+		if (app->GetFrameCount() < 20) {
+			app->render->camera.x = lerp(app->render->camera.x, targetPosX, 1);
+			app->render->camera.y = lerp(app->render->camera.y, targetPosY, 1);
+		}
+		else {
+			app->render->camera.x = lerp(app->render->camera.x, targetPosX, dt * 0.005f);
+			app->render->camera.y = lerp(app->render->camera.y, targetPosY, dt * 0.002f);
+		}
 	}
 
 
-
-
-	
 }
 
 void Player::ShakeCamera(int xOffset, int yOffset) {
@@ -633,7 +667,7 @@ void Player::godMod(float dt) {
 	if (MoveCamere == false) {
 
 		//Camera
-		Camera();
+		Camera(dt);
 	}
 
 

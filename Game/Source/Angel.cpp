@@ -67,7 +67,16 @@ bool Angel::Awake() {
 bool Angel::Start() {
 
 	//boss_atack_1_texture = app->tex->Load(boss_atack_1_texture_Path);
+	/*if (app->scene->changeScena) {
+		app->scene->changeScena = false;
+		angel_blue_texture_Path = parameters.child("angel_all").child("angel_texture1").attribute("texturepath").as_string();
+		angel_red_texture_Path = parameters.child("angel_all").child("angel_texture2").attribute("texturepath").as_string();
+		angel_yellow_texture_Path = parameters.child("angel_all").child("angel_texture3").attribute("texturepath").as_string();
 
+		angel_borde_blue_texture_Path = parameters.child("borde").child("angel_texture1").attribute("texturepath").as_string();
+		angel_borde_red_texture_Path = parameters.child("borde").child("angel_texture2").attribute("texturepath").as_string();
+		angel_borde_yellow_texture_Path = parameters.child("borde").child("angel_texture3").attribute("texturepath").as_string();
+	}*/
 	angel_blue_texture = app->tex->Load(angel_blue_texture_Path);
 	angel_red_texture = app->tex->Load(angel_red_texture_Path);
 	angel_yellow_texture = app->tex->Load(angel_yellow_texture_Path);
@@ -205,6 +214,12 @@ bool Angel::Update(float dt)
 
 bool Angel::CleanUp()
 {
+	SDL_DestroyTexture(angel_blue_texture);
+	SDL_DestroyTexture(angel_red_texture);
+	SDL_DestroyTexture(angel_yellow_texture);
+	SDL_DestroyTexture(angel_borde_blue_texture);
+	SDL_DestroyTexture(angel_borde_red_texture);
+	SDL_DestroyTexture(angel_borde_yellow_texture);
 	return true;
 }
 

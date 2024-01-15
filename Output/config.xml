@@ -25,6 +25,7 @@
 	</audio>
 
 	<scene>
+		
 		<nivel_1>
 
 			<shop Posx="120" Posy="985" Tsprite="6" x="118" y="128" Pweight="340" texturepath="Assets/Shop/Shop.png"/>
@@ -92,7 +93,8 @@
 
 		<nivel_2>
 			<shop Posx="120" Posy="985" Tsprite="6" x="118" y="128" Pweight="340" texturepath="Assets/Shop/Shop.png"/>
-			<player x="40" y="1100" speed="0.4f" crouchspeed="0.1f" jumpforce="15" texturepath="Assets/Sprite/Player/Player.png" >
+
+			<player x="40" y="1100" speed="0.4f" crouchspeed="0.1f" jumpforce="15" texturepath="Assets/Sprite/Player/Player.png"  >
 
 				<!--x="40" y="1100"-->
 				<animations Tsprite="374" x="288" y="128" Pweight="6336"/>
@@ -103,7 +105,6 @@
 				<escudo texturepath="Assets/Audio/Fx/ESCUDO.ogg"/>
 				<intro texturepath="Assets/Audio/Fx/INTRO.ogg"/>
 			</player>
-
 			<item>
 				<Diamond Posx="150" Posy="950" Tsprite="6" Pweight="192" x="32" y="32" texturepath="Assets\Sprite\Mapa2\Diamond.png"/>
 				<Diamond_Counter Posx="150" Posy="950" Tsprite="8" Pweight="192" x="114" y="40" texturepath="Assets\Sprite\Mapa2\Diamond_Counter.png"/>

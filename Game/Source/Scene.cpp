@@ -37,7 +37,6 @@ bool Scene::Awake(pugi::xml_node& config)
 	// iterate all objects in the scene
 	// Check https://pugixml.org/docs/quickstart.html#access
 
-
 	if (app->map->LevelMap == 1) {
 		for (pugi::xml_node itemNode = config.child("nivel_1"); itemNode; itemNode = itemNode.next_sibling("nivel_1")) {
 
@@ -87,6 +86,7 @@ bool Scene::Awake(pugi::xml_node& config)
 			}
 
 			PathfindingPath = config.child("nivel_1").child("enemy").child("Pathfinding").attribute("texturepath").as_string();
+
 		}
 	}
 
@@ -97,7 +97,6 @@ bool Scene::Awake(pugi::xml_node& config)
 			if (config.child("nivel_2").child("player")) {
 				player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 				player->parameters = config.child("nivel_2").child("player");
-
 			}
 
 			for (pugi::xml_node itemNode = config.child("nivel_2").child("angel"); itemNode; itemNode = itemNode.next_sibling("angel"))
@@ -149,7 +148,7 @@ bool Scene::Awake(pugi::xml_node& config)
 	//	itembox->parameters = itemNode;
 	//}
 
-	
+
 
 	//Add effect
 
@@ -160,6 +159,17 @@ bool Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool Scene::Start()
 {
+
+
+	if (changeScena) {
+		pugi::xml_document configFile;
+		pugi::xml_node SceneInfo;
+		pugi::xml_parse_result parseResult = configFile.load_file("config.xml");
+		SceneInfo = configFile.child("config").child("scene");
+		Awake(SceneInfo);
+		/*app->Awake();*/
+	
+	}
 	// NOTE: We have to avoid the use of paths in the code, we will move it later to a config file
 	//img = app->tex->Load("Assets/Textures/test.png");
 
@@ -186,6 +196,8 @@ bool Scene::Start()
 
 
 	Pathfindingtexture = app->tex->Load(PathfindingPath);
+
+
 	return true;
 }
 

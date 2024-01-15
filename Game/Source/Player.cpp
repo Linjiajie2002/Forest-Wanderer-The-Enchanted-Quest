@@ -29,6 +29,7 @@ Player::~Player() {
 
 bool Player::Awake() {
 
+	//initilize textures
 	texturePath = parameters.attribute("texturepath").as_string();
 	TSprite = parameters.child("animations").attribute("Tsprite").as_int();
 	SpriteX = parameters.child("animations").attribute("x").as_int();
@@ -78,9 +79,14 @@ bool Player::Awake() {
 
 bool Player::Start() {
 
+	if (app->scene->changeScena) {
+		Awake();
+		app->scene->changeScena = false;
+	}
 
-	//initilize textures
 	texture = app->tex->Load(texturePath);
+	
+
 
 	//pbody = app->physics->CreateRectangle(position.x, position.y, 55,70, bodyType::DYNAMIC);
 	pbody = app->physics->CreateCircle(position.x, position.y, 31, bodyType::DYNAMIC);
@@ -288,14 +294,14 @@ bool Player::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
 
 		app->map->LevelMap = 1;
-
+		app->scene->changeScena = true;
 		//app->fade->FadetoBlackTransition(app->scene, app->scene);
 		app->fade->FadeToBlack(app->scene, app->scene);
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
 
-
+		app->scene->changeScena = true;
 		app->map->LevelMap = 2;
 
 		//app->fade->FadetoBlackTransition(app->scene, app->scene);
@@ -414,7 +420,7 @@ void Player::AtackAnimation(char* atackname) {
 
 bool Player::CleanUp()
 {
-	delete checkisAtk;
+	/*delete checkisAtk;
 	delete  checkAtk;
 	delete atkReset;
 	delete atkAniname;
@@ -422,13 +428,15 @@ bool Player::CleanUp()
 	delete attackParticle;
 	delete checkAtk;
 	delete atkReset;
-	delete atkAniname;
+	delete atkAniname;*/
 
 	printf("\nPlayerX: %d", position.x);
 	printf("\nPlayerY: %d", position.y);
 
 	app->physics->GetWorld()->DestroyBody(pbody->body);
+
 	SDL_DestroyTexture(texture);
+
 
 	return true;
 }

@@ -212,6 +212,11 @@ bool Boss::Update(float dt)
 
 bool Boss::CleanUp()
 {
+	SDL_DestroyTexture(boss_atack_1_texture);
+	SDL_DestroyTexture(boss_atack_2_texture);
+	SDL_DestroyTexture(boss_atack_3_texture);
+	SDL_DestroyTexture(boss_atack_4_texture);
+
 	return true;
 }
 

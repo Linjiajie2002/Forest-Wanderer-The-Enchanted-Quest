@@ -73,6 +73,8 @@ public:
 
 	SDL_Texture* Pathfindingtexture;
 	const char* PathfindingPath;
+
+	bool changeScena = false;
 };
 
 #endif // __SCENE_H__

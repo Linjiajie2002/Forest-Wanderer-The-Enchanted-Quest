@@ -131,7 +131,6 @@ Entity* EntityManager::CreateEntity(EntityType type)
 	}
 
 	entities.Add(entity);
-
 	return entity;
 }
 

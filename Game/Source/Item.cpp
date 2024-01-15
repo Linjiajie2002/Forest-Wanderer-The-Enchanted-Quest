@@ -142,6 +142,9 @@ bool Item::CleanUp()
 void Item::diamanteVictoria()
 {
 
+	if (GoCenter.ReadMSec() > 15000) {
+		DiamanteToCenter = true;
+	}
 
 
 	if (TimeCrear.ReadMSec() > 850) {
@@ -189,11 +192,8 @@ void Item::rotateAroundCircle(double& x, double& y, double circleCenterX, double
 
 void Item::DestroyedDiamante()
 {
-
-
+	GoCenter.Start();
 	playerTakeDiamante = true;
-
-
 }
 
 void Item::diamanteToCenter(double& x, double& y)
@@ -252,6 +252,7 @@ void Item::LastDiamante()
 			pbody->body->GetWorld()->DestroyBody(pbody->body);
 			pbody = nullptr;
 		}
+
 	}
 
 }

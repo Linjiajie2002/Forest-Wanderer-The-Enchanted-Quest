@@ -47,6 +47,9 @@ bool Enemy_Flyeye::Awake() {
 }
 
 bool Enemy_Flyeye::Start() {
+	if (app->scene->changeScena) {
+		Awake();
+	}
 
 	Enemytexture = app->tex->Load(EnemyPath);
 	pbody = app->physics->CreateCircle(position.x - 10, position.y, 28, bodyType::DYNAMIC);

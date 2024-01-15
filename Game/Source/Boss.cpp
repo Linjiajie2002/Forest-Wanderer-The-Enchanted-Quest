@@ -70,6 +70,9 @@ bool Boss::Awake() {
 
 bool Boss::Start() {
 
+	if (app->scene->changeScena) {
+		Awake();
+	}
 	boss_atack_1_texture = app->tex->Load(boss_atack_1_texture_Path);
 	boss_atack_2_texture = app->tex->Load(boss_atack_2_texture_Path);
 	boss_atack_3_texture = app->tex->Load(boss_atack_3_texture_Path);
@@ -370,7 +373,6 @@ void Boss::boss_atack_3(bool inversaAtack)
 		if (atack1_Collision.ReadMSec() >= 1200) {
 		
 			if (pbody == nullptr && crearCollision) {
-				printf("entra");
 				pbody = app->physics->CreateRectangleSensor(1870, 1000, 150, 300, bodyType::STATIC);
 				pbody->ctype = ColliderType::BOSSATACK;
 				pbody->body->SetFixedRotation(true);

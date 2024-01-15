@@ -93,12 +93,15 @@ bool PlayerLife::Awake() {
 }
 
 bool PlayerLife::Start() {
-		lifebar_head_tail_texture = app->tex->Load(lifebar_head_tail_texture_Path);
+	if (app->scene->changeScena) {
+		Awake();
+	}
+	lifebar_head_tail_texture = app->tex->Load(lifebar_head_tail_texture_Path);
 
-		lifebar_mid_texture = app->tex->Load(lifebar_mid_texture_Path);
+	lifebar_mid_texture = app->tex->Load(lifebar_mid_texture_Path);
 
-		lifebar_icon_texture = app->tex->Load(lifebar_icon_texture_Path);
-	
+	lifebar_icon_texture = app->tex->Load(lifebar_icon_texture_Path);
+
 	currentAnimation1 = &Head_idle;
 
 
@@ -196,12 +199,12 @@ void PlayerLife::playerGetHit()
 		app->scene->GetPlayer()->isDead = true;
 	}
 
-	
+
 	if (playerTakeBossDmg == false) {
 		playerTakeBossDmg = true;
 	}
 
-	
+
 }
 
 void PlayerLife::playerGetHeal()

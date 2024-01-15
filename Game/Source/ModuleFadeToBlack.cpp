@@ -46,7 +46,7 @@ bool ModuleFadeToBlack::Update(float dt)
             // TODO 1: Enable / Disable the modules received when FadeToBlacks(...) gets called
             app->map->Disable();
 			//moduleToDisable->Disable();
-			this->moduleToDisable->Disable();
+			moduleToDisable->Disable();
             app->entityManager->Disable();
 			
 

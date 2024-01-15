@@ -62,6 +62,10 @@ bool Item::Awake() {
 
 bool Item::Start() {
 	//initilize textures
+
+	if (app->scene->changeScena) {
+		Awake();
+	}
 	Diamondtexture = app->tex->Load(DiamondPath);
 	Diamond_Counter_texture = app->tex->Load(Diamond_Counter_texture_Path);
 
@@ -237,7 +241,6 @@ void Item::LastDiamante()
 
 
 	if (pbody != nullptr && playerTakeDiamante == false) {
-		printf("%d", playerTakeDiamante);
 		pbody->body->SetLinearVelocity(b2Vec2(0, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
 		position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 30;
 		position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 30;

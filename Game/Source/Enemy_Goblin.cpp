@@ -53,7 +53,9 @@ bool Enemy_Goblin::Awake() {
 bool Enemy_Goblin::Start() {
 
 
-
+	if (app->scene->changeScena) {
+		Awake();
+	}
 	//initilize textures
 	Enemytexture = app->tex->Load(EnemyPath);
 	pbody = app->physics->CreateCircle(position.x - 10, position.y, 32, bodyType::DYNAMIC);

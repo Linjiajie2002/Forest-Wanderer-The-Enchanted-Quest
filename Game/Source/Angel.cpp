@@ -77,6 +77,10 @@ bool Angel::Start() {
 		angel_borde_red_texture_Path = parameters.child("borde").child("angel_texture2").attribute("texturepath").as_string();
 		angel_borde_yellow_texture_Path = parameters.child("borde").child("angel_texture3").attribute("texturepath").as_string();
 	}*/
+
+	if (app->scene->changeScena) {
+		Awake();
+	}
 	angel_blue_texture = app->tex->Load(angel_blue_texture_Path);
 	angel_red_texture = app->tex->Load(angel_red_texture_Path);
 	angel_yellow_texture = app->tex->Load(angel_yellow_texture_Path);
@@ -176,7 +180,7 @@ bool Angel::Update(float dt)
 	}
 
 
-	if (deleteAngel == false) {
+	if (deleteAngel == false && app->scene->GetBoss()->inBossBattle) {
 		rect_1 = currentAnimation1->GetCurrentFrame();
 		app->render->DrawTexture(angel_red_texture, 1550, 600, 0.5, SDL_FLIP_NONE, &rect_1);
 		currentAnimation1->Update();

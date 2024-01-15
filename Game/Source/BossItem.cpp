@@ -49,6 +49,10 @@ bool BossItem::Awake() {
 }
 
 bool BossItem::Start() {
+
+	if (app->scene->changeScena) {
+		Awake();
+	}
 	ball_blue_texture = app->tex->Load(ball_blue_texture_Path);
 
 	currentAnimation1 = &ball_blue_start;

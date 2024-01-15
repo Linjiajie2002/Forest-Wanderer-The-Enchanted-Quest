@@ -40,25 +40,15 @@ bool Scene::Awake(pugi::xml_node& config)
 	if (app->map->LevelMap == 1) {
 		for (pugi::xml_node itemNode = config.child("nivel_1"); itemNode; itemNode = itemNode.next_sibling("nivel_1")) {
 
-			//config = config.child("nivel_1");
-
-			for (pugi::xml_node itemNode = config.child("nivel_1").child("shop"); itemNode; itemNode = itemNode.next_sibling("shop"))
-			{
-				Shop* shop = (Shop*)app->entityManager->CreateEntity(EntityType::SHOP);
-				shop->parameters = itemNode;
-			}
-
 			if (config.child("nivel_1").child("player")) {
 				player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 				player->parameters = config.child("nivel_1").child("player");
 
 			}
-
-
-			for (pugi::xml_node itemNode = config.child("nivel_1").child("enemy").child("Enemy_Goblin"); itemNode; itemNode = itemNode.next_sibling("Enemy_Goblin"))
+			for (pugi::xml_node itemNode = config.child("nivel_1").child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
 			{
-				enemy_goblin = (Enemy_Goblin*)app->entityManager->CreateEntity(EntityType::ENEMY_GOBLIN);
-				enemy_goblin->parameters = itemNode;
+				item = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
+				item->parameters = itemNode;
 			}
 
 			for (pugi::xml_node itemNode = config.child("nivel_1").child("enemy").child("Enemy_Flyeye"); itemNode; itemNode = itemNode.next_sibling("Enemy_Flyeye"))
@@ -67,25 +57,25 @@ bool Scene::Awake(pugi::xml_node& config)
 				enemy_flyeye->parameters = itemNode;
 			}
 
+			for (pugi::xml_node itemNode = config.child("nivel_1").child("enemy").child("Enemy_Goblin"); itemNode; itemNode = itemNode.next_sibling("Enemy_Goblin"))
+			{
+				enemy_goblin = (Enemy_Goblin*)app->entityManager->CreateEntity(EntityType::ENEMY_GOBLIN);
+				enemy_goblin->parameters = itemNode;
+			}
+
+			PathfindingPath = config.child("nivel_1").child("enemy").child("Pathfinding").attribute("texturepath").as_string();
+
 			for (pugi::xml_node itemNode = config.child("nivel_1").child("effect"); itemNode; itemNode = itemNode.next_sibling("effect"))
 			{
 				effect = (Effect*)app->entityManager->CreateEntity(EntityType::EFFECT);
 				effect->parameters = itemNode;
 			}
-
+			
 			for (pugi::xml_node itemNode = config.child("nivel_1").child("playerlife"); itemNode; itemNode = itemNode.next_sibling("playerlife"))
 			{
 				playerlife = (PlayerLife*)app->entityManager->CreateEntity(EntityType::PLAYERLIFE);
 				playerlife->parameters = itemNode;
 			}
-
-			for (pugi::xml_node itemNode = config.child("nivel_1").child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
-			{
-				item = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
-				item->parameters = itemNode;
-			}
-
-			PathfindingPath = config.child("nivel_1").child("enemy").child("Pathfinding").attribute("texturepath").as_string();
 
 		}
 	}
@@ -99,16 +89,18 @@ bool Scene::Awake(pugi::xml_node& config)
 				player->parameters = config.child("nivel_2").child("player");
 			}
 
-			for (pugi::xml_node itemNode = config.child("nivel_2").child("angel"); itemNode; itemNode = itemNode.next_sibling("angel"))
+			for (pugi::xml_node itemNode = config.child("nivel_2").child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
 			{
-				angel = (Angel*)app->entityManager->CreateEntity(EntityType::ANGEL);
-				angel->parameters = itemNode;
+				item = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
+				item->parameters = itemNode;
 			}
 
-			for (pugi::xml_node itemNode = config.child("nivel_2").child("bossitem"); itemNode; itemNode = itemNode.next_sibling("bossitem"))
+			PathfindingPath = config.child("nivel_2").child("Pathfinding").attribute("texturepath").as_string();
+
+			for (pugi::xml_node itemNode = config.child("nivel_2").child("effect"); itemNode; itemNode = itemNode.next_sibling("effect"))
 			{
-				bossitem = (BossItem*)app->entityManager->CreateEntity(EntityType::BOSSITEM);
-				bossitem->parameters = itemNode;
+				effect = (Effect*)app->entityManager->CreateEntity(EntityType::EFFECT);
+				effect->parameters = itemNode;
 			}
 
 			for (pugi::xml_node itemNode = config.child("nivel_2").child("boss"); itemNode; itemNode = itemNode.next_sibling("boss"))
@@ -117,25 +109,28 @@ bool Scene::Awake(pugi::xml_node& config)
 				boss->parameters = itemNode;
 			}
 
+			for (pugi::xml_node itemNode = config.child("nivel_2").child("bossitem"); itemNode; itemNode = itemNode.next_sibling("bossitem"))
+			{
+				bossitem = (BossItem*)app->entityManager->CreateEntity(EntityType::BOSSITEM);
+				bossitem->parameters = itemNode;
+			}
 
+
+			for (pugi::xml_node itemNode = config.child("nivel_2").child("angel"); itemNode; itemNode = itemNode.next_sibling("angel"))
+			{
+				angel = (Angel*)app->entityManager->CreateEntity(EntityType::ANGEL);
+				angel->parameters = itemNode;
+			}
 			for (pugi::xml_node itemNode = config.child("nivel_2").child("playerlife"); itemNode; itemNode = itemNode.next_sibling("playerlife"))
 			{
 				playerlife = (PlayerLife*)app->entityManager->CreateEntity(EntityType::PLAYERLIFE);
 				playerlife->parameters = itemNode;
 			}
 
-			for (pugi::xml_node itemNode = config.child("nivel_2").child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
-			{
-				item = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
-				item->parameters = itemNode;
-			}
-			for (pugi::xml_node itemNode = config.child("nivel_2").child("effect"); itemNode; itemNode = itemNode.next_sibling("effect"))
-			{
-				effect = (Effect*)app->entityManager->CreateEntity(EntityType::EFFECT);
-				effect->parameters = itemNode;
-			}
+			
+			
 
-			PathfindingPath = config.child("nivel_2").child("enemy").child("Pathfinding").attribute("texturepath").as_string();
+			
 
 		}
 	}
@@ -167,6 +162,7 @@ bool Scene::Start()
 		pugi::xml_parse_result parseResult = configFile.load_file("config.xml");
 		SceneInfo = configFile.child("config").child("scene");
 		Awake(SceneInfo);
+		
 		/*app->Awake();*/
 	
 	}

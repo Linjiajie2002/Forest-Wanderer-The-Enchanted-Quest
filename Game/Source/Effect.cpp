@@ -75,6 +75,10 @@ bool Effect::Awake() {
 
 bool Effect::Start() {
 
+	if (app->scene->changeScena) {
+		Awake();
+	}
+
 	Effecttexture = app->tex->Load(EffectPath);
 	Effecttexture2 = app->tex->Load(EffectPath2);
 	Effecttexture3 = app->tex->Load(EffectPath3);

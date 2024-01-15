@@ -30,6 +30,7 @@ Player::~Player() {
 bool Player::Awake() {
 
 	//initilize textures
+
 	texturePath = parameters.attribute("texturepath").as_string();
 	TSprite = parameters.child("animations").attribute("Tsprite").as_int();
 	SpriteX = parameters.child("animations").attribute("x").as_int();
@@ -114,7 +115,10 @@ bool Player::Start() {
 
 bool Player::Update(float dt)
 {
-
+	if (app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN) {
+		app->scene->changeScena = true;
+		Start();
+	}
 
 	//printf("%d \n", position.x);
 	currentAnimation = &idle;
@@ -436,11 +440,13 @@ bool Player::CleanUp()
 	printf("\nPlayerX: %d", position.x);
 	printf("\nPlayerY: %d", position.y);
 
-	app->physics->GetWorld()->DestroyBody(pbody->body);
-
-	SDL_DestroyTexture(texture);
-
-
+	if (pbody != nullptr) {
+		app->physics->GetWorld()->DestroyBody(pbody->body);
+	}
+	if (texture) {
+		SDL_DestroyTexture(texture);
+		texture = nullptr;
+	}
 	return true;
 }
 
@@ -528,14 +534,15 @@ void Player::Camera(float dt) {
 
 		targetPosX += (isFacingLeft) ? 75 : 100;
 
-
-
 		//El if este es un fix para el modo release
 		if (app->GetFrameCount() < 20) {
 			app->render->camera.x = lerp(app->render->camera.x, targetPosX, 1);
 			app->render->camera.y = lerp(app->render->camera.y, targetPosY, 1);
 		}
-		else {
+		else if (position.x >= 5800) {
+			app->render->camera.x <= -5361;
+			app->render->camera.y = lerp(app->render->camera.y, targetPosY, dt * 0.002f);
+		}else {
 			app->render->camera.x = lerp(app->render->camera.x, targetPosX, dt * 0.005f);
 			app->render->camera.y = lerp(app->render->camera.y, targetPosY, dt * 0.002f);
 		}
@@ -745,7 +752,6 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::VICTORYCOLLISION:
 		app->audio->PlayFx(finallevel);
 		app->map->LevelMap = 2;
-
 		//app->fade->FadetoBlackTransition(app->scene, app->scene);
 		app->fade->FadeToBlack(app->scene, app->scene);
 		isVictoria = true;

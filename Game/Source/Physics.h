@@ -38,6 +38,7 @@ enum class ColliderType {
 	CLOSEATK_ENEMY,
 	VICTORYCOLLISION,
 	ENERGYBALL,
+	BOSSATACK,
 	UNKNOWN
 	// ..
 };
@@ -84,6 +85,7 @@ public:
 	PhysBody* CreateRectangleSensor(int x, int y, int width, int height, bodyType type);
 	PhysBody* CreateCircleSensor(int x, int y, int radius, bodyType type);
 	PhysBody* CreateChain(int x, int y, int* points, int size, bodyType type);
+	PhysBody* CreateTriangleSensor(int x, int y, int sideLength, bodyType type);
 
 	
 	// b2ContactListener ---

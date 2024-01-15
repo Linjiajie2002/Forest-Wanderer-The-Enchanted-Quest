@@ -106,6 +106,9 @@ public:
 	int lifebar = life - 2;
 	bool playerTakeHeal = false;
 
+	bool playerTakeBossDmg = false;
+
+
 
 
 

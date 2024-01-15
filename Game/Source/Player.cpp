@@ -85,7 +85,7 @@ bool Player::Start() {
 	}
 
 	texture = app->tex->Load(texturePath);
-	
+
 
 
 	//pbody = app->physics->CreateRectangle(position.x, position.y, 55,70, bodyType::DYNAMIC);
@@ -344,6 +344,9 @@ bool Player::Update(float dt)
 		//isDead = true;
 		pbody->body->SetActive(false);
 		app->scene->GetPlayerLife()->life = 0;
+		if (die.HasFinished()) {
+			app->scene->GetBoss()->inBossBattle = false;
+		}
 		//pbody->body->SetLinearVelocity(b2Vec2(0, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
 		if (isPosibleRevive) {
 			for (int i = 0; i < app->scene->GetPlayerLife()->lifeMark; i++)

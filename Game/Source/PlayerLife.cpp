@@ -195,6 +195,13 @@ void PlayerLife::playerGetHit()
 	if (life == 0) {
 		app->scene->GetPlayer()->isDead = true;
 	}
+
+	
+	if (playerTakeBossDmg == false) {
+		playerTakeBossDmg = true;
+	}
+
+	
 }
 
 void PlayerLife::playerGetHeal()

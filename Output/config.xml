@@ -29,7 +29,8 @@
 		<nivel_1>
 
 			<shop Posx="120" Posy="985" Tsprite="6" x="118" y="128" Pweight="340" texturepath="Assets/Shop/Shop.png"/>
-			<player x="40" y="1100" speed="0.4f" crouchspeed="0.1f" jumpforce="15" texturepath="Assets/Sprite/Player/Player.png"  >
+			
+			<player x="40" y="1100" speed="0.4f" crouchspeed="0.1f" jumpforce="15" texturepath="Assets/Sprite/Player/Player.png">
 
 				<!--x="40" y="1100"-->
 				<animations Tsprite="374" x="288" y="128" Pweight="6336"/>
@@ -94,7 +95,7 @@
 		<nivel_2>
 			<shop Posx="120" Posy="985" Tsprite="6" x="118" y="128" Pweight="340" texturepath="Assets/Shop/Shop.png"/>
 
-			<player x="40" y="1100" speed="0.4f" crouchspeed="0.1f" jumpforce="15" texturepath="Assets/Sprite/Player/Player.png"  >
+			<player x="40" y="1100" speed="0.4f" crouchspeed="0.1f" jumpforce="15" texturepath="Assets/Sprite/Player/Player.png">
 
 				<!--x="40" y="1100"-->
 				<animations Tsprite="374" x="288" y="128" Pweight="6336"/>
@@ -155,27 +156,15 @@
 		</nivel_2>
 
 
-		<itembox x="50" y="1100" texturepath="Assets/Item/ItemBox.png">
-			<animations Tsprite="40" x="34" y="41" Pweight="340"/>
-		</itembox>
-
-
-		
-
-
-		
-
-		
-
-
-
-
+	
 
 	</scene>
 
 
 	<Animations>
-
+		<itembox x="50" y="1100" texturepath="Assets/Item/ItemBox.png">
+			<animations Tsprite="40" x="34" y="41" Pweight="340"/>
+		</itembox>
 		<angel>
 			<angel_all_start start="0" end="20" speed="0.2f" loop="false"/>
 			<angel_all_idle start="20" end="34" speed="0.2f" loop="true"/>

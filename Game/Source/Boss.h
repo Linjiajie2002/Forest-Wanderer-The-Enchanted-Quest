@@ -107,6 +107,9 @@ public:
 
 	bool crearCollision = false;
 
+	Timer atack1_Collision;
+
+	bool atackTouch = false;
 
 private:
 

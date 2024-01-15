@@ -258,6 +258,46 @@ PhysBody* Physics::CreateChain(int x, int y, int* points, int size, bodyType typ
 	return pbody;
 }
 
+PhysBody* Physics::CreateTriangleSensor(int x, int y, int sideLength, bodyType type)
+{
+	// Crear CUERPO en la posici¨®n x,y
+	b2BodyDef body;
+	if (type == DYNAMIC) body.type = b2_dynamicBody;
+	if (type == STATIC) body.type = b2_staticBody;
+	if (type == KINEMATIC) body.type = b2_kinematicBody;
+	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
+	body.angle = b2_pi / 6.0f;  // Gira 90 grados (pi/2 radianes)
+
+	
+	b2Body* b = world->CreateBody(&body);
+
+	// Crear FORMA
+	b2PolygonShape triangle;
+	b2Vec2 vertices[3];
+	vertices[0].Set(0.0f, 0.0f);
+	vertices[1].Set(0.0f, PIXEL_TO_METERS(sideLength));  // Girado 90 grados
+	vertices[2].Set(PIXEL_TO_METERS(sqrt(3.0) * 0.5 * sideLength), 0.5f * PIXEL_TO_METERS(sideLength));  // Girado 90 grados
+	triangle.Set(vertices, 3);
+
+	// Crear FIXTURE
+	b2FixtureDef fixture;
+	fixture.shape = &triangle;
+	fixture.density = 1.0f;
+	fixture.isSensor = true;
+
+	b->CreateFixture(&fixture);
+
+	// Crear nuestra clase PhysBody personalizada
+	PhysBody* pbody = new PhysBody();
+	pbody->body = b;
+	b->SetUserData(pbody);
+	pbody->width = sideLength;
+	pbody->height = sqrt(3.0) * 0.5 * sideLength;
+
+	// Devolver nuestra clase PhysBody
+	return pbody;
+}
+
 // 
 bool Physics::PostUpdate()
 {

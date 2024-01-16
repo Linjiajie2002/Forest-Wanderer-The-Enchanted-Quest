@@ -43,7 +43,7 @@ public:
 	void AtackAnimation(char* atackname);
 	void RetAtkAni(Animation* ani, bool* anib);
 	
-
+	
 
 
 	Animation* currentAnimation = nullptr;
@@ -101,6 +101,8 @@ public:
 
 	PhysBody* pbody_closeAtk;
 
+
+	bool jumping = false;
 
 	Render* render = NULL;
 

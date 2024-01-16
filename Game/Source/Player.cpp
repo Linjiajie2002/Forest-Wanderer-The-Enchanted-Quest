@@ -148,53 +148,47 @@ bool Player::Update(float dt)
 
 			//Jump
 			if (jumpCount > 0) {
-
-
 				currentAnimation = &Jump_UP;
-
-
 				if (AniplayerOnPlatform) {
 					currentAnimation = &slide;
 				}
-
 			}
 			else {
 				Jump_UP.Reset();
 
 			}
-
 			if (playerOnPlatform) {
 				canJump = true;
 			}
-			//LOG("JumpCount: %d ", jumpCount);
 			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 				pbody->body->GetFixtureList()[0].SetSensor(true);
 
 				if (jumpCount == 0) {
-					// SONIDO SALTO
 					app->audio->PlayFx(soundjump);
 				}
-				//printf("Salto");
 				if (canJump) {
-					/*if (jumpCount == 1) {
-						jumpForce = 30;
-					}*/
 					vel.y = 0;
 					pbody->body->ApplyLinearImpulse(b2Vec2(0, GRAVITY_Y * jumpForce), pbody->body->GetWorldCenter(), true);
 					jumpCount++;
 					playerOnPlatform = false;
-
-
-					//AniplayerOnPlatform = true;
-
 					if (jumpCount == 2) {
-						//jumpForce = 25;
 						canJump = false;
 					}
 
 				}
 			}
 
+
+			
+
+			
+			
+
+			if (playerOnPlatform) {
+				canJump = true;
+				jumping = false;
+				jumpCount = 0;
+			}
 
 			if (starFram) {
 				frameCount++;
@@ -447,7 +441,7 @@ bool Player::CleanUp()
 }
 
 void Player::Camera(float dt) {
-	
+
 	uint windowH;
 	uint windowW;
 	app->win->GetWindowSize(windowW, windowH);
@@ -470,7 +464,7 @@ void Player::Camera(float dt) {
 		int targetPosY = (-position.y * app->win->GetScale() + (windowH / 2) - 10) + yCameraOffset + 210;
 
 		targetPosY = MAX(targetPosY, -5980);
-		targetPosX = MIN(targetPosX, -95);
+		targetPosX = MIN(targetPosX, -100);
 
 		targetPosX += (isFacingLeft) ? 75 : 100;
 

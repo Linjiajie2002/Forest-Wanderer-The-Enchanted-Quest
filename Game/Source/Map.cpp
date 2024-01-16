@@ -102,17 +102,17 @@ bool Map::Update(float dt)
 			}
 			else {
 				bossRenderArea_R = 32;
-				bossRenderArea_L = 18;
+				bossRenderArea_L = 30;
 			}
 
 			//printf("fondoy, %d ", fondoy);
 
-			if (fondoy >= 43) {
-				fondoy = 43;
+			if (fondoy >= 50) {
+				fondoy = 50;
 			}
 
-			if (fondoy <= 13) {
-				fondoy = 13;
+			if (fondoy <= 20) {
+				fondoy = 20;
 			}
 
 			//printf("fondox: %d \n", fondox);

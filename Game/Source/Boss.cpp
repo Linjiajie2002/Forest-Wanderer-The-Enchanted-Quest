@@ -106,7 +106,8 @@ bool Boss::Update(float dt)
 		atackTouch = false;
 	}
 
-	if (app->scene->GetItem()->playerGetDiamante == 6 && inBossBattle == false) {
+	if (app->scene->GetItem()->playerGetDiamante == 6 && inBossBattle == false && !app->scene->GetPlayer()->isDead && !app->scene->GetItem()->victoria) {
+		printf("1111");
 		goBossBattle();
 	}
 

@@ -49,7 +49,7 @@ bool Scene::Awake(pugi::xml_node& config)
 
 			PathfindingPath = config.child("nivel_1").child("enemy").child("Pathfinding").attribute("texturepath").as_string();
 
-			for (pugi::xml_node itemNode = config.child("nivel_1").child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
+			/*for (pugi::xml_node itemNode = config.child("nivel_1").child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
 			{
 				item = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
 				item->parameters = itemNode;
@@ -79,7 +79,7 @@ bool Scene::Awake(pugi::xml_node& config)
 			{
 				playerlife = (PlayerLife*)app->entityManager->CreateEntity(EntityType::PLAYERLIFE);
 				playerlife->parameters = itemNode;
-			}
+			}*/
 		}
 	}
 
@@ -177,9 +177,7 @@ bool Scene::Start()
 		pugi::xml_node SceneInfo;
 		pugi::xml_parse_result parseResult = configFile.load_file("config.xml");
 		SceneInfo = configFile.child("config").child("scene");
-		Awake(SceneInfo);
-		/*app->Awake();*/
-	
+		Awake(SceneInfo);	
 	}
 	// NOTE: We have to avoid the use of paths in the code, we will move it later to a config file
 	//img = app->tex->Load("Assets/Textures/test.png");

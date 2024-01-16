@@ -179,20 +179,20 @@ bool PlayerLife::Update(float dt)
 bool PlayerLife::CleanUp()
 {
 
-	//if (lifebar_head_tail_texture) {
-	//	SDL_DestroyTexture(lifebar_head_tail_texture);
-	//	lifebar_head_tail_texture = nullptr;
-	//}
+	if (lifebar_head_tail_texture) {
+		SDL_DestroyTexture(lifebar_head_tail_texture);
+		lifebar_head_tail_texture = nullptr;
+	}
 
-	//if (lifebar_mid_texture) {
-	//	SDL_DestroyTexture(lifebar_mid_texture);
-	//	lifebar_mid_texture = nullptr;
-	//}
+	if (lifebar_mid_texture) {
+		SDL_DestroyTexture(lifebar_mid_texture);
+		lifebar_mid_texture = nullptr;
+	}
 
-	//if (lifebar_icon_texture) {
-	//	SDL_DestroyTexture(lifebar_icon_texture);
-	//	lifebar_icon_texture = nullptr;
-	//}
+	if (lifebar_icon_texture) {
+		SDL_DestroyTexture(lifebar_icon_texture);
+		lifebar_icon_texture = nullptr;
+	}
 
 	return true;
 }

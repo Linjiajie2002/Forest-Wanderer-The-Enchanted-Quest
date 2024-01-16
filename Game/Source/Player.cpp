@@ -491,25 +491,24 @@ void Player::Camera(float dt) {
 				lerpvelocidad_y = 0.003f;
 			}
 		}
-		lerpvelocidad_x = 0.005f;
-		lerpvelocidad_y = 0.003f;
-		//if (app->map->LevelMap == 2) {
-		//	if (position.x >= 3292) {
-		//		lerpvelocidad_x = 0;
 
-		//	}
-		//	else {
-		//		lerpvelocidad_x = 0.005f;
-		//	}
+		if (app->map->LevelMap == 2) {
+			if (position.x >= 3292) {
+				lerpvelocidad_x = 0;
 
-		//	if (position.y <= 594) {
-		//		lerpvelocidad_y = 0;
+			}
+			else {
+				lerpvelocidad_x = 0.005f;
+			}
 
-		//	}
-		//	else {
-		//		lerpvelocidad_y = 0.003f;
-		//	}
-		//}
+			if (position.y <= 594) {
+				lerpvelocidad_y = 0;
+
+			}
+			else {
+				lerpvelocidad_y = 0.003f;
+			}
+		}
 
 		/*printf("\nY:%d", position.y);
 		printf("\nX:%d", position.x);*/

@@ -46,28 +46,19 @@
 
 				<Enemy_Flyeye Posx="4992" Posy="672" Tsprite="32" x="150" y="150" Pweight="1200" Area_Limit_L="4704" Area_Limit_R="5216" life="3" speed ="0.2" texturepath="Assets/Sprite/Enemy/Fly_eye/Flyeye.png"/>
 
-				<!--
-			<Enemy_Goblin Posx="800" Posy="1100" Tsprite="40" x="150" y="150" Pweight="1200" speed ="0.4" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png"/>
-			<Enemy_Goblin Posx="790" Posy="1100" Tsprite="40" x="150" y="150" Pweight="1200" speed ="0.4" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png"/>
-			-->
-
+				
 				<Enemy_Goblin Posx="3360" Posy="224" Tsprite="40" x="150" y="150" Pweight="1200" Area_Limit_L="3328" Area_Limit_R="3712" life="3" speed ="0.4" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png">
 					<deadenemy texturepath="Assets/Audio/Fx/DEADENEMY_PR.ogg"/>
-
 				</Enemy_Goblin>
-
 
 				<Enemy_Goblin Posx="4648" Posy="1312" Tsprite="40" x="150" y="150" Pweight="1200" Area_Limit_L="3936" Area_Limit_R="5120" life="3" speed ="0.4" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png">
 					<deadenemy texturepath="Assets/Audio/Fx/DEADENEMY_PR.ogg"/>
-
 				</Enemy_Goblin>
-
-
 
 				<Enemy_Goblin Posx="4438" Posy="1212" Tsprite="40" x="150" y="150" Pweight="1200" Area_Limit_L="3936" Area_Limit_R="5120" life="3" speed ="0.4" texturepath="Assets/Sprite/Enemy/Goblin/goblin.png">
 					<deadenemy texturepath="Assets/Audio/Fx/DEADENEMY_PR.ogg"/>
-
 				</Enemy_Goblin>
+				
 			</enemy>
 			<Pathfinding texturepath="Assets/Maps/pathfinding.png"/>
 			<effect>
@@ -93,6 +84,11 @@
 				<Cura Posx="450" Posy="1050" Tsprite="14" Pweight="440" x="110" y="110" texturepath="Assets\Effecto\LifeBar\Cura.png"/>
 				<Cura Posx="650" Posy="1050" Tsprite="14" Pweight="440" x="110" y="110" texturepath="Assets\Effecto\LifeBar\Cura.png"/>
 			</Cura>
+
+			<item>
+				<Diamond Posx="150" Posy="950" Tsprite="6" Pweight="192" x="32" y="32" texturepath="Assets\Sprite\Mapa2\Diamond.png"/>
+				<Diamond_Counter Posx="150" Posy="950" Tsprite="8" Pweight="192" x="114" y="40" texturepath="Assets\Sprite\Mapa2\Diamond_Counter.png"/>
+			</item>
 		</nivel_1>
 
 		<nivel_2>

@@ -247,6 +247,7 @@ bool Enemy_Goblin::CleanUp()
 
 	if (Enemytexture) {
 		SDL_DestroyTexture(Enemytexture);
+		Enemytexture = nullptr;
 	}
 
 	return true;

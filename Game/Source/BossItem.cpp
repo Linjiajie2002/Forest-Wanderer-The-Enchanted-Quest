@@ -54,6 +54,7 @@ bool BossItem::Start() {
 		reLoadXML(app->scene->nodeinfo(EntityType::BOSSITEM));
 	}
 
+	
 
 	ball_blue_texture = app->tex->Load(ball_blue_texture_Path);
 
@@ -119,6 +120,9 @@ bool BossItem::Update(float dt)
 
 bool BossItem::CleanUp()
 {
+	if (ball_blue_texture) {
+		SDL_DestroyTexture(ball_blue_texture);
+	}
 	return true;
 }
 

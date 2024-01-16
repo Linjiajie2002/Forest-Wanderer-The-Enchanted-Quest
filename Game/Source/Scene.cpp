@@ -62,7 +62,11 @@ bool Scene::Awake(pugi::xml_node& config)
 				enemy_goblin->parameters = itemNode;
 			}
 
-			
+			for (pugi::xml_node itemNode = config.child("nivel_1").child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
+			{
+				item = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
+				item->parameters = itemNode;
+			}
 
 			for (pugi::xml_node itemNode = config.child("nivel_1").child("effect"); itemNode; itemNode = itemNode.next_sibling("effect"))
 			{
@@ -394,7 +398,13 @@ pugi::xml_node Scene::nodeinfo(EntityType type)
 			nodeInfo = configFile.child("config").child("scene").child("nivel_1").child("enemy").child("Enemy_Flyeye");
 		break;
 	case EntityType::ITEM:
+
+		if (app->map->LevelMap == 1) {
+			nodeInfo = configFile.child("config").child("scene").child("nivel_1").child("item");
+		}
+		else if (app->map->LevelMap == 2) {
 			nodeInfo = configFile.child("config").child("scene").child("nivel_2").child("item");
+		}
 		break;
 	case EntityType::EFFECT:
 		if (app->map->LevelMap == 1) {
@@ -441,6 +451,12 @@ pugi::xml_node Scene::nodeinfo(EntityType type)
 		break;
 	}
 
+	if (app->map->LevelMap == 1) {
+		PathfindingPath = configFile.child("config").child("scene").child("nivel_1").child("Pathfinding").attribute("texturepath").as_string();
+	}
+	else if (app->map->LevelMap == 2) {
+		PathfindingPath = configFile.child("config").child("scene").child("nivel_2").child("Pathfinding").attribute("texturepath").as_string();
+	}
 	return nodeInfo;
 }
 

@@ -69,6 +69,8 @@ bool Item::Start() {
 	Diamondtexture = app->tex->Load(DiamondPath);
 	Diamond_Counter_texture = app->tex->Load(Diamond_Counter_texture_Path);
 
+
+
 	/*pbody = app->physics->CreateCircle(position.x + 16, position.y + 16, 16, bodyType::DYNAMIC);
 	pbody->ctype = ColliderType::ITEM;*/
 
@@ -140,6 +142,18 @@ bool Item::Update(float dt)
 
 bool Item::CleanUp()
 {
+	if (pbody != nullptr) {
+		app->physics->GetWorld()->DestroyBody(pbody->body);
+	}
+	if (Diamondtexture) {
+		SDL_DestroyTexture(Diamondtexture);
+		Diamondtexture = nullptr;
+	}
+
+	if (Diamond_Counter_texture) {
+		SDL_DestroyTexture(Diamond_Counter_texture);
+		Diamond_Counter_texture = nullptr;
+	}
 	return true;
 }
 

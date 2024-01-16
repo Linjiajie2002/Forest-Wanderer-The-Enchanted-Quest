@@ -101,6 +101,8 @@ public:
 	int atack4_posX_L = 2290;
 	int atack4_posY;
 
+	int test;
+
 	bool goFight = false;
 	int atack2_posY;
 

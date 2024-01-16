@@ -200,25 +200,25 @@ bool Boss::Update(float dt)
 
 		}
 
-		for (auto& body : physBodies) {
+		/*for (auto& body : physBodies) {
 			if (body != nullptr) {
 				body->body->GetWorld()->DestroyBody(body->body);
 				delete body;
 				body = nullptr;
 
 			}
-		}
+		}*/
 
 		for (auto& physBodyWithTimer : physBodiesWithTimers) {
-			if (physBodyWithTimer.pbody2 != nullptr) {
+			if (physBodyWithTimer.pbody2->body != nullptr) {
 				// Verifica si ha pasado suficiente tiempo desde la creaci¨®n
-				physBodyWithTimer.timer.Start();
-				//physBodyWithTimer.pbody2->body->GetWorld()->DestroyBody(physBodyWithTimer.pbody2->body);
+				//physBodyWithTimer.timer.Start();
+				physBodyWithTimer.pbody2->body->GetWorld()->DestroyBody(physBodyWithTimer.pbody2->body);
+				physBodyWithTimer.pbody2->body = nullptr;
 			}
 		}
 
 		physBodies.clear();
-
 		app->scene->GetPlayerLife()->playerTakeBossDmg = false;
 		aumentaDistanciaColison = 0;
 		aumentaDistanciaColison_suport = 0;
@@ -244,14 +244,13 @@ bool Boss::Update(float dt)
 
 	if (currentAnimation3->HasFinished()) {
 		atack_3.Reset();
-		attackMethod = 4;
 		currentAnimation4 = &atack_4_start;
-
 		if (pbody != nullptr) {
 			pbody->body->GetWorld()->DestroyBody(pbody->body);
 			pbody = nullptr;
 		}
 		app->scene->GetPlayerLife()->playerTakeBossDmg = false;
+		attackMethod = 4;
 	}
 
 
@@ -333,14 +332,13 @@ void Boss::boss_atack_2(bool inversaAtack, int numberAtack)
 			pbody2->body->SetFixedRotation(true);
 			pbody2->listener = this;
 			crearCollision = false;
-			physBodies.push_back(pbody2);
 		
-			
 			physBodiesWithTimers.emplace_back(pbody2);
+			
 		}
 
 		for (auto& physBodyWithTimer : physBodiesWithTimers) {
-			if (physBodyWithTimer.pbody2 != nullptr) {
+			if (physBodyWithTimer.pbody2->body != nullptr) {
 				// Verifica si ha pasado suficiente tiempo desde la creaci¨®n
 				if (physBodyWithTimer.timer.ReadMSec() >= 850) {
 					physBodyWithTimer.pbody2->body->SetLinearVelocity(b2Vec2(0, 50));
@@ -359,16 +357,15 @@ void Boss::boss_atack_2(bool inversaAtack, int numberAtack)
 			pbody2->body->SetFixedRotation(true);
 			pbody2->listener = this;
 			crearCollision = false;
-			physBodies.push_back(pbody2);
-
 			physBodiesWithTimers.emplace_back(pbody2);
 		}
 
 		for (auto& physBodyWithTimer : physBodiesWithTimers) {
-			if (physBodyWithTimer.pbody2 != nullptr) {
+			if (physBodyWithTimer.pbody2->body != nullptr) {
 				// Verifica si ha pasado suficiente tiempo desde la creaci¨®n
 				if (physBodyWithTimer.timer.ReadMSec() >= 850) {
-					physBodyWithTimer.pbody2->body->SetLinearVelocity(b2Vec2(0, 50));
+					 physBodyWithTimer.pbody2->body->SetLinearVelocity(b2Vec2(0, 50));
+					
 				}
 			}
 		}
@@ -415,12 +412,7 @@ void Boss::boss_atack_3(bool inversaAtack)
 void Boss::boss_atack_4(bool inversaAtack)
 {
 	rect_4 = currentAnimation4->GetCurrentFrame();
-
-
-
 	if (inversaAtack) {
-
-
 		if (currentAnimation4->getNameAnimation() == "atack_4_running") {
 			if (pbody != nullptr) {
 				pbody->body->SetLinearVelocity(b2Vec2(8, 0));

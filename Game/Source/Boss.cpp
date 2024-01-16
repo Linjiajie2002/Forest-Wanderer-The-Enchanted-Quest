@@ -237,7 +237,7 @@ bool Boss::Update(float dt)
 		}
 		crearCollision = true;
 		boss_atack_3(direction_Atack);
-		
+
 
 	}
 
@@ -303,13 +303,14 @@ void Boss::boss_atack_1(int player_x)
 		rect_1 = currentAnimation1->GetCurrentFrame();
 		app->render->DrawTexture(boss_atack_1_texture, player_x - 200, 590, 1, SDL_FLIP_NONE, &rect_1);
 		currentAnimation1->Update();
-		if (atack1_Collision.ReadMSec() >= 1000) {
+		if (atack1_Collision.ReadMSec() >= 1070) {
 			if (pbody == nullptr && crearCollision) {
 				pbody = app->physics->CreateRectangleSensor(player_x + 50, 1080, 300, 150, bodyType::STATIC);
 				pbody->ctype = ColliderType::BOSSATACK;
 				pbody->body->SetFixedRotation(true);
 				pbody->listener = this;
 				crearCollision = false;
+				//app->scene->GetPlayer()->shakeDuration = 70;
 			}
 		}
 	}
@@ -332,15 +333,15 @@ void Boss::boss_atack_2(bool inversaAtack, int numberAtack)
 			pbody2->body->SetFixedRotation(true);
 			pbody2->listener = this;
 			crearCollision = false;
-		
+
 			physBodiesWithTimers.emplace_back(pbody2);
-			
+
 		}
 
 		for (auto& physBodyWithTimer : physBodiesWithTimers) {
 			if (physBodyWithTimer.pbody2->body != nullptr) {
 				// Verifica si ha pasado suficiente tiempo desde la creaci¨®n
-				if (physBodyWithTimer.timer.ReadMSec() >= 850) {
+				if (physBodyWithTimer.timer.ReadMSec() >= 830) {
 					physBodyWithTimer.pbody2->body->SetLinearVelocity(b2Vec2(0, 50));
 				}
 			}
@@ -363,9 +364,9 @@ void Boss::boss_atack_2(bool inversaAtack, int numberAtack)
 		for (auto& physBodyWithTimer : physBodiesWithTimers) {
 			if (physBodyWithTimer.pbody2->body != nullptr) {
 				// Verifica si ha pasado suficiente tiempo desde la creaci¨®n
-				if (physBodyWithTimer.timer.ReadMSec() >= 850) {
-					 physBodyWithTimer.pbody2->body->SetLinearVelocity(b2Vec2(0, 50));
-					
+				if (physBodyWithTimer.timer.ReadMSec() >= 830) {
+					physBodyWithTimer.pbody2->body->SetLinearVelocity(b2Vec2(0, 50));
+
 				}
 			}
 		}
@@ -379,9 +380,9 @@ void Boss::boss_atack_3(bool inversaAtack)
 	rect_3 = currentAnimation3->GetCurrentFrame();
 	if (inversaAtack) {
 		app->render->DrawTexture(boss_atack_3_texture, 1350, 660, 2, SDL_FLIP_NONE, &rect_3);
-		
+
 		if (atack1_Collision.ReadMSec() >= 1200) {
-		
+
 			if (pbody == nullptr && crearCollision) {
 				pbody = app->physics->CreateRectangleSensor(1870, 1000, 150, 300, bodyType::STATIC);
 				pbody->ctype = ColliderType::BOSSATACK;
@@ -496,7 +497,9 @@ void Boss::OnCollision(PhysBody* physA, PhysBody* physB) {
 	switch (physB->ctype)
 	{
 	case ColliderType::PLAYER:
-		atackTouch = true;
+		if (!app->godMode) {
+			atackTouch = true;
+		}
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");

@@ -42,10 +42,11 @@ public:
 
 	void AtackAnimation(char* atackname);
 	void RetAtkAni(Animation* ani, bool* anib);
-	
+
 	
 
 
+public:
 	Animation* currentAnimation = nullptr;
 
 	Animation SPosition;
@@ -66,19 +67,18 @@ public:
 	Animation slide;
 	Animation roll;
 	Animation onground;
-	
+
 	Animation close_atk;
 	Animation air_atk;
 	Animation arrow_atk;
 	Animation scope_atk;
 	Animation sp_atk;
 
-	
+
 	Animation* ResetAtackAnimation = nullptr;
 	SDL_Rect* spritePositions;
 
 
-public:
 	float speed;
 	float crouchspeed;
 	float jumpForce;
@@ -152,7 +152,7 @@ public:
 	int cameraUP;
 
 	//Shake
-	int shakeDuration = 4; 
+	int shakeDuration = 0; 
 	int shakeMagnitude = 5;
 	int firstTouchPlantform = 0;
 

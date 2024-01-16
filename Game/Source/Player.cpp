@@ -83,7 +83,7 @@ bool Player::Start() {
 	if (app->scene->changeScena) {
 		reLoadXML(app->scene->nodeinfo(EntityType::PLAYER));
 	}
-
+	
 
 	texture = app->tex->Load(texturePath);
 
@@ -116,6 +116,13 @@ bool Player::Update(float dt)
 {
 
 
+	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN) {
+
+		shakeDuration = 500;
+	}
+
+	
+	
 
 	//printf("%d \n", position.x);
 	currentAnimation = &idle;
@@ -131,9 +138,6 @@ bool Player::Update(float dt)
 	if (NoControl) {
 
 		if (!app->godMode) {
-
-
-
 
 			pbody->body->GetFixtureList()[0].SetSensor(false);
 			vel = b2Vec2(0, pbody->body->GetLinearVelocity().y);
@@ -179,10 +183,10 @@ bool Player::Update(float dt)
 			}
 
 
-			
 
-			
-			
+
+
+
 
 			if (playerOnPlatform) {
 				canJump = true;
@@ -235,15 +239,9 @@ bool Player::Update(float dt)
 
 			Camera(dt);
 
-			if (app->input->GetKey(SDL_SCANCODE_P) == KEY_REPEAT) {
-				printf("WWW");
-				xOffset = (rand() % (2 * shakeMagnitude + 1)) - shakeMagnitude;
-				yOffset = (rand() % (2 * shakeMagnitude + 1)) - shakeMagnitude;
-				ShakeCamera(xOffset, yOffset);
-				shakeDuration--;
-			}
+		
 
-
+			
 
 			/*	if (shakeDuration > 0) {
 					printf("WWW");
@@ -450,6 +448,14 @@ void Player::Camera(float dt) {
 	if (app->scene->GetBoss()->inBossBattle) {
 		app->render->camera.x = -1430;
 		app->render->camera.y = -501;
+
+		if (shakeDuration > 0) {
+			printf("WWW");
+			xOffset = (rand() % (2 * shakeMagnitude + 1)) - shakeMagnitude;
+			yOffset = (rand() % (2 * shakeMagnitude + 1)) - shakeMagnitude;
+			ShakeCamera(xOffset, yOffset);
+			shakeDuration--;
+		}
 	}
 	else {
 
@@ -524,9 +530,9 @@ void Player::Camera(float dt) {
 void Player::ShakeCamera(int xOffset, int yOffset) {
 
 
-	app->render->camera.x = (-position.x * app->win->GetScale() + (width / 2) - 50 + xOffset);
+	app->render->camera.x = (-1430 + xOffset);
 
-	app->render->camera.y = (-position.y * app->win->GetScale() + (height / 2) + 200 + yOffset);
+	app->render->camera.y = (-501 + yOffset);
 
 
 	if (app->render->camera.y <= -829) {
@@ -536,6 +542,9 @@ void Player::ShakeCamera(int xOffset, int yOffset) {
 		app->render->camera.y = 0;
 	}
 }
+
+
+
 
 void Player::keyInput(float dt) {
 
@@ -683,10 +692,6 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		highjump.Reset();
 		playerOnPlatform = true;
 		playerCheckAir = !playerCheckAir;
-
-		/*shake = true;*/
-		shakeDuration = 10;
-
 		break;
 	case ColliderType::DEADPLATFORM:
 		//LOG("Collision DEADPLATFORM");

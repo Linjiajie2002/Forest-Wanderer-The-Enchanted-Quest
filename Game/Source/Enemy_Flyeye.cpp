@@ -401,8 +401,10 @@ void Enemy_Flyeye::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 
 	case ColliderType::CLOSEATK_PLAYER:
-		isTakehit = true;
-		life--;
+		if (!app->godMode) {
+			isTakehit = true;
+			life--;
+		}
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");

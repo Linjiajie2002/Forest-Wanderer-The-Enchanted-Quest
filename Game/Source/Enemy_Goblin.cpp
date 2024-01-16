@@ -137,14 +137,14 @@ bool Enemy_Goblin::Update(float dt)
 					}
 					else {
 
-						if (timerAtaque.ReadMSec() > 600) {		
+						if (timerAtaque.ReadMSec() > 600) {
 							if (!isFacingLeft)attackParticle = app->par->CloseAtake(position.x + 30, position.y + 20, 50, 70, ColliderType::CLOSEATK_ENEMY);
 							else attackParticle = app->par->CloseAtake(position.x - 50, position.y + 20, 50, 70, ColliderType::CLOSEATK_ENEMY);
 							canatake = true;
 							timerAtaque.Start();
 						}
-						if (canatake)currentAnimation = &atack; 
-		
+						if (canatake)currentAnimation = &atack;
+
 					}
 				}
 				else {
@@ -176,7 +176,7 @@ bool Enemy_Goblin::Update(float dt)
 
 			if (atack.HasFinished() && canatake) {
 				//app->par->DestroyParticle();
-				
+
 				canatake = false;
 			}
 
@@ -319,8 +319,10 @@ void Enemy_Goblin::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 
 	case ColliderType::CLOSEATK_PLAYER:
-		isTakehit = true;
-		life--;
+		if (!app->godMode) {
+			isTakehit = true;
+			life--;
+		}
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");

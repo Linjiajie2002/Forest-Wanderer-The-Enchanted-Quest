@@ -134,7 +134,6 @@ bool PlayerLife::Update(float dt)
 	}
 
 
-
 	if (app->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN) {
 
 		if (life != lifeMark) {
@@ -289,6 +288,9 @@ void PlayerLife::updateMiddleAnimations()
 					else {
 						currentAnimation2[i] = &Middle_treatment_nb[i];
 					}
+				}
+				else {
+					currentAnimation2[i] = &Middle_treatment_wb[i];
 				}
 			}
 		}

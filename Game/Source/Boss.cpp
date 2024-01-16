@@ -310,7 +310,7 @@ void Boss::boss_atack_1(int player_x)
 				pbody->body->SetFixedRotation(true);
 				pbody->listener = this;
 				crearCollision = false;
-				//app->scene->GetPlayer()->shakeDuration = 70;
+				app->scene->GetPlayer()->shakeDuration = 70;
 			}
 		}
 	}
@@ -359,6 +359,7 @@ void Boss::boss_atack_2(bool inversaAtack, int numberAtack)
 			pbody2->listener = this;
 			crearCollision = false;
 			physBodiesWithTimers.emplace_back(pbody2);
+			
 		}
 
 		for (auto& physBodyWithTimer : physBodiesWithTimers) {
@@ -389,7 +390,7 @@ void Boss::boss_atack_3(bool inversaAtack)
 				pbody->body->SetFixedRotation(true);
 				pbody->listener = this;
 				crearCollision = false;
-
+				app->scene->GetPlayer()->shakeDuration = 20;
 			}
 		}
 	}
@@ -402,6 +403,7 @@ void Boss::boss_atack_3(bool inversaAtack)
 				pbody->body->SetFixedRotation(true);
 				pbody->listener = this;
 				crearCollision = false;
+				app->scene->GetPlayer()->shakeDuration = 20;
 			}
 		}
 		app->render->DrawTexture(boss_atack_3_texture, 1750, 660, 2, SDL_FLIP_HORIZONTAL, &rect_3);

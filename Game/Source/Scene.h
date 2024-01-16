@@ -11,6 +11,7 @@
 #include "Angel.h"
 #include "Item.h"
 #include "BossItem.h"
+#include "Diamond.h"
 
 struct SDL_Texture;
 
@@ -51,6 +52,7 @@ public:
 	Angel* GetAngel();
 	Item* GetItem();
 	BossItem* GetBossItem();
+	Diamond* GetDiamond();
 
 	bool LoadState(pugi::xml_node node);
 
@@ -69,6 +71,8 @@ private:
 	Angel*angel;
 	Item* item;
 	BossItem* bossitem;
+	Diamond* diamond;
+
 public:
 
 	SDL_Texture* Pathfindingtexture;

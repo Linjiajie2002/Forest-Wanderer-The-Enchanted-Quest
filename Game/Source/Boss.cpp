@@ -106,6 +106,9 @@ bool Boss::Update(float dt)
 		atackTouch = false;
 	}
 
+	if (app->scene->GetItem()->playerGetDiamante == 6 && inBossBattle == false) {
+		goBossBattle();
+	}
 
 
 	if (app->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN) {
@@ -476,6 +479,14 @@ void Boss::boss_atack_4(bool inversaAtack)
 
 }
 
+void Boss::goBossBattle()
+{
+	app->scene->GetAngel()->Enter = true;
+	inBossBattle = true;
+	tpToinBossBattle = true;
+	app->scene->GetItem()->victoria = false;
+}
+
 
 
 void Boss::OnCollision(PhysBody* physA, PhysBody* physB) {
@@ -484,7 +495,6 @@ void Boss::OnCollision(PhysBody* physA, PhysBody* physB) {
 	{
 	case ColliderType::PLAYER:
 		atackTouch = true;
-
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");

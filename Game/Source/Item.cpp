@@ -233,7 +233,7 @@ void Item::LastDiamante()
 		currentAnimation2->Update();
 
 		pbody = app->physics->CreateCircle(1915 + 32, 765 + 32, 28, bodyType::DYNAMIC);
-		pbody->ctype = ColliderType::ENERGYBALL;
+		pbody->ctype = ColliderType::ITEM;
 		pbody->body->SetFixedRotation(true);
 		pbody->listener = this;
 		lastDiamenteIsCreat = false;
@@ -260,6 +260,12 @@ void Item::LastDiamante()
 
 }
 
+void Item::playerIsGetDiamante()
+{
+	if (playerGetDiamante != 7)playerGetDiamante++;
+}
+
+
 
 void Item::OnCollision(PhysBody* physA, PhysBody* physB) {
 
@@ -267,7 +273,7 @@ void Item::OnCollision(PhysBody* physA, PhysBody* physB) {
 	{
 	case ColliderType::PLAYER:
 		DestroyedDiamante();
-		if (playerGetDiamante != 7)playerGetDiamante++;
+		playerIsGetDiamante();
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");

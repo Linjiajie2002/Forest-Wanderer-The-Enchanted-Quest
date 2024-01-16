@@ -12,6 +12,7 @@
 #include "Boss.h"
 #include "BossItem.h"
 #include "Angel.h"
+#include "Diamond.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -126,11 +127,15 @@ Entity* EntityManager::CreateEntity(EntityType type)
 	case EntityType::PLAYERLIFE:
 		entity = new PlayerLife();
 		break;
+	case EntityType::DIAMOND:
+		entity = new Diamond();
+		break;
 	default:
 		break;
 	}
 
 	entities.Add(entity);
+	//entities.start;
 	return entity;
 }
 

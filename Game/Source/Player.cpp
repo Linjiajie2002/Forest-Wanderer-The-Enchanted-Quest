@@ -85,8 +85,7 @@ bool Player::Start() {
 		app->scene->changeScena = false;
 	}
 
-	texture = app->tex->Load(texturePath);
-
+		texture = app->tex->Load(texturePath);
 
 
 	//pbody = app->physics->CreateRectangle(position.x, position.y, 55,70, bodyType::DYNAMIC);
@@ -115,6 +114,7 @@ bool Player::Start() {
 
 bool Player::Update(float dt)
 {
+
 	if (app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN) {
 		app->scene->changeScena = true;
 		Start();
@@ -212,6 +212,7 @@ bool Player::Update(float dt)
 				palyergethit = true;
 
 			}
+
 			if (palyergethit) {
 				currentAnimation = &takehit;
 			}
@@ -427,7 +428,7 @@ void Player::AtackAnimation(char* atackname) {
 
 bool Player::CleanUp()
 {
-	/*delete checkisAtk;
+	delete checkisAtk;
 	delete  checkAtk;
 	delete atkReset;
 	delete atkAniname;
@@ -435,10 +436,8 @@ bool Player::CleanUp()
 	delete attackParticle;
 	delete checkAtk;
 	delete atkReset;
-	delete atkAniname;*/
+	delete atkAniname;
 
-	printf("\nPlayerX: %d", position.x);
-	printf("\nPlayerY: %d", position.y);
 
 	if (pbody != nullptr) {
 		app->physics->GetWorld()->DestroyBody(pbody->body);
@@ -542,7 +541,8 @@ void Player::Camera(float dt) {
 		else if (position.x >= 5800) {
 			app->render->camera.x <= -5361;
 			app->render->camera.y = lerp(app->render->camera.y, targetPosY, dt * 0.002f);
-		}else {
+		}
+		else {
 			app->render->camera.x = lerp(app->render->camera.x, targetPosX, dt * 0.005f);
 			app->render->camera.y = lerp(app->render->camera.y, targetPosY, dt * 0.002f);
 		}

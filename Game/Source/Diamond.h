@@ -1,5 +1,7 @@
-#ifndef __ITEM_H__
-#define __ITEM_H__
+#pragma once
+#ifndef __DIAMOND_H__
+#define __DIAMOND_H__
+
 
 #include "Entity.h"
 #include "Point.h"
@@ -13,12 +15,12 @@
 
 struct SDL_Texture;
 
-class Item : public Entity
+class Diamond : public Entity
 {
 public:
 
-	Item();
-	virtual ~Item();
+	Diamond();
+	virtual ~Diamond();
 
 	bool Awake();
 
@@ -28,12 +30,8 @@ public:
 
 	bool CleanUp();
 
-	void diamanteVictoria();
-	void rotateAroundCircle(double& x, double& y, double circleCenterX, double circleCenterY, double angleIncrement);
-	void DestroyedDiamante();
-	void diamanteToCenter(double& x, double& y);
-	void LastDiamante();
-	void playerIsGetDiamante();
+	void DestroyDiamante();
+
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
 public:
@@ -43,7 +41,7 @@ public:
 	Animation* currentAnimation2 = nullptr;
 
 	List<Animation*> currentAnimation1;
-	 
+
 	Animation idle;
 	List<Animation> Diamond_Counter;
 
@@ -55,13 +53,14 @@ public:
 	int SpriteX;
 	int SpriteY;
 	int PhotoWeight;
+	int pos_X;
+	int pos_Y;
 
-
-	double itemX[8];      
+	double itemX[8];
 	double itemY[8];
-	double circleCenterX = 1920.0;  
-	double circleCenterY = 900.0;  
-	double angleIncrement = 1.0;  
+	double circleCenterX = 1920.0;
+	double circleCenterY = 900.0;
+	double angleIncrement = 1.0;
 
 
 	int NumeroDiamante = 7;
@@ -80,7 +79,7 @@ public:
 	bool victoria = false;
 	bool lastDiamenteIsCreat = true;
 	bool playerTakeDiamante = false;
-	
+
 
 	Timer TimeCrear;
 	Timer diamanteToBig;

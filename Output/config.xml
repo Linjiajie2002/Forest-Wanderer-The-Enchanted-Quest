@@ -106,6 +106,11 @@
 				<escudo texturepath="Assets/Audio/Fx/ESCUDO.ogg"/>
 				<intro texturepath="Assets/Audio/Fx/INTRO.ogg"/>
 			</player>
+			<Diamond>
+				<Diamond Posx="150" Posy="950" Tsprite="6" Pweight="192" x="32" y="32" texturepath="Assets\Sprite\Mapa2\Diamond.png"/>
+				<Diamond Posx="250" Posy="950" Tsprite="6" Pweight="192" x="32" y="32" texturepath="Assets\Sprite\Mapa2\Diamond.png"/>
+				<Diamond Posx="350" Posy="950" Tsprite="6" Pweight="192" x="32" y="32" texturepath="Assets\Sprite\Mapa2\Diamond.png"/>
+			</Diamond>
 			<item>
 				<Diamond Posx="150" Posy="950" Tsprite="6" Pweight="192" x="32" y="32" texturepath="Assets\Sprite\Mapa2\Diamond.png"/>
 				<Diamond_Counter Posx="150" Posy="950" Tsprite="8" Pweight="192" x="114" y="40" texturepath="Assets\Sprite\Mapa2\Diamond_Counter.png"/>

@@ -27,6 +27,7 @@ enum class EntityType
 	BOSSITEM,
 	ANGEL, 
 	ITEM,
+	DIAMOND,
 	ITEMBOX,
 	SHOP,
 	EFFECT,

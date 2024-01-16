@@ -31,7 +31,7 @@ public:
 	void boss_atack_2(bool inversaAtack, int numberAtack);
 	void boss_atack_3(bool inversaAtack);
 	void boss_atack_4(bool inversaAtack);
-
+	void goBossBattle();
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 	void OnEndCollision(PhysBody* physA, PhysBody* physB);

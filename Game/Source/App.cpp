@@ -364,7 +364,7 @@ void App::resetMap()
 	item = modules.start;
 	pugi::xml_node node = configNode.child(item->data->name.GetString());
 
-	map->Awake(node);
+	entityManager->Awake(node);
 }
 uint64 App::GetFrameCount()
 {

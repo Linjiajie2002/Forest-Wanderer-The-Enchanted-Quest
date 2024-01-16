@@ -43,10 +43,10 @@ bool Diamond::Awake() {
 
 bool Diamond::Start() {
 	//initilize textures
-
 	if (app->scene->changeScena) {
-		Awake();
+		reLoadXML(app->scene->nodeinfo(EntityType::DIAMOND));
 	}
+
 	Diamondtexture = app->tex->Load(DiamondPath);
 
 	if (pbody == nullptr) {
@@ -80,6 +80,13 @@ bool Diamond::Update(float dt)
 
 bool Diamond::CleanUp()
 {
+	if (pbody != nullptr) {
+		app->physics->GetWorld()->DestroyBody(pbody->body);
+	}
+
+	if (Diamondtexture) {
+		SDL_DestroyTexture(Diamondtexture);
+	}
 	return true;
 }
 
@@ -104,6 +111,20 @@ void Diamond::OnCollision(PhysBody* physA, PhysBody* physB) {
 		LOG("Collision UNKNOWN");
 		break;
 	}
+}
+
+void Diamond::reLoadXML(pugi::xml_node& parameters)
+{
+	pugi::xml_document configFile;
+	DiamondPath = parameters.attribute("texturepath").as_string();
+	TSprite = parameters.attribute("Tsprite").as_int();
+	SpriteX = parameters.attribute("x").as_int();
+	SpriteY = parameters.attribute("y").as_int();
+	PhotoWeight = parameters.attribute("Pweight").as_int();
+	pos_X = parameters.attribute("Posx").as_int();
+	pos_Y = parameters.attribute("Posy").as_int();
+	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
+	idle.LoadAnim("Diamond", "idle", spritePositions);
 }
 
 

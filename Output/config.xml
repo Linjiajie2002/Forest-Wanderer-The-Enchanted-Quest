@@ -41,11 +41,6 @@
 				<intro texturepath="Assets/Audio/Fx/INTRO.ogg"/>
 			</player>
 
-			<item>
-				<Diamond Posx="150" Posy="950" Tsprite="6" Pweight="192" x="32" y="32" texturepath="Assets\Sprite\Mapa2\Diamond.png"/>
-				<Diamond_Counter Posx="150" Posy="950" Tsprite="8" Pweight="192" x="114" y="40" texturepath="Assets\Sprite\Mapa2\Diamond_Counter.png"/>
-			</item>
-
 			<enemy>
 				<Enemy_Flyeye Posx="960" Posy="416" Tsprite="32" x="150" y="150" Pweight="1200" Area_Limit_L="800" Area_Limit_R="1184" life="3" speed ="0.2" texturepath="Assets/Sprite/Enemy/Fly_eye/Flyeye.png"/>
 
@@ -73,9 +68,8 @@
 					<deadenemy texturepath="Assets/Audio/Fx/DEADENEMY_PR.ogg"/>
 
 				</Enemy_Goblin>
-
-				<Pathfinding texturepath="Assets/Maps/pathfinding.png"/>
 			</enemy>
+			<Pathfinding texturepath="Assets/Maps/pathfinding.png"/>
 			<effect>
 				<animations1 Tsprite="16" x="48" y="48" Pweight="768" texturepath="Assets/Effecto/Die/Revive.png"/>
 				<animations2 Tsprite="26" x="90" y="115" Pweight="450" texturepath="Assets/Effecto/Die/Die.png"/>
@@ -88,6 +82,17 @@
 				<lifebar_mid Posx="150" Posy="570" Tsprite="56" Pweight="120" x="15" y="18" texturepath="Assets\Effecto\LifeBar\lifebar_mid.png"/>
 				<lifebar_glass Posx="150" Posy="570" Tsprite="8" Pweight="680" x="85" y="110" texturepath="Assets\Effecto\LifeBar\glass.png"/>
 			</playerlife>
+
+			<Diamond>
+				<Diamond Posx="150" Posy="950" Tsprite="6" Pweight="192" x="32" y="32" texturepath="Assets\Sprite\Mapa2\Diamond.png"/>
+				<Diamond Posx="250" Posy="950" Tsprite="6" Pweight="192" x="32" y="32" texturepath="Assets\Sprite\Mapa2\Diamond.png"/>
+				<Diamond Posx="350" Posy="950" Tsprite="6" Pweight="192" x="32" y="32" texturepath="Assets\Sprite\Mapa2\Diamond.png"/>
+			</Diamond>
+
+			<Cura>
+				<Cura Posx="450" Posy="1050" Tsprite="14" Pweight="440" x="110" y="110" texturepath="Assets\Effecto\LifeBar\Cura.png"/>
+				<Cura Posx="650" Posy="1050" Tsprite="14" Pweight="440" x="110" y="110" texturepath="Assets\Effecto\LifeBar\Cura.png"/>
+			</Cura>
 		</nivel_1>
 
 		<nivel_2>

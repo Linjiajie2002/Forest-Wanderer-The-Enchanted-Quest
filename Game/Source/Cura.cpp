@@ -46,8 +46,9 @@ bool Cura::Start() {
 	//initilize textures
 
 	if (app->scene->changeScena) {
-		Awake();
+		reLoadXML(app->scene->nodeinfo(EntityType::CURA));
 	}
+
 	Curatexture= app->tex->Load(CuraPath);
 
 	if (pbody == nullptr) {
@@ -103,6 +104,13 @@ bool Cura::Update(float dt)
 
 bool Cura::CleanUp()
 {
+	if (pbody != nullptr) {
+		app->physics->GetWorld()->DestroyBody(pbody->body);
+	}
+
+	if (Curatexture) {
+		SDL_DestroyTexture(Curatexture);
+	}
 	return true;
 }
 
@@ -129,6 +137,23 @@ void Cura::OnCollision(PhysBody* physA, PhysBody* physB) {
 		LOG("Collision UNKNOWN");
 		break;
 	}
+}
+
+void Cura::reLoadXML(pugi::xml_node& parameters)
+{
+	pugi::xml_document configFile;
+
+	CuraPath = parameters.attribute("texturepath").as_string();
+	TSprite = parameters.attribute("Tsprite").as_int();
+	SpriteX = parameters.attribute("x").as_int();
+	SpriteY = parameters.attribute("y").as_int();
+	PhotoWeight = parameters.attribute("Pweight").as_int();
+	pos_X = parameters.attribute("Posx").as_int();
+	pos_Y = parameters.attribute("Posy").as_int();
+	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
+	idle.LoadAnim("cura", "cura_idle", spritePositions);
+	die.LoadAnim("cura", "cura_die", spritePositions);
+	start.LoadAnim("cura", "cura_start", spritePositions);
 }
 
 

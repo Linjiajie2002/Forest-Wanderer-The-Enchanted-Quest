@@ -47,14 +47,9 @@ bool Scene::Awake(pugi::xml_node& config)
 				player->parameters = config.child("nivel_1").child("player");
 			}
 
-			PathfindingPath = config.child("nivel_1").child("enemy").child("Pathfinding").attribute("texturepath").as_string();
+			PathfindingPath = config.child("nivel_1").child("Pathfinding").attribute("texturepath").as_string();
 
-			/*for (pugi::xml_node itemNode = config.child("nivel_1").child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
-			{
-				item = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
-				item->parameters = itemNode;
-			}
-
+			
 			for (pugi::xml_node itemNode = config.child("nivel_1").child("enemy").child("Enemy_Flyeye"); itemNode; itemNode = itemNode.next_sibling("Enemy_Flyeye"))
 			{
 				Enemy_Flyeye* enemy_flyeye = (Enemy_Flyeye*)app->entityManager->CreateEntity(EntityType::ENEMY_FLYEYE);
@@ -79,7 +74,7 @@ bool Scene::Awake(pugi::xml_node& config)
 			{
 				playerlife = (PlayerLife*)app->entityManager->CreateEntity(EntityType::PLAYERLIFE);
 				playerlife->parameters = itemNode;
-			}*/
+			}
 		}
 	}
 
@@ -170,8 +165,6 @@ bool Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool Scene::Start()
 {
-
-
 	if (changeScena) {
 		pugi::xml_document configFile;
 		pugi::xml_node SceneInfo;
@@ -376,6 +369,79 @@ bool Scene::SaveState(pugi::xml_node node) {
 
 	return true;
 
+}
+
+pugi::xml_node Scene::nodeinfo(EntityType type)
+{
+	pugi::xml_document configFile;
+	pugi::xml_node nodeInfo;
+	pugi::xml_parse_result parseResult = configFile.load_file("config.xml");
+
+	switch (type)
+	{
+	case EntityType::PLAYER:
+		if (app->map->LevelMap == 1) {
+			nodeInfo = configFile.child("config").child("scene").child("nivel_1").child("player");
+		}
+		else if (app->map->LevelMap == 2) {
+			nodeInfo = configFile.child("config").child("scene").child("nivel_2").child("player");
+		}
+		break;
+	case EntityType::ENEMY_GOBLIN:
+		nodeInfo = configFile.child("config").child("scene").child("nivel_1").child("enemy").child("Enemy_Goblin");
+		break;
+	case EntityType::ENEMY_FLYEYE:
+			nodeInfo = configFile.child("config").child("scene").child("nivel_1").child("enemy").child("Enemy_Flyeye");
+		break;
+	case EntityType::ITEM:
+			nodeInfo = configFile.child("config").child("scene").child("nivel_2").child("item");
+		break;
+	case EntityType::EFFECT:
+		if (app->map->LevelMap == 1) {
+			nodeInfo = configFile.child("config").child("scene").child("nivel_1").child("effect");
+		}
+		else if (app->map->LevelMap == 2) {
+			nodeInfo = configFile.child("config").child("scene").child("nivel_2").child("effect");
+		}
+		break;
+	case EntityType::BOSS:
+		nodeInfo = configFile.child("config").child("scene").child("nivel_2").child("boss");
+		break;
+	case EntityType::ANGEL:
+		nodeInfo = configFile.child("config").child("scene").child("nivel_2").child("angel");
+		break;
+	case EntityType::BOSSITEM:
+		nodeInfo = configFile.child("config").child("scene").child("nivel_2").child("bossitem");
+		break;
+	case EntityType::PLAYERLIFE:
+		if (app->map->LevelMap == 1) {
+			nodeInfo = configFile.child("config").child("scene").child("nivel_1").child("playerlife");
+		}
+		else if (app->map->LevelMap == 2) {
+			nodeInfo = configFile.child("config").child("scene").child("nivel_2").child("playerlife");
+		}
+		break;
+	case EntityType::DIAMOND:
+		if (app->map->LevelMap == 1) {
+			nodeInfo = configFile.child("config").child("scene").child("nivel_1").child("Diamond").child("Diamond");
+		}
+		else if (app->map->LevelMap == 2) {
+			nodeInfo = configFile.child("config").child("scene").child("nivel_2").child("Diamond").child("Diamond");
+		}
+		break;
+	case EntityType::CURA:
+		if (app->map->LevelMap == 1) {
+			nodeInfo = configFile.child("config").child("scene").child("nivel_1").child("Cura").child("Cura");
+		}
+		else if (app->map->LevelMap == 2) {
+			nodeInfo = configFile.child("config").child("scene").child("nivel_2").child("Cura").child("Cura");
+		}
+		break;
+	default:
+		break;
+	}
+
+	return nodeInfo;
 }
 
 

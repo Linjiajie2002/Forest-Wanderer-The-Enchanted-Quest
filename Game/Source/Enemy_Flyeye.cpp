@@ -48,7 +48,7 @@ bool Enemy_Flyeye::Awake() {
 
 bool Enemy_Flyeye::Start() {
 	if (app->scene->changeScena) {
-		Awake();
+		reLoadXML(app->scene->nodeinfo(EntityType::ENEMY_FLYEYE));
 	}
 
 	Enemytexture = app->tex->Load(EnemyPath);
@@ -78,6 +78,7 @@ bool Enemy_Flyeye::Start() {
 
 bool Enemy_Flyeye::Update(float dt)
 {
+
 	if (player->position.x >= leftTopX && player->position.x <= rightBottomX &&
 		player->position.y >= leftTopY && player->position.y <= rightBottomY) {
 
@@ -114,7 +115,7 @@ bool Enemy_Flyeye::Update(float dt)
 
 
 			pbody->body->SetLinearVelocity(b2Vec2(0, 0));
-			
+
 			iPoint origPos = app->map->WorldToMap(position.x + 16, position.y + 16);
 			iPoint playerPos = app->scene->GetPlayer()->position;
 			playerPos = app->map->WorldToMap(playerPos.x, playerPos.y);
@@ -135,8 +136,8 @@ bool Enemy_Flyeye::Update(float dt)
 					else {
 						if (timerAtaque.ReadSec() > 1) {
 							printf("1");
-							if(!isFacingLeft)attackParticle = app->par->CloseAtake(position.x + 30, position.y+20, 40, 60, ColliderType::CLOSEATK_ENEMY);
-							else attackParticle = app->par->CloseAtake(position.x - 50, position.y+20, 40, 60, ColliderType::CLOSEATK_ENEMY);
+							if (!isFacingLeft)attackParticle = app->par->CloseAtake(position.x + 30, position.y + 20, 40, 60, ColliderType::CLOSEATK_ENEMY);
+							else attackParticle = app->par->CloseAtake(position.x - 50, position.y + 20, 40, 60, ColliderType::CLOSEATK_ENEMY);
 							LOG("ATACA");
 							canatake = true;
 							timerAtaque.Start();
@@ -295,10 +296,13 @@ bool Enemy_Flyeye::Update(float dt)
 
 bool Enemy_Flyeye::CleanUp()
 {
+	if (pbody != nullptr) {
+		app->physics->GetWorld()->DestroyBody(pbody->body);
+	}
 
-	app->physics->GetWorld()->DestroyBody(pbody->body);
-	SDL_DestroyTexture(Enemytexture);
-
+	if (Enemytexture) {
+		SDL_DestroyTexture(Enemytexture);
+	}
 	return true;
 }
 
@@ -353,6 +357,34 @@ bool Enemy_Flyeye::Rd()
 	bool rddirection = distribution(mt);
 
 	return rddirection;
+}
+
+void Enemy_Flyeye::reLoadXML(pugi::xml_node& parameters)
+{
+	pugi::xml_document configFile;
+
+	EnemyPath = parameters.attribute("texturepath").as_string();
+	TSprite = parameters.attribute("Tsprite").as_int();
+	SpriteX = parameters.attribute("x").as_int();
+	SpriteY = parameters.attribute("y").as_int();
+	PhotoWeight = parameters.attribute("Pweight").as_int();
+	enemyAreaLimitR = parameters.attribute("Area_Limit_R").as_int();
+	enemyAreaLimitL = parameters.attribute("Area_Limit_L").as_int();
+	life = parameters.attribute("life").as_int();
+	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
+
+	PathfindingPath = parameters.attribute("texturepath").as_string();
+
+	position.x = parameters.attribute("Posx").as_int();
+	position.y = parameters.attribute("Posy").as_int();
+	speed = parameters.attribute("speed").as_float();
+
+	idle.LoadAnim("Enemy_Flyeye", "idle", spritePositions);
+	/*run.LoadAnim("Enemy_Flyeye", "run", spritePositions);*/
+	take_hit.LoadAnim("Enemy_Flyeye", "take_hit", spritePositions);
+	die.LoadAnim("Enemy_Flyeye", "die", spritePositions);
+	atack.LoadAnim("Enemy_Flyeye", "atk", spritePositions);
+
 }
 
 

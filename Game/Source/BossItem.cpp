@@ -51,8 +51,10 @@ bool BossItem::Awake() {
 bool BossItem::Start() {
 
 	if (app->scene->changeScena) {
-		Awake();
+		reLoadXML(app->scene->nodeinfo(EntityType::BOSSITEM));
 	}
+
+
 	ball_blue_texture = app->tex->Load(ball_blue_texture_Path);
 
 	currentAnimation1 = &ball_blue_start;
@@ -285,4 +287,27 @@ void BossItem::OnEndCollision(PhysBody* physA, PhysBody* physB) {
 		LOG("Collision UNKNOWN");
 		break;
 	}
+}
+
+void BossItem::reLoadXML(pugi::xml_node& parameters)
+{
+	pugi::xml_document configFile;
+	ball_blue_texture_Path = parameters.child("boss_ball").child("ball_blue").attribute("texturepath").as_string();
+	TSprite = parameters.child("boss_ball").child("ball_blue").attribute("Tsprite").as_int();
+	SpriteX = parameters.child("boss_ball").child("ball_blue").attribute("x").as_int();
+	SpriteY = parameters.child("boss_ball").child("ball_blue").attribute("y").as_int();
+	PhotoWeight = parameters.child("boss_ball").child("ball_blue").attribute("Pweight").as_int();
+	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
+
+	ball_blue_start.LoadAnim("BossItem", "ball_blue_start", spritePositions);
+	ball_blue_running.LoadAnim("BossItem", "ball_blue_running", spritePositions);
+	ball_blue_end.LoadAnim("BossItem", "ball_blue_end", spritePositions);
+
+	ball_red_start.LoadAnim("BossItem", "ball_red_start", spritePositions);
+	ball_red_running.LoadAnim("BossItem", "ball_red_running", spritePositions);
+	ball_red_end.LoadAnim("BossItem", "ball_red_end", spritePositions);
+
+	ball_yellow_start.LoadAnim("BossItem", "ball_yellow_start", spritePositions);
+	ball_yellow_running.LoadAnim("BossItem", "ball_yellow_running", spritePositions);
+	ball_yellow_end.LoadAnim("BossItem", "ball_yellow_end", spritePositions);
 }

@@ -54,7 +54,7 @@ bool Enemy_Goblin::Start() {
 
 
 	if (app->scene->changeScena) {
-		Awake();
+		reLoadXML(app->scene->nodeinfo(EntityType::ENEMY_GOBLIN));
 	}
 	//initilize textures
 	Enemytexture = app->tex->Load(EnemyPath);
@@ -241,7 +241,13 @@ bool Enemy_Goblin::Update(float dt)
 
 bool Enemy_Goblin::CleanUp()
 {
+	if (pbody != nullptr) {
+		app->physics->GetWorld()->DestroyBody(pbody->body);
+	}
 
+	if (Enemytexture) {
+		SDL_DestroyTexture(Enemytexture);
+	}
 
 	return true;
 }
@@ -336,4 +342,32 @@ void Enemy_Goblin::OnEndCollision(PhysBody* physA, PhysBody* physB) {
 		LOG("Collision UNKNOWN");
 		break;
 	}
+}
+
+void Enemy_Goblin::reLoadXML(pugi::xml_node& parameters)
+{
+	pugi::xml_document configFile;
+
+	EnemyPath = parameters.attribute("texturepath").as_string();
+	TSprite = parameters.attribute("Tsprite").as_int();
+	SpriteX = parameters.attribute("x").as_int();
+	SpriteY = parameters.attribute("y").as_int();
+	PhotoWeight = parameters.attribute("Pweight").as_int();
+	enemyAreaLimitR = parameters.attribute("Area_Limit_R").as_int();
+	enemyAreaLimitL = parameters.attribute("Area_Limit_L").as_int();
+	life = parameters.attribute("life").as_int();
+	speed = parameters.attribute("speed").as_float();
+
+	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
+
+
+
+	idle.LoadAnim("Enemy_Goblin", "idle", spritePositions);
+	run.LoadAnim("Enemy_Goblin", "run", spritePositions);
+	take_hit.LoadAnim("Enemy_Goblin", "take_hit", spritePositions);
+	die.LoadAnim("Enemy_Goblin", "die", spritePositions);
+	atack.LoadAnim("Enemy_Goblin", "atake", spritePositions);
+
+	position.x = parameters.attribute("Posx").as_int();
+	position.y = parameters.attribute("Posy").as_int();
 }

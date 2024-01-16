@@ -44,9 +44,7 @@ bool Shop::Start() {
 	//pbody->body->SetFixedRotation(true);
 
 	//currentAnimation = &idle;
-	if (app->scene->changeScena) {
-		Awake();
-	}
+
 
 
 	return true;

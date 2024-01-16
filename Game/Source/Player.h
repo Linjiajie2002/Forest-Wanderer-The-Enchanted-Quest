@@ -34,11 +34,11 @@ public:
 	void Camera(float dt);
 	void ShakeCamera(int xOffset, int yOffset);
 	void keyInput(float dt);
-	void checkAtack();
 	void godMod(float dt);
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 	void OnEndCollision(PhysBody* physA, PhysBody* physB);
 
+	void reLoadXML(pugi::xml_node& parameters);
 
 	void AtackAnimation(char* atackname);
 	void RetAtkAni(Animation* ani, bool* anib);

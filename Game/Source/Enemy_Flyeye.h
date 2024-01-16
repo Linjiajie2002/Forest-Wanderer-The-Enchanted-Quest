@@ -31,6 +31,7 @@ public:
 	void EnemyMove(float dt, int enemyAreaLimitL, int enemyAreaLimitR);
 	bool Rd();
 
+	void reLoadXML(pugi::xml_node& parameters);
 
 public:
 

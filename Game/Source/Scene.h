@@ -60,7 +60,8 @@ public:
 
 	bool SaveState(pugi::xml_node node);
 
-	void Cplayer(pugi::xml_node& config);
+	pugi::xml_node nodeinfo(EntityType type);
+
 
 
 private:

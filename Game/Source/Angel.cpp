@@ -15,7 +15,7 @@
 #include "List.h"
 #include <random>
 
-Angel::Angel() : Entity(EntityType::BOSS)
+Angel::Angel() : Entity(EntityType::ANGEL)
 {
 	name.Create("boss");
 }
@@ -66,21 +66,12 @@ bool Angel::Awake() {
 
 bool Angel::Start() {
 
-	//boss_atack_1_texture = app->tex->Load(boss_atack_1_texture_Path);
-	/*if (app->scene->changeScena) {
-		app->scene->changeScena = false;
-		angel_blue_texture_Path = parameters.child("angel_all").child("angel_texture1").attribute("texturepath").as_string();
-		angel_red_texture_Path = parameters.child("angel_all").child("angel_texture2").attribute("texturepath").as_string();
-		angel_yellow_texture_Path = parameters.child("angel_all").child("angel_texture3").attribute("texturepath").as_string();
 
-		angel_borde_blue_texture_Path = parameters.child("borde").child("angel_texture1").attribute("texturepath").as_string();
-		angel_borde_red_texture_Path = parameters.child("borde").child("angel_texture2").attribute("texturepath").as_string();
-		angel_borde_yellow_texture_Path = parameters.child("borde").child("angel_texture3").attribute("texturepath").as_string();
-	}*/
 
 	if (app->scene->changeScena) {
-		Awake();
+		reLoadXML(app->scene->nodeinfo(EntityType::ANGEL));
 	}
+
 	angel_blue_texture = app->tex->Load(angel_blue_texture_Path);
 	angel_red_texture = app->tex->Load(angel_red_texture_Path);
 	angel_yellow_texture = app->tex->Load(angel_yellow_texture_Path);
@@ -294,4 +285,46 @@ void Angel::OnEndCollision(PhysBody* physA, PhysBody* physB) {
 		LOG("Collision UNKNOWN");
 		break;
 	}
+}
+
+void Angel::reLoadXML(pugi::xml_node& parameters)
+{
+	pugi::xml_document configFile;
+
+	angel_blue_texture_Path = parameters.child("angel_all").child("angel_texture1").attribute("texturepath").as_string();
+	angel_red_texture_Path = parameters.child("angel_all").child("angel_texture2").attribute("texturepath").as_string();
+	angel_yellow_texture_Path = parameters.child("angel_all").child("angel_texture3").attribute("texturepath").as_string();
+	TSprite = parameters.child("angel_all").attribute("Tsprite").as_int();
+	SpriteX = parameters.child("angel_all").attribute("x").as_int();
+	SpriteY = parameters.child("angel_all").attribute("y").as_int();
+	PhotoWeight = parameters.child("angel_all").attribute("Pweight").as_int();
+	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
+
+	angel_blue_start.LoadAnim("angel", "angel_all_start", spritePositions);
+	angel_blue_idle.LoadAnim("angel", "angel_all_idle", spritePositions);
+	angel_blue_die.LoadAnim("angel", "angel_all_die", spritePositions);
+
+	angel_red_start.LoadAnim("angel", "angel_all_start", spritePositions);
+	angel_red_idle.LoadAnim("angel", "angel_all_idle", spritePositions);
+	angel_red_die.LoadAnim("angel", "angel_all_die", spritePositions);
+
+	angel_yellow_start.LoadAnim("angel", "angel_all_start", spritePositions);
+	angel_yellow_idle.LoadAnim("angel", "angel_all_idle", spritePositions);
+	angel_yellow_die.LoadAnim("angel", "angel_all_die", spritePositions);
+
+
+
+
+	angel_borde_blue_texture_Path = parameters.child("borde").child("angel_texture1").attribute("texturepath").as_string();
+	angel_borde_red_texture_Path = parameters.child("borde").child("angel_texture2").attribute("texturepath").as_string();
+	angel_borde_yellow_texture_Path = parameters.child("borde").child("angel_texture3").attribute("texturepath").as_string();
+	TSprite = parameters.child("borde").attribute("Tsprite").as_int();
+	SpriteX = parameters.child("borde").attribute("x").as_int();
+	SpriteY = parameters.child("borde").attribute("y").as_int();
+	PhotoWeight = parameters.child("borde").attribute("Pweight").as_int();
+	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
+
+	angel_borde_red_idle.LoadAnim("angel_borde", "angel_borde_blue", spritePositions);
+	angel_borde_yellow_idle.LoadAnim("angel_borde", "angel_borde_blue", spritePositions);
+	angel_borde_blue_idle.LoadAnim("angel_borde", "angel_borde_blue", spritePositions);
 }

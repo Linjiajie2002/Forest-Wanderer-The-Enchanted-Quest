@@ -81,64 +81,9 @@ bool Player::Awake() {
 bool Player::Start() {
 
 	if (app->scene->changeScena) {
-		/*Awake();*/
-		pugi::xml_document configFile;
-		pugi::xml_node nodeInfo;
-		pugi::xml_parse_result parseResult = configFile.load_file("config.xml");
-		if (app->map->LevelMap == 1) {
-			nodeInfo = configFile.child("config").child("scene").child("nivel_1").child("player");
-		}
-		else if (app->map->LevelMap == 2) {
-			nodeInfo = configFile.child("config").child("scene").child("nivel_2").child("player");
-		}
-		
-
-		texturePath = nodeInfo.attribute("texturepath").as_string();
-		TSprite = nodeInfo.child("animations").attribute("Tsprite").as_int();
-		SpriteX = nodeInfo.child("animations").attribute("x").as_int();
-		SpriteY = nodeInfo.child("animations").attribute("y").as_int();
-		PhotoWeight = nodeInfo.child("animations").attribute("Pweight").as_int();
-		position.x = nodeInfo.attribute("x").as_int();
-		position.y = nodeInfo.attribute("y").as_int();
-		spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-
-
-		//data player
-
-		speed = nodeInfo.attribute("speed").as_float();
-		crouchspeed = nodeInfo.attribute("crouchspeed").as_float();
-		jumpForce = nodeInfo.attribute("jumpforce").as_float();
-
-
-		//printf("%d %d %d %d", TSprite, SpriteX, SpriteY, PhotoWeight);
-
-		idle.LoadAnim("Player", "idle", spritePositions);
-		die.LoadAnim("Player", "die", spritePositions);
-		run.LoadAnim("Player", "run", spritePositions);
-		defend_on.LoadAnim("Player", "defend_on", spritePositions);
-		defend_off.LoadAnim("Player", "defend_off", spritePositions);
-		takehit.LoadAnim("Player", "take_hit", spritePositions);
-		onground.LoadAnim("Player", "on_ground", spritePositions);
-
-		close_atk.LoadAnim("Player", "close_atk", spritePositions);
-		arrow_atk.LoadAnim("Player", "arrow_atk", spritePositions);
-		air_atk.LoadAnim("Player", "air_atk", spritePositions);
-		scope_atk.LoadAnim("Player", "scope_atk", spritePositions);
-		sp_atk.LoadAnim("Player", "sp_atk", spritePositions);
-
-
-		roll.LoadAnim("Player", "roll", spritePositions);
-		slide.LoadAnim("Player", "slide", spritePositions);
-
-
-		Jump_UP.LoadAnim("Player", "Jump_UP", spritePositions);
-		Jump_DOWN.LoadAnim("Player", "Jump_DOWN", spritePositions);
-		Jump_DOWN_LOOP.LoadAnim("Player", "Jump_DOWN_LOOP", spritePositions);
-
-
-
-		app->scene->changeScena = false;
+		reLoadXML(app->scene->nodeinfo(EntityType::PLAYER));
 	}
+
 
 	texture = app->tex->Load(texturePath);
 
@@ -170,10 +115,7 @@ bool Player::Start() {
 bool Player::Update(float dt)
 {
 
-	if (app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN) {
-		app->scene->changeScena = true;
-		Start();
-	}
+
 
 	//printf("%d \n", position.x);
 	currentAnimation = &idle;
@@ -505,63 +447,7 @@ bool Player::CleanUp()
 }
 
 void Player::Camera(float dt) {
-
-
-	//Camera
-
-	//if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
-	//	cameraUP = 0;
-	//}
-
-	//if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
-	//	//cameraUP = app->render->camera.y;
-
-	//	if (cameraUP >= 100) {
-	//		app->render->camera.y = app->render->camera.y;
-	//	}
-	//	else {
-	//		app->render->camera.y += 4;
-	//	}
-	//	cameraUP += 4;
-
-	//}
-	//else {
-	//Camera();
-	//}
-
-
-	/*float timeLerp = 0.1f;
-
-
-	if (app->scene->GetBoss()->inBossBattle) {
-		app->render->camera.x = -1430;
-		app->render->camera.y = -501;
-	}
-	else {
-
-		if (app->render->camera.x >= 2 && position.x < 514) {
-			app->render->camera.x = 2;
-		}
-		else if (app->render->camera.x <= -5370 && position.x > 5883) {
-			app->render->camera.x = -5370;
-		}
-		else {
-
-			app->render->camera.x = (-position.x * app->win->GetScale() + (width / 2) - 50);
-
-		}
-
-		app->render->camera.y = (-position.y * app->win->GetScale() + (height / 2) + 200);
-
-
-		if (app->render->camera.y <= -829) {
-			app->render->camera.y = -829;
-		}
-		if (app->render->camera.y >= 0) {
-			app->render->camera.y = 0;
-		}
-	}*/
-
+	
 	uint windowH;
 	uint windowW;
 	app->win->GetWindowSize(windowW, windowH);
@@ -859,4 +745,52 @@ void Player::OnEndCollision(PhysBody* physA, PhysBody* physB) {
 		LOG("Collision UNKNOWN");
 		break;
 	}*/
+}
+
+void Player::reLoadXML(pugi::xml_node& parameters)
+{
+	pugi::xml_document configFile;
+
+
+	texturePath = parameters.attribute("texturepath").as_string();
+	TSprite = parameters.child("animations").attribute("Tsprite").as_int();
+	SpriteX = parameters.child("animations").attribute("x").as_int();
+	SpriteY = parameters.child("animations").attribute("y").as_int();
+	PhotoWeight = parameters.child("animations").attribute("Pweight").as_int();
+	position.x = parameters.attribute("x").as_int();
+	position.y = parameters.attribute("y").as_int();
+	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
+
+
+	//data player
+
+	speed = parameters.attribute("speed").as_float();
+	crouchspeed = parameters.attribute("crouchspeed").as_float();
+	jumpForce = parameters.attribute("jumpforce").as_float();
+
+
+	//printf("%d %d %d %d", TSprite, SpriteX, SpriteY, PhotoWeight);
+
+	idle.LoadAnim("Player", "idle", spritePositions);
+	die.LoadAnim("Player", "die", spritePositions);
+	run.LoadAnim("Player", "run", spritePositions);
+	defend_on.LoadAnim("Player", "defend_on", spritePositions);
+	defend_off.LoadAnim("Player", "defend_off", spritePositions);
+	takehit.LoadAnim("Player", "take_hit", spritePositions);
+	onground.LoadAnim("Player", "on_ground", spritePositions);
+
+	close_atk.LoadAnim("Player", "close_atk", spritePositions);
+	arrow_atk.LoadAnim("Player", "arrow_atk", spritePositions);
+	air_atk.LoadAnim("Player", "air_atk", spritePositions);
+	scope_atk.LoadAnim("Player", "scope_atk", spritePositions);
+	sp_atk.LoadAnim("Player", "sp_atk", spritePositions);
+
+
+	roll.LoadAnim("Player", "roll", spritePositions);
+	slide.LoadAnim("Player", "slide", spritePositions);
+
+
+	Jump_UP.LoadAnim("Player", "Jump_UP", spritePositions);
+	Jump_DOWN.LoadAnim("Player", "Jump_DOWN", spritePositions);
+	Jump_DOWN_LOOP.LoadAnim("Player", "Jump_DOWN_LOOP", spritePositions);
 }

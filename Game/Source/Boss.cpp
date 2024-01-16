@@ -71,7 +71,7 @@ bool Boss::Awake() {
 bool Boss::Start() {
 
 	if (app->scene->changeScena) {
-		Awake();
+		reLoadXML(app->scene->nodeinfo(EntityType::BOSS));
 	}
 	boss_atack_1_texture = app->tex->Load(boss_atack_1_texture_Path);
 	boss_atack_2_texture = app->tex->Load(boss_atack_2_texture_Path);
@@ -516,4 +516,51 @@ void Boss::OnEndCollision(PhysBody* physA, PhysBody* physB) {
 		LOG("Collision UNKNOWN");
 		break;
 	}
+}
+
+void Boss::reLoadXML(pugi::xml_node& parameters)
+{
+	pugi::xml_document configFile;
+
+	boss_atack_1_texture_Path = parameters.child("boss_atack").child("atack1").attribute("texturepath").as_string();
+	TSprite = parameters.child("boss_atack").child("atack1").attribute("Tsprite").as_int();
+	SpriteX = parameters.child("boss_atack").child("atack1").attribute("x").as_int();
+	SpriteY = parameters.child("boss_atack").child("atack1").attribute("y").as_int();
+	PhotoWeight = parameters.child("boss_atack").child("atack1").attribute("Pweight").as_int();
+	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
+	atack_1.LoadAnim("Boss", "atack_1", spritePositions);
+
+
+	boss_atack_2_texture_Path = parameters.child("boss_atack").child("atack2").attribute("texturepath").as_string();
+	TSprite = parameters.child("boss_atack").child("atack2").attribute("Tsprite").as_int();
+	SpriteX = parameters.child("boss_atack").child("atack2").attribute("x").as_int();
+	SpriteY = parameters.child("boss_atack").child("atack2").attribute("y").as_int();
+	PhotoWeight = parameters.child("boss_atack").child("atack2").attribute("Pweight").as_int();
+	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
+	for (int i = 0; i < numeroAtack; i++)
+	{
+		atack_2.Add(inicializaAnimation);
+
+		atack_2[i].LoadAnim("Boss", "atack_2", spritePositions);
+	}
+
+
+	boss_atack_3_texture_Path = parameters.child("boss_atack").child("atack3").attribute("texturepath").as_string();
+	TSprite = parameters.child("boss_atack").child("atack3").attribute("Tsprite").as_int();
+	SpriteX = parameters.child("boss_atack").child("atack3").attribute("x").as_int();
+	SpriteY = parameters.child("boss_atack").child("atack3").attribute("y").as_int();
+	PhotoWeight = parameters.child("boss_atack").child("atack3").attribute("Pweight").as_int();
+	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
+	atack_3.LoadAnim("Boss", "atack_3", spritePositions);
+
+
+	boss_atack_4_texture_Path = parameters.child("boss_atack").child("atack4").attribute("texturepath").as_string();
+	TSprite = parameters.child("boss_atack").child("atack4").attribute("Tsprite").as_int();
+	SpriteX = parameters.child("boss_atack").child("atack4").attribute("x").as_int();
+	SpriteY = parameters.child("boss_atack").child("atack4").attribute("y").as_int();
+	PhotoWeight = parameters.child("boss_atack").child("atack4").attribute("Pweight").as_int();
+	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
+	atack_4_start.LoadAnim("Boss", "atack_4_start", spritePositions);
+	atack_4_running.LoadAnim("Boss", "atack_4_running", spritePositions);
+	atack_4_end.LoadAnim("Boss", "atack_4_end", spritePositions);
 }

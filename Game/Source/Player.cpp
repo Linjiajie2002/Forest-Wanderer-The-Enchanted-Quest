@@ -469,8 +469,8 @@ void Player::Camera(float dt) {
 
 		int targetPosY = (-position.y * app->win->GetScale() + (windowH / 2) - 10) + yCameraOffset + 210;
 
-		targetPosY = MAX(targetPosY, -2980);
-		targetPosX = MIN(targetPosX, -100);
+		targetPosY = MAX(targetPosY, -5980);
+		targetPosX = MIN(targetPosX, -95);
 
 		targetPosX += (isFacingLeft) ? 75 : 100;
 
@@ -493,7 +493,7 @@ void Player::Camera(float dt) {
 		}
 
 		if (app->map->LevelMap == 2) {
-			if (position.x >= 3292) {
+			if (position.x >= 3350) {
 				lerpvelocidad_x = 0;
 
 			}

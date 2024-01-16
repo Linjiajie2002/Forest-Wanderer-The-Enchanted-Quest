@@ -27,8 +27,6 @@
 	<scene>
 		
 		<nivel_1>
-
-			
 			<player x="40" y="1100" speed="0.4f" crouchspeed="0.1f" jumpforce="15" texturepath="Assets/Sprite/Player/Player.png">
 
 				<!--x="40" y="1100"-->

@@ -13,6 +13,7 @@
 #include "BossItem.h"
 #include "Angel.h"
 #include "Diamond.h"
+#include "Cura.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -129,6 +130,9 @@ Entity* EntityManager::CreateEntity(EntityType type)
 		break;
 	case EntityType::DIAMOND:
 		entity = new Diamond();
+		break;
+	case EntityType::CURA:
+		entity = new Cura();
 		break;
 	default:
 		break;

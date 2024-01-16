@@ -94,6 +94,9 @@
     <ClCompile Include="Source\Diamond.cpp">
       <Filter>Modules\Item</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Cura.cpp">
+      <Filter>Modules\Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Defs.h">
@@ -214,6 +217,9 @@
       <Filter>Modules\Angel</Filter>
     </ClInclude>
     <ClInclude Include="Source\Diamond.h">
+      <Filter>Modules\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Cura.h">
       <Filter>Modules\Item</Filter>
     </ClInclude>
   </ItemGroup>

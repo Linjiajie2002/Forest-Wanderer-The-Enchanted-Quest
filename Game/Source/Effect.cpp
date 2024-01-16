@@ -9,6 +9,7 @@
 #include "Animation.h"
 #include "Textures.h"
 #include "Audio.h"
+#include "Map.h"
 
 Effect::Effect() : Entity(EntityType::EFFECT)
 {
@@ -92,14 +93,15 @@ bool Effect::Start() {
 	currentAnimation4 = &Gravity_Void;
 	return true;
 
+	pbody = app->physics->CreateRectangleSensor(6344, 1340, 70, 70, bodyType::STATIC);
+	pbody->ctype = ColliderType::VICTORYCOLLISION;
 
 	//pbody->body->SetFixedRotation(true);
 }
 
 bool Effect::Update(float dt)
 {
-	pbody = app->physics->CreateRectangleSensor(6344, 1340, 70, 70, bodyType::STATIC);
-	pbody->ctype = ColliderType::VICTORYCOLLISION;
+
 	if (app->scene->GetPlayer()->isDead == true) {
 
 		EffectFuncion();
@@ -111,26 +113,9 @@ bool Effect::Update(float dt)
 		ReviveEffectFuncion();
 		GhostEffect.Reset();
 	}
-
-	if (!app->scene->GetPlayer()->isVictoria) {
-		//printf("yes");
-
-		sonid_vic = true;
-
-		position.x = 6304;//+ 30
-		position.y = 1312;//+ 18
-		SDL_Rect rect4 = currentAnimation4->GetCurrentFrame();
-		currentAnimation4 = &Gravity_Void;
-		app->render->DrawTexture(Effecttexture4, position.x, position.y, 0.8, SDL_FLIP_NONE, &rect4);//0.8 , 2 
-		currentAnimation4->Update();
-	}
-	else {
-
-		pbody->body->SetActive(false);
-
-	}
+	goMap2();
 	
-	
+
 
 	return true;
 }
@@ -139,6 +124,14 @@ bool Effect::Update(float dt)
 bool Effect::CleanUp()
 {
 
+	SDL_DestroyTexture(Effecttexture);
+	Effecttexture = nullptr;
+	SDL_DestroyTexture(Effecttexture2);
+	Effecttexture2 = nullptr;
+	SDL_DestroyTexture(Effecttexture3);
+	Effecttexture3 = nullptr;
+	SDL_DestroyTexture(Effecttexture4);
+	Effecttexture4 = nullptr;
 	return true;
 }
 
@@ -180,5 +173,28 @@ void Effect::LastEffect()
 	currentAnimation3 = &DiamanteEffect;
 	app->render->DrawTexture(Effecttexture3, 1850, 700, 0.5, SDL_FLIP_NONE, &rect3);
 	currentAnimation3->Update();
+}
+
+void Effect::goMap2()
+{
+	if (app->map->LevelMap == 1) {
+		if (!app->scene->GetPlayer()->isVictoria) {
+			//printf("yes");
+
+			sonid_vic = true;
+
+			position.x = 6304;//+ 30
+			position.y = 1312;//+ 18
+			SDL_Rect rect4 = currentAnimation4->GetCurrentFrame();
+			currentAnimation4 = &Gravity_Void;
+			app->render->DrawTexture(Effecttexture4, position.x, position.y, 0.8, SDL_FLIP_NONE, &rect4);//0.8 , 2 
+			currentAnimation4->Update();
+		}
+		else {
+
+			pbody->body->SetActive(false);
+
+		}
+	}
 }
 

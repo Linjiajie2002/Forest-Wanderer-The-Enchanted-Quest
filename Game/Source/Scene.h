@@ -12,6 +12,8 @@
 #include "Item.h"
 #include "BossItem.h"
 #include "Diamond.h"
+#include "Cura.h"
+ 
 
 struct SDL_Texture;
 
@@ -58,6 +60,9 @@ public:
 
 	bool SaveState(pugi::xml_node node);
 
+	void Cplayer(pugi::xml_node& config);
+
+
 private:
 	SDL_Texture* img;
 	float textPosX, textPosY = 0;
@@ -72,6 +77,7 @@ private:
 	Item* item;
 	BossItem* bossitem;
 	Diamond* diamond;
+	Cura* cura;
 
 public:
 

@@ -26,6 +26,7 @@ public:
 	void EffectFuncion();
 	void ReviveEffectFuncion();
 	void LastEffect();
+	void goMap2();
 
 public:
 

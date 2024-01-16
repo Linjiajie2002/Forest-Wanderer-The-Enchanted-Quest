@@ -18,9 +18,9 @@
 #include <vector>
 #include <string>
 
-Diamond::Diamond() : Entity(EntityType::ITEM)
+Diamond::Diamond() : Entity(EntityType::DIAMOND)
 {
-	name.Create("item");
+	name.Create("diamond");
 
 }
 

@@ -85,7 +85,7 @@ bool Player::Start() {
 		app->scene->changeScena = false;
 	}
 
-		texture = app->tex->Load(texturePath);
+	texture = app->tex->Load(texturePath);
 
 
 	//pbody = app->physics->CreateRectangle(position.x, position.y, 55,70, bodyType::DYNAMIC);
@@ -533,18 +533,54 @@ void Player::Camera(float dt) {
 
 		targetPosX += (isFacingLeft) ? 75 : 100;
 
+		if (app->map->LevelMap == 1) {
+			if (position.x >= 5870) {
+				lerpvelocidad_x = 0;
+
+			}
+			else {
+				lerpvelocidad_x = 0.005f;
+			}
+
+			if (position.y <= 594) {
+				lerpvelocidad_y = 0;
+
+			}
+			else {
+				lerpvelocidad_y = 0.003f;
+			}
+		}
+		lerpvelocidad_x = 0.005f;
+		lerpvelocidad_y = 0.003f;
+		//if (app->map->LevelMap == 2) {
+		//	if (position.x >= 3292) {
+		//		lerpvelocidad_x = 0;
+
+		//	}
+		//	else {
+		//		lerpvelocidad_x = 0.005f;
+		//	}
+
+		//	if (position.y <= 594) {
+		//		lerpvelocidad_y = 0;
+
+		//	}
+		//	else {
+		//		lerpvelocidad_y = 0.003f;
+		//	}
+		//}
+
+		/*printf("\nY:%d", position.y);
+		printf("\nX:%d", position.x);*/
+
 		//El if este es un fix para el modo release
 		if (app->GetFrameCount() < 20) {
 			app->render->camera.x = lerp(app->render->camera.x, targetPosX, 1);
 			app->render->camera.y = lerp(app->render->camera.y, targetPosY, 1);
 		}
-		else if (position.x >= 5800) {
-			app->render->camera.x <= -5361;
-			app->render->camera.y = lerp(app->render->camera.y, targetPosY, dt * 0.002f);
-		}
 		else {
-			app->render->camera.x = lerp(app->render->camera.x, targetPosX, dt * 0.005f);
-			app->render->camera.y = lerp(app->render->camera.y, targetPosY, dt * 0.002f);
+			app->render->camera.x = lerp(app->render->camera.x, targetPosX, dt * lerpvelocidad_x);
+			app->render->camera.y = lerp(app->render->camera.y, targetPosY, dt * lerpvelocidad_y);
 		}
 	}
 

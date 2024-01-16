@@ -16,6 +16,7 @@
 #include "PlayerLife.h"
 #include "Angel.h"
 #include "Diamond.h"
+#include "Cura.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -47,7 +48,8 @@ bool Scene::Awake(pugi::xml_node& config)
 			}
 
 			PathfindingPath = config.child("nivel_1").child("enemy").child("Pathfinding").attribute("texturepath").as_string();
-			/*for (pugi::xml_node itemNode = config.child("nivel_1").child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
+
+			for (pugi::xml_node itemNode = config.child("nivel_1").child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
 			{
 				item = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
 				item->parameters = itemNode;
@@ -77,7 +79,7 @@ bool Scene::Awake(pugi::xml_node& config)
 			{
 				playerlife = (PlayerLife*)app->entityManager->CreateEntity(EntityType::PLAYERLIFE);
 				playerlife->parameters = itemNode;
-			}*/
+			}
 		}
 	}
 
@@ -97,6 +99,12 @@ bool Scene::Awake(pugi::xml_node& config)
 			{
 				diamond = (Diamond*)app->entityManager->CreateEntity(EntityType::DIAMOND);
 				diamond->parameters = itemNode;
+			}
+
+			for (pugi::xml_node itemNode = config.child("nivel_2").child("Cura").child("Cura"); itemNode; itemNode = itemNode.next_sibling("Cura"))
+			{
+				cura = (Cura*)app->entityManager->CreateEntity(EntityType::CURA);
+				cura->parameters = itemNode;
 			}
 			
 			
@@ -243,8 +251,7 @@ bool Scene::Update(float dt)
 		printf("Load");
 		app->LoadRequest();
 	}
-
-
+	
 	return true;
 }
 
@@ -372,3 +379,5 @@ bool Scene::SaveState(pugi::xml_node node) {
 	return true;
 
 }
+
+

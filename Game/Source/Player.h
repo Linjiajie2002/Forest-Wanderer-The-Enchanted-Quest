@@ -173,7 +173,8 @@ public:
 	PhysBody* attackParticle;
 	Timer timerAtaque;
 	bool inEnemyArear = false;
-
+	double lerpvelocidad_x;
+	double lerpvelocidad_y;
 	bool isVictoria = false;
 
 	bool enble = false;

@@ -100,6 +100,7 @@
     <ClCompile Include="Source\Angel.cpp" />
     <ClCompile Include="Source\Boss.cpp" />
     <ClCompile Include="Source\BossItem.cpp" />
+    <ClCompile Include="Source\Cura.cpp" />
     <ClCompile Include="Source\Diamond.cpp" />
     <ClCompile Include="Source\Effect.cpp" />
     <ClCompile Include="Source\Enemy_Flyeye.cpp" />
@@ -130,6 +131,7 @@
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Boss.h" />
     <ClInclude Include="Source\BossItem.h" />
+    <ClInclude Include="Source\Cura.h" />
     <ClInclude Include="Source\Diamond.h" />
     <ClInclude Include="Source\Effect.h" />
     <ClInclude Include="Source\Enemy_Flyeye.h" />

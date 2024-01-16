@@ -101,7 +101,7 @@ public:
 	int atack4_posX_L = 2290;
 	int atack4_posY;
 
-
+	bool goFight = false;
 	int atack2_posY;
 
 	Player* player;

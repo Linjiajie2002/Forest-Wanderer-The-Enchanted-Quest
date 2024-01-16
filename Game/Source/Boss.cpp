@@ -106,9 +106,10 @@ bool Boss::Update(float dt)
 		atackTouch = false;
 	}
 
-	if (app->scene->GetItem()->playerGetDiamante == 6 && inBossBattle == false && !app->scene->GetPlayer()->isDead && !app->scene->GetItem()->victoria) {
+	if (app->scene->GetItem()->playerGetDiamante == 6 && inBossBattle == false && !app->scene->GetPlayer()->isDead && !app->scene->GetItem()->victoria && goFight == false) {
 		printf("1111");
 		goBossBattle();
+		goFight = true;
 	}
 
 
@@ -205,6 +206,14 @@ bool Boss::Update(float dt)
 				delete body;
 				body = nullptr;
 
+			}
+		}
+
+		for (auto& physBodyWithTimer : physBodiesWithTimers) {
+			if (physBodyWithTimer.pbody2 != nullptr) {
+				// Verifica si ha pasado suficiente tiempo desde la creaci¨®n
+				physBodyWithTimer.timer.Start();
+				//physBodyWithTimer.pbody2->body->GetWorld()->DestroyBody(physBodyWithTimer.pbody2->body);
 			}
 		}
 

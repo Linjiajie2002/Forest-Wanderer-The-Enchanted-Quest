@@ -199,7 +199,7 @@ bool Boss::Update(float dt)
 
 
 		}
-
+		app->scene->GetPlayer()->shakeDuration = 0;
 		/*for (auto& body : physBodies) {
 			if (body != nullptr) {
 				body->body->GetWorld()->DestroyBody(body->body);
@@ -333,8 +333,8 @@ void Boss::boss_atack_2(bool inversaAtack, int numberAtack)
 			pbody2->body->SetFixedRotation(true);
 			pbody2->listener = this;
 			crearCollision = false;
-
 			physBodiesWithTimers.emplace_back(pbody2);
+			
 
 		}
 
@@ -343,6 +343,12 @@ void Boss::boss_atack_2(bool inversaAtack, int numberAtack)
 				// Verifica si ha pasado suficiente tiempo desde la creaci¨®n
 				if (physBodyWithTimer.timer.ReadMSec() >= 830) {
 					physBodyWithTimer.pbody2->body->SetLinearVelocity(b2Vec2(0, 50));
+					if (physBodyWithTimer.timer.ReadMSec() >= 1000) {
+						app->scene->GetPlayer()->shakeDuration = 0;
+					}
+					else {
+						app->scene->GetPlayer()->shakeDuration = 10;
+					}
 				}
 			}
 		}
@@ -360,6 +366,7 @@ void Boss::boss_atack_2(bool inversaAtack, int numberAtack)
 			crearCollision = false;
 			physBodiesWithTimers.emplace_back(pbody2);
 			
+			
 		}
 
 		for (auto& physBodyWithTimer : physBodiesWithTimers) {
@@ -367,7 +374,12 @@ void Boss::boss_atack_2(bool inversaAtack, int numberAtack)
 				// Verifica si ha pasado suficiente tiempo desde la creaci¨®n
 				if (physBodyWithTimer.timer.ReadMSec() >= 830) {
 					physBodyWithTimer.pbody2->body->SetLinearVelocity(b2Vec2(0, 50));
-
+					if (physBodyWithTimer.timer.ReadMSec() >= 1000) {
+						app->scene->GetPlayer()->shakeDuration = 0;
+					}
+					else {
+						app->scene->GetPlayer()->shakeDuration = 10;
+					}
 				}
 			}
 		}

@@ -74,17 +74,20 @@ bool Cura::Update(float dt)
 
 	//App->fonts->BlitText(SCREEN_WIDTH - 328, SCREEN_HEIGHT - IconPositionrank, App->scoreFontRed16px, leaderboard[i].rank.c_str());
 
-	app->fonts->BlitText(100, 160, numbers, "123456789000");                               
+	/*app->fonts->BlitText(100, 160, numbers, "123456789000");                               
 
 
-	secondsSinceStartup = startupTime.CountDown(0);
-
-	
-	printf("Seconds since startup: %u\n", secondsSinceStartup);
+	*/
 	
 
 	//printf("\n%d", show);
 	
+	secondsSinceStartup = startupTime.CountDown(160);
+
+
+	//printf("Seconds since startup: %u\n", (int)secondsSinceStartup);
+	displayTime((int)secondsSinceStartup);
+
 
 
 	if (!playerGetCura) {
@@ -174,3 +177,36 @@ void Cura::reLoadXML(pugi::xml_node& parameters)
 	start.LoadAnim("cura", "cura_start", spritePositions);
 }
 
+void Cura::displayTime(int timeInSeconds) {
+	int minutes = timeInSeconds / 60;
+	int seconds = timeInSeconds % 60;
+	std::string timeString = std::to_string(minutes) + ":";
+
+	if (seconds < 10) {
+		timeString += "0";
+	}
+
+	timeString += std::to_string(seconds);
+
+	std::vector<int> time_vector;
+	for (char c : timeString) {
+		if (isdigit(c)) {
+			time_vector.push_back(c - '0');
+		}
+	}
+
+	int IconPosition = 70;
+	for (int i = 0; i < time_vector.size(); i++) {
+		int bufferSize = snprintf(nullptr, 0, "%d", time_vector[i]) + 1;
+		char* pointStr = new char[bufferSize];
+		snprintf(pointStr, bufferSize, "%d", time_vector[i]);
+
+		app->fonts->BlitText(100- IconPosition, 160, numbers, pointStr);
+		//App->fonts->BlitText(SCREEN_WIDTH - IconPosition, SCREEN_HEIGHT - 16, App->scoreFontYellow, pointStr);
+
+		IconPosition -= 16;
+		if (IconPosition == 54) {
+			IconPosition -= 16;
+		}
+	}
+}

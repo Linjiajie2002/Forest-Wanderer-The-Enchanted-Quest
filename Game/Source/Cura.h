@@ -37,14 +37,7 @@ public:
 
 	void reLoadXML(pugi::xml_node& parameters);
 
-	int getRemainingTime();
-
-	int updateTimer(time_t start_time);
-
-	std::string getTimeString(int elapsed_time);
-
-	std::string formatCountdown(int total_seconds);
-
+	void displayTime(int timeInSeconds);
 
 public:
 

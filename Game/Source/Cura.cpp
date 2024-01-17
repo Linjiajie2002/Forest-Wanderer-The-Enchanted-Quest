@@ -17,6 +17,9 @@
 #include <cmath>
 #include <vector>
 #include <string>
+#include <iomanip>
+#include <sstream>
+#include <string>
 
 Cura::Cura() : Entity(EntityType::CURA)
 {
@@ -60,7 +63,9 @@ bool Cura::Start() {
 
 	currentAnimation = &idle;
 
-
+	char number[] = {"0123456789"};
+	numbers = app->fonts->Load("Assets/Maps/numeros.png", number, 1);
+	
 	return true;
 }
 
@@ -68,7 +73,19 @@ bool Cura::Update(float dt)
 {
 
 	//App->fonts->BlitText(SCREEN_WIDTH - 328, SCREEN_HEIGHT - IconPositionrank, App->scoreFontRed16px, leaderboard[i].rank.c_str());
-	app->fonts->BlitText(100, 450, app->numbers, "1234562222222222222222222222222222222222222222222222222222222222");
+
+	app->fonts->BlitText(100, 160, numbers, "123456789000");                               
+
+
+	secondsSinceStartup = startupTime.CountDown(0);
+
+	
+	printf("Seconds since startup: %u\n", secondsSinceStartup);
+	
+
+	//printf("\n%d", show);
+	
+
 
 	if (!playerGetCura) {
 		rect = currentAnimation->GetCurrentFrame();
@@ -156,5 +173,4 @@ void Cura::reLoadXML(pugi::xml_node& parameters)
 	die.LoadAnim("cura", "cura_die", spritePositions);
 	start.LoadAnim("cura", "cura_start", spritePositions);
 }
-
 

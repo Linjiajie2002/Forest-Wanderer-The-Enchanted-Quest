@@ -116,7 +116,7 @@ public:
 	Fonts* fonts;
 
 	int FpsNum = 16;
-	int numbers = -1;
+	
 
 private:
 

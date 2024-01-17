@@ -37,6 +37,15 @@ public:
 
 	void reLoadXML(pugi::xml_node& parameters);
 
+	int getRemainingTime();
+
+	int updateTimer(time_t start_time);
+
+	std::string getTimeString(int elapsed_time);
+
+	std::string formatCountdown(int total_seconds);
+
+
 public:
 
 	Animation* currentAnimation = nullptr;
@@ -54,12 +63,17 @@ public:
 	int pos_X;
 	int pos_Y;
 
+	int numbers = -1;
+
 	bool playerGetCura = false;
 	bool playerCuraDie = false;
 
 	SDL_Rect rect;
 
 
+
+	uint32 secondsSinceStartup = 0;
+	Timer startupTime;
 private:
 
 	SDL_Texture* Curatexture;

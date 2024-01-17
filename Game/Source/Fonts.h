@@ -50,9 +50,17 @@ public:
 	// Create a surface from text
 	void BlitText(int x, int y, int fontIndex, const char* text) const;
 
+	std::string getTimeString(int elapsed_time);
+
+	int getRemainingTime();
+
+	int updateTimer(time_t start_time);
+
 private:
 	// An array to keep track and store all loaded fonts
 	Font fonts[MAX_FONTS];
+public:
+	int total_time = 180;
 };
 
 

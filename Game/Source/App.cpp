@@ -12,6 +12,7 @@
 #include "Effect.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleParticles.h"
+#include "Fonts.h"
 
 
 #include "Defs.h"
@@ -42,7 +43,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	animation = new Animation();
 	fade = new ModuleFadeToBlack();
 	par = new ModuleParticles();
-
+	fonts = new Fonts();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -55,6 +56,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 	AddModule(entityManager);
 	AddModule(par);
+	AddModule(fonts);
 
 	// Render last to swap buffer
 	AddModule(render);
@@ -112,6 +114,11 @@ bool App::Awake()
 
 	LOG("Timer App Awake(): %f", timer.ReadMSec());
 
+	/*char font[] = { "0123456789       abcdefghijklmnopqrstuvwxyz_?,-  " };
+	scoreFontRed16px = fonts->Load("Assets/Interface/Fonts/Red.png", lookupTable, 3);*/
+
+	char number[] = { "1234567890,.:;<>?!/\%&()^*{}[]=-_"};
+	numbers = fonts->Load("Assets/Maps/numeros.png", number, 1);
 	return ret;
 }
 

@@ -106,6 +106,7 @@
     <ClCompile Include="Source\Enemy_Flyeye.cpp" />
     <ClCompile Include="Source\Enemy_Goblin.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />
+    <ClCompile Include="Source\Fonts.cpp" />
     <ClCompile Include="Source\Item.cpp" />
     <ClCompile Include="Source\ItemBox.cpp" />
     <ClCompile Include="Source\Main.cpp" />
@@ -138,6 +139,7 @@
     <ClInclude Include="Source\Enemy_Goblin.h" />
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\EntityManager.h" />
+    <ClInclude Include="Source\Fonts.h" />
     <ClInclude Include="Source\ModuleFadeToBlack.h" />
     <ClInclude Include="Source\Item.h" />
     <ClInclude Include="Source\ItemBox.h" />

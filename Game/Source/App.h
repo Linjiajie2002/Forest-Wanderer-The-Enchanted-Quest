@@ -9,6 +9,7 @@
 #include "Animation.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleParticles.h"
+#include "Fonts.h"
 
 #include "PugiXml/src/pugixml.hpp"
 
@@ -25,6 +26,7 @@ class Physics;
 class Animation;
 class ModuleFadeToBlack;
 class ModuleParticles;
+class Fonts;
 
 
 class App
@@ -111,8 +113,10 @@ public:
 	Animation* animation;
 	ModuleFadeToBlack* fade;
 	ModuleParticles* par;
+	Fonts* fonts;
 
 	int FpsNum = 16;
+	int numbers = -1;
 
 private:
 

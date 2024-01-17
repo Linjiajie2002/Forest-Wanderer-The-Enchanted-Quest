@@ -67,7 +67,8 @@ bool Cura::Start() {
 bool Cura::Update(float dt)
 {
 
-
+	//App->fonts->BlitText(SCREEN_WIDTH - 328, SCREEN_HEIGHT - IconPositionrank, App->scoreFontRed16px, leaderboard[i].rank.c_str());
+	app->fonts->BlitText(100, 450, app->numbers, "1234562222222222222222222222222222222222222222222222222222222222");
 
 	if (!playerGetCura) {
 		rect = currentAnimation->GetCurrentFrame();

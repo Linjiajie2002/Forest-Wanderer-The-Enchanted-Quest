@@ -56,7 +56,7 @@ public:
 	int pos_X;
 	int pos_Y;
 
-	int numbers = -1;
+
 
 	bool playerGetCura = false;
 	bool playerCuraDie = false;

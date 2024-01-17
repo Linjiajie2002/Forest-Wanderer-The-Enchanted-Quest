@@ -19,6 +19,8 @@ public:
 	uint32 CountDown(int total) const;
 	float ReadMSec() const;
 
+	void displayTime(int timeInSeconds);
+
 
 private:
 	uint32 startTime;

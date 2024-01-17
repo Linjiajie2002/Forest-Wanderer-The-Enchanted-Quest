@@ -117,6 +117,8 @@ bool App::Awake()
 	/*char font[] = { "0123456789       abcdefghijklmnopqrstuvwxyz_?,-  " };
 	scoreFontRed16px = fonts->Load("Assets/Interface/Fonts/Red.png", lookupTable, 3);*/
 
+	char number[] = { "0123456789" };
+	numbers = app->fonts->Load("Assets/Maps/numeros.png", number, 1);
 	
 	return ret;
 }

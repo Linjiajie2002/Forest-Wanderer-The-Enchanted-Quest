@@ -122,8 +122,7 @@
 			</Diamond>
 			
 			<Cura>
-				<Cura Posx="450" Posy="1050" Tsprite="14" Pweight="440" x="110" y="110" texturepath="Assets\Effecto\LifeBar\Cura.png"/>
-				<Cura Posx="650" Posy="1050" Tsprite="14" Pweight="440" x="110" y="110" texturepath="Assets\Effecto\LifeBar\Cura.png"/>
+				<Cura Posx="3540" Posy="1020" Tsprite="14" Pweight="440" x="110" y="110" texturepath="Assets\Effecto\LifeBar\Cura.png"/>
 			</Cura>
 			
 			<item>

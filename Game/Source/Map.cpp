@@ -83,11 +83,6 @@ bool Map::Update(float dt)
 		LoadCollision("Colisions");
 	}
 
-	if (deleteParadeBoos) {
-		printf("aqui");
-		LoadCollision("Colisions");
-		deleteParadeBoos = false;
-	}
 
 	while (mapLayerItem != NULL) {
 
@@ -360,16 +355,6 @@ bool Map::CleanUp()
 	traspasedPlatformList.Clear();
 
 
-	// Remove all colisions
-	ListItem<PhysBody*>* collision2;
-	collision2 = collisionsList2.start;
-	while (collision2 != NULL) {
-
-		app->physics->GetWorld()->DestroyBody(collision2->data->body);
-		collision2 = collision2->next;
-	}
-	collisionsList2.Clear();
-
 	return true;
 }
 
@@ -507,17 +492,6 @@ void Map::CreateNavigationMap(int& width, int& height, uchar** buffer) const
 	height = mapData.height;
 }
 
-void Map::removeParedBoos()
-{
-	ListItem<PhysBody*>* collision2;
-	collision2 = collisionsList2.start;
-	while (collision2 != NULL) {
-
-		app->physics->GetWorld()->DestroyBody(collision2->data->body);
-		collision2 = collision2->next;
-	}
-	collisionsList2.Clear();
-}
 
 bool Map::LoadMap(pugi::xml_node mapFile)
 {
@@ -832,18 +806,13 @@ bool Map::LoadCollision(std::string layerName) {
 
 					}
 					
-					PhysBody* c2;
+					
 					if (app->scene->GetBoss()->inBossBattle) {
 						if (gid == tileset->firstgid + 10) {
-							c2 = app->physics->CreateRectangle(pos.x, pos.y + 16, 32, 32, STATIC);
-							c2->ctype = ColliderType::WALL;
-							collisionsList2.Add(c2);
+							c1 = app->physics->CreateRectangle(pos.x, pos.y + 16, 32, 32, STATIC);
+							c1->ctype = ColliderType::WALL;
+							collisionsList2.Add(c1);
 						}
-					}
-					else {
-						
-						removeParedBoos();
-
 					}
 
 

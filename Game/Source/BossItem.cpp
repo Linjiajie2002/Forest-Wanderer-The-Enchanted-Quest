@@ -91,19 +91,31 @@ bool BossItem::Update(float dt)
 	}
 
 
+	if (!app->scene->GetBoss()->inBossBattle && app->scene->GetBoss()->oneTimeInBossBattle) {
+		if (pbody != nullptr) {
+			pbody->body->GetWorld()->DestroyBody(pbody->body);
+			pbody = nullptr;
+		}
+
+		if (pbody1 != nullptr) {
+			pbody1->body->GetWorld()->DestroyBody(pbody1->body);
+			pbody1 = nullptr;
+		}
+	}
+
 	if (ballPosition.x > 0 && ballPosition.y > 0 && timeWait.ReadMSec() > 2000 && app->scene->GetBoss()->inBossBattle) {
 		randCreatEnergyBall(ballPosition);
 	}
 
-	if (curaPosition.x > 0 && curaPosition.y > 0 && curatimeWait.ReadMSec() > 5000 && app->scene->GetBoss()->inBossBattle) {
+	if (curaPosition.x > 0 && curaPosition.y > 0 && curatimeWait.ReadMSec() > 15000 && app->scene->GetBoss()->inBossBattle) {
 		randCreatCura(curaPosition);
 	}
 	//printf("\n%f", (float)deleteCura.ReadSec());
 
-	if (deleteCura.ReadMSec() >= 5000 || playerTouchCura && oneTouch_cura) {
+	if (deleteCura.ReadMSec() >= 3000 || playerTouchCura && oneTouch_cura) {
 		deleteCura.Start();
 		playerTouchCura = false;
-		
+
 		if (currentAnimation2->getNameAnimation() == "cura_idle") {
 			currentAnimation2 = &die;
 		}
@@ -172,13 +184,18 @@ void BossItem::randCreatCura(iPoint curaPosition)
 {
 	rect_2 = currentAnimation2->GetCurrentFrame();
 	if (crearCurard) {
-		pbody1 = app->physics->CreateCircleSensor(curaPosition.x + 52, curaPosition.y + 52, 28, bodyType::STATIC);
+		pbody1 = app->physics->CreateCircleSensor(curaPosition.x + 54, curaPosition.y + 54, 28, bodyType::STATIC);
 		pbody1->ctype = ColliderType::ITEM;
 		pbody1->body->SetFixedRotation(true);
 		pbody1->listener = this;
 		crearCurard = false;
 	}
-	app->render->DrawTexture(cura_texture, curaPosition.x, curaPosition.y, 1, SDL_FLIP_NONE, &rect_2);
+	if (currentAnimation2->getNameAnimation() == "cura_die" && playerTouchCura) {
+		app->render->DrawTexture(cura_texture, app->scene->GetPlayer()->position.x, app->scene->GetPlayer()->position.y - 30, 1, SDL_FLIP_NONE, &rect_2);
+	}
+	else {
+		app->render->DrawTexture(cura_texture, curaPosition.x, curaPosition.y, 1, SDL_FLIP_NONE, &rect_2);
+	}
 	currentAnimation2->Update();
 }
 
@@ -236,7 +253,7 @@ void BossItem::actualizarAnimacion()
 	if (currentAnimation2->HasFinished()) {
 		if (currentAnimation2->getNameAnimation() == "cura_start") {
 			currentAnimation2->Reset();
-			
+
 			currentAnimation2 = &idle;
 			oneTouch_cura = true;
 		}
@@ -247,7 +264,7 @@ void BossItem::actualizarAnimacion()
 			curatimeWait.Start();
 			if (pbody1 != nullptr) {
 				pbody1->body->GetWorld()->DestroyBody(pbody1->body);
-				pbody1= nullptr;
+				pbody1 = nullptr;
 			}
 			currentAnimation2 = &start;
 			oneTouch_cura = false;

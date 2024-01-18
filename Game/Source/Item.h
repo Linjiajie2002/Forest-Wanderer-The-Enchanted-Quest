@@ -77,7 +77,7 @@ public:
 
 	bool DiamanteToCenter = false;
 	bool allDiamanteInCenter = false;
-
+	bool outCamera = false;
 	bool victoria = false;
 	bool lastDiamenteIsCreat = true;
 	bool playerTakeDiamante = false;

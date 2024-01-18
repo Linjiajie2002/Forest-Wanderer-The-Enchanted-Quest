@@ -200,11 +200,11 @@ bool Player::Update(float dt)
 				frameCount = 0;
 				starFram = false;
 			}
-			/*if (app->scene->GetPlayerLife()->playerTakeDmg_Animation) {
+			if (app->scene->GetPlayerLife()->playerTakeDmg_Animation) {
 
 				palyergethit = true;
 
-			}*/
+			}
 
 			if (palyergethit) {
 				currentAnimation = &takehit;
@@ -447,7 +447,7 @@ void Player::Camera(float dt) {
 	app->win->GetWindowSize(windowW, windowH);
 
 
-	if (app->scene->GetBoss()->inBossBattle) {
+	if (app->scene->GetBoss()->inBossBattle || app->scene->GetItem()->outCamera == true) {
 		app->render->camera.x = -1430;
 		app->render->camera.y = -501;
 

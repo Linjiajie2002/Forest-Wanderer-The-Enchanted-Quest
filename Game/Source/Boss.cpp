@@ -130,13 +130,31 @@ bool Boss::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN) {
 		inBossBattle = false;
 		app->scene->GetItem()->victoria = true;
-
 	}
 
 	if (inBossBattle) {
 		printTimer();
 	}
 
+
+	if (!inBossBattle && oneTimeInBossBattle) {
+		if (pbody != nullptr) {
+			pbody->body->GetWorld()->DestroyBody(pbody->body);
+			pbody = nullptr;
+		}
+		for (auto& physBodyWithTimer : physBodiesWithTimers) {
+			if (physBodyWithTimer.pbody2->body != nullptr) {
+				// Verifica si ha pasado suficiente tiempo desde la creaci¨®n
+				//physBodyWithTimer.timer.Start();
+				physBodyWithTimer.pbody2->body->GetWorld()->DestroyBody(physBodyWithTimer.pbody2->body);
+				physBodyWithTimer.pbody2->body = nullptr;
+			}
+		}
+
+		physBodies.clear();
+
+
+	}
 
 	if (inBossBattle && attackMethod == 1) {
 		if (getPlayerPosition) {
@@ -495,6 +513,8 @@ void Boss::goBossBattle()
 	app->scene->GetItem()->victoria = false;
 	rect_5 = { 0,0,52,27 };
 	startupTime.Start();
+	app->scene->GetItem()->outCamera = true;
+	oneTimeInBossBattle = true;
 }
 
 void Boss::printTimer()

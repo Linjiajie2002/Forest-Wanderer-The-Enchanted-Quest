@@ -242,15 +242,13 @@ void Item::LastDiamante()
 	app->scene->GetEffect()->LastEffect();
 	rect_2 = currentAnimation2->GetCurrentFrame();
 	if (app->scene->GetEffect()->currentAnimation3->HasFinished() && lastDiamenteIsCreat) {
-	
-
-	
 
 		pbody = app->physics->CreateCircle(1915 + 32, 765 + 32, 28, bodyType::DYNAMIC);
 		pbody->ctype = ColliderType::ITEM;
 		pbody->body->SetFixedRotation(true);
 		pbody->listener = this;
 		lastDiamenteIsCreat = false;
+		app->scene->GetBoss()->oneTimeInBossBattle = false;
 	}
 
 
@@ -269,7 +267,7 @@ void Item::LastDiamante()
 			pbody->body->GetWorld()->DestroyBody(pbody->body);
 			pbody = nullptr;
 		}
-
+		outCamera = false;
 	}
 	currentAnimation2->Update();
 }

@@ -96,6 +96,8 @@ bool App::Awake()
 	if(ret == true)
 	{
 		title = configNode.child("app").child("title").child_value(); 
+		fontsNumber = configNode.child("fonts").child("numbers").attribute("texturePath").as_string();
+		TimeBorde = configNode.child("fonts").child("borde").attribute("texturePath").as_string();
 		win->SetTitle(title.GetString());
 
 		ListItem<Module*>* item;
@@ -118,7 +120,7 @@ bool App::Awake()
 	scoreFontRed16px = fonts->Load("Assets/Interface/Fonts/Red.png", lookupTable, 3);*/
 
 	char number[] = { "0123456789" };
-	numbers = app->fonts->Load("Assets/Maps/numeros.png", number, 1);
+	numbers = app->fonts->Load(fontsNumber, number, 1);
 	
 	return ret;
 }

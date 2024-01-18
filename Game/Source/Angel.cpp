@@ -109,10 +109,16 @@ bool Angel::Update(float dt)
 		currentAnimation2 = &angel_yellow_die;
 		currentAnimation3 = &angel_blue_die;
 		Enter = false;
-
-		app->scene->GetItem()->LastDiamante();
+		
+		
 	}
 
+
+	if (app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) {
+		blueball = 5;
+		redball = 5;
+		yelloweball = 5;
+	}
 	//if (app->scene->GetItem()->victoria && Enter)
 	//{
 	//	//printf("\n%s", currentAnimation1->getNameAnimation());
@@ -141,8 +147,10 @@ bool Angel::Update(float dt)
 		currentAnimation2 = &angel_yellow_idle;
 		currentAnimation3 = &angel_blue_idle;
 		app->scene->GetBossItem()->crearBall = true;
+		app->scene->GetBossItem()->crearCura = true;
 		app->scene->GetBossItem()->timeWait.Start();
 		app->scene->GetBossItem()->deleteBall.Start();
+		app->scene->GetBossItem()->deleteCura.Start();
 		angel_red_start.Reset();
 		angel_yellow_start.Reset();
 		angel_blue_start.Reset();
@@ -153,7 +161,9 @@ bool Angel::Update(float dt)
 
 	}
 
-
+	if (angleFinish) {
+		app->scene->GetItem()->LastDiamante();
+	}
 
 	if (currentAnimation1->HasFinished() && currentAnimation1->getNameAnimation() == "angel_all_die") {
 		deleteAngel = true;
@@ -165,6 +175,8 @@ bool Angel::Update(float dt)
 		currentAnimation1 = &angel_red_start;
 		currentAnimation2 = &angel_yellow_start;
 		currentAnimation3 = &angel_blue_start;
+		angleFinish = true;
+		
 	}
 
 
@@ -220,6 +232,7 @@ void Angel::GetPoint(int color)
 	ballColor = color;
 	bluebar = true;
 	countBar = 0;
+	getPoint = false;
 }
 
 void Angel::CheckPoint()

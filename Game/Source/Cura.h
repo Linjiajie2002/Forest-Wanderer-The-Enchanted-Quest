@@ -63,14 +63,13 @@ public:
 
 	SDL_Rect rect;
 
-
-
-	uint32 secondsSinceStartup = 0;
-	Timer startupTime;
-private:
-
 	SDL_Texture* Curatexture;
 	const char* CuraPath;
+
+	
+private:
+
+	
 
 	PhysBody* pbody;
 };

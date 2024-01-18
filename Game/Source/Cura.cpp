@@ -69,8 +69,7 @@ bool Cura::Start() {
 
 bool Cura::Update(float dt)
 {
-	secondsSinceStartup = startupTime.CountDown(59);
-	startupTime.displayTime((int)secondsSinceStartup);
+	
 
 
 

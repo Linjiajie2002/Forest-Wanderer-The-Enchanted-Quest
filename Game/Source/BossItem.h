@@ -32,6 +32,7 @@ public:
 
 
 	void randCreatEnergyBall(iPoint ballPosition);
+	void randCreatCura(iPoint curaPosition);
 	void CheckBallStarT(int tipo);
 	iPoint randPosition();
 	int randBall();
@@ -47,13 +48,8 @@ public:
 	bool isPicked = false;
 
 	Animation* currentAnimation1 = nullptr;
-	List<Animation*> currentAnimation2;
-	Animation* currentAnimation3 = nullptr;
-	Animation* currentAnimation4 = nullptr;
+	Animation* currentAnimation2 = nullptr;
 
-	Animation atack_1;
-	List<Animation> atack_2;
-	Animation atack_3;
 
 	Animation ball_blue_start;
 	Animation ball_blue_running;
@@ -67,10 +63,10 @@ public:
 	Animation ball_yellow_running;
 	Animation ball_yellow_end;
 
+	
+	Animation idle;
+	Animation start;
 	Animation die;
-	Animation take_hit;
-
-
 
 
 	Animation SPosition;
@@ -86,44 +82,44 @@ public:
 
 	bool crearBall = false;
 	bool firstBall = true;
-	bool crearBoyd = false;
+	bool crearBallrd = false;
 	bool playerTouchBall = false;
 	bool oneTouch = false;
 	
 
 	int ballColor;
 
+	bool crearCura = false;
+	bool crearCurard = false;
+	bool playerTouchCura = false;
+	bool oneTouch_cura = false;
+
 	float energyPos_X = 1920;
 	float energyPos_Y = 780;
 
 	iPoint ballPosition;
+	iPoint curaPosition;
 	int ballType;
 
 	Timer deleteBall;
+	Timer deleteCura;
 	Timer timeWait;
+	Timer curatimeWait;
 
 private:
 
 	SDL_Texture* ball_blue_texture;
-	SDL_Texture* boss_atack_2_texture;
-	SDL_Texture* boss_atack_3_texture;
-	SDL_Texture* boss_atack_4_texture;
+	SDL_Texture* cura_texture;
+
 
 	const char* ball_blue_texture_Path;
-	const char* boss_atack_2_texture_Path;
-	const char* boss_atack_3_texture_Path;
-	const char* boss_atack_4_texture_Path;
+	const char* cura_texture_Path;
 
 
 
 	SDL_Rect rect_1;
-	List<SDL_Rect> rect_2;
-	SDL_Rect rect_3;
-	SDL_Rect rect_4;
+	SDL_Rect rect_2;
 
-
-	SDL_Texture* Pathfindingtexture;
-	const char* PathfindingPath;
 	PhysBody* pbody;
 	PhysBody* pbody1;
 };

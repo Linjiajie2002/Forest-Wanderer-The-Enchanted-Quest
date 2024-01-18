@@ -55,6 +55,7 @@ public:
 	Item* GetItem();
 	BossItem* GetBossItem();
 	Diamond* GetDiamond();
+	Cura* GetCura();
 
 	bool LoadState(pugi::xml_node node);
 

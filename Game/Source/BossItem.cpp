@@ -50,15 +50,18 @@ bool BossItem::Awake() {
 
 bool BossItem::Start() {
 
-	
-		reLoadXML();
-	
 
-	
+	reLoadXML();
+
+
+
 
 	ball_blue_texture = app->tex->Load(ball_blue_texture_Path);
+	cura_texture = app->tex->Load(cura_texture_Path);
 
 	currentAnimation1 = &ball_blue_start;
+
+	currentAnimation2 = &start;
 	ballColor = 0;
 
 
@@ -78,7 +81,13 @@ bool BossItem::Update(float dt)
 		ballPosition = randPosition();
 		ballType = randBall();
 		crearBall = false;
-		crearBoyd = true;
+		crearBallrd = true;
+	}
+
+	if (crearCura && app->scene->GetBoss()->inBossBattle) {
+		curaPosition = randPosition();
+		crearCura = false;
+		crearCurard = true;
 	}
 
 
@@ -86,8 +95,20 @@ bool BossItem::Update(float dt)
 		randCreatEnergyBall(ballPosition);
 	}
 
+	if (curaPosition.x > 0 && curaPosition.y > 0 && curatimeWait.ReadMSec() > 5000 && app->scene->GetBoss()->inBossBattle) {
+		randCreatCura(curaPosition);
+	}
+	//printf("\n%f", (float)deleteCura.ReadSec());
 
-
+	if (deleteCura.ReadMSec() >= 5000 || playerTouchCura && oneTouch_cura) {
+		deleteCura.Start();
+		playerTouchCura = false;
+		
+		if (currentAnimation2->getNameAnimation() == "cura_idle") {
+			currentAnimation2 = &die;
+		}
+		currentAnimation2->Reset();
+	}
 
 	if (deleteBall.ReadMSec() >= 5000 || playerTouchBall && oneTouch) {
 		deleteBall.Start();
@@ -134,17 +155,31 @@ void BossItem::randCreatEnergyBall(iPoint ballPosition)
 {
 	//printf("%d", ballType);
 	rect_1 = currentAnimation1->GetCurrentFrame();
-	if (crearBoyd) {
+	if (crearBallrd) {
 		pbody = app->physics->CreateCircleSensor(ballPosition.x + 52, ballPosition.y + 52, 28, bodyType::STATIC);
 		pbody->ctype = ColliderType::ENERGYBALL;
 		pbody->body->SetFixedRotation(true);
 		pbody->listener = this;
-		crearBoyd = false;
+		crearBallrd = false;
 		app->scene->GetAngel()->getPoint = false;
 	}
 
 	app->render->DrawTexture(ball_blue_texture, ballPosition.x, ballPosition.y, 0.4, SDL_FLIP_NONE, &rect_1);
 	currentAnimation1->Update();
+}
+
+void BossItem::randCreatCura(iPoint curaPosition)
+{
+	rect_2 = currentAnimation2->GetCurrentFrame();
+	if (crearCurard) {
+		pbody1 = app->physics->CreateCircleSensor(curaPosition.x + 52, curaPosition.y + 52, 28, bodyType::STATIC);
+		pbody1->ctype = ColliderType::ITEM;
+		pbody1->body->SetFixedRotation(true);
+		pbody1->listener = this;
+		crearCurard = false;
+	}
+	app->render->DrawTexture(cura_texture, curaPosition.x, curaPosition.y, 1, SDL_FLIP_NONE, &rect_2);
+	currentAnimation2->Update();
 }
 
 void BossItem::CheckBallStarT(int tipo)
@@ -174,7 +209,7 @@ iPoint BossItem::randPosition()
 	std::random_device rd;
 	std::mt19937 gen(rd());
 	std::uniform_int_distribution<> dis_X(1440, 2300);
-	std::uniform_int_distribution<> dis_Y(896, 1088);
+	std::uniform_int_distribution<> dis_Y(896, 1070);
 
 	iPoint Result;
 
@@ -198,6 +233,27 @@ int BossItem::randBall()
 
 void BossItem::actualizarAnimacion()
 {
+	if (currentAnimation2->HasFinished()) {
+		if (currentAnimation2->getNameAnimation() == "cura_start") {
+			currentAnimation2->Reset();
+			
+			currentAnimation2 = &idle;
+			oneTouch_cura = true;
+		}
+
+		if (currentAnimation2->getNameAnimation() == "cura_die") {
+			currentAnimation2->Reset();
+			crearCura = true;
+			curatimeWait.Start();
+			if (pbody1 != nullptr) {
+				pbody1->body->GetWorld()->DestroyBody(pbody1->body);
+				pbody1= nullptr;
+			}
+			currentAnimation2 = &start;
+			oneTouch_cura = false;
+			playerTouchBall = false;
+		}
+	}
 	if (currentAnimation1->HasFinished())
 	{
 		if (currentAnimation1->getNameAnimation() == "ball_yellow_start") {
@@ -269,7 +325,14 @@ void BossItem::OnCollision(PhysBody* physA, PhysBody* physB) {
 	switch (physB->ctype)
 	{
 	case ColliderType::PLAYER:
-
+		if (physA->ctype == ColliderType::ENERGYBALL) {
+			playerTouchBall = true;
+			app->scene->GetAngel()->GetPoint(ballColor);
+		}
+		if (physA->ctype == ColliderType::ITEM) {
+			playerTouchCura = true;
+			app->scene->GetPlayerLife()->playerGetHeal();
+		}
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
@@ -282,8 +345,7 @@ void BossItem::OnEndCollision(PhysBody* physA, PhysBody* physB) {
 	switch (physB->ctype)
 	{
 	case ColliderType::PLAYER:
-		playerTouchBall = true;
-		app->scene->GetAngel()->GetPoint(ballColor);
+
 		break;
 
 
@@ -314,4 +376,14 @@ void BossItem::reLoadXML()
 	ball_yellow_start.LoadAnim("BossItem", "ball_yellow_start", spritePositions);
 	ball_yellow_running.LoadAnim("BossItem", "ball_yellow_running", spritePositions);
 	ball_yellow_end.LoadAnim("BossItem", "ball_yellow_end", spritePositions);
+
+	cura_texture_Path = parameters.child("Cura").attribute("texturepath").as_string();
+	TSprite = parameters.child("Cura").attribute("Tsprite").as_int();
+	SpriteX = parameters.child("Cura").attribute("x").as_int();
+	SpriteY = parameters.child("Cura").attribute("y").as_int();
+	PhotoWeight = parameters.child("Cura").attribute("Pweight").as_int();
+	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
+	idle.LoadAnim("cura", "cura_idle", spritePositions);
+	die.LoadAnim("cura", "cura_die", spritePositions);
+	start.LoadAnim("cura", "cura_start", spritePositions);
 }

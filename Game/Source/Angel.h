@@ -44,6 +44,7 @@ public:
 	Animation* currentAnimation4 = nullptr;
 	Animation* currentAnimation5 = nullptr;
 	Animation* currentAnimation6 = nullptr;
+	Animation* currentAnimation7 = nullptr;
 
 	Animation angel_blue_start;
 	Animation angel_blue_idle;
@@ -77,7 +78,7 @@ public:
 	int ballColor;
 	bool isFacingLeft;
 	bool getPoint = false;
-
+	bool angleFinish = false;
 	int attackMethod = 1;
 
 	bool bluebar = false;

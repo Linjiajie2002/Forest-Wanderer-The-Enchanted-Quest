@@ -117,9 +117,6 @@ bool Player::Update(float dt)
 		shakeDuration = 500;
 	}
 
-
-
-
 	//printf("%d \n", position.x);
 	currentAnimation = &idle;
 	if (pbody != nullptr) {
@@ -455,7 +452,6 @@ void Player::Camera(float dt) {
 		app->render->camera.y = -501;
 
 		if (shakeDuration > 0) {
-			printf("WWW");
 			xOffset = (rand() % (2 * shakeMagnitude + 1)) - shakeMagnitude;
 			yOffset = (rand() % (2 * shakeMagnitude + 1)) - shakeMagnitude;
 			ShakeCamera(xOffset, yOffset);

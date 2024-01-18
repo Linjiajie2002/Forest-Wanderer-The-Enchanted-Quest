@@ -117,12 +117,15 @@ public:
 
 	int FpsNum = 16;
 	int numbers = -1;
+	const char* TimeBorde;
 
 private:
 
 	int argc;
 	char** args;
 	SString title;
+	const char* fontsNumber;
+
 	SString organization;
 
 	List<Module *> modules;

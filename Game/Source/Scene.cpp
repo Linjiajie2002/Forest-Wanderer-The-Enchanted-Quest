@@ -83,6 +83,16 @@ bool Scene::Awake(pugi::xml_node& config)
 				playerlife = (PlayerLife*)app->entityManager->CreateEntity(EntityType::PLAYERLIFE);
 				playerlife->parameters = itemNode;
 			}
+			for (pugi::xml_node itemNode = config.child("nivel_2").child("Cura").child("Cura"); itemNode; itemNode = itemNode.next_sibling("Cura"))
+			{
+				cura = (Cura*)app->entityManager->CreateEntity(EntityType::CURA);
+				cura->parameters = itemNode;
+			}
+			for (pugi::xml_node itemNode = config.child("nivel_2").child("Diamond").child("Diamond"); itemNode; itemNode = itemNode.next_sibling("Diamond"))
+			{
+				diamond = (Diamond*)app->entityManager->CreateEntity(EntityType::DIAMOND);
+				diamond->parameters = itemNode;
+			}
 		}
 	}
 
@@ -103,8 +113,6 @@ bool Scene::Awake(pugi::xml_node& config)
 				diamond = (Diamond*)app->entityManager->CreateEntity(EntityType::DIAMOND);
 				diamond->parameters = itemNode;
 			}
-
-
 
 
 			for (pugi::xml_node itemNode = config.child("nivel_2").child("effect"); itemNode; itemNode = itemNode.next_sibling("effect"))
@@ -310,6 +318,11 @@ BossItem* Scene::GetBossItem()
 Diamond* Scene::GetDiamond()
 {
 	return diamond;
+}
+
+Cura* Scene::GetCura()
+{
+	return cura;
 }
 
 bool Scene::LoadState(pugi::xml_node node) {

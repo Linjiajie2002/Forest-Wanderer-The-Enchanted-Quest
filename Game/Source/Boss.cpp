@@ -10,6 +10,7 @@
 #include "Boss.h"
 #include "Map.h"
 #include "Timer.h"
+#include "Window.h"
 
 #include "List.h"
 #include <random>
@@ -77,9 +78,9 @@ bool Boss::Start() {
 	boss_atack_2_texture = app->tex->Load(boss_atack_2_texture_Path);
 	boss_atack_3_texture = app->tex->Load(boss_atack_3_texture_Path);
 	boss_atack_4_texture = app->tex->Load(boss_atack_4_texture_Path);
+	Time_texture = app->tex->Load(app->TimeBorde);
 
-
-
+	
 
 	currentAnimation1 = &atack_1;
 
@@ -94,6 +95,7 @@ bool Boss::Start() {
 	currentAnimation3 = &atack_3;
 
 	currentAnimation4 = &atack_4_start;
+
 
 	return true;
 }
@@ -113,10 +115,10 @@ bool Boss::Update(float dt)
 	}
 
 
+
 	if (app->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN) {
 		app->scene->GetAngel()->Enter = true;
-		inBossBattle = true;
-		tpToinBossBattle = true;
+		app->scene->GetItem()->playerGetDiamante = 6;
 		app->scene->GetItem()->victoria = false;
 	}
 
@@ -129,6 +131,10 @@ bool Boss::Update(float dt)
 		inBossBattle = false;
 		app->scene->GetItem()->victoria = true;
 
+	}
+
+	if (inBossBattle) {
+		printTimer();
 	}
 
 
@@ -452,21 +458,6 @@ void Boss::boss_atack_4(bool inversaAtack)
 
 	}
 	else {
-		/*atack4_posX = atack4_posX_L - velocitat;
-		app->render->DrawTexture(boss_atack_4_texture, atack4_posX, 1010, 0.7, SDL_FLIP_NONE, &rect_4);
-		if (atack4_posX <= atack4_posX_R) {
-			currentAnimation4 = &atack_4_end;
-		}
-
-		if (atack1_Collision.ReadMSec() >= 1200) {
-			if (pbody == nullptr && crearCollision) {
-				pbody = app->physics->CreateTriangleSensor(atack4_posX, 1025, 150, bodyType::DYNAMIC);
-				pbody->ctype = ColliderType::BOSSATACK;
-				pbody->body->SetFixedRotation(true);
-				pbody->listener = this;
-				crearCollision = false;
-			}
-		}*/
 		if (currentAnimation4->getNameAnimation() == "atack_4_running") {
 			if (pbody != nullptr) {
 				pbody->body->SetLinearVelocity(b2Vec2(-8, 0));
@@ -502,6 +493,19 @@ void Boss::goBossBattle()
 	inBossBattle = true;
 	tpToinBossBattle = true;
 	app->scene->GetItem()->victoria = false;
+	rect_5 = { 0,0,52,27 };
+	startupTime.Start();
+}
+
+void Boss::printTimer()
+{
+	app->render->DrawTexture(Time_texture, 800, 32, 2, SDL_FLIP_NONE, &rect_5, 0, 0);
+	secondsSinceStartup = startupTime.CountDown(180);
+	startupTime.displayTime((int)secondsSinceStartup);
+
+	if ((int)secondsSinceStartup == 0) {
+		app->scene->GetPlayerLife()->playerGetHit();
+	}
 }
 
 
@@ -581,4 +585,5 @@ void Boss::reLoadXML()
 	atack_4_start.LoadAnim("Boss", "atack_4_start", spritePositions);
 	atack_4_running.LoadAnim("Boss", "atack_4_running", spritePositions);
 	atack_4_end.LoadAnim("Boss", "atack_4_end", spritePositions);
+
 }

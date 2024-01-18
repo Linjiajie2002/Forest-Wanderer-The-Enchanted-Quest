@@ -32,6 +32,7 @@ public:
 	void boss_atack_3(bool inversaAtack);
 	void boss_atack_4(bool inversaAtack);
 	void goBossBattle();
+	void printTimer();
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 	void OnEndCollision(PhysBody* physA, PhysBody* physB);
@@ -131,12 +132,15 @@ public:
 	};
 
 	std::vector<PhysBodyWithTimer> physBodiesWithTimers;
+	uint32 secondsSinceStartup = 0;
+	Timer startupTime;
 private:
 
 	SDL_Texture* boss_atack_1_texture;
 	SDL_Texture* boss_atack_2_texture;
 	SDL_Texture* boss_atack_3_texture;
 	SDL_Texture* boss_atack_4_texture;
+	SDL_Texture* Time_texture;
 
 	const char* boss_atack_1_texture_Path;
 	const char* boss_atack_2_texture_Path;
@@ -145,11 +149,12 @@ private:
 
 
 
+
 	SDL_Rect rect_1;
 	List<SDL_Rect> rect_2;
 	SDL_Rect rect_3;
 	SDL_Rect rect_4;
-
+	SDL_Rect rect_5;
 
 	SDL_Texture* Pathfindingtexture;
 	const char* PathfindingPath;

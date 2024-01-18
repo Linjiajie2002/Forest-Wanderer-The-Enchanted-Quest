@@ -65,10 +65,9 @@ bool ModuleFadeToBlack::Update(float dt)
 
            
 			
-			
+			app->map->Enable();
             moduleToEnable->Enable();
 			moduleToEnable->Awake(SceneInfo);
-			app->map->Enable();
 			app->entityManager->Enable();
 			
 

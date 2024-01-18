@@ -97,7 +97,6 @@ bool Effect::Update(float dt)
 		GhostEffect.Reset();
 	}
 	
-
 		goMap2();
 
 

@@ -90,7 +90,7 @@ bool BossItem::Update(float dt)
 		crearCurard = true;
 	}
 
-	if (!app->scene->GetBoss()->inBossBattle && app->scene->GetBoss()->oneTimeInBossBattle ) {
+	if (!app->scene->GetBoss()->inBossBattle && app->scene->GetBoss()->oneTimeInBossBattle) {
 		if (pbody != nullptr) {
 			pbody->body->GetWorld()->DestroyBody(pbody->body);
 			pbody = nullptr;
@@ -301,6 +301,7 @@ void BossItem::actualizarAnimacion()
 				pbody->body->GetWorld()->DestroyBody(pbody->body);
 				pbody = nullptr;
 			}
+			playerGetPoint = true;
 			oneTouch = false;
 			playerTouchBall = false;
 		}
@@ -314,6 +315,7 @@ void BossItem::actualizarAnimacion()
 				pbody->body->GetWorld()->DestroyBody(pbody->body);
 				pbody = nullptr;
 			}
+			playerGetPoint = true;
 			oneTouch = false;
 			playerTouchBall = false;
 		}
@@ -328,6 +330,7 @@ void BossItem::actualizarAnimacion()
 				pbody->body->GetWorld()->DestroyBody(pbody->body);
 				pbody = nullptr;
 			}
+			playerGetPoint = true;
 			oneTouch = false;
 			playerTouchBall = false;
 		}
@@ -342,9 +345,14 @@ void BossItem::OnCollision(PhysBody* physA, PhysBody* physB) {
 	switch (physB->ctype)
 	{
 	case ColliderType::PLAYER:
+
 		if (physA->ctype == ColliderType::ENERGYBALL) {
+			if (playerGetPoint) {
+				printf("Y");
+				app->scene->GetAngel()->GetPoint(ballColor);
+				playerGetPoint = false;
+			}
 			playerTouchBall = true;
-			app->scene->GetAngel()->GetPoint(ballColor);
 		}
 		if (physA->ctype == ColliderType::ITEM) {
 			if (playerTakeCura == false) {

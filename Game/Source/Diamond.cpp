@@ -72,7 +72,7 @@ bool Diamond::Update(float dt)
 	else {
 		DestroyDiamante();
 	}
-	
+
 	return true;
 }
 
@@ -91,11 +91,12 @@ bool Diamond::CleanUp()
 
 void Diamond::DestroyDiamante() {
 
- 	if (pbody != nullptr) {
+	if (pbody != nullptr) {
 		printf("entra");
 		pbody->body->GetWorld()->DestroyBody(pbody->body);
 		pbody = nullptr;
 	}
+	playerGetDiamante == false;
 }
 
 void Diamond::OnCollision(PhysBody* physA, PhysBody* physB) {
@@ -103,7 +104,9 @@ void Diamond::OnCollision(PhysBody* physA, PhysBody* physB) {
 	switch (physB->ctype)
 	{
 	case ColliderType::PLAYER:
-		app->scene->GetItem()->playerIsGetDiamante();
+		if (playerGetDiamante == false) {
+			app->scene->GetItem()->playerIsGetDiamante();
+		}
 		playerGetDiamante = true;
 		break;
 	case ColliderType::UNKNOWN:

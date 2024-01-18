@@ -85,11 +85,18 @@ bool Angel::Start() {
 
 	currentAnimation3 = &angel_blue_idle;
 
-	currentAnimation4 = &angel_borde_red_idle;
+	
 
-	currentAnimation5 = &angel_borde_yellow_idle;
+	for (int i = 0; i < 7; i++)
+	{
+		currentAnimation4.Add(&angel_borde_red_idle[i]);
+		rect_4.Add(currentAnimation4[i]->GetCurrentFrame());
+		currentAnimation5.Add(&angel_borde_yellow_idle[i]);
+		rect_5.Add(currentAnimation5[i]->GetCurrentFrame());
+		currentAnimation6.Add(&angel_borde_blue_idle[i]);
+		rect_6.Add(currentAnimation6[i]->GetCurrentFrame());
 
-	currentAnimation6 = &angel_borde_blue_idle;
+	}
 
 	return true;
 }
@@ -124,9 +131,14 @@ bool Angel::Update(float dt)
 		blueball = 0;
 		redball = 0;
 		yelloweball = 0;
-		currentAnimation4->Reset();
-		currentAnimation5->Reset();
-		currentAnimation6->Reset();
+
+		for (int i = 0; i < 7; i++)
+		{
+			currentAnimation4[i]->Reset();
+			currentAnimation5[i]->Reset();
+			currentAnimation6[i]->Reset();
+		}
+		
 	}
 	//if (app->scene->GetItem()->victoria && Enter)
 	//{
@@ -204,15 +216,22 @@ bool Angel::Update(float dt)
 		app->render->DrawTexture(angel_blue_texture, 2250, 600, 0.5, SDL_FLIP_NONE, &rect_3);
 		currentAnimation3->Update();
 
-		rect_4 = currentAnimation4->GetCurrentFrame();
-		app->render->DrawTexture(angel_borde_red_texture, 1573, 770, 2, SDL_FLIP_NONE, &rect_4);
+		for (int i = 0; i < redball + 2; i++)
+		{
+			rect_4[i] = currentAnimation4[i]->GetCurrentFrame();
+			app->render->DrawTexture(angel_borde_red_texture, 1573, 770, 2, SDL_FLIP_NONE, &rect_4[i]);
+		}
 
-		rect_5 = currentAnimation5->GetCurrentFrame();
-		app->render->DrawTexture(angel_borde_yellow_texture, 1923, 770, 2, SDL_FLIP_NONE, &rect_5);
-
-
-		rect_6 = currentAnimation6->GetCurrentFrame();
-		app->render->DrawTexture(angel_borde_blue_texture, 2273, 770, 2, SDL_FLIP_NONE, &rect_6);
+		for (int i = 0; i < yelloweball + 2; i++)
+		{
+			rect_5[i] = currentAnimation5[i]->GetCurrentFrame();
+			app->render->DrawTexture(angel_borde_yellow_texture, 1923, 770, 2, SDL_FLIP_NONE, &rect_5[i]);
+		}
+		for (int i = 0; i < blueball + 2; i++)
+		{
+			rect_6[i] = currentAnimation6[i]->GetCurrentFrame();
+			app->render->DrawTexture(angel_borde_blue_texture, 2273, 770, 2, SDL_FLIP_NONE, &rect_6[i]);
+		}
 	}
 	else {
 		app->scene->GetBoss()->inBossBattle = false;
@@ -249,20 +268,6 @@ void Angel::GetPoint(int color)
 void Angel::CheckPoint()
 {
 	if (bluebar && getPoint == false) {
-		countBar++;
-		if (ballColor == 0 && blueball != 5) {
-			currentAnimation6->Update();
-
-		}
-		else if (ballColor == 1 && redball != 5) {
-			currentAnimation4->Update();
-
-		}
-		else if (ballColor == 2 && yelloweball != 5) {
-			currentAnimation5->Update();
-		}
-
-		if (countBar == 11) {
 			bluebar = false;
 			getPoint = true;
 
@@ -275,8 +280,6 @@ void Angel::CheckPoint()
 			else if (ballColor == 2 && yelloweball != 5) {
 				yelloweball++;
 			}
-
-		}
 	}
 }
 
@@ -345,7 +348,19 @@ void Angel::reLoadXML()
 	PhotoWeight = parameters.child("borde").attribute("Pweight").as_int();
 	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
 
-	angel_borde_red_idle.LoadAnim("angel_borde", "angel_borde_blue", spritePositions);
-	angel_borde_yellow_idle.LoadAnim("angel_borde", "angel_borde_blue", spritePositions);
-	angel_borde_blue_idle.LoadAnim("angel_borde", "angel_borde_blue", spritePositions);
+	//angel_borde_red_idle.LoadAnim("angel_borde", "angel_borde_blue", spritePositions);
+	//angel_borde_yellow_idle.LoadAnim("angel_borde", "angel_borde_blue", spritePositions);
+	//angel_borde_blue_idle.LoadAnim("angel_borde", "angel_borde_blue", spritePositions);
+
+
+	for (int i = 0; i < 7; i++)
+	{
+		std::string counterString = "angel_borde_blue_" + std::to_string(i);
+		angel_borde_red_idle.Add(inicializaAnimation);
+		angel_borde_red_idle[i].LoadAnim("angel_borde", counterString.c_str(), spritePositions);
+		angel_borde_yellow_idle.Add(inicializaAnimation);
+		angel_borde_yellow_idle[i].LoadAnim("angel_borde", counterString.c_str(), spritePositions);
+		angel_borde_blue_idle.Add(inicializaAnimation);
+		angel_borde_blue_idle[i].LoadAnim("angel_borde", counterString.c_str(), spritePositions);
+	}
 }

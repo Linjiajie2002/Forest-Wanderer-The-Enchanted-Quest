@@ -94,6 +94,7 @@ public:
 	bool playerTouchCura = false;
 	bool oneTouch_cura = false;
 	bool playerTakeCura = false;
+	bool playerGetPoint = true;
 
 	float energyPos_X = 1920;
 	float energyPos_Y = 780;

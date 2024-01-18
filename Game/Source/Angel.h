@@ -41,9 +41,9 @@ public:
 	Animation* currentAnimation1 = nullptr;
 	Animation* currentAnimation2 = nullptr;
 	Animation* currentAnimation3 = nullptr;
-	Animation* currentAnimation4 = nullptr;
-	Animation* currentAnimation5 = nullptr;
-	Animation* currentAnimation6 = nullptr;
+	List<Animation*> currentAnimation4;
+	List<Animation*> currentAnimation5;
+	List<Animation*> currentAnimation6;
 	Animation* currentAnimation7 = nullptr;
 
 	Animation angel_blue_start;
@@ -61,9 +61,9 @@ public:
 
 
 
-	Animation angel_borde_red_idle;
-	Animation angel_borde_yellow_idle;
-	Animation angel_borde_blue_idle;
+	List<Animation> angel_borde_red_idle;
+	List<Animation> angel_borde_yellow_idle;
+	List<Animation> angel_borde_blue_idle;
 
 
 
@@ -83,32 +83,8 @@ public:
 
 	bool bluebar = false;
 	int countBar = 0;
-	//Atack 1
-	bool getPlayerPosition = false;
-	int player_x;
-	Timer atack1_Getposition;
-
-	//Atack 2
-	Timer atack2_generAtack;
 	Animation inicializaAnimation;
-	int numeroAtack = 4;
-	int maxNumAtack = 0;
-	bool allPrint = false;
-	int distancia = 0;
-
-	//Atack3
-	bool direction_Atack = false;
-
-	//Atack4
-	float velocitat = 0;
-
-	float atack4_posX;
-	int atack4_posX_R = 1420;
-
-	int atack4_posX_L = 2290;
-	int atack4_posY;
-
-	int deadenemy;
+	
 
 	bool Enter = false;
 	bool deleteAngel = false;
@@ -141,9 +117,9 @@ private:
 	SDL_Rect rect_1;
 	SDL_Rect rect_2;
 	SDL_Rect rect_3;
-	SDL_Rect rect_4;
-	SDL_Rect rect_5;
-	SDL_Rect rect_6;
+	List<SDL_Rect> rect_4;
+	List<SDL_Rect> rect_5;
+	List<SDL_Rect> rect_6;
 
 	SDL_Texture* Pathfindingtexture;
 	const char* PathfindingPath;

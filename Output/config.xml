@@ -92,6 +92,9 @@
 				<Diamond Posx="150" Posy="950" Tsprite="6" Pweight="192" x="32" y="32" texturepath="Assets\Sprite\Mapa2\Diamond.png"/>
 				<Diamond_Counter Posx="150" Posy="950" Tsprite="8" Pweight="192" x="114" y="40" texturepath="Assets\Sprite\Mapa2\Diamond_Counter.png"/>
 			</item>
+			<Teleport>
+				<Teleport Posx="150" Posy="950" Tsprite="6" Pweight="192" x="32" y="32" texturepath="Assets\Sprite\Teleport\teleport.png"/>
+			</Teleport>
 		</nivel_1>
 
 		<nivel_2>
@@ -164,7 +167,9 @@
 				<lifebar_mid Posx="150" Posy="570" Tsprite="56" Pweight="120" x="15" y="18" texturepath="Assets\Effecto\LifeBar\lifebar_mid.png"/>
 				<lifebar_glass Posx="150" Posy="570" Tsprite="8" Pweight="680" x="85" y="110" texturepath="Assets\Effecto\LifeBar\glass.png"/>
 			</playerlife>
-
+			<Teleport>
+				<Teleport Posx="150" Posy="950" Tsprite="6" Pweight="192" x="32" y="32" texturepath="Assets\Sprite\Teleport\teleport.png"/>
+			</Teleport>
 		</nivel_2>
 
 	</scene>

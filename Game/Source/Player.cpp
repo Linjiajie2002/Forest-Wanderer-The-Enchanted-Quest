@@ -340,6 +340,7 @@ bool Player::Update(float dt)
 		app->scene->GetPlayerLife()->life = 0;
 		if (die.HasFinished()) {
 			app->scene->GetBoss()->inBossBattle = false;
+		
 		}
 		//pbody->body->SetLinearVelocity(b2Vec2(0, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
 		if (isPosibleRevive) {
@@ -349,6 +350,7 @@ bool Player::Update(float dt)
 
 			}
 		}
+		
 	}
 	else {
 		if (pbody != nullptr) {

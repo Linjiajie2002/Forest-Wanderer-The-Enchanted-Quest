@@ -119,6 +119,15 @@ bool Angel::Update(float dt)
 		redball = 5;
 		yelloweball = 5;
 	}
+
+	if (!app->scene->GetBoss()->inBossBattle && app->scene->GetBoss()->oneTimeInBossBattle) {
+		blueball = 0;
+		redball = 0;
+		yelloweball = 0;
+		currentAnimation4->Reset();
+		currentAnimation5->Reset();
+		currentAnimation6->Reset();
+	}
 	//if (app->scene->GetItem()->victoria && Enter)
 	//{
 	//	//printf("\n%s", currentAnimation1->getNameAnimation());
@@ -151,6 +160,8 @@ bool Angel::Update(float dt)
 		app->scene->GetBossItem()->timeWait.Start();
 		app->scene->GetBossItem()->deleteBall.Start();
 		app->scene->GetBossItem()->deleteCura.Start();
+		app->scene->GetBossItem()->curatimeWait.Start();
+
 		angel_red_start.Reset();
 		angel_yellow_start.Reset();
 		angel_blue_start.Reset();

@@ -121,6 +121,11 @@ bool Boss::Update(float dt)
 		app->scene->GetItem()->playerGetDiamante = 6;
 		app->scene->GetItem()->victoria = false;
 	}
+	if (app->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN) {
+		goFight = true;
+		attackMethod == 1;
+		goBossBattle();
+	}
 
 	if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) {
 		getPlayerPosition = true;
@@ -152,8 +157,6 @@ bool Boss::Update(float dt)
 		}
 
 		physBodies.clear();
-
-
 	}
 
 	if (inBossBattle && attackMethod == 1) {

@@ -18,6 +18,7 @@
 #include "Diamond.h"
 #include "Cura.h"
 
+
 #include "Defs.h"
 #include "Log.h"
 #include <map>
@@ -50,8 +51,6 @@ bool Scene::Awake(pugi::xml_node& config)
 
 			PathfindingPath = config.child("nivel_1").child("Pathfinding").attribute("texturepath").as_string();
 
-
-
 			for (pugi::xml_node itemNode = config.child("nivel_1").child("enemy").child("Enemy_Goblin"); itemNode; itemNode = itemNode.next_sibling("Enemy_Goblin"))
 			{
 				enemy_goblin = (Enemy_Goblin*)app->entityManager->CreateEntity(EntityType::ENEMY_GOBLIN);
@@ -83,12 +82,17 @@ bool Scene::Awake(pugi::xml_node& config)
 				playerlife = (PlayerLife*)app->entityManager->CreateEntity(EntityType::PLAYERLIFE);
 				playerlife->parameters = itemNode;
 			}
-			for (pugi::xml_node itemNode = config.child("nivel_2").child("Cura").child("Cura"); itemNode; itemNode = itemNode.next_sibling("Cura"))
+			for (pugi::xml_node itemNode = config.child("nivel_1").child("Cura").child("Cura"); itemNode; itemNode = itemNode.next_sibling("Cura"))
 			{
 				cura = (Cura*)app->entityManager->CreateEntity(EntityType::CURA);
 				cura->parameters = itemNode;
 			}
-			for (pugi::xml_node itemNode = config.child("nivel_2").child("Diamond").child("Diamond"); itemNode; itemNode = itemNode.next_sibling("Diamond"))
+			for (pugi::xml_node itemNode = config.child("nivel_1").child("Diamond").child("Diamond"); itemNode; itemNode = itemNode.next_sibling("Diamond"))
+			{
+				diamond = (Diamond*)app->entityManager->CreateEntity(EntityType::DIAMOND);
+				diamond->parameters = itemNode;
+			}
+			for (pugi::xml_node itemNode = config.child("nivel_1").child("Teleport").child("Teleport"); itemNode; itemNode = itemNode.next_sibling("Teleport"))
 			{
 				diamond = (Diamond*)app->entityManager->CreateEntity(EntityType::DIAMOND);
 				diamond->parameters = itemNode;
@@ -173,13 +177,6 @@ bool Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool Scene::Start()
 {
-	/*if (changeScena) {
-		pugi::xml_document configFile;
-		pugi::xml_node SceneInfo;
-		pugi::xml_parse_result parseResult = configFile.load_file("config.xml");
-		SceneInfo = configFile.child("config").child("scene");
-		Awake(SceneInfo);
-	}*/
 	// NOTE: We have to avoid the use of paths in the code, we will move it later to a config file
 	//img = app->tex->Load("Assets/Textures/test.png");
 

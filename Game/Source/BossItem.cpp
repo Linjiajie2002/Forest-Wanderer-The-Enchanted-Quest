@@ -266,6 +266,7 @@ void BossItem::actualizarAnimacion()
 				pbody1->body->GetWorld()->DestroyBody(pbody1->body);
 				pbody1 = nullptr;
 			}
+			playerTakeCura = false;
 			currentAnimation2 = &start;
 			oneTouch_cura = false;
 			playerTouchBall = false;
@@ -347,8 +348,11 @@ void BossItem::OnCollision(PhysBody* physA, PhysBody* physB) {
 			app->scene->GetAngel()->GetPoint(ballColor);
 		}
 		if (physA->ctype == ColliderType::ITEM) {
-			playerTouchCura = true;
-			app->scene->GetPlayerLife()->playerGetHeal();
+			if (playerTakeCura == false) {
+				app->scene->GetPlayerLife()->playerGetHeal();
+				playerTouchCura = true;
+			}
+			playerTakeCura = true;
 		}
 		break;
 	case ColliderType::UNKNOWN:

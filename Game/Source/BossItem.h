@@ -93,6 +93,7 @@ public:
 	bool crearCurard = false;
 	bool playerTouchCura = false;
 	bool oneTouch_cura = false;
+	bool playerTakeCura = false;
 
 	float energyPos_X = 1920;
 	float energyPos_Y = 780;

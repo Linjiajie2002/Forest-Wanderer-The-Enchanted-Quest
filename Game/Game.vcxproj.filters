@@ -100,6 +100,9 @@
     <ClCompile Include="Source\Fonts.cpp">
       <Filter>Modules\Font</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Teleport.cpp">
+      <Filter>Modules\Teleport</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Defs.h">
@@ -228,6 +231,9 @@
     <ClInclude Include="Source\Fonts.h">
       <Filter>Modules\Font</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Teleport.h">
+      <Filter>Modules\Teleport</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
@@ -295,6 +301,9 @@
     </Filter>
     <Filter Include="Modules\Font">
       <UniqueIdentifier>{84a72164-ed07-40a9-b295-617359ea8c47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Teleport">
+      <UniqueIdentifier>{26a70a62-fae5-4ef1-a124-bc213048188d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

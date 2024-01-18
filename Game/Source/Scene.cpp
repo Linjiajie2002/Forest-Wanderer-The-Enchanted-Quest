@@ -17,6 +17,7 @@
 #include "Angel.h"
 #include "Diamond.h"
 #include "Cura.h"
+#include "Teleport.h"
 
 
 #include "Defs.h"
@@ -94,8 +95,8 @@ bool Scene::Awake(pugi::xml_node& config)
 			}
 			for (pugi::xml_node itemNode = config.child("nivel_1").child("Teleport").child("Teleport"); itemNode; itemNode = itemNode.next_sibling("Teleport"))
 			{
-				diamond = (Diamond*)app->entityManager->CreateEntity(EntityType::DIAMOND);
-				diamond->parameters = itemNode;
+				teleport = (Teleport*)app->entityManager->CreateEntity(EntityType::TELEPORT);
+				teleport->parameters = itemNode;
 			}
 		}
 	}
@@ -165,12 +166,14 @@ bool Scene::Awake(pugi::xml_node& config)
 				cura->parameters = itemNode;
 			}
 
+			for (pugi::xml_node itemNode = config.child("nivel_2").child("Teleport").child("Teleport"); itemNode; itemNode = itemNode.next_sibling("Teleport"))
+			{
+				teleport = (Teleport*)app->entityManager->CreateEntity(EntityType::TELEPORT);
+				teleport->parameters = itemNode;
+			}
 		}
 	}
-	//int level = app->map->LevelMap;
-	//std::string levelNodeName = "nivel_" + std::to_string(level);
 
-	//LoadEntities(config.child(levelNodeName.c_str()));
 	return ret;
 }
 

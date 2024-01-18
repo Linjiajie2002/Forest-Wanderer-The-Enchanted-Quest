@@ -29,6 +29,7 @@ enum class EntityType
 	ITEM,
 	CURA,
 	DIAMOND,
+	TELEPORT,
 	ITEMBOX,
 	SHOP,
 	EFFECT,

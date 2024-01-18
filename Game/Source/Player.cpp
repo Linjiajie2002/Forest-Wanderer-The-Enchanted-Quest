@@ -342,6 +342,8 @@ bool Player::Update(float dt)
 			app->scene->GetBoss()->inBossBattle = false;
 		
 		}
+		app->LoadRequest();
+		isDead = false;
 		//pbody->body->SetLinearVelocity(b2Vec2(0, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
 		if (isPosibleRevive) {
 			for (int i = 0; i < app->scene->GetPlayerLife()->lifeMark; i++)
@@ -478,7 +480,7 @@ void Player::Camera(float dt) {
 		targetPosX += (isFacingLeft) ? 75 : 100;
 
 		if (app->map->LevelMap == 1) {
-			if (position.x >= 5870) {
+			if (position.x >= 5875) {
 				lerpvelocidad_x = 0;
 
 			}
@@ -486,7 +488,7 @@ void Player::Camera(float dt) {
 				lerpvelocidad_x = 0.005f;
 			}
 
-			if (position.y <= 594) {
+			if (position.y <= 400) {
 				lerpvelocidad_y = 0;
 
 			}
@@ -732,10 +734,12 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::VICTORYCOLLISION:
 		app->audio->PlayFx(finallevel);
-		app->map->LevelMap = 2;
+		
 		//app->fade->FadetoBlackTransition(app->scene, app->scene);
-		app->fade->FadeToBlack(app->scene, app->scene);
 		isVictoria = true;
+		app->map->LevelMap = 2;
+		app->fade->FadeToBlack(app->scene, app->scene);
+		
 		break;
 	}
 }

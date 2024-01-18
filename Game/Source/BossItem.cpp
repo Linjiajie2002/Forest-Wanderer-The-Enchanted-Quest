@@ -90,9 +90,7 @@ bool BossItem::Update(float dt)
 		crearCurard = true;
 	}
 
-	printf("SSSS");
 	if (!app->scene->GetBoss()->inBossBattle && app->scene->GetBoss()->oneTimeInBossBattle ) {
-		printf("6666");
 		if (pbody != nullptr) {
 			pbody->body->GetWorld()->DestroyBody(pbody->body);
 			pbody = nullptr;

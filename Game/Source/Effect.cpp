@@ -61,7 +61,7 @@ bool Effect::Awake() {
 bool Effect::Start() {
 	reLoadXML();
 
-		
+
 
 	Effecttexture = app->tex->Load(EffectPath);
 	Effecttexture2 = app->tex->Load(EffectPath2);
@@ -96,8 +96,9 @@ bool Effect::Update(float dt)
 		ReviveEffectFuncion();
 		GhostEffect.Reset();
 	}
-	goMap2();
 	
+
+		goMap2();
 
 
 	return true;
@@ -160,19 +161,28 @@ void Effect::goMap2()
 	if (app->map->LevelMap == 1) {
 		if (!app->scene->GetPlayer()->isVictoria) {
 			//printf("yes");
-
-			sonid_vic = true;
-
-			position.x = 6304;//+ 30
+			position.x = 6250;//+ 30
 			position.y = 1312;//+ 18
+			sonid_vic = true;
+			if (pbody == nullptr) {
+				pbody = app->physics->CreateRectangleSensor(position.x, position.y, 80, 80, bodyType::STATIC);
+				pbody->ctype = ColliderType::VICTORYCOLLISION;
+				pbody->body->SetFixedRotation(true);
+				pbody->listener = this;
+			}
+			
 			SDL_Rect rect4 = currentAnimation4->GetCurrentFrame();
 			currentAnimation4 = &Gravity_Void;
-			app->render->DrawTexture(Effecttexture4, position.x, position.y, 0.8, SDL_FLIP_NONE, &rect4);//0.8 , 2 
+			app->render->DrawTexture(Effecttexture4, position.x-55, position.y-50, 1.2, SDL_FLIP_NONE, &rect4);//0.8 , 2 
 			currentAnimation4->Update();
+
 		}
 		else {
-
-			pbody->body->SetActive(false);
+			if (pbody != nullptr) {
+				app->physics->GetWorld()->DestroyBody(pbody->body);
+				pbody = nullptr;
+			}
+			
 
 		}
 	}

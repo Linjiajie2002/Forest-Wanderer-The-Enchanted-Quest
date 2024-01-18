@@ -14,6 +14,7 @@
 #include "Angel.h"
 #include "Diamond.h"
 #include "Cura.h"
+#include "Teleport.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -133,6 +134,9 @@ Entity* EntityManager::CreateEntity(EntityType type)
 		break;
 	case EntityType::CURA:
 		entity = new Cura();
+		break;
+	case EntityType::TELEPORT:
+		entity = new Teleport();
 		break;
 	default:
 		break;

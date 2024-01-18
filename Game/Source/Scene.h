@@ -13,7 +13,7 @@
 #include "BossItem.h"
 #include "Diamond.h"
 #include "Cura.h"
- 
+#include "Teleport.h"
 
 struct SDL_Texture;
 
@@ -56,6 +56,7 @@ public:
 	BossItem* GetBossItem();
 	Diamond* GetDiamond();
 	Cura* GetCura();
+	Teleport* GetTeleport();
 
 	bool LoadState(pugi::xml_node node);
 
@@ -83,6 +84,7 @@ private:
 	BossItem* bossitem;
 	Diamond* diamond;
 	Cura* cura;
+	Teleport* teleport;
 
 public:
 

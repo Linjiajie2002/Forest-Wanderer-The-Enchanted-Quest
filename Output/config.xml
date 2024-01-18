@@ -78,14 +78,16 @@
 			</playerlife>
 
 			<Diamond>
-				<Diamond Posx="150" Posy="950" Tsprite="6" Pweight="192" x="32" y="32" texturepath="Assets\Sprite\Mapa2\Diamond.png"/>
-				<Diamond Posx="250" Posy="950" Tsprite="6" Pweight="192" x="32" y="32" texturepath="Assets\Sprite\Mapa2\Diamond.png"/>
-				<Diamond Posx="350" Posy="950" Tsprite="6" Pweight="192" x="32" y="32" texturepath="Assets\Sprite\Mapa2\Diamond.png"/>
+				<Diamond Posx="480" Posy="330" Tsprite="6" Pweight="192" x="32" y="32" texturepath="Assets\Sprite\Mapa2\Diamond.png"/>
+				<Diamond Posx="4485" Posy="986" Tsprite="6" Pweight="192" x="32" y="32" texturepath="Assets\Sprite\Mapa2\Diamond.png"/>
+				<Diamond Posx="3296" Posy="200" Tsprite="6" Pweight="192" x="32" y="32" texturepath="Assets\Sprite\Mapa2\Diamond.png"/>
+				<Diamond Posx="5410" Posy="130" Tsprite="6" Pweight="192" x="32" y="32" texturepath="Assets\Sprite\Mapa2\Diamond.png"/>
 			</Diamond>
 
 			<Cura>
-				<Cura Posx="450" Posy="1050" Tsprite="14" Pweight="440" x="110" y="110" texturepath="Assets\Effecto\LifeBar\Cura.png"/>
-				<Cura Posx="650" Posy="1050" Tsprite="14" Pweight="440" x="110" y="110" texturepath="Assets\Effecto\LifeBar\Cura.png"/>
+				<Cura Posx="2200" Posy="1000" Tsprite="14" Pweight="440" x="110" y="110" texturepath="Assets\Effecto\LifeBar\Cura.png"/>
+				<Cura Posx="3100" Posy="280" Tsprite="14" Pweight="440" x="110" y="110" texturepath="Assets\Effecto\LifeBar\Cura.png"/>
+				<Cura Posx="4200" Posy="700" Tsprite="14" Pweight="440" x="110" y="110" texturepath="Assets\Effecto\LifeBar\Cura.png"/>
 			</Cura>
 
 			<item>
@@ -93,7 +95,11 @@
 				<Diamond_Counter Posx="150" Posy="950" Tsprite="8" Pweight="192" x="114" y="40" texturepath="Assets\Sprite\Mapa2\Diamond_Counter.png"/>
 			</item>
 			<Teleport>
-				<Teleport Posx="150" Posy="950" Tsprite="6" Pweight="192" x="32" y="32" texturepath="Assets\Sprite\Teleport\teleport.png"/>
+				<Teleport Posx="1470" Posy="555" Tsprite="35" Pweight="2560" x="256" y="312" texturepath="Assets\Sprite\Teleport\teleport.png"/>
+				<Teleport Posx="3140" Posy="1130" Tsprite="35" Pweight="2560" x="256" y="312" texturepath="Assets\Sprite\Teleport\teleport.png"/>
+				<Teleport Posx="3330" Posy="525" Tsprite="35" Pweight="2560" x="256" y="312" texturepath="Assets\Sprite\Teleport\teleport.png"/>
+				<Teleport Posx="5300" Posy="105" Tsprite="35" Pweight="2560" x="256" y="312" texturepath="Assets\Sprite\Teleport\teleport.png"/>
+				<Teleport Posx="5920" Posy="1230" Tsprite="35" Pweight="2560" x="256" y="312" texturepath="Assets\Sprite\Teleport\teleport.png"/>
 			</Teleport>
 		</nivel_1>
 
@@ -167,9 +173,11 @@
 				<lifebar_mid Posx="150" Posy="570" Tsprite="56" Pweight="120" x="15" y="18" texturepath="Assets\Effecto\LifeBar\lifebar_mid.png"/>
 				<lifebar_glass Posx="150" Posy="570" Tsprite="8" Pweight="680" x="85" y="110" texturepath="Assets\Effecto\LifeBar\glass.png"/>
 			</playerlife>
+			
 			<Teleport>
-				<Teleport Posx="150" Posy="950" Tsprite="6" Pweight="192" x="32" y="32" texturepath="Assets\Sprite\Teleport\teleport.png"/>
+				<Teleport Posx="160" Posy="1010" Tsprite="35" Pweight="2560" x="256" y="312" texturepath="Assets\Sprite\Teleport\teleport.png"/>
 			</Teleport>
+			
 		</nivel_2>
 
 	</scene>
@@ -179,6 +187,11 @@
 		<itembox x="50" y="1100" texturepath="Assets/Item/ItemBox.png">
 			<animations Tsprite="40" x="34" y="41" Pweight="340"/>
 		</itembox>
+		
+		<Teleport>
+			<idle start="0" end="14" speed="0.2f" loop="true"/>
+			<save start="20" end="34" speed="0.2f" loop="true"/>
+		</Teleport>
 		<angel>
 			<angel_all_start start="0" end="20" speed="0.2f" loop="false"/>
 			<angel_all_idle start="20" end="34" speed="0.2f" loop="true"/>

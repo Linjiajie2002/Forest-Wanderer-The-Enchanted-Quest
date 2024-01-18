@@ -20,6 +20,7 @@
 
 #include "Defs.h"
 #include "Log.h"
+#include <map>
 
 Scene::Scene(bool start_Enabled) : Module(start_Enabled)
 {
@@ -49,18 +50,21 @@ bool Scene::Awake(pugi::xml_node& config)
 
 			PathfindingPath = config.child("nivel_1").child("Pathfinding").attribute("texturepath").as_string();
 
-			
-			for (pugi::xml_node itemNode = config.child("nivel_1").child("enemy").child("Enemy_Flyeye"); itemNode; itemNode = itemNode.next_sibling("Enemy_Flyeye"))
-			{
-				Enemy_Flyeye* enemy_flyeye = (Enemy_Flyeye*)app->entityManager->CreateEntity(EntityType::ENEMY_FLYEYE);
-				enemy_flyeye->parameters = itemNode;
-			}
+
 
 			for (pugi::xml_node itemNode = config.child("nivel_1").child("enemy").child("Enemy_Goblin"); itemNode; itemNode = itemNode.next_sibling("Enemy_Goblin"))
 			{
 				enemy_goblin = (Enemy_Goblin*)app->entityManager->CreateEntity(EntityType::ENEMY_GOBLIN);
 				enemy_goblin->parameters = itemNode;
 			}
+
+			for (pugi::xml_node itemNode = config.child("nivel_1").child("enemy").child("Enemy_Flyeye"); itemNode; itemNode = itemNode.next_sibling("Enemy_Flyeye"))
+			{
+				Enemy_Flyeye* enemy_flyeye = (Enemy_Flyeye*)app->entityManager->CreateEntity(EntityType::ENEMY_FLYEYE);
+				enemy_flyeye->parameters = itemNode;
+			}
+
+			
 
 			for (pugi::xml_node itemNode = config.child("nivel_1").child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
 			{
@@ -86,23 +90,23 @@ bool Scene::Awake(pugi::xml_node& config)
 	if (app->map->LevelMap == 2) {
 		for (pugi::xml_node itemNode = config.child("nivel_2"); itemNode; itemNode = itemNode.next_sibling("nivel_2")) {
 
-			
+
 			if (config.child("nivel_2").child("player")) {
 				player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 				player->parameters = config.child("nivel_2").child("player");
 			}
 
 			PathfindingPath = config.child("nivel_2").child("Pathfinding").attribute("texturepath").as_string();
-			
+
 			for (pugi::xml_node itemNode = config.child("nivel_2").child("Diamond").child("Diamond"); itemNode; itemNode = itemNode.next_sibling("Diamond"))
 			{
 				diamond = (Diamond*)app->entityManager->CreateEntity(EntityType::DIAMOND);
 				diamond->parameters = itemNode;
 			}
 
-			
-			
-			
+
+
+
 			for (pugi::xml_node itemNode = config.child("nivel_2").child("effect"); itemNode; itemNode = itemNode.next_sibling("effect"))
 			{
 				effect = (Effect*)app->entityManager->CreateEntity(EntityType::EFFECT);
@@ -127,7 +131,7 @@ bool Scene::Awake(pugi::xml_node& config)
 				boss->parameters = itemNode;
 			}
 
-			
+
 
 			for (pugi::xml_node itemNode = config.child("nivel_2").child("bossitem"); itemNode; itemNode = itemNode.next_sibling("bossitem"))
 			{
@@ -136,7 +140,7 @@ bool Scene::Awake(pugi::xml_node& config)
 			}
 
 
-			
+
 			for (pugi::xml_node itemNode = config.child("nivel_2").child("playerlife"); itemNode; itemNode = itemNode.next_sibling("playerlife"))
 			{
 				playerlife = (PlayerLife*)app->entityManager->CreateEntity(EntityType::PLAYERLIFE);
@@ -151,33 +155,23 @@ bool Scene::Awake(pugi::xml_node& config)
 
 		}
 	}
+	//int level = app->map->LevelMap;
+	//std::string levelNodeName = "nivel_" + std::to_string(level);
 
-
-	/*Add itembox
-	for (pugi::xml_node itemNode = config.child("itembox"); itemNode; itemNode = itemNode.next_sibling("itembox"))
-	{
-		ItemBox* itembox = (ItemBox*)app->entityManager->CreateEntity(EntityType::ITEMBOX);
-		itembox->parameters = itemNode;
-	}*/
-
-
-
-	//Add effect
-	printf("%d", ret);
-
+	//LoadEntities(config.child(levelNodeName.c_str()));
 	return ret;
 }
 
 // Called before the first frame
 bool Scene::Start()
 {
-	if (changeScena) {
+	/*if (changeScena) {
 		pugi::xml_document configFile;
 		pugi::xml_node SceneInfo;
 		pugi::xml_parse_result parseResult = configFile.load_file("config.xml");
 		SceneInfo = configFile.child("config").child("scene");
-		Awake(SceneInfo);	
-	}
+		Awake(SceneInfo);
+	}*/
 	// NOTE: We have to avoid the use of paths in the code, we will move it later to a config file
 	//img = app->tex->Load("Assets/Textures/test.png");
 
@@ -248,7 +242,7 @@ bool Scene::Update(float dt)
 		printf("Load");
 		app->LoadRequest();
 	}
-	
+
 	return true;
 }
 
@@ -266,7 +260,7 @@ bool Scene::PostUpdate()
 // Called before quitting
 bool Scene::CleanUp()
 {
-	
+
 	LOG("Freeing scene");
 
 	return true;
@@ -377,89 +371,87 @@ bool Scene::SaveState(pugi::xml_node node) {
 
 }
 
-pugi::xml_node Scene::nodeinfo(EntityType type)
-{
-	pugi::xml_document configFile;
-	pugi::xml_node nodeInfo;
-	pugi::xml_parse_result parseResult = configFile.load_file("config.xml");
-
-	switch (type)
-	{
-	case EntityType::PLAYER:
-		if (app->map->LevelMap == 1) {
-			nodeInfo = configFile.child("config").child("scene").child("nivel_1").child("player");
-		}
-		else if (app->map->LevelMap == 2) {
-			nodeInfo = configFile.child("config").child("scene").child("nivel_2").child("player");
-		}
-		break;
-	case EntityType::ENEMY_GOBLIN:
-		nodeInfo = configFile.child("config").child("scene").child("nivel_1").child("enemy").child("Enemy_Goblin");
-		break;
-	case EntityType::ENEMY_FLYEYE:
-			nodeInfo = configFile.child("config").child("scene").child("nivel_1").child("enemy").child("Enemy_Flyeye");
-		break;
-	case EntityType::ITEM:
-
-		if (app->map->LevelMap == 1) {
-			nodeInfo = configFile.child("config").child("scene").child("nivel_1").child("item");
-		}
-		else if (app->map->LevelMap == 2) {
-			nodeInfo = configFile.child("config").child("scene").child("nivel_2").child("item");
-		}
-		break;
-	case EntityType::EFFECT:
-		if (app->map->LevelMap == 1) {
-			nodeInfo = configFile.child("config").child("scene").child("nivel_1").child("effect");
-		}
-		else if (app->map->LevelMap == 2) {
-			nodeInfo = configFile.child("config").child("scene").child("nivel_2").child("effect");
-		}
-		break;
-	case EntityType::BOSS:
-		nodeInfo = configFile.child("config").child("scene").child("nivel_2").child("boss");
-		break;
-	case EntityType::ANGEL:
-		nodeInfo = configFile.child("config").child("scene").child("nivel_2").child("angel");
-		break;
-	case EntityType::BOSSITEM:
-		nodeInfo = configFile.child("config").child("scene").child("nivel_2").child("bossitem");
-		break;
-	case EntityType::PLAYERLIFE:
-		if (app->map->LevelMap == 1) {
-			nodeInfo = configFile.child("config").child("scene").child("nivel_1").child("playerlife");
-		}
-		else if (app->map->LevelMap == 2) {
-			nodeInfo = configFile.child("config").child("scene").child("nivel_2").child("playerlife");
-		}
-		break;
-	case EntityType::DIAMOND:
-		if (app->map->LevelMap == 1) {
-			nodeInfo = configFile.child("config").child("scene").child("nivel_1").child("Diamond").child("Diamond");
-		}
-		else if (app->map->LevelMap == 2) {
-			nodeInfo = configFile.child("config").child("scene").child("nivel_2").child("Diamond").child("Diamond");
-		}
-		break;
-	case EntityType::CURA:
-		if (app->map->LevelMap == 1) {
-			nodeInfo = configFile.child("config").child("scene").child("nivel_1").child("Cura").child("Cura");
-		}
-		else if (app->map->LevelMap == 2) {
-			nodeInfo = configFile.child("config").child("scene").child("nivel_2").child("Cura").child("Cura");
-		}
-		break;
-	default:
-		break;
-	}
-
-	if (app->map->LevelMap == 1) {
-		PathfindingPath = configFile.child("config").child("scene").child("nivel_1").child("Pathfinding").attribute("texturepath").as_string();
-	}
-	else if (app->map->LevelMap == 2) {
-		PathfindingPath = configFile.child("config").child("scene").child("nivel_2").child("Pathfinding").attribute("texturepath").as_string();
-	}
-	return nodeInfo;
-}
-
-
+//pugi::xml_node Scene::nodeinfo(EntityType type)
+//{
+//	pugi::xml_document configFile;
+//	pugi::xml_node nodeInfo;
+//	pugi::xml_parse_result parseResult = configFile.load_file("config.xml");
+//
+//	switch (type)
+//	{
+//	case EntityType::PLAYER:
+//		if (app->map->LevelMap == 1) {
+//			nodeInfo = configFile.child("config").child("scene").child("nivel_1").child("player");
+//		}
+//		else if (app->map->LevelMap == 2) {
+//			nodeInfo = configFile.child("config").child("scene").child("nivel_2").child("player");
+//		}
+//		break;
+//	case EntityType::ENEMY_GOBLIN:
+//		nodeInfo = configFile.child("config").child("scene").child("nivel_1").child("enemy").child("Enemy_Goblin");
+//		break;
+//	case EntityType::ENEMY_FLYEYE:
+//		nodeInfo = configFile.child("config").child("scene").child("nivel_1").child("enemy").child("Enemy_Flyeye");
+//		break;
+//	case EntityType::ITEM:
+//
+//		if (app->map->LevelMap == 1) {
+//			nodeInfo = configFile.child("config").child("scene").child("nivel_1").child("item");
+//		}
+//		else if (app->map->LevelMap == 2) {
+//			nodeInfo = configFile.child("config").child("scene").child("nivel_2").child("item");
+//		}
+//		break;
+//	case EntityType::EFFECT:
+//		if (app->map->LevelMap == 1) {
+//			nodeInfo = configFile.child("config").child("scene").child("nivel_1").child("effect");
+//		}
+//		else if (app->map->LevelMap == 2) {
+//			nodeInfo = configFile.child("config").child("scene").child("nivel_2").child("effect");
+//		}
+//		break;
+//	case EntityType::BOSS:
+//		nodeInfo = configFile.child("config").child("scene").child("nivel_2").child("boss");
+//		break;
+//	case EntityType::ANGEL:
+//		nodeInfo = configFile.child("config").child("scene").child("nivel_2").child("angel");
+//		break;
+//	case EntityType::BOSSITEM:
+//		nodeInfo = configFile.child("config").child("scene").child("nivel_2").child("bossitem");
+//		break;
+//	case EntityType::PLAYERLIFE:
+//		if (app->map->LevelMap == 1) {
+//			nodeInfo = configFile.child("config").child("scene").child("nivel_1").child("playerlife");
+//		}
+//		else if (app->map->LevelMap == 2) {
+//			nodeInfo = configFile.child("config").child("scene").child("nivel_2").child("playerlife");
+//		}
+//		break;
+//	case EntityType::DIAMOND:
+//		if (app->map->LevelMap == 1) {
+//			nodeInfo = configFile.child("config").child("scene").child("nivel_1").child("Diamond").child("Diamond");
+//		}
+//		else if (app->map->LevelMap == 2) {
+//			nodeInfo = configFile.child("config").child("scene").child("nivel_2").child("Diamond").child("Diamond");
+//		}
+//		break;
+//	case EntityType::CURA:
+//		if (app->map->LevelMap == 1) {
+//			nodeInfo = configFile.child("config").child("scene").child("nivel_1").child("Cura").child("Cura");
+//		}
+//		else if (app->map->LevelMap == 2) {
+//			nodeInfo = configFile.child("config").child("scene").child("nivel_2").child("Cura").child("Cura");
+//		}
+//		break;
+//	default:
+//		break;
+//	}
+//
+//	if (app->map->LevelMap == 1) {
+//		PathfindingPath = configFile.child("config").child("scene").child("nivel_1").child("Pathfinding").attribute("texturepath").as_string();
+//	}
+//	else if (app->map->LevelMap == 2) {
+//		PathfindingPath = configFile.child("config").child("scene").child("nivel_2").child("Pathfinding").attribute("texturepath").as_string();
+//	}
+//	return nodeInfo;
+//}

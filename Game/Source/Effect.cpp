@@ -21,48 +21,47 @@ Effect::~Effect() {}
 bool Effect::Awake() {
 
 
-	EffectPath = parameters.child("animations1").attribute("texturepath").as_string();
-	TSprite = parameters.child("animations1").attribute("Tsprite").as_int();
-	SpriteX = parameters.child("animations1").attribute("x").as_int();
-	SpriteY = parameters.child("animations1").attribute("y").as_int();
-	PhotoWeight = parameters.child("animations1").attribute("Pweight").as_int();
-	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-	OroEffect.LoadAnim("Effect", "OroEffect", spritePositions);
+	//EffectPath = parameters.child("animations1").attribute("texturepath").as_string();
+	//TSprite = parameters.child("animations1").attribute("Tsprite").as_int();
+	//SpriteX = parameters.child("animations1").attribute("x").as_int();
+	//SpriteY = parameters.child("animations1").attribute("y").as_int();
+	//PhotoWeight = parameters.child("animations1").attribute("Pweight").as_int();
+	//spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
+	//OroEffect.LoadAnim("Effect", "OroEffect", spritePositions);
 
-	EffectPath2 = parameters.child("animations2").attribute("texturepath").as_string();
-	TSprite = parameters.child("animations2").attribute("Tsprite").as_int();
-	SpriteX = parameters.child("animations2").attribute("x").as_int();
-	SpriteY = parameters.child("animations2").attribute("y").as_int();
-	PhotoWeight = parameters.child("animations2").attribute("Pweight").as_int();
-	spritePositions = SPosition2.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-	GhostEffect.LoadAnim("Effect", "Die", spritePositions);
+	//EffectPath2 = parameters.child("animations2").attribute("texturepath").as_string();
+	//TSprite = parameters.child("animations2").attribute("Tsprite").as_int();
+	//SpriteX = parameters.child("animations2").attribute("x").as_int();
+	//SpriteY = parameters.child("animations2").attribute("y").as_int();
+	//PhotoWeight = parameters.child("animations2").attribute("Pweight").as_int();
+	//spritePositions = SPosition2.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
+	//GhostEffect.LoadAnim("Effect", "Die", spritePositions);
 
-	EffectPath3 = parameters.child("animations3").attribute("texturepath").as_string();
-	TSprite = parameters.child("animations3").attribute("Tsprite").as_int();
-	SpriteX = parameters.child("animations3").attribute("x").as_int();
-	SpriteY = parameters.child("animations3").attribute("y").as_int();
-	PhotoWeight = parameters.child("animations3").attribute("Pweight").as_int();
-	spritePositions = Gravity_Void.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-	DiamanteEffect.LoadAnim("Effect", "DiamanteEffect", spritePositions);
+	//EffectPath3 = parameters.child("animations3").attribute("texturepath").as_string();
+	//TSprite = parameters.child("animations3").attribute("Tsprite").as_int();
+	//SpriteX = parameters.child("animations3").attribute("x").as_int();
+	//SpriteY = parameters.child("animations3").attribute("y").as_int();
+	//PhotoWeight = parameters.child("animations3").attribute("Pweight").as_int();
+	//spritePositions = Gravity_Void.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
+	//DiamanteEffect.LoadAnim("Effect", "DiamanteEffect", spritePositions);
 
 
-	EffectPath4 = parameters.child("animations4").attribute("texturepath").as_string();
-	TSprite = parameters.child("animations4").attribute("Tsprite").as_int();
-	SpriteX = parameters.child("animations4").attribute("x").as_int();
-	SpriteY = parameters.child("animations4").attribute("y").as_int();
-	PhotoWeight = parameters.child("animations4").attribute("Pweight").as_int();
-	spritePositions = Gravity_Void.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-	Gravity_Void.LoadAnim("Effect", "Gravity_Void_idle", spritePositions);
+	//EffectPath4 = parameters.child("animations4").attribute("texturepath").as_string();
+	//TSprite = parameters.child("animations4").attribute("Tsprite").as_int();
+	//SpriteX = parameters.child("animations4").attribute("x").as_int();
+	//SpriteY = parameters.child("animations4").attribute("y").as_int();
+	//PhotoWeight = parameters.child("animations4").attribute("Pweight").as_int();
+	//spritePositions = Gravity_Void.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
+	//Gravity_Void.LoadAnim("Effect", "Gravity_Void_idle", spritePositions);
 
 
 	return true;
 }
 
 bool Effect::Start() {
+	reLoadXML();
 
-	if (app->scene->changeScena) {
-		reLoadXML(app->scene->nodeinfo(EntityType::EFFECT));
-	}
+		
 
 	Effecttexture = app->tex->Load(EffectPath);
 	Effecttexture2 = app->tex->Load(EffectPath2);
@@ -179,7 +178,7 @@ void Effect::goMap2()
 	}
 }
 
-void Effect::reLoadXML(pugi::xml_node& parameters)
+void Effect::reLoadXML()
 {
 	pugi::xml_document configFile;
 

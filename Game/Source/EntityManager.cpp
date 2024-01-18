@@ -200,19 +200,19 @@ bool EntityManager::Update(float dt)
 		ret = item->data->Update(dt);
 	}*/
 
+	if (this->active) {
+		for (item = entities.start; item != NULL && ret == true; item = item->next)
+		{
+			pEntity = item->data;
 
-	for (item = entities.start; item != NULL && ret == true; item = item->next)
-	{
-		pEntity = item->data;
-
-		if (pEntity->active == false) {
+			if (pEntity->active == false) {
 
 
-			item->data->Update(dt);
-			continue;
-		};
-		ret = item->data->Update(dt);
+				item->data->Update(dt);
+				continue;
+			};
+			ret = item->data->Update(dt);
+		}
 	}
-
 	return ret;
 }

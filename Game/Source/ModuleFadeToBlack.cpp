@@ -44,23 +44,32 @@ bool ModuleFadeToBlack::Update(float dt)
         if (frameCount >= maxFadeFrames)
         {
             // TODO 1: Enable / Disable the modules received when FadeToBlacks(...) gets called
+
+			app->entityManager->Disable();
             app->map->Disable();
 			//moduleToDisable->Disable();
+		
 			moduleToDisable->Disable();
-            app->entityManager->Disable();
+
+            
 			
 
             /*app->physics->Disable();
             app->physics->Enable();*/
             /*app->physics->CleanUp();*/
 
+			pugi::xml_document configFile;
+			pugi::xml_node SceneInfo;
+			pugi::xml_parse_result parseResult = configFile.load_file("config.xml");
+			SceneInfo = configFile.child("config").child("scene");
 
+           
 			
-
-            app->map->Enable();
+			
             moduleToEnable->Enable();
-            app->entityManager->Enable();
-			app->scene->GetPlayer()->Enable();
+			moduleToEnable->Awake(SceneInfo);
+			app->map->Enable();
+			app->entityManager->Enable();
 			
 
             currentStep = Fade_Step::FROM_BLACK;

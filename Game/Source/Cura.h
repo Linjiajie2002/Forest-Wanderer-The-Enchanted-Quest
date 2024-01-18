@@ -35,7 +35,7 @@ public:
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
-	void reLoadXML(pugi::xml_node& parameters);
+	void reLoadXML();
 
 	void displayTime(int timeInSeconds);
 

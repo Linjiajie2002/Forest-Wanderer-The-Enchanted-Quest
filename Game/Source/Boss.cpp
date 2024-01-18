@@ -23,7 +23,7 @@ Boss::~Boss() {}
 
 bool Boss::Awake() {
 
-	boss_atack_1_texture_Path = parameters.child("boss_atack").child("atack1").attribute("texturepath").as_string();
+	/*boss_atack_1_texture_Path = parameters.child("boss_atack").child("atack1").attribute("texturepath").as_string();
 	TSprite = parameters.child("boss_atack").child("atack1").attribute("Tsprite").as_int();
 	SpriteX = parameters.child("boss_atack").child("atack1").attribute("x").as_int();
 	SpriteY = parameters.child("boss_atack").child("atack1").attribute("y").as_int();
@@ -63,16 +63,16 @@ bool Boss::Awake() {
 	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
 	atack_4_start.LoadAnim("Boss", "atack_4_start", spritePositions);
 	atack_4_running.LoadAnim("Boss", "atack_4_running", spritePositions);
-	atack_4_end.LoadAnim("Boss", "atack_4_end", spritePositions);
+	atack_4_end.LoadAnim("Boss", "atack_4_end", spritePositions);*/
 
 	return true;
 }
 
 bool Boss::Start() {
 
-	if (app->scene->changeScena) {
-		reLoadXML(app->scene->nodeinfo(EntityType::BOSS));
-	}
+
+	reLoadXML();
+
 	boss_atack_1_texture = app->tex->Load(boss_atack_1_texture_Path);
 	boss_atack_2_texture = app->tex->Load(boss_atack_2_texture_Path);
 	boss_atack_3_texture = app->tex->Load(boss_atack_3_texture_Path);
@@ -536,7 +536,7 @@ void Boss::OnEndCollision(PhysBody* physA, PhysBody* physB) {
 	}
 }
 
-void Boss::reLoadXML(pugi::xml_node& parameters)
+void Boss::reLoadXML()
 {
 	pugi::xml_document configFile;
 

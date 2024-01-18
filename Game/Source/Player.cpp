@@ -29,49 +29,49 @@ Player::~Player() {
 
 bool Player::Awake() {
 
-	//initilize textures
+	////initilize textures
 
-	texturePath = parameters.attribute("texturepath").as_string();
-	TSprite = parameters.child("animations").attribute("Tsprite").as_int();
-	SpriteX = parameters.child("animations").attribute("x").as_int();
-	SpriteY = parameters.child("animations").attribute("y").as_int();
-	PhotoWeight = parameters.child("animations").attribute("Pweight").as_int();
-	position.x = parameters.attribute("x").as_int();
-	position.y = parameters.attribute("y").as_int();
-	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-
-
-	//data player
-
-	speed = parameters.attribute("speed").as_float();
-	crouchspeed = parameters.attribute("crouchspeed").as_float();
-	jumpForce = parameters.attribute("jumpforce").as_float();
+	//texturePath = parameters.attribute("texturepath").as_string();
+	//TSprite = parameters.child("animations").attribute("Tsprite").as_int();
+	//SpriteX = parameters.child("animations").attribute("x").as_int();
+	//SpriteY = parameters.child("animations").attribute("y").as_int();
+	//PhotoWeight = parameters.child("animations").attribute("Pweight").as_int();
+	//position.x = parameters.attribute("x").as_int();
+	//position.y = parameters.attribute("y").as_int();
+	//spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
 
 
-	//printf("%d %d %d %d", TSprite, SpriteX, SpriteY, PhotoWeight);
+	////data player
 
-	idle.LoadAnim("Player", "idle", spritePositions);
-	die.LoadAnim("Player", "die", spritePositions);
-	run.LoadAnim("Player", "run", spritePositions);
-	defend_on.LoadAnim("Player", "defend_on", spritePositions);
-	defend_off.LoadAnim("Player", "defend_off", spritePositions);
-	takehit.LoadAnim("Player", "take_hit", spritePositions);
-	onground.LoadAnim("Player", "on_ground", spritePositions);
-
-	close_atk.LoadAnim("Player", "close_atk", spritePositions);
-	arrow_atk.LoadAnim("Player", "arrow_atk", spritePositions);
-	air_atk.LoadAnim("Player", "air_atk", spritePositions);
-	scope_atk.LoadAnim("Player", "scope_atk", spritePositions);
-	sp_atk.LoadAnim("Player", "sp_atk", spritePositions);
+	//speed = parameters.attribute("speed").as_float();
+	//crouchspeed = parameters.attribute("crouchspeed").as_float();
+	//jumpForce = parameters.attribute("jumpforce").as_float();
 
 
-	roll.LoadAnim("Player", "roll", spritePositions);
-	slide.LoadAnim("Player", "slide", spritePositions);
+	////printf("%d %d %d %d", TSprite, SpriteX, SpriteY, PhotoWeight);
+
+	//idle.LoadAnim("Player", "idle", spritePositions);
+	//die.LoadAnim("Player", "die", spritePositions);
+	//run.LoadAnim("Player", "run", spritePositions);
+	//defend_on.LoadAnim("Player", "defend_on", spritePositions);
+	//defend_off.LoadAnim("Player", "defend_off", spritePositions);
+	//takehit.LoadAnim("Player", "take_hit", spritePositions);
+	//onground.LoadAnim("Player", "on_ground", spritePositions);
+
+	//close_atk.LoadAnim("Player", "close_atk", spritePositions);
+	//arrow_atk.LoadAnim("Player", "arrow_atk", spritePositions);
+	//air_atk.LoadAnim("Player", "air_atk", spritePositions);
+	//scope_atk.LoadAnim("Player", "scope_atk", spritePositions);
+	//sp_atk.LoadAnim("Player", "sp_atk", spritePositions);
 
 
-	Jump_UP.LoadAnim("Player", "Jump_UP", spritePositions);
-	Jump_DOWN.LoadAnim("Player", "Jump_DOWN", spritePositions);
-	Jump_DOWN_LOOP.LoadAnim("Player", "Jump_DOWN_LOOP", spritePositions);
+	//roll.LoadAnim("Player", "roll", spritePositions);
+	//slide.LoadAnim("Player", "slide", spritePositions);
+
+
+	//Jump_UP.LoadAnim("Player", "Jump_UP", spritePositions);
+	//Jump_DOWN.LoadAnim("Player", "Jump_DOWN", spritePositions);
+	//Jump_DOWN_LOOP.LoadAnim("Player", "Jump_DOWN_LOOP", spritePositions);
 
 	return true;
 }
@@ -80,11 +80,9 @@ bool Player::Awake() {
 
 bool Player::Start() {
 
-	if (app->scene->changeScena) {
-		reLoadXML(app->scene->nodeinfo(EntityType::PLAYER));
-	}
-	
 
+	reLoadXML();
+	
 	texture = app->tex->Load(texturePath);
 
 
@@ -114,19 +112,21 @@ bool Player::Start() {
 
 bool Player::Update(float dt)
 {
-
+	printf("1");
 
 	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN) {
 
 		shakeDuration = 500;
 	}
 
-	
-	
+
+
 
 	//printf("%d \n", position.x);
 	currentAnimation = &idle;
-	vel = b2Vec2(0, pbody->body->GetLinearVelocity().y);
+	if (pbody != nullptr) {
+		vel = b2Vec2(0, pbody->body->GetLinearVelocity().y);
+	}
 	app->win->GetWindowSize(width, height);
 
 	if (app->scene->GetBoss()->inBossBattle && app->scene->GetBoss()->tpToinBossBattle) {
@@ -139,16 +139,19 @@ bool Player::Update(float dt)
 
 		if (!app->godMode) {
 
-			pbody->body->GetFixtureList()[0].SetSensor(false);
-			vel = b2Vec2(0, pbody->body->GetLinearVelocity().y);
-
+			if (pbody != nullptr) {
+				pbody->body->GetFixtureList()[0].SetSensor(false);
+				vel = b2Vec2(0, pbody->body->GetLinearVelocity().y);
+			}
 			//Keyboard Input
 			keyInput(dt);
 
 
 			//Set the velocity of the pbody of the player
 			vel.y -= GRAVITY_Y;
-			pbody->body->SetLinearVelocity(vel);
+			if (pbody != nullptr) {
+				pbody->body->SetLinearVelocity(vel);
+			}
 
 			//Jump
 			if (jumpCount > 0) {
@@ -202,11 +205,11 @@ bool Player::Update(float dt)
 				frameCount = 0;
 				starFram = false;
 			}
-			if (app->scene->GetPlayerLife()->playerTakeDmg_Animation) {
+			/*if (app->scene->GetPlayerLife()->playerTakeDmg_Animation) {
 
 				palyergethit = true;
 
-			}
+			}*/
 
 			if (palyergethit) {
 				currentAnimation = &takehit;
@@ -239,9 +242,9 @@ bool Player::Update(float dt)
 
 			Camera(dt);
 
-		
 
-			
+
+
 
 			/*	if (shakeDuration > 0) {
 					printf("WWW");
@@ -326,8 +329,10 @@ bool Player::Update(float dt)
 	}*/
 
 	//Update player position in pixels
-	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 50;
-	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 35;
+	if (pbody != nullptr) {
+		position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 50;
+		position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 35;
+	}
 
 
 	//Die
@@ -351,7 +356,9 @@ bool Player::Update(float dt)
 		}
 	}
 	else {
-		pbody->body->SetActive(true);
+		if (pbody != nullptr) {
+			pbody->body->SetActive(true);
+		}
 		NoControl = true;
 		isPosibleRevive = true;
 
@@ -554,6 +561,7 @@ void Player::keyInput(float dt) {
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 
 		isFacingLeft = true;
+		if (pbody != nullptr);
 		vel = b2Vec2(-speed * dt, pbody->body->GetLinearVelocity().y);
 		currentAnimation = &run;
 
@@ -572,7 +580,9 @@ void Player::keyInput(float dt) {
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 
 		isFacingLeft = false;
-		vel = b2Vec2(speed * dt, pbody->body->GetLinearVelocity().y);
+		if (pbody != nullptr) {
+			vel = b2Vec2(speed * dt, pbody->body->GetLinearVelocity().y);
+		}
 		currentAnimation = &run;
 
 
@@ -745,7 +755,7 @@ void Player::OnEndCollision(PhysBody* physA, PhysBody* physB) {
 	}*/
 }
 
-void Player::reLoadXML(pugi::xml_node& parameters)
+void Player::reLoadXML()
 {
 	pugi::xml_document configFile;
 
@@ -792,3 +802,55 @@ void Player::reLoadXML(pugi::xml_node& parameters)
 	Jump_DOWN.LoadAnim("Player", "Jump_DOWN", spritePositions);
 	Jump_DOWN_LOOP.LoadAnim("Player", "Jump_DOWN_LOOP", spritePositions);
 }
+
+
+//void  Player::reLoadXML(std::vector<pugi::xml_node> parameter)
+//{
+//	pugi::xml_document configFile;
+//
+//	for (pugi::xml_node parameters : parameter)
+//	{
+//
+//		texturePath = parameters.attribute("texturepath").as_string();
+//		TSprite = parameters.child("animations").attribute("Tsprite").as_int();
+//		SpriteX = parameters.child("animations").attribute("x").as_int();
+//		SpriteY = parameters.child("animations").attribute("y").as_int();
+//		PhotoWeight = parameters.child("animations").attribute("Pweight").as_int();
+//		position.x = parameters.attribute("x").as_int();
+//		position.y = parameters.attribute("y").as_int();
+//		spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
+//
+//
+//		//data player
+//
+//		speed = parameters.attribute("speed").as_float();
+//		crouchspeed = parameters.attribute("crouchspeed").as_float();
+//		jumpForce = parameters.attribute("jumpforce").as_float();
+//
+//
+//		//printf("%d %d %d %d", TSprite, SpriteX, SpriteY, PhotoWeight);
+//
+//		idle.LoadAnim("Player", "idle", spritePositions);
+//		die.LoadAnim("Player", "die", spritePositions);
+//		run.LoadAnim("Player", "run", spritePositions);
+//		defend_on.LoadAnim("Player", "defend_on", spritePositions);
+//		defend_off.LoadAnim("Player", "defend_off", spritePositions);
+//		takehit.LoadAnim("Player", "take_hit", spritePositions);
+//		onground.LoadAnim("Player", "on_ground", spritePositions);
+//
+//		close_atk.LoadAnim("Player", "close_atk", spritePositions);
+//		arrow_atk.LoadAnim("Player", "arrow_atk", spritePositions);
+//		air_atk.LoadAnim("Player", "air_atk", spritePositions);
+//		scope_atk.LoadAnim("Player", "scope_atk", spritePositions);
+//		sp_atk.LoadAnim("Player", "sp_atk", spritePositions);
+//
+//
+//		roll.LoadAnim("Player", "roll", spritePositions);
+//		slide.LoadAnim("Player", "slide", spritePositions);
+//
+//
+//		Jump_UP.LoadAnim("Player", "Jump_UP", spritePositions);
+//		Jump_DOWN.LoadAnim("Player", "Jump_DOWN", spritePositions);
+//		Jump_DOWN_LOOP.LoadAnim("Player", "Jump_DOWN_LOOP", spritePositions);
+//	}
+//}

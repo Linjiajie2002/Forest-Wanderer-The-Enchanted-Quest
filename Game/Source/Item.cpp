@@ -27,34 +27,34 @@ Item::~Item() {}
 
 bool Item::Awake() {
 
-	DiamondPath = parameters.child("Diamond").attribute("texturepath").as_string();
-	TSprite = parameters.child("Diamond").attribute("Tsprite").as_int();
-	SpriteX = parameters.child("Diamond").attribute("x").as_int();
-	SpriteY = parameters.child("Diamond").attribute("y").as_int();
-	PhotoWeight = parameters.child("Diamond").attribute("Pweight").as_int();
+	//DiamondPath = parameters.child("Diamond").attribute("texturepath").as_string();
+	//TSprite = parameters.child("Diamond").attribute("Tsprite").as_int();
+	//SpriteX = parameters.child("Diamond").attribute("x").as_int();
+	//SpriteY = parameters.child("Diamond").attribute("y").as_int();
+	//PhotoWeight = parameters.child("Diamond").attribute("Pweight").as_int();
 
-	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-	idle.LoadAnim("Diamond", "idle", spritePositions);
+	//spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
+	//idle.LoadAnim("Diamond", "idle", spritePositions);
 
-	//position.x = parameters.attribute("Posx").as_int();
-	//position.y = parameters.attribute("Posy").as_int();
+	////position.x = parameters.attribute("Posx").as_int();
+	////position.y = parameters.attribute("Posy").as_int();
 
-	Diamond_Counter_texture_Path = parameters.child("Diamond_Counter").attribute("texturepath").as_string();
-	TSprite = parameters.child("Diamond_Counter").attribute("Tsprite").as_int();
-	SpriteX = parameters.child("Diamond_Counter").attribute("x").as_int();
-	SpriteY = parameters.child("Diamond_Counter").attribute("y").as_int();
-	PhotoWeight = parameters.child("Diamond_Counter").attribute("Pweight").as_int();
-	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
+	//Diamond_Counter_texture_Path = parameters.child("Diamond_Counter").attribute("texturepath").as_string();
+	//TSprite = parameters.child("Diamond_Counter").attribute("Tsprite").as_int();
+	//SpriteX = parameters.child("Diamond_Counter").attribute("x").as_int();
+	//SpriteY = parameters.child("Diamond_Counter").attribute("y").as_int();
+	//PhotoWeight = parameters.child("Diamond_Counter").attribute("Pweight").as_int();
+	//spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
 
-	/*std::string counterString = "Diamond_Counter_" + std::to_string(1);
-	Diamond_Counter[1].LoadAnim("Diamond", counterString.c_str(), spritePositions);*/
+	///*std::string counterString = "Diamond_Counter_" + std::to_string(1);
+	//Diamond_Counter[1].LoadAnim("Diamond", counterString.c_str(), spritePositions);*/
 
-	for (int i = 0; i < 9; i++)
-	{
-		std::string counterString = "Diamond_Counter_" + std::to_string(i);
-		Diamond_Counter.Add(inicializaAnimation);
-		Diamond_Counter[i].LoadAnim("Diamond", counterString.c_str(), spritePositions);
-	}
+	//for (int i = 0; i < 9; i++)
+	//{
+	//	std::string counterString = "Diamond_Counter_" + std::to_string(i);
+	//	Diamond_Counter.Add(inicializaAnimation);
+	//	Diamond_Counter[i].LoadAnim("Diamond", counterString.c_str(), spritePositions);
+	//}
 
 
 	return true;
@@ -63,9 +63,8 @@ bool Item::Awake() {
 bool Item::Start() {
 	//initilize textures
 
-	if (app->scene->changeScena) {
-		reLoadXML(app->scene->nodeinfo(EntityType::ITEM));
-	}
+
+	reLoadXML();
 	Diamondtexture = app->tex->Load(DiamondPath);
 	Diamond_Counter_texture = app->tex->Load(Diamond_Counter_texture_Path);
 
@@ -295,7 +294,7 @@ void Item::OnCollision(PhysBody* physA, PhysBody* physB) {
 	}
 }
 
-void Item::reLoadXML(pugi::xml_node& parameters)
+void Item::reLoadXML()
 {
 	pugi::xml_document configFile;
 

@@ -33,7 +33,7 @@ public:
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 	void OnEndCollision(PhysBody* physA, PhysBody* physB);
 
-	void reLoadXML(pugi::xml_node& parameters);
+	void reLoadXML();
 
 public:
 
@@ -107,6 +107,9 @@ public:
 	float atk_rightBottomY;
 
 	Player* player;
+
+	int i = 0;
+	int j = 0;
 
 private:
 

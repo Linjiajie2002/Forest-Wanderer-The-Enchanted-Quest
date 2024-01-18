@@ -8,6 +8,7 @@
 #include "Physics.h"
 #include "Render.h"
 #include "Timer.h"
+#include "vector"
 
 struct SDL_Texture;
 
@@ -38,7 +39,8 @@ public:
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 	void OnEndCollision(PhysBody* physA, PhysBody* physB);
 
-	void reLoadXML(pugi::xml_node& parameters);
+	void reLoadXML();
+	/*void reLoadXML(std::vector<pugi::xml_node>  parameter);*/
 
 	void AtackAnimation(char* atackname);
 	void RetAtkAni(Animation* ani, bool* anib);

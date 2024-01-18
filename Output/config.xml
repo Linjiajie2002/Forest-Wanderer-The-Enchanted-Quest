@@ -57,6 +57,7 @@
 					<deadenemy texturepath="Assets/Audio/Fx/DEADENEMY_PR.ogg"/>
 				</Enemy_Goblin>
 				
+				
 			</enemy>
 			<Pathfinding texturepath="Assets/Maps/pathfinding.png"/>
 			<effect>

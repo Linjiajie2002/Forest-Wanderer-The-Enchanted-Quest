@@ -24,7 +24,7 @@ Angel::~Angel() {}
 
 bool Angel::Awake() {
 
-	angel_blue_texture_Path = parameters.child("angel_all").child("angel_texture1").attribute("texturepath").as_string();
+	/*angel_blue_texture_Path = parameters.child("angel_all").child("angel_texture1").attribute("texturepath").as_string();
 	angel_red_texture_Path = parameters.child("angel_all").child("angel_texture2").attribute("texturepath").as_string();
 	angel_yellow_texture_Path = parameters.child("angel_all").child("angel_texture3").attribute("texturepath").as_string();
 	TSprite = parameters.child("angel_all").attribute("Tsprite").as_int();
@@ -59,18 +59,15 @@ bool Angel::Awake() {
 
 	angel_borde_red_idle.LoadAnim("angel_borde", "angel_borde_blue", spritePositions);
 	angel_borde_yellow_idle.LoadAnim("angel_borde", "angel_borde_blue", spritePositions);
-	angel_borde_blue_idle.LoadAnim("angel_borde", "angel_borde_blue", spritePositions);
+	angel_borde_blue_idle.LoadAnim("angel_borde", "angel_borde_blue", spritePositions);*/
 
 	return true;
 }
 
 bool Angel::Start() {
 
+	reLoadXML();
 
-
-	if (app->scene->changeScena) {
-		reLoadXML(app->scene->nodeinfo(EntityType::ANGEL));
-	}
 
 	angel_blue_texture = app->tex->Load(angel_blue_texture_Path);
 	angel_red_texture = app->tex->Load(angel_red_texture_Path);
@@ -112,7 +109,7 @@ bool Angel::Update(float dt)
 		currentAnimation2 = &angel_yellow_die;
 		currentAnimation3 = &angel_blue_die;
 		Enter = false;
-		
+
 		app->scene->GetItem()->LastDiamante();
 	}
 
@@ -152,7 +149,7 @@ bool Angel::Update(float dt)
 
 		app->scene->GetBoss()->getPlayerPosition = true;
 		app->scene->GetBoss()->attackMethod = 1;
-		
+
 
 	}
 
@@ -287,7 +284,7 @@ void Angel::OnEndCollision(PhysBody* physA, PhysBody* physB) {
 	}
 }
 
-void Angel::reLoadXML(pugi::xml_node& parameters)
+void Angel::reLoadXML()
 {
 	pugi::xml_document configFile;
 

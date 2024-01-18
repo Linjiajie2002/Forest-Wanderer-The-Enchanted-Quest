@@ -28,7 +28,7 @@ Diamond::~Diamond() {}
 
 bool Diamond::Awake() {
 
-	DiamondPath = parameters.attribute("texturepath").as_string();
+	/*DiamondPath = parameters.attribute("texturepath").as_string();
 	TSprite = parameters.attribute("Tsprite").as_int();
 	SpriteX = parameters.attribute("x").as_int();
 	SpriteY = parameters.attribute("y").as_int();
@@ -36,16 +36,15 @@ bool Diamond::Awake() {
 	pos_X = parameters.attribute("Posx").as_int();
 	pos_Y = parameters.attribute("Posy").as_int();
 	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-	idle.LoadAnim("Diamond", "idle", spritePositions);
+	idle.LoadAnim("Diamond", "idle", spritePositions);*/
 
 	return true;
 }
 
 bool Diamond::Start() {
 	//initilize textures
-	if (app->scene->changeScena) {
-		reLoadXML(app->scene->nodeinfo(EntityType::DIAMOND));
-	}
+
+	reLoadXML();
 
 	Diamondtexture = app->tex->Load(DiamondPath);
 
@@ -113,7 +112,7 @@ void Diamond::OnCollision(PhysBody* physA, PhysBody* physB) {
 	}
 }
 
-void Diamond::reLoadXML(pugi::xml_node& parameters)
+void Diamond::reLoadXML()
 {
 	pugi::xml_document configFile;
 	DiamondPath = parameters.attribute("texturepath").as_string();

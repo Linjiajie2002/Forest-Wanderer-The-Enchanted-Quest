@@ -30,7 +30,7 @@ Cura::~Cura() {}
 
 bool Cura::Awake() {
 
-	CuraPath = parameters.attribute("texturepath").as_string();
+	/*CuraPath = parameters.attribute("texturepath").as_string();
 	TSprite = parameters.attribute("Tsprite").as_int();
 	SpriteX = parameters.attribute("x").as_int();
 	SpriteY = parameters.attribute("y").as_int();
@@ -40,7 +40,7 @@ bool Cura::Awake() {
 	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
 	idle.LoadAnim("cura", "cura_idle", spritePositions);
 	die.LoadAnim("cura", "cura_die", spritePositions);
-	start.LoadAnim("cura", "cura_start", spritePositions);
+	start.LoadAnim("cura", "cura_start", spritePositions);*/
 
 	return true;
 }
@@ -48,9 +48,8 @@ bool Cura::Awake() {
 bool Cura::Start() {
 	//initilize textures
 
-	if (app->scene->changeScena) {
-		reLoadXML(app->scene->nodeinfo(EntityType::CURA));
-	}
+
+	reLoadXML();
 
 	Curatexture= app->tex->Load(CuraPath);
 
@@ -145,7 +144,7 @@ void Cura::OnCollision(PhysBody* physA, PhysBody* physB) {
 	}
 }
 
-void Cura::reLoadXML(pugi::xml_node& parameters)
+void Cura::reLoadXML()
 {
 	pugi::xml_document configFile;
 

@@ -26,7 +26,7 @@ BossItem::~BossItem() {}
 
 bool BossItem::Awake() {
 
-	ball_blue_texture_Path = parameters.child("boss_ball").child("ball_blue").attribute("texturepath").as_string();
+	/*ball_blue_texture_Path = parameters.child("boss_ball").child("ball_blue").attribute("texturepath").as_string();
 	TSprite = parameters.child("boss_ball").child("ball_blue").attribute("Tsprite").as_int();
 	SpriteX = parameters.child("boss_ball").child("ball_blue").attribute("x").as_int();
 	SpriteY = parameters.child("boss_ball").child("ball_blue").attribute("y").as_int();
@@ -43,16 +43,16 @@ bool BossItem::Awake() {
 
 	ball_yellow_start.LoadAnim("BossItem", "ball_yellow_start", spritePositions);
 	ball_yellow_running.LoadAnim("BossItem", "ball_yellow_running", spritePositions);
-	ball_yellow_end.LoadAnim("BossItem", "ball_yellow_end", spritePositions);
+	ball_yellow_end.LoadAnim("BossItem", "ball_yellow_end", spritePositions);*/
 
 	return true;
 }
 
 bool BossItem::Start() {
 
-	if (app->scene->changeScena) {
-		reLoadXML(app->scene->nodeinfo(EntityType::BOSSITEM));
-	}
+	
+		reLoadXML();
+	
 
 	
 
@@ -293,7 +293,7 @@ void BossItem::OnEndCollision(PhysBody* physA, PhysBody* physB) {
 	}
 }
 
-void BossItem::reLoadXML(pugi::xml_node& parameters)
+void BossItem::reLoadXML()
 {
 	pugi::xml_document configFile;
 	ball_blue_texture_Path = parameters.child("boss_ball").child("ball_blue").attribute("texturepath").as_string();

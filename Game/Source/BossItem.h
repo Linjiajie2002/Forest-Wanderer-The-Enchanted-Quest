@@ -40,7 +40,7 @@ public:
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 	void OnEndCollision(PhysBody* physA, PhysBody* physB);
 
-	void reLoadXML(pugi::xml_node& parameters);
+	void reLoadXML();
 
 public:
 

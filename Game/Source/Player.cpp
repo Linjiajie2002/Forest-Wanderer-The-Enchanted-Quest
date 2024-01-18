@@ -82,7 +82,7 @@ bool Player::Start() {
 
 
 	reLoadXML();
-	
+
 	texture = app->tex->Load(texturePath);
 
 
@@ -333,16 +333,13 @@ bool Player::Update(float dt)
 	//Die
 	if (isDead) {
 		NoControl = false;
-		//SDL_Delay(20);
 		currentAnimation = &die;
 		//isDead = true;
 		pbody->body->SetActive(false);
 		app->scene->GetPlayerLife()->life = 0;
-		if (die.HasFinished()) {
-			app->scene->GetBoss()->inBossBattle = false;
-		
-		}
+		app->scene->GetBoss()->inBossBattle = false;
 		app->LoadRequest();
+		noTp = false;
 		isDead = false;
 		//pbody->body->SetLinearVelocity(b2Vec2(0, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
 		if (isPosibleRevive) {
@@ -352,7 +349,7 @@ bool Player::Update(float dt)
 
 			}
 		}
-		
+
 	}
 	else {
 		if (pbody != nullptr) {
@@ -451,7 +448,7 @@ void Player::Camera(float dt) {
 	app->win->GetWindowSize(windowW, windowH);
 
 
-	if (app->scene->GetBoss()->inBossBattle || app->scene->GetItem()->outCamera == true) {
+	if (app->scene->GetBoss()->inBossBattle && !isDead && noTp || app->scene->GetItem()->outCamera == true && !isDead &&  noTp) {
 		app->render->camera.x = -1430;
 		app->render->camera.y = -501;
 
@@ -461,6 +458,7 @@ void Player::Camera(float dt) {
 			ShakeCamera(xOffset, yOffset);
 			shakeDuration--;
 		}
+
 	}
 	else {
 
@@ -734,12 +732,12 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::VICTORYCOLLISION:
 		app->audio->PlayFx(finallevel);
-		
+
 		//app->fade->FadetoBlackTransition(app->scene, app->scene);
 		isVictoria = true;
 		app->map->LevelMap = 2;
 		app->fade->FadeToBlack(app->scene, app->scene);
-		
+
 		break;
 	}
 }

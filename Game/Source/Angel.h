@@ -31,20 +31,20 @@ public:
 	void CheckPoint();
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 	void OnEndCollision(PhysBody* physA, PhysBody* physB);
+	void start_end();
+	void display();
+	void Finish();
+
 
 	void reLoadXML();
 
 public:
-
-	bool isPicked = false;
-
 	Animation* currentAnimation1 = nullptr;
 	Animation* currentAnimation2 = nullptr;
 	Animation* currentAnimation3 = nullptr;
 	List<Animation*> currentAnimation4;
 	List<Animation*> currentAnimation5;
 	List<Animation*> currentAnimation6;
-	Animation* currentAnimation7 = nullptr;
 
 	Animation angel_blue_start;
 	Animation angel_blue_idle;
@@ -59,8 +59,6 @@ public:
 	Animation angel_yellow_idle;
 	Animation angel_yellow_die;
 
-
-
 	List<Animation> angel_borde_red_idle;
 	List<Animation> angel_borde_yellow_idle;
 	List<Animation> angel_borde_blue_idle;
@@ -74,9 +72,8 @@ public:
 	int SpriteX;
 	int SpriteY;
 	int PhotoWeight;
-	float speed;
+
 	int ballColor;
-	bool isFacingLeft;
 	bool getPoint = false;
 	bool angleFinish = false;
 	int attackMethod = 1;
@@ -121,8 +118,6 @@ private:
 	List<SDL_Rect> rect_5;
 	List<SDL_Rect> rect_6;
 
-	SDL_Texture* Pathfindingtexture;
-	const char* PathfindingPath;
 	PhysBody* pbody;
 	PhysBody* pbody1;
 };

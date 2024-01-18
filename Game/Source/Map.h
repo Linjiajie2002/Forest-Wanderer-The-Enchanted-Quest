@@ -159,7 +159,7 @@ public:
     bool Load();
 
 	void CreateNavigationMap(int& width, int& height, uchar** buffer) const;
-
+	void removeParedBoos();
 
 	iPoint MapToWorld(int x, int y) const;
 	iPoint Map::WorldToMap(int x, int y);
@@ -194,7 +194,7 @@ public:
 
 	PathFinding* pathfinding;
 
-
+	bool deleteParadeBoos = false;
 	int bossRenderArea_R =32;
 	int bossRenderArea_L = 18;
 
@@ -211,6 +211,7 @@ private:
 	int blockedGid = 635;
 	int blockedGid2 = 627;
 	List<PhysBody*> collisionsList;
+	List<PhysBody*> collisionsList2;
 	List<PhysBody*> traspasedPlatformList;
 
 };

@@ -123,7 +123,7 @@ public:
 	bool AniplayerOnPlatform = false;
 
 	bool starFram = false;
-	
+	int noTp = true;
 	//Atack
 	int atackTypeCount = 0;
 	bool isAtack = false;

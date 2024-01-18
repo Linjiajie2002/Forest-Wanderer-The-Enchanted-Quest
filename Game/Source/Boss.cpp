@@ -125,6 +125,7 @@ bool Boss::Update(float dt)
 		goFight = true;
 		attackMethod == 1;
 		goBossBattle();
+		app->scene->GetPlayer()->noTp = true;
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) {

@@ -17,6 +17,12 @@ Basic Controls
 - I - Attack
 - R - Dead
 - ESC - Close Game
+- 2 - ALL Energiball to 5
+- Z - BossFight
+- O Renicia BossFight
+- Q - Add Dianmond
+- N - Healing
+- M - Injuried
 
 Debug Controls
 
@@ -27,6 +33,8 @@ Debug Controls
 - F9 - Show/hide Collisions and other metas
 - F10 - Toggle godmode (free movement with WASD)
 - F11 - Change frames cap
+
+
 
 
 ## Developers

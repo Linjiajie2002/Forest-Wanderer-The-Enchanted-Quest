@@ -35,7 +35,10 @@ Debug Controls
 - F11 - Change frames cap
 
 
+## GamePlay
+This is an adventurous game where you collect diamonds. You must gather 7 gems, and the game is divided into two levels. In the first level, there are 4 gems. You must collect all 4 gems to activate the teleportation portal to the second level. Along the way, you must evade enemy attacks and acquire gems—be cautious! The journey is perilous, and falling off cliffs will lead to instant death!
 
+The second level features 3 gems. You can obtain two of them through exploration, while the third gem is guarded by three angelic guardians. Once you collect 6 gems, they will challenge you. Upon completing their trial, they will reward you with the final gem!
 
 ## Developers
 

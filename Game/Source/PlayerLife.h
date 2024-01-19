@@ -40,7 +40,7 @@ public:
 	void updateHeadAnimations();
 	void updateMiddleAnimations();
 	void updateTailAnimation();
-	
+	void lifebarstate();
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 	void OnEndCollision(PhysBody* physA, PhysBody* physB);
 
@@ -109,10 +109,6 @@ public:
 	bool playerTakeHeal = false;
 
 	bool playerTakeBossDmg = false;
-
-
-
-
 
 private:
 

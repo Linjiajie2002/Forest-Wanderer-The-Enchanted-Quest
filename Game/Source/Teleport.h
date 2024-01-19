@@ -30,8 +30,6 @@ public:
 
 	bool CleanUp();
 
-	void DestroyDiamante();
-
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
 	void reLoadXML();
@@ -52,7 +50,6 @@ public:
 	int PhotoWeight;
 	int pos_X;
 	int pos_Y;
-
 
 	SDL_Rect rect;
 

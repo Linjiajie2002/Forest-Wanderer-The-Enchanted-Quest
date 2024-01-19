@@ -62,11 +62,8 @@ public:
 
 	bool SaveState(pugi::xml_node node);
 
-	pugi::xml_node nodeinfo(EntityType type);
-	//std::vector<pugi::xml_node> Scene::nodeinfo(EntityType type);
 
-	void LoadEntities(pugi::xml_node levelNode);
-
+	
 
 
 private:

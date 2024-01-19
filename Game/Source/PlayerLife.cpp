@@ -24,71 +24,6 @@ PlayerLife::PlayerLife() : Entity(EntityType::PLAYERLIFE)
 PlayerLife::~PlayerLife() {}
 
 bool PlayerLife::Awake() {
-
-	//lifebar_head_tail_texture_Path = parameters.child("lifebar_head_tail").attribute("texturepath").as_string();
-	//TSprite = parameters.child("lifebar_head_tail").attribute("Tsprite").as_int();
-	//SpriteX = parameters.child("lifebar_head_tail").attribute("x").as_int();
-	//SpriteY = parameters.child("lifebar_head_tail").attribute("y").as_int();
-	//PhotoWeight = parameters.child("lifebar_head_tail").attribute("Pweight").as_int();
-	//spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-	////Head
-	//Head_idle.LoadAnim("PlayerLife_head", "Head_idle", spritePositions);
-	//Head_treatment.LoadAnim("PlayerLife_head", "Head_treatment", spritePositions);
-	//Head_takehit.LoadAnim("PlayerLife_head", "Head_takehit", spritePositions);
-	//Head_die.LoadAnim("PlayerLife_head", "Head_die", spritePositions);
-	////Tail
-	//Tail_treatment_nb.LoadAnim("PlayerLife_head", "Tail_treatment_nb", spritePositions);
-	//Tail_treatment_ab.LoadAnim("PlayerLife_head", "Tail_treatment_ab", spritePositions);
-	//Tail_takehit_nb.LoadAnim("PlayerLife_head", "Tail_takehit_nb", spritePositions);
-	//Tail_takehit_ab.LoadAnim("PlayerLife_head", "Tail_takehit_ab", spritePositions);
-	//Tail_die.LoadAnim("PlayerLife_head", "Tail_die", spritePositions);
-	//Tail_idle.LoadAnim("PlayerLife_head", "Tail_idle", spritePositions);
-	//Tail_idle_nb.LoadAnim("PlayerLife_head", "Tail_idle_nb", spritePositions);
-
-
-	//lifebar_mid_texture_Path = parameters.child("lifebar_mid").attribute("texturepath").as_string();
-	//TSprite = parameters.child("lifebar_mid").attribute("Tsprite").as_int();
-	//SpriteX = parameters.child("lifebar_mid").attribute("x").as_int();
-	//SpriteY = parameters.child("lifebar_mid").attribute("y").as_int();
-	//PhotoWeight = parameters.child("lifebar_mid").attribute("Pweight").as_int();
-	//spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-
-
-
-	//for (int i = 0; i < lifebar; i++)
-	//{
-	//	Middle_idle.Add(inicializaAnimation);
-	//	Middle_idle_nb.Add(inicializaAnimation);
-	//	Middle_treatment_wb.Add(inicializaAnimation);
-	//	Middle_treatment_nb.Add(inicializaAnimation);
-	//	Middle_treatment_ab.Add(inicializaAnimation);
-	//	Middle_takehit_wb.Add(inicializaAnimation);
-	//	Middle_takehit_nb.Add(inicializaAnimation);
-	//	Middle_takehit_ab.Add(inicializaAnimation);
-	//	Middle_die.Add(inicializaAnimation);
-
-	//	Middle_idle[i].LoadAnim("PlayerLife_mid", "Middle_idle", spritePositions);
-	//	Middle_idle_nb[i].LoadAnim("PlayerLife_mid", "Middle_idle_nb", spritePositions);
-	//	Middle_treatment_wb[i].LoadAnim("PlayerLife_mid", "Middle_treatment_wb", spritePositions);
-	//	Middle_treatment_nb[i].LoadAnim("PlayerLife_mid", "Middle_treatment_nb", spritePositions);
-	//	Middle_treatment_ab[i].LoadAnim("PlayerLife_mid", "Middle_treatment_ab", spritePositions);
-	//	Middle_takehit_wb[i].LoadAnim("PlayerLife_mid", "Middle_takehit_wb", spritePositions);
-	//	Middle_takehit_nb[i].LoadAnim("PlayerLife_mid", "Middle_takehit_nb", spritePositions);
-	//	Middle_takehit_ab[i].LoadAnim("PlayerLife_mid", "Middle_takehit_ab", spritePositions);
-	//	Middle_die[i].LoadAnim("PlayerLife_mid", "Middle_die", spritePositions);
-
-	//}
-
-	//lifebar_icon_texture_Path = parameters.child("lifebar_glass").attribute("texturepath").as_string();
-	//TSprite = parameters.child("lifebar_glass").attribute("Tsprite").as_int();
-	//SpriteX = parameters.child("lifebar_glass").attribute("x").as_int();
-	//SpriteY = parameters.child("lifebar_glass").attribute("y").as_int();
-	//PhotoWeight = parameters.child("lifebar_glass").attribute("Pweight").as_int();
-	//spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-
-	//Glass_idle.LoadAnim("PlayerLife_mid", "lifebar_glass_idle", spritePositions);
-	//Glass_broke.LoadAnim("PlayerLife_mid", "lifebar_glass_broke", spritePositions);
-
 	return true;
 }
 
@@ -145,24 +80,8 @@ bool PlayerLife::Update(float dt)
 	updateHeadAnimations();
 	updateMiddleAnimations();
 	updateTailAnimation();
-
-	if (app->scene->GetPlayer()->isDead) {
-		playerTakeDmg = false;
-		lifebarState = EntityLifeBarState::DIE;
-		getStateAnimation(lifebarState);
-	}
-	else if (playerTakeHeal) {
-		lifebarState = EntityLifeBarState::TREATMENT;
-		getStateAnimation(lifebarState);
-	}
-	else if (playerTakeDmg) {
-		lifebarState = EntityLifeBarState::TAKEHIT;
-		getStateAnimation(lifebarState);
-	}
-	else {
-		lifebarState = EntityLifeBarState::IDLE;
-		getStateAnimation(lifebarState);
-	}
+	lifebarstate();
+	
 
 
 	rect_4 = currentAnimation4->GetCurrentFrame();
@@ -323,6 +242,27 @@ void PlayerLife::updateTailAnimation()
 		resetAnimation(Tail_treatment_nb);
 		resetAnimation(Tail_treatment_ab);
 
+	}
+}
+
+void PlayerLife::lifebarstate()
+{
+	if (app->scene->GetPlayer()->isDead) {
+		playerTakeDmg = false;
+		lifebarState = EntityLifeBarState::DIE;
+		getStateAnimation(lifebarState);
+	}
+	else if (playerTakeHeal) {
+		lifebarState = EntityLifeBarState::TREATMENT;
+		getStateAnimation(lifebarState);
+	}
+	else if (playerTakeDmg) {
+		lifebarState = EntityLifeBarState::TAKEHIT;
+		getStateAnimation(lifebarState);
+	}
+	else {
+		lifebarState = EntityLifeBarState::IDLE;
+		getStateAnimation(lifebarState);
 	}
 }
 

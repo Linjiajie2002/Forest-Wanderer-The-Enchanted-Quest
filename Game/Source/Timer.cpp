@@ -67,11 +67,7 @@ void Timer::displayTime(int timeInSeconds) {
 		int bufferSize = snprintf(nullptr, 0, "%d", time_vector[i]) + 1;
 		char* pointStr = new char[bufferSize];
 		snprintf(pointStr, bufferSize, "%d", time_vector[i]);
-
 		app->fonts->BlitText(895 - IconPosition, 60, app->numbers, pointStr);
-		//App->fonts->BlitText(SCREEN_WIDTH - IconPosition, SCREEN_HEIGHT - 16, App->scoreFontYellow, pointStr);
-
-
 		IconPosition -= 16;
 		if (IconPosition == 54) {
 			IconPosition -= 16;

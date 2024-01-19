@@ -123,7 +123,6 @@
     <ClCompile Include="Source\PlayerLife.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\Render.cpp" />
-    <ClCompile Include="Source\Shop.cpp" />
     <ClCompile Include="Source\Teleport.cpp" />
     <ClCompile Include="Source\Textures.cpp" />
     <ClCompile Include="Source\Timer.cpp" />
@@ -157,7 +156,6 @@
     <ClInclude Include="Source\App.h" />
     <ClInclude Include="Source\Module.h" />
     <ClInclude Include="Source\Render.h" />
-    <ClInclude Include="Source\Shop.h" />
     <ClInclude Include="Source\Teleport.h" />
     <ClInclude Include="Source\Textures.h" />
     <ClInclude Include="Source\Timer.h" />

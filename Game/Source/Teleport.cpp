@@ -49,7 +49,6 @@ bool Teleport::Start() {
 
 	currentAnimation = &idle;
 
-
 	return true;
 }
 

@@ -28,51 +28,6 @@ Player::~Player() {
 }
 
 bool Player::Awake() {
-
-	////initilize textures
-
-	//texturePath = parameters.attribute("texturepath").as_string();
-	//TSprite = parameters.child("animations").attribute("Tsprite").as_int();
-	//SpriteX = parameters.child("animations").attribute("x").as_int();
-	//SpriteY = parameters.child("animations").attribute("y").as_int();
-	//PhotoWeight = parameters.child("animations").attribute("Pweight").as_int();
-	//position.x = parameters.attribute("x").as_int();
-	//position.y = parameters.attribute("y").as_int();
-	//spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-
-
-	////data player
-
-	//speed = parameters.attribute("speed").as_float();
-	//crouchspeed = parameters.attribute("crouchspeed").as_float();
-	//jumpForce = parameters.attribute("jumpforce").as_float();
-
-
-	////printf("%d %d %d %d", TSprite, SpriteX, SpriteY, PhotoWeight);
-
-	//idle.LoadAnim("Player", "idle", spritePositions);
-	//die.LoadAnim("Player", "die", spritePositions);
-	//run.LoadAnim("Player", "run", spritePositions);
-	//defend_on.LoadAnim("Player", "defend_on", spritePositions);
-	//defend_off.LoadAnim("Player", "defend_off", spritePositions);
-	//takehit.LoadAnim("Player", "take_hit", spritePositions);
-	//onground.LoadAnim("Player", "on_ground", spritePositions);
-
-	//close_atk.LoadAnim("Player", "close_atk", spritePositions);
-	//arrow_atk.LoadAnim("Player", "arrow_atk", spritePositions);
-	//air_atk.LoadAnim("Player", "air_atk", spritePositions);
-	//scope_atk.LoadAnim("Player", "scope_atk", spritePositions);
-	//sp_atk.LoadAnim("Player", "sp_atk", spritePositions);
-
-
-	//roll.LoadAnim("Player", "roll", spritePositions);
-	//slide.LoadAnim("Player", "slide", spritePositions);
-
-
-	//Jump_UP.LoadAnim("Player", "Jump_UP", spritePositions);
-	//Jump_DOWN.LoadAnim("Player", "Jump_DOWN", spritePositions);
-	//Jump_DOWN_LOOP.LoadAnim("Player", "Jump_DOWN_LOOP", spritePositions);
-
 	return true;
 }
 
@@ -234,23 +189,7 @@ bool Player::Update(float dt)
 				if (!isFacingLeft)attackParticle = app->par->CloseAtake(position.x + 160, position.y + 30, 155, 20, ColliderType::CLOSEATK_PLAYER);
 				else attackParticle = app->par->CloseAtake(position.x - 58, position.y + 30, 155, 20, ColliderType::CLOSEATK_PLAYER);
 			}
-
 			Camera(dt);
-
-
-
-
-
-			/*	if (shakeDuration > 0) {
-					printf("WWW");
-					xOffset = (rand() % (2 * shakeMagnitude + 1)) - shakeMagnitude;
-					yOffset = (rand() % (2 * shakeMagnitude + 1)) - shakeMagnitude;
-					ShakeCamera(xOffset, yOffset);
-					shakeDuration--;
-				}
-				firstTouchPlantform = 1;
-		*/
-
 		}
 		else
 		{
@@ -303,25 +242,8 @@ bool Player::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
 
 		vel = b2Vec2(1, 23);
-		pbody->body->SetTransform(vel, pbody->body->GetAngle());
-		/*app->fade->FadeToBlack(app->scene, app->scene);*/
-
+		pbody->body->SetTransform(vel,0);
 	}
-
-	/*if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
-
-		vel = b2Vec2(position.x, position.y);
-		pbody->body->SetTransform(vel, pbody->body->GetAngle());
-
-	}
-
-	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
-
-		vel = b2Vec2(1, 23);
-		pbody->body->SetTransform(vel, pbody->body->GetAngle());
-
-
-	}*/
 
 	//Update player position in pixels
 	if (pbody != nullptr) {
@@ -329,19 +251,17 @@ bool Player::Update(float dt)
 		position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 35;
 	}
 
-
-	//Die
 	if (isDead) {
 		NoControl = false;
 		currentAnimation = &die;
-		//isDead = true;
-		pbody->body->SetActive(false);
+		if (pbody != nullptr) {
+			pbody->body->SetActive(false);
+		}
 		app->scene->GetPlayerLife()->life = 0;
 		app->scene->GetBoss()->inBossBattle = false;
 		app->LoadRequest();
 		noTp = false;
 		isDead = false;
-		//pbody->body->SetLinearVelocity(b2Vec2(0, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
 		if (isPosibleRevive) {
 			for (int i = 0; i < app->scene->GetPlayerLife()->lifeMark; i++)
 			{
@@ -349,7 +269,6 @@ bool Player::Update(float dt)
 
 			}
 		}
-
 	}
 	else {
 		if (pbody != nullptr) {
@@ -448,7 +367,7 @@ void Player::Camera(float dt) {
 	app->win->GetWindowSize(windowW, windowH);
 
 
-	if (app->scene->GetBoss()->inBossBattle && !isDead && noTp || app->scene->GetItem()->outCamera == true && !isDead &&  noTp) {
+	if (app->scene->GetBoss()->inBossBattle && !isDead && noTp || app->scene->GetItem()->outCamera == true && !isDead && noTp) {
 		app->render->camera.x = -1430;
 		app->render->camera.y = -501;
 
@@ -512,9 +431,6 @@ void Player::Camera(float dt) {
 				lerpvelocidad_y = 0.003f;
 			}
 		}
-
-		/*printf("\nY:%d", position.y);
-		printf("\nX:%d", position.x);*/
 
 		//El if este es un fix para el modo release
 		if (app->GetFrameCount() < 20) {

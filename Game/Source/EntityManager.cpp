@@ -4,7 +4,6 @@
 #include "Textures.h"
 #include "Scene.h"
 #include "Effect.h"
-#include "Shop.h"
 #include "Enemy_Goblin.h"
 #include "Enemy_Flyeye.h"
 #include "Map.h"
@@ -106,9 +105,6 @@ Entity* EntityManager::CreateEntity(EntityType type)
 		break;
 	case EntityType::ITEM:
 		entity = new Item();
-		break;
-	case EntityType::SHOP:
-		entity = new Shop();
 		break;
 	case EntityType::EFFECT:
 		entity = new Effect();

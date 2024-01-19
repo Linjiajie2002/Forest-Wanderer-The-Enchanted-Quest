@@ -6,7 +6,6 @@
 #include "Window.h"
 #include "Scene.h"
 #include "Map.h"
-#include "ItemBox.h"
 #include "Effect.h"
 #include "Shop.h"
 #include "Enemy_Goblin.h"

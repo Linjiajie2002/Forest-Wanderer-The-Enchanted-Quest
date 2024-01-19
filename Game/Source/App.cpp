@@ -8,7 +8,6 @@
 #include "Map.h"
 #include "Physics.h"
 #include "Animation.h"
-#include "ItemBox.h"
 #include "Effect.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleParticles.h"

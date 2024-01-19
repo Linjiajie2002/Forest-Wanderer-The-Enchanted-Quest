@@ -3,7 +3,6 @@
 #include "App.h"
 #include "Textures.h"
 #include "Scene.h"
-#include "ItemBox.h"
 #include "Effect.h"
 #include "Shop.h"
 #include "Enemy_Goblin.h"
@@ -107,9 +106,6 @@ Entity* EntityManager::CreateEntity(EntityType type)
 		break;
 	case EntityType::ITEM:
 		entity = new Item();
-		break;
-	case EntityType::ITEMBOX:
-		entity = new ItemBox();
 		break;
 	case EntityType::SHOP:
 		entity = new Shop();

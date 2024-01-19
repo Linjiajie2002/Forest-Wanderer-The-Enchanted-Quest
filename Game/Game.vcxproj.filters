@@ -58,9 +58,6 @@
     <ClCompile Include="Source\ModuleParticles.cpp">
       <Filter>Modules\Particles</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ItemBox.cpp">
-      <Filter>Modules\Item</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Effect.cpp">
       <Filter>Modules\Effect</Filter>
     </ClCompile>
@@ -188,9 +185,6 @@
     </ClInclude>
     <ClInclude Include="Source\ModuleParticles.h">
       <Filter>Modules\Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\ItemBox.h">
-      <Filter>Modules\Item</Filter>
     </ClInclude>
     <ClInclude Include="Source\Effect.h">
       <Filter>Modules\Effect</Filter>

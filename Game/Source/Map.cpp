@@ -28,17 +28,8 @@ bool Map::Awake(pugi::xml_node& config)
 	LOG("Loading Map Parser");
 	bool ret = true;
 
-
-	/*printf("%d", LevelMap);
-	if (LevelMap == 1) {
-		mapFileName = config.child("mapfile").attribute("path").as_string();
-	}
-	else {
-		mapFileName = config.child("mapfile2").attribute("path").as_string();
-	}*/
-
-	mapFileNameMapa1= config.child("mapfile").attribute("path").as_string();
-	mapFileNameMapa2= config.child("mapfile2").attribute("path").as_string();
+	mapFileNameMapa1 = config.child("mapfile").attribute("path").as_string();
+	mapFileNameMapa2 = config.child("mapfile2").attribute("path").as_string();
 
 	mapFolder = config.child("mapfolder").attribute("path").as_string();
 
@@ -102,7 +93,6 @@ bool Map::Update(float dt)
 				bossRenderArea_L = 30;
 			}
 
-			//printf("fondoy, %d ", fondoy);
 
 			if (fondoy >= 50) {
 				fondoy = 50;
@@ -112,7 +102,6 @@ bool Map::Update(float dt)
 				fondoy = 20;
 			}
 
-			//printf("fondox: %d \n", fondox);
 			if (fondox >= 183) {
 				fondox = 183;
 			}
@@ -141,12 +130,12 @@ bool Map::Update(float dt)
 					}
 					//1 = hoz_flip -> True || 1 = vert_flip -> True  || 0 = anti-diag flip -> False
 					switch (bits) {
-					case 0b101: flip = SDL_FLIP_NONE;           angle = 90;         break;//
-					case 0b110: flip = SDL_FLIP_NONE;           angle += 180;       break;//
+					case 0b101: flip = SDL_FLIP_NONE;           angle = 90;         break;
+					case 0b110: flip = SDL_FLIP_NONE;           angle += 180;       break;
 					case 0b011: flip = SDL_FLIP_NONE;           angle += 270;       break;
-					case 0b100: flip = SDL_FLIP_HORIZONTAL;     angle = 0;          break;//
-					case 0b111: flip = SDL_FLIP_HORIZONTAL;     angle += 90;        break;//
-					case 0b010: flip = SDL_FLIP_HORIZONTAL;     angle += 180;       break;//
+					case 0b100: flip = SDL_FLIP_HORIZONTAL;     angle = 0;          break;
+					case 0b111: flip = SDL_FLIP_HORIZONTAL;     angle += 90;        break;
+					case 0b010: flip = SDL_FLIP_HORIZONTAL;     angle += 180;       break;
 					case 0b001: flip = SDL_FLIP_HORIZONTAL;     angle += 270;       break;
 					}
 
@@ -229,10 +218,6 @@ bool Map::UpdateDelante()
 iPoint Map::MapToWorld(int x, int y) const
 {
 	iPoint ret;
-
-	/*   ret.x = x * mapData.tileWidth;
-	   ret.y = y * mapData.tileHeight;*/
-
 
 	if (mapData.type == MapTypes::MAPTYPE_ORTHOGONAL) {
 		ret.x = x * mapData.tileWidth;
@@ -338,9 +323,6 @@ bool Map::CleanUp()
 	}
 	mapData.mapObjects.Clear();
 
-
-
-
 	// Remove all colisions
 	ListItem<PhysBody*>* collision;
 	collision = collisionsList.start;
@@ -414,16 +396,6 @@ bool Map::Load()
 
 	LoadCollision("Colisions");
 
-	// NOTE: Later you have to create a function here to load and create the colliders from the map
-
-   /* PhysBody* c1 = app->physics->CreateRectangle(524 + 128, 543 + 32, 256, 64, STATIC);
-	c1->ctype = ColliderType::PLATFORM;*/
-
-	/* PhysBody* c2 = app->physics->CreateRectangle(352 + 64, 384 + 32, 128, 64, STATIC);
-	 c2->ctype = ColliderType::PLATFORM;*/
-
-	 //PhysBody* c3 = app->physics->CreateRectangle(256, 704 + 32, 576, 64, STATIC);
-	 //c3->ctype = ColliderType::PLATFORM;
 
 	if (ret == true)
 	{
@@ -667,8 +639,6 @@ bool Map::LoadCollision(std::string layerName) {
 					}
 
 					if (gid == tileset->firstgid + 1) {
-
-
 						if (colisionsPointsSize.x == -1 || colisionsPointsSize.y == -1) {
 							startPointcolisions.x = pos.x;
 							startPointcolisions.y = pos.y;
@@ -682,7 +652,6 @@ bool Map::LoadCollision(std::string layerName) {
 
 					else {
 
-						//if (x == colisionsLastCords.x) {
 						if (colisionsPointsSize.y != -1) {
 
 							c1 = app->physics->CreateRectangle(startPointcolisions.x + 16, startPointcolisions.y + colisionsPointsSize.y / 2, 32, colisionsPointsSize.y, STATIC);
@@ -692,25 +661,11 @@ bool Map::LoadCollision(std::string layerName) {
 							colisionsPointsSize.x = -1;
 							colisionsPointsSize.y = -1;
 						}
-						//}
-
 					}
 
 
-					/*//tipo
-					if (gid == tileset->firstgid+1) {
-
-						PhysBody* c1 = app->physics->CreateRectangle(pos.x + 16, pos.y + 16, 32, 32, STATIC);
-						c1->ctype = ColliderType::WALL;
-
-					}*/
-
-
-
-
 					if (gid == tileset->firstgid + 5) {
-						/*List<int> listadepunto;
-						listadepunto.Add;*/
+
 						int* puntos = new int[6];
 						memset(puntos, 0, 6);
 
@@ -723,26 +678,12 @@ bool Map::LoadCollision(std::string layerName) {
 						puntos[4] = -16;
 						puntos[5] = +16;
 
-						/*    puntos[6] = +16;
-							puntos[7] = +16;*/
-
-							/*puntos[0] =  - 16;
-							puntos[1] =  + 16;
-
-							puntos[2] =  + 16;
-							puntos[3] =  - 16;
-
-							puntos[4] =  + 16;
-							puntos[5] = + 16;*/
-
 						c1 = app->physics->CreateChain(pos.x + 16, pos.y + 16, puntos, 6, STATIC);
 						c1->ctype = ColliderType::PLATFORM;
 						collisionsList.Add(c1);
 
 					}
 					if (gid == tileset->firstgid + 6) {
-						/*List<int> listadepunto;
-						listadepunto.Add;*/
 						int* puntos = new int[6];
 						memset(puntos, 0, 6);
 
@@ -805,8 +746,8 @@ bool Map::LoadCollision(std::string layerName) {
 						collisionsList.Add(c1);
 
 					}
-					
-					
+
+
 					if (app->scene->GetBoss()->inBossBattle) {
 						if (gid == tileset->firstgid + 10) {
 							c1 = app->physics->CreateRectangle(pos.x, pos.y + 16, 32, 32, STATIC);
@@ -814,8 +755,6 @@ bool Map::LoadCollision(std::string layerName) {
 							collisionsList2.Add(c1);
 						}
 					}
-
-
 
 
 				}

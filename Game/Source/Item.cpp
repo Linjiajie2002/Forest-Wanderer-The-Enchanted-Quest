@@ -26,52 +26,15 @@ Item::Item() : Entity(EntityType::ITEM)
 Item::~Item() {}
 
 bool Item::Awake() {
-
-	//DiamondPath = parameters.child("Diamond").attribute("texturepath").as_string();
-	//TSprite = parameters.child("Diamond").attribute("Tsprite").as_int();
-	//SpriteX = parameters.child("Diamond").attribute("x").as_int();
-	//SpriteY = parameters.child("Diamond").attribute("y").as_int();
-	//PhotoWeight = parameters.child("Diamond").attribute("Pweight").as_int();
-
-	//spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-	//idle.LoadAnim("Diamond", "idle", spritePositions);
-
-	////position.x = parameters.attribute("Posx").as_int();
-	////position.y = parameters.attribute("Posy").as_int();
-
-	//Diamond_Counter_texture_Path = parameters.child("Diamond_Counter").attribute("texturepath").as_string();
-	//TSprite = parameters.child("Diamond_Counter").attribute("Tsprite").as_int();
-	//SpriteX = parameters.child("Diamond_Counter").attribute("x").as_int();
-	//SpriteY = parameters.child("Diamond_Counter").attribute("y").as_int();
-	//PhotoWeight = parameters.child("Diamond_Counter").attribute("Pweight").as_int();
-	//spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-
-	///*std::string counterString = "Diamond_Counter_" + std::to_string(1);
-	//Diamond_Counter[1].LoadAnim("Diamond", counterString.c_str(), spritePositions);*/
-
-	//for (int i = 0; i < 9; i++)
-	//{
-	//	std::string counterString = "Diamond_Counter_" + std::to_string(i);
-	//	Diamond_Counter.Add(inicializaAnimation);
-	//	Diamond_Counter[i].LoadAnim("Diamond", counterString.c_str(), spritePositions);
-	//}
-
-
 	return true;
 }
 
 bool Item::Start() {
 	//initilize textures
 
-
 	reLoadXML();
 	Diamondtexture = app->tex->Load(DiamondPath);
 	Diamond_Counter_texture = app->tex->Load(Diamond_Counter_texture_Path);
-
-
-
-	/*pbody = app->physics->CreateCircle(position.x + 16, position.y + 16, 16, bodyType::DYNAMIC);
-	pbody->ctype = ColliderType::ITEM;*/
 
 	currentAnimation = &idle;
 	currentAnimation2 = &idle;
@@ -81,9 +44,6 @@ bool Item::Start() {
 		rect_1.Add(currentAnimation1[i]->GetCurrentFrame());
 
 	}
-
-
-
 
 	for (int i = 0; i < NumeroDiamante; i++)
 	{
@@ -128,12 +88,6 @@ bool Item::Update(float dt)
 
 	rect = currentAnimation->GetCurrentFrame();
 	currentAnimation->Update();
-
-	
-
-
-	//printf("PosX: %d ", position.x);
-	//printf("\nPosY: %d ", position.y);
 
 	return true;
 }
@@ -200,11 +154,7 @@ void Item::rotateAroundCircle(double& x, double& y, double circleCenterX, double
 	x = newX;
 	y = newY;
 
-	//printf("PosX: %f ", circleRadius);
-
 	app->render->DrawTexture(Diamondtexture, newX, newY, 2, SDL_FLIP_NONE, &rect);
-
-	//return std::make_tuple(newX, newY);
 }
 
 void Item::DestroyedDiamante()
@@ -306,18 +256,12 @@ void Item::reLoadXML()
 	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
 	idle.LoadAnim("Diamond", "idle", spritePositions);
 
-	//position.x = parameters.attribute("Posx").as_int();
-	//position.y = parameters.attribute("Posy").as_int();
-
 	Diamond_Counter_texture_Path = parameters.child("Diamond_Counter").attribute("texturepath").as_string();
 	TSprite = parameters.child("Diamond_Counter").attribute("Tsprite").as_int();
 	SpriteX = parameters.child("Diamond_Counter").attribute("x").as_int();
 	SpriteY = parameters.child("Diamond_Counter").attribute("y").as_int();
 	PhotoWeight = parameters.child("Diamond_Counter").attribute("Pweight").as_int();
 	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-
-	/*std::string counterString = "Diamond_Counter_" + std::to_string(1);
-	Diamond_Counter[1].LoadAnim("Diamond", counterString.c_str(), spritePositions);*/
 
 	for (int i = 0; i < 9; i++)
 	{

@@ -42,9 +42,7 @@ public:
 	bool isPicked = false;
 	Animation* currentAnimation = nullptr;
 	Animation* currentAnimation2 = nullptr;
-
 	List<Animation*> currentAnimation1;
-	 
 	Animation idle;
 	List<Animation> Diamond_Counter;
 
@@ -56,7 +54,6 @@ public:
 	int SpriteX;
 	int SpriteY;
 	int PhotoWeight;
-
 
 	double itemX[8];      
 	double itemY[8];

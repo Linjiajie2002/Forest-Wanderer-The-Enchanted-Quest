@@ -108,7 +108,6 @@
     <ClCompile Include="Source\EntityManager.cpp" />
     <ClCompile Include="Source\Fonts.cpp" />
     <ClCompile Include="Source\Item.cpp" />
-    <ClCompile Include="Source\ItemBox.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\App.cpp" />
     <ClCompile Include="Source\Audio.cpp" />
@@ -143,7 +142,6 @@
     <ClInclude Include="Source\Fonts.h" />
     <ClInclude Include="Source\ModuleFadeToBlack.h" />
     <ClInclude Include="Source\Item.h" />
-    <ClInclude Include="Source\ItemBox.h" />
     <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\ModuleParticles.h" />
     <ClInclude Include="Source\Particle.h" />

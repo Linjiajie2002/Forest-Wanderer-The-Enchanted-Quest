@@ -6,7 +6,7 @@
 	<audio />
 	<:anonymous />
 	<scene>
-		<player x="1860" y="1093" />
+		<player x="3210" y="1125" />
 		<enemies>
 			<enemy x="3360" y="224" active="true" />
 			<enemy x="4648" y="1312" active="true" />
@@ -20,7 +20,7 @@
 	<particles />
 	<fonts />
 	<renderer>
-		<camera x="-1475" y="-501" />
+		<camera x="-2689" y="-637" />
 	</renderer>
 	<:anonymous />
 </save_game>

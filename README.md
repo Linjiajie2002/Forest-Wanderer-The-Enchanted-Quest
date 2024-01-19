@@ -40,6 +40,11 @@ This is an adventurous game where you collect diamonds. You must gather 7 gems, 
 
 The second level features 3 gems. You can obtain two of them through exploration, while the third gem is guarded by three angelic guardians. Once you collect 6 gems, they will challenge you. Upon completing their trial, they will reward you with the final gem!
 
+## Trials of the Angels
+In the Trials of the Angels, you must navigate through intense enemy attacks while collecting three types of energy orbs. For each type of energy orb, you need to collect them five times.
+
+
+
 ## Developers
 
  - Guillem Montes- [@Guillem257](https://github.com/Guillem257)

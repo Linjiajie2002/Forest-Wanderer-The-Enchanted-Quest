@@ -59,10 +59,8 @@ bool Enemy_Flyeye::Update(float dt)
 		if (player->position.x >= atk_leftTopX && player->position.x <= atk_rightBottomX &&
 			player->position.y >= atk_leftTopY && player->position.y <= atk_rightBottomY) {
 			AtackPlayer = true;
-
 		}
 		else {
-			//printf("\nOutArea");
 			AtackPlayer = false;
 			atk_leftTopX = position.x - atk_rangeSize * 8;
 			atk_leftTopY = position.y - atk_rangeSize;
@@ -108,7 +106,6 @@ bool Enemy_Flyeye::Update(float dt)
 					}
 					else {
 						if (timerAtaque.ReadSec() > 1) {
-							printf("1");
 							if (!isFacingLeft)attackParticle = app->par->CloseAtake(position.x + 30, position.y + 20, 40, 60, ColliderType::CLOSEATK_ENEMY);
 							else attackParticle = app->par->CloseAtake(position.x - 50, position.y + 20, 40, 60, ColliderType::CLOSEATK_ENEMY);
 							LOG("ATACA");
@@ -175,18 +172,9 @@ bool Enemy_Flyeye::Update(float dt)
 
 			}
 
-			/*if (!inEenemyArea) {
-				enemyOutAreaTime++;
-				if (enemyOutAreaTime >= 400) {
-
-				}
-
-			}*/
-
 			if (app->debug) {
 				for (uint i = 0; i < app->map->pathfinding->GetLastPath()->Count(); ++i)
 				{
-					//printf("%d", countFrame);
 					iPoint pos = app->map->MapToWorld(app->map->pathfinding->GetLastPath()->At(i)->x, app->map->pathfinding->GetLastPath()->At(i)->y);
 					app->render->DrawTexture(app->scene->Pathfindingtexture, pos.x, pos.y);
 				}
@@ -204,11 +192,8 @@ bool Enemy_Flyeye::Update(float dt)
 		{
 			app->render->DrawTexture(Enemytexture, position.x - 150, position.y - 120, 1.8, SDL_FLIP_NONE, &rect);//-6
 		}
-
-
 	}
 	else {
-		//printf("\nOutArea");
 		leftTopX = position.x - rangeSize;
 		leftTopY = position.y - rangeSize / 2;
 		rightBottomX = position.x + rangeSize;
@@ -221,17 +206,11 @@ bool Enemy_Flyeye::Update(float dt)
 			pbody->body->GetWorld()->DestroyBody(pbody->body);
 			pbody = nullptr;
 		}
-		//pbody->body->SetActive(false);
-
-
 	}
 
 	if (attackParticle != nullptr) {
-		if (timerAtaque.ReadMSec() > 300) { //1s == 1000ms 
-			//printf("0");
-			//app->par->DestroyParticle();
+		if (timerAtaque.ReadMSec() > 300) { 
 			timerAtaque.Start();
-			//isDestroyPar = false;
 			attackParticle->body->GetWorld()->DestroyBody(attackParticle->body);
 			attackParticle = nullptr;
 

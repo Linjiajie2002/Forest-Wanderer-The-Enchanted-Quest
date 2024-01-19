@@ -103,7 +103,6 @@ public:
 		pugi::xml_parse_result parseResult = configFile.load_file("config.xml");
 		AniInfo = configFile.child("config").child("Animations").child(Anipart).child(NombreAni);
 
-		//printf("%c", AniInfo);
 		if (AniInfo.attribute("start").as_int() > AniInfo.attribute("end").as_int()) {
 			for (int i = AniInfo.attribute("start").as_int(); i > AniInfo.attribute("end").as_int(); i--)
 			{

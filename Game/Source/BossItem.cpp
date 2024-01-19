@@ -328,7 +328,6 @@ void BossItem::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 		if (physA->ctype == ColliderType::ENERGYBALL) {
 			if (playerGetPoint) {
-				printf("Y");
 				app->scene->GetAngel()->GetPoint(ballColor);
 				playerGetPoint = false;
 			}

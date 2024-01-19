@@ -81,7 +81,6 @@ bool Diamond::CleanUp()
 void Diamond::DestroyDiamante() {
 
 	if (pbody != nullptr) {
-		printf("entra");
 		pbody->body->GetWorld()->DestroyBody(pbody->body);
 		pbody = nullptr;
 	}

@@ -83,7 +83,6 @@ bool Item::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
 
 		if (playerGetDiamante != 7)playerGetDiamante++;
-		//DiamanteToCenter = true;
 	}
 
 	rect = currentAnimation->GetCurrentFrame();

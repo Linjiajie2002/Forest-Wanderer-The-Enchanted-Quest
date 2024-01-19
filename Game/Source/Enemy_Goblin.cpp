@@ -65,7 +65,6 @@ bool Enemy_Goblin::Update(float dt)
 
 		}
 		else {
-			//printf("\nOutArea");
 			AtackPlayer = false;
 			atk_leftTopX = position.x - atk_rangeSize * 4;
 			atk_leftTopY = position.y - atk_rangeSize;
@@ -122,7 +121,7 @@ bool Enemy_Goblin::Update(float dt)
 							iPoint newPositionPoint = app->map->MapToWorld(app->map->pathfinding->GetLastPath()->At(1)->x, app->map->pathfinding->GetLastPath()->At(1)->y);
 							b2Vec2 newPosition = b2Vec2(PIXEL_TO_METERS(newPositionPoint.x), PIXEL_TO_METERS(newPositionPoint.y));
 							pbody->body->SetLinearVelocity(b2Vec2(0, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
-							//printf("\nposy: %d", position.y - newPositionPoint.y);
+
 							if (position.x > newPositionPoint.x) {
 								isFacingLeft = true;
 								pbody->body->SetLinearVelocity(b2Vec2(-speed * dt, pbody->body->GetLinearVelocity().y - GRAVITY_Y));

@@ -122,7 +122,6 @@ void Effect::goMap2()
 {
 	if (app->map->LevelMap == 1) {
 		if (!app->scene->GetPlayer()->isVictoria) {
-			//printf("yes");
 			position.x = 6250;
 			position.y = 1312;
 			sonid_vic = true;

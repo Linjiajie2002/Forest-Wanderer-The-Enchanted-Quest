@@ -67,10 +67,7 @@ bool Player::Start() {
 
 bool Player::Update(float dt)
 {
-	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN) {
 
-		shakeDuration = 500;
-	}
 
 	//printf("%d \n", position.x);
 	currentAnimation = &idle;
@@ -204,10 +201,7 @@ bool Player::Update(float dt)
 		RetAtkAni(ResetAtackAnimation, atkReset);
 		if (attackParticle != nullptr) {
 			if (timerAtaque.ReadMSec() > 300) { //1s == 1000ms 
-				printf("0");
-				//app->par->DestroyParticle();
 				timerAtaque.Start();
-				//isDestroyPar = false;
 				attackParticle->body->GetWorld()->DestroyBody(attackParticle->body);
 				attackParticle = nullptr;
 			}
@@ -476,18 +470,6 @@ void Player::keyInput(float dt) {
 		if (pbody != nullptr);
 		vel = b2Vec2(-speed * dt, pbody->body->GetLinearVelocity().y);
 		currentAnimation = &run;
-
-		/*if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-			vel = b2Vec2(-crouchspeed * dt, pbody->body->GetLinearVelocity().y);
-			currentAnimation = &crouch;
-		}*/
-
-		/*if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && onWall) {
-			printf("%d", onWall);
-			vel = b2Vec2(pbody->body->GetLinearVelocity().x, (-speed * 4) * dt);
-			currentAnimation = &crouch;
-		}*/
-
 	}
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 
@@ -517,8 +499,6 @@ void Player::keyInput(float dt) {
 		currentAnimation = &defend_on;
 		defend_off.Reset();
 		In_defend = true;
-
-
 	}
 
 
@@ -690,8 +670,6 @@ void Player::reLoadXML()
 	crouchspeed = parameters.attribute("crouchspeed").as_float();
 	jumpForce = parameters.attribute("jumpforce").as_float();
 
-
-	//printf("%d %d %d %d", TSprite, SpriteX, SpriteY, PhotoWeight);
 
 	idle.LoadAnim("Player", "idle", spritePositions);
 	die.LoadAnim("Player", "die", spritePositions);

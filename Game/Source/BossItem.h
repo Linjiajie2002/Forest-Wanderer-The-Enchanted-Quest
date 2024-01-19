@@ -36,6 +36,8 @@ public:
 	void CheckBallStarT(int tipo);
 	iPoint randPosition();
 	int randBall();
+	void ball();
+	void cura();
 
 	void actualizarAnimacion();
 	void OnCollision(PhysBody* physA, PhysBody* physB);

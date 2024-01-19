@@ -26,25 +26,6 @@ BossItem::~BossItem() {}
 
 bool BossItem::Awake() {
 
-	/*ball_blue_texture_Path = parameters.child("boss_ball").child("ball_blue").attribute("texturepath").as_string();
-	TSprite = parameters.child("boss_ball").child("ball_blue").attribute("Tsprite").as_int();
-	SpriteX = parameters.child("boss_ball").child("ball_blue").attribute("x").as_int();
-	SpriteY = parameters.child("boss_ball").child("ball_blue").attribute("y").as_int();
-	PhotoWeight = parameters.child("boss_ball").child("ball_blue").attribute("Pweight").as_int();
-	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-
-	ball_blue_start.LoadAnim("BossItem", "ball_blue_start", spritePositions);
-	ball_blue_running.LoadAnim("BossItem", "ball_blue_running", spritePositions);
-	ball_blue_end.LoadAnim("BossItem", "ball_blue_end", spritePositions);
-
-	ball_red_start.LoadAnim("BossItem", "ball_red_start", spritePositions);
-	ball_red_running.LoadAnim("BossItem", "ball_red_running", spritePositions);
-	ball_red_end.LoadAnim("BossItem", "ball_red_end", spritePositions);
-
-	ball_yellow_start.LoadAnim("BossItem", "ball_yellow_start", spritePositions);
-	ball_yellow_running.LoadAnim("BossItem", "ball_yellow_running", spritePositions);
-	ball_yellow_end.LoadAnim("BossItem", "ball_yellow_end", spritePositions);*/
-
 	return true;
 }
 
@@ -71,24 +52,8 @@ bool BossItem::Start() {
 
 bool BossItem::Update(float dt)
 {
-	/*currentAnimation1 = &ball_blue_running;*/
-	if (app->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN) {
-		currentAnimation1->Reset();
-		currentAnimation1 = &ball_blue_end;
-	}
-
-	if (crearBall && app->scene->GetBoss()->inBossBattle) {
-		ballPosition = randPosition();
-		ballType = randBall();
-		crearBall = false;
-		crearBallrd = true;
-	}
-
-	if (crearCura && app->scene->GetBoss()->inBossBattle) {
-		curaPosition = randPosition();
-		crearCura = false;
-		crearCurard = true;
-	}
+	ball();
+	cura();
 
 	if (!app->scene->GetBoss()->inBossBattle && app->scene->GetBoss()->oneTimeInBossBattle) {
 		if (pbody != nullptr) {
@@ -100,47 +65,6 @@ bool BossItem::Update(float dt)
 			pbody1->body->GetWorld()->DestroyBody(pbody1->body);
 			pbody1 = nullptr;
 		}
-	}
-
-	if (ballPosition.x > 0 && ballPosition.y > 0 && timeWait.ReadMSec() > 2000 && app->scene->GetBoss()->inBossBattle) {
-		randCreatEnergyBall(ballPosition);
-	}
-
-	if (curaPosition.x > 0 && curaPosition.y > 0 && curatimeWait.ReadMSec() > 15000 && app->scene->GetBoss()->inBossBattle) {
-		randCreatCura(curaPosition);
-	}
-	//printf("\n%f", (float)deleteCura.ReadSec());
-
-	if (deleteCura.ReadMSec() >= 3000 || playerTouchCura && oneTouch_cura) {
-		deleteCura.Start();
-		playerTouchCura = false;
-
-		if (currentAnimation2->getNameAnimation() == "cura_idle") {
-			currentAnimation2 = &die;
-		}
-		currentAnimation2->Reset();
-	}
-
-	if (deleteBall.ReadMSec() >= 5000 || playerTouchBall && oneTouch) {
-		deleteBall.Start();
-		playerTouchBall = false;
-		oneTouch = false;
-		if (firstBall == false) {
-			if (currentAnimation1->getNameAnimation() == "ball_blue_running") {
-				currentAnimation1 = &ball_blue_end;
-			}
-			else if (currentAnimation1->getNameAnimation() == "ball_red_running") {
-				currentAnimation1 = &ball_red_end;
-			}
-			else if (currentAnimation1->getNameAnimation() == "ball_yellow_running") {
-				currentAnimation1 = &ball_yellow_end;
-			}
-		}
-		else {
-			currentAnimation1 = &ball_blue_end;
-		}
-
-		currentAnimation1->Reset();
 	}
 
 	actualizarAnimacion();
@@ -159,12 +83,8 @@ bool BossItem::CleanUp()
 }
 
 
-
-
-
 void BossItem::randCreatEnergyBall(iPoint ballPosition)
 {
-	//printf("%d", ballType);
 	rect_1 = currentAnimation1->GetCurrentFrame();
 	if (crearBallrd) {
 		pbody = app->physics->CreateCircleSensor(ballPosition.x + 52, ballPosition.y + 52, 28, bodyType::STATIC);
@@ -245,6 +165,66 @@ int BossItem::randBall()
 
 	Result = dis(gen);
 	return Result;
+}
+
+void BossItem::ball()
+{
+	if (crearBall && app->scene->GetBoss()->inBossBattle) {
+		ballPosition = randPosition();
+		ballType = randBall();
+		crearBall = false;
+		crearBallrd = true;
+	}
+
+	if (ballPosition.x > 0 && ballPosition.y > 0 && timeWait.ReadMSec() > 2000 && app->scene->GetBoss()->inBossBattle) {
+		randCreatEnergyBall(ballPosition);
+	}
+
+	if (deleteBall.ReadMSec() >= 5000 || playerTouchBall && oneTouch) {
+		deleteBall.Start();
+		playerTouchBall = false;
+		oneTouch = false;
+		if (firstBall == false) {
+			if (currentAnimation1->getNameAnimation() == "ball_blue_running") {
+				currentAnimation1 = &ball_blue_end;
+			}
+			else if (currentAnimation1->getNameAnimation() == "ball_red_running") {
+				currentAnimation1 = &ball_red_end;
+			}
+			else if (currentAnimation1->getNameAnimation() == "ball_yellow_running") {
+				currentAnimation1 = &ball_yellow_end;
+			}
+		}
+		else {
+			currentAnimation1 = &ball_blue_end;
+		}
+
+		currentAnimation1->Reset();
+	}
+}
+
+void BossItem::cura()
+{
+	if (crearCura && app->scene->GetBoss()->inBossBattle) {
+		curaPosition = randPosition();
+		crearCura = false;
+		crearCurard = true;
+	}
+
+	if (curaPosition.x > 0 && curaPosition.y > 0 && curatimeWait.ReadMSec() > 15000 && app->scene->GetBoss()->inBossBattle) {
+		randCreatCura(curaPosition);
+	}
+
+	if (deleteCura.ReadMSec() >= 3000 || playerTouchCura && oneTouch_cura) {
+		deleteCura.Start();
+		playerTouchCura = false;
+
+		if (currentAnimation2->getNameAnimation() == "cura_idle") {
+			currentAnimation2 = &die;
+		}
+		currentAnimation2->Reset();
+	}
+
 }
 
 void BossItem::actualizarAnimacion()

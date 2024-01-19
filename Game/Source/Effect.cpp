@@ -20,41 +20,6 @@ Effect::~Effect() {}
 
 bool Effect::Awake() {
 
-
-	//EffectPath = parameters.child("animations1").attribute("texturepath").as_string();
-	//TSprite = parameters.child("animations1").attribute("Tsprite").as_int();
-	//SpriteX = parameters.child("animations1").attribute("x").as_int();
-	//SpriteY = parameters.child("animations1").attribute("y").as_int();
-	//PhotoWeight = parameters.child("animations1").attribute("Pweight").as_int();
-	//spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-	//OroEffect.LoadAnim("Effect", "OroEffect", spritePositions);
-
-	//EffectPath2 = parameters.child("animations2").attribute("texturepath").as_string();
-	//TSprite = parameters.child("animations2").attribute("Tsprite").as_int();
-	//SpriteX = parameters.child("animations2").attribute("x").as_int();
-	//SpriteY = parameters.child("animations2").attribute("y").as_int();
-	//PhotoWeight = parameters.child("animations2").attribute("Pweight").as_int();
-	//spritePositions = SPosition2.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-	//GhostEffect.LoadAnim("Effect", "Die", spritePositions);
-
-	//EffectPath3 = parameters.child("animations3").attribute("texturepath").as_string();
-	//TSprite = parameters.child("animations3").attribute("Tsprite").as_int();
-	//SpriteX = parameters.child("animations3").attribute("x").as_int();
-	//SpriteY = parameters.child("animations3").attribute("y").as_int();
-	//PhotoWeight = parameters.child("animations3").attribute("Pweight").as_int();
-	//spritePositions = Gravity_Void.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-	//DiamanteEffect.LoadAnim("Effect", "DiamanteEffect", spritePositions);
-
-
-	//EffectPath4 = parameters.child("animations4").attribute("texturepath").as_string();
-	//TSprite = parameters.child("animations4").attribute("Tsprite").as_int();
-	//SpriteX = parameters.child("animations4").attribute("x").as_int();
-	//SpriteY = parameters.child("animations4").attribute("y").as_int();
-	//PhotoWeight = parameters.child("animations4").attribute("Pweight").as_int();
-	//spritePositions = Gravity_Void.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-	//Gravity_Void.LoadAnim("Effect", "Gravity_Void_idle", spritePositions);
-
-
 	return true;
 }
 
@@ -67,9 +32,7 @@ bool Effect::Start() {
 	Effecttexture2 = app->tex->Load(EffectPath2);
 	Effecttexture3 = app->tex->Load(EffectPath3);
 	Effecttexture4 = app->tex->Load(EffectPath4);
-	/*pbody = app->physics->CreateCircle(position.x + 16, position.y + 16, 16, bodyType::DYNAMIC);
-	pbody->ctype = ColliderType::EFFECT;
-	pbody->body->SetFixedRotation(true);*/
+
 	currentAnimation = &OroEffect;
 	currentAnimation2 = &GhostEffect;
 	currentAnimation3 = &DiamanteEffect;
@@ -79,7 +42,7 @@ bool Effect::Start() {
 	pbody = app->physics->CreateRectangleSensor(6344, 1340, 70, 70, bodyType::STATIC);
 	pbody->ctype = ColliderType::VICTORYCOLLISION;
 
-	//pbody->body->SetFixedRotation(true);
+	
 }
 
 bool Effect::Update(float dt)
@@ -121,8 +84,8 @@ bool Effect::CleanUp()
 void Effect::EffectFuncion()
 {
 
-	position.x = app->scene->GetPlayer()->position.x + 20;//+ 30
-	position.y = app->scene->GetPlayer()->position.y - 25;//+ 18
+	position.x = app->scene->GetPlayer()->position.x + 20;
+	position.y = app->scene->GetPlayer()->position.y - 25;
 
 	SDL_Rect rect2 = currentAnimation2->GetCurrentFrame();
 
@@ -135,8 +98,8 @@ void Effect::EffectFuncion()
 
 void Effect::ReviveEffectFuncion()
 {
-	position.x = app->scene->GetPlayer()->position.x + 6;//+ 30
-	position.y = app->scene->GetPlayer()->position.y - 16;//+ 18
+	position.x = app->scene->GetPlayer()->position.x + 6;
+	position.y = app->scene->GetPlayer()->position.y - 16;
 
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
 
@@ -160,8 +123,8 @@ void Effect::goMap2()
 	if (app->map->LevelMap == 1) {
 		if (!app->scene->GetPlayer()->isVictoria) {
 			//printf("yes");
-			position.x = 6250;//+ 30
-			position.y = 1312;//+ 18
+			position.x = 6250;
+			position.y = 1312;
 			sonid_vic = true;
 			if (pbody == nullptr) {
 				pbody = app->physics->CreateRectangleSensor(position.x, position.y, 80, 80, bodyType::STATIC);

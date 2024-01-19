@@ -24,29 +24,6 @@ Enemy_Goblin::~Enemy_Goblin() {}
 
 bool Enemy_Goblin::Awake() {
 
-	/*EnemyPath = parameters.attribute("texturepath").as_string();
-	TSprite = parameters.attribute("Tsprite").as_int();
-	SpriteX = parameters.attribute("x").as_int();
-	SpriteY = parameters.attribute("y").as_int();
-	PhotoWeight = parameters.attribute("Pweight").as_int();
-	enemyAreaLimitR = parameters.attribute("Area_Limit_R").as_int();
-	enemyAreaLimitL = parameters.attribute("Area_Limit_L").as_int();
-	life = parameters.attribute("life").as_int();
-	speed = parameters.attribute("speed").as_float();
-
-	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-
-
-
-	idle.LoadAnim("Enemy_Goblin", "idle", spritePositions);
-	run.LoadAnim("Enemy_Goblin", "run", spritePositions);
-	take_hit.LoadAnim("Enemy_Goblin", "take_hit", spritePositions);
-	die.LoadAnim("Enemy_Goblin", "die", spritePositions);
-	atack.LoadAnim("Enemy_Goblin", "atake", spritePositions);
-
-	position.x = parameters.attribute("Posx").as_int();
-	position.y = parameters.attribute("Posy").as_int();*/
-
 	return true;
 }
 
@@ -58,7 +35,6 @@ bool Enemy_Goblin::Start() {
 	Enemytexture = app->tex->Load(EnemyPath);
 	pbody = app->physics->CreateCircle(position.x - 10, position.y, 32, bodyType::DYNAMIC);
 
-	//pbody = app->physics->CreateCircle(position.x + 16, position.y + 16, 16, bodyType::STATIC);
 	pbody->ctype = ColliderType::ENEMY;
 	pbody->body->SetFixedRotation(true);
 	pbody->body->GetFixtureList()[0].SetFriction(0.03);
@@ -69,13 +45,9 @@ bool Enemy_Goblin::Start() {
 	//SONIDOS
 	deadenemy = app->audio->LoadFx(parameters.child("deadenemy").attribute("texturepath").as_string());
 
-	/*printf("Enemy_Goblin Node:\n");
-	printf("Posx: %d\n", parameters.attribute("Posx").as_int());
-	printf("Posy: %d\n", parameters.attribute("Posy").as_int());*/
-
 	b2Filter enemyFilter;
 	enemyFilter.categoryBits = static_cast<uint16_t>(ColliderType::PLATFORM);
-	enemyFilter.maskBits = 0xFFFF & ~static_cast<uint16_t>(ColliderType::PLATFORM);  // ÓëÈÎºÎÅö×²×é±ðµÄÎïÌå¶¼·¢ÉúÅö×²£¬µ«²»Óë×Ô¼º·¢ÉúÅö×²
+	enemyFilter.maskBits = 0xFFFF & ~static_cast<uint16_t>(ColliderType::PLATFORM);  
 	pbody->body->GetFixtureList()[0].SetFilterData(enemyFilter);
 
 	player = app->scene->GetPlayer();
@@ -86,13 +58,6 @@ bool Enemy_Goblin::Update(float dt)
 {
 	if (player->position.x >= leftTopX && player->position.x <= rightBottomX &&
 		player->position.y >= leftTopY && player->position.y <= rightBottomY) {
-		//printf("%d", inEenemyArea);
-		/*if (!inEenemyArea && !isDead) {
-			vel = b2Vec2(METERS_TO_PIXELS(position.x), METERS_TO_PIXELS(position.y));
-
-			pbody->body->SetTransform(vel, pbody->body->GetAngle());
-		}*/
-
 
 		if (player->position.x >= atk_leftTopX && player->position.x <= atk_rightBottomX &&
 			player->position.y >= atk_leftTopY && player->position.y <= atk_rightBottomY) {
@@ -177,22 +142,18 @@ bool Enemy_Goblin::Update(float dt)
 
 
 			if (atack.HasFinished() && canatake) {
-				//app->par->DestroyParticle();
-
 				canatake = false;
 			}
 
 			if (currentAnimation->HasFinished()) {
 				atack.Reset();
 				take_hit.Reset();
-
 				if (isTakehit)isTakehit = false;
-
 			}
 			if (app->debug) {
 				for (uint i = 0; i < app->map->pathfinding->GetLastPath()->Count(); ++i)
 				{
-					//printf("%d", countFrame);
+
 					iPoint pos = app->map->MapToWorld(app->map->pathfinding->GetLastPath()->At(i)->x, app->map->pathfinding->GetLastPath()->At(i)->y);
 					app->render->DrawTexture(app->scene->Pathfindingtexture, pos.x, pos.y);
 				}
@@ -210,7 +171,6 @@ bool Enemy_Goblin::Update(float dt)
 
 	}
 	else {
-		//printf("\nOutArea");
 		leftTopX = position.x - rangeSize;
 		leftTopY = position.y - rangeSize / 2;
 		rightBottomX = position.x + rangeSize;
@@ -223,15 +183,12 @@ bool Enemy_Goblin::Update(float dt)
 			pbody->body->GetWorld()->DestroyBody(pbody->body);
 			pbody = nullptr;
 		}
-		//pbody->body->SetActive(false);
 	}
 
 	if (attackParticle != nullptr) {
-		if (timerAtaque.ReadMSec() > 300) { //1s == 1000ms 
-			//printf("0");
-			//app->par->DestroyParticle();
+		if (timerAtaque.ReadMSec() > 300) { 
+
 			timerAtaque.Start();
-			//isDestroyPar = false;
 			attackParticle->body->GetWorld()->DestroyBody(attackParticle->body);
 			attackParticle = nullptr;
 		}
@@ -258,7 +215,7 @@ bool Enemy_Goblin::CleanUp()
 void Enemy_Goblin::EnemyMove(float dt, int enemyAreaLimitL, int enemyAreaLimitR)
 {
 	if (!enemyidle) {
-		if (!walkrdinWork)rddirection = Rd();
+		if (!walkrdinWork)rddirection = RandSelecion();
 		timeidle = 0;
 		walkrdinWork = true;
 		currentAnimation = &run;
@@ -284,7 +241,7 @@ void Enemy_Goblin::EnemyMove(float dt, int enemyAreaLimitL, int enemyAreaLimitR)
 		}
 	}
 	else {
-		if (!rdinWork)rddirection = Rd();
+		if (!rdinWork)rddirection = RandSelecion();
 		rdinWork = true;
 		currentAnimation = &idle;
 		timeidle++;
@@ -297,7 +254,7 @@ void Enemy_Goblin::EnemyMove(float dt, int enemyAreaLimitL, int enemyAreaLimitR)
 	}
 }
 
-bool Enemy_Goblin::Rd()
+bool Enemy_Goblin::RandSelecion()
 {
 	std::random_device rd;
 	std::mt19937 mt(rd());
@@ -376,37 +333,3 @@ void Enemy_Goblin::reLoadXML()
 	position.x = parameters.attribute("Posx").as_int();
 	position.y = parameters.attribute("Posy").as_int();
 }
-//
-//void Enemy_Goblin::reLoadXML(std::vector<pugi::xml_node> parameter) {
-//
-//	pugi::xml_document configFile;
-//	printf("\nCuandoVez!!!");
-//	
-//		for (pugi::xml_node parameters : parameter) {
-//			printf("Enemy_Goblin Node:\n");
-//			printf("Posx: %d\n", parameters.attribute("Posx").as_int());
-//			printf("Posy: %d\n", parameters.attribute("Posy").as_int());
-//			EnemyPath = parameters.attribute("texturepath").as_string();
-//			TSprite = parameters.attribute("Tsprite").as_int();
-//			SpriteX = parameters.attribute("x").as_int();
-//			SpriteY = parameters.attribute("y").as_int();
-//			PhotoWeight = parameters.attribute("Pweight").as_int();
-//			enemyAreaLimitR = parameters.attribute("Area_Limit_R").as_int();
-//			enemyAreaLimitL = parameters.attribute("Area_Limit_L").as_int();
-//			life = parameters.attribute("life").as_int();
-//			speed = parameters.attribute("speed").as_float();
-//
-//			spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-//
-//			idle.LoadAnim("Enemy_Goblin", "idle", spritePositions);
-//			run.LoadAnim("Enemy_Goblin", "run", spritePositions);
-//			take_hit.LoadAnim("Enemy_Goblin", "take_hit", spritePositions);
-//			die.LoadAnim("Enemy_Goblin", "die", spritePositions);
-//			atack.LoadAnim("Enemy_Goblin", "atake", spritePositions);
-//
-//			position.x = parameters.attribute("Posx").as_int();
-//			position.y = parameters.attribute("Posy").as_int();
-//
-//		}
-//	
-//}

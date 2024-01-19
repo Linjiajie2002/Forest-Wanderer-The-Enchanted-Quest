@@ -23,44 +23,6 @@ Angel::Angel() : Entity(EntityType::ANGEL)
 Angel::~Angel() {}
 
 bool Angel::Awake() {
-
-	/*angel_blue_texture_Path = parameters.child("angel_all").child("angel_texture1").attribute("texturepath").as_string();
-	angel_red_texture_Path = parameters.child("angel_all").child("angel_texture2").attribute("texturepath").as_string();
-	angel_yellow_texture_Path = parameters.child("angel_all").child("angel_texture3").attribute("texturepath").as_string();
-	TSprite = parameters.child("angel_all").attribute("Tsprite").as_int();
-	SpriteX = parameters.child("angel_all").attribute("x").as_int();
-	SpriteY = parameters.child("angel_all").attribute("y").as_int();
-	PhotoWeight = parameters.child("angel_all").attribute("Pweight").as_int();
-	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-
-	angel_blue_start.LoadAnim("angel", "angel_all_start", spritePositions);
-	angel_blue_idle.LoadAnim("angel", "angel_all_idle", spritePositions);
-	angel_blue_die.LoadAnim("angel", "angel_all_die", spritePositions);
-
-	angel_red_start.LoadAnim("angel", "angel_all_start", spritePositions);
-	angel_red_idle.LoadAnim("angel", "angel_all_idle", spritePositions);
-	angel_red_die.LoadAnim("angel", "angel_all_die", spritePositions);
-
-	angel_yellow_start.LoadAnim("angel", "angel_all_start", spritePositions);
-	angel_yellow_idle.LoadAnim("angel", "angel_all_idle", spritePositions);
-	angel_yellow_die.LoadAnim("angel", "angel_all_die", spritePositions);
-
-
-
-
-	angel_borde_blue_texture_Path = parameters.child("borde").child("angel_texture1").attribute("texturepath").as_string();
-	angel_borde_red_texture_Path = parameters.child("borde").child("angel_texture2").attribute("texturepath").as_string();
-	angel_borde_yellow_texture_Path = parameters.child("borde").child("angel_texture3").attribute("texturepath").as_string();
-	TSprite = parameters.child("borde").attribute("Tsprite").as_int();
-	SpriteX = parameters.child("borde").attribute("x").as_int();
-	SpriteY = parameters.child("borde").attribute("y").as_int();
-	PhotoWeight = parameters.child("borde").attribute("Pweight").as_int();
-	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-
-	angel_borde_red_idle.LoadAnim("angel_borde", "angel_borde_blue", spritePositions);
-	angel_borde_yellow_idle.LoadAnim("angel_borde", "angel_borde_blue", spritePositions);
-	angel_borde_blue_idle.LoadAnim("angel_borde", "angel_borde_blue", spritePositions);*/
-
 	return true;
 }
 
@@ -77,15 +39,11 @@ bool Angel::Start() {
 	angel_borde_red_texture = app->tex->Load(angel_borde_red_texture_Path);
 	angel_borde_yellow_texture = app->tex->Load(angel_borde_yellow_texture_Path);
 
-
-
 	currentAnimation1 = &angel_red_idle;
 
 	currentAnimation2 = &angel_yellow_idle;
 
 	currentAnimation3 = &angel_blue_idle;
-
-	
 
 	for (int i = 0; i < 7; i++)
 	{
@@ -104,9 +62,6 @@ bool Angel::Start() {
 bool Angel::Update(float dt)
 {
 
-	/*printf("\nBlueball: %d", blueball);
-	printf("\nRedball: %d", redball);
-	printf("\nYellowball: %d", yelloweball);*/
 	if (app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) {
 		blueball = 5;
 		redball = 5;
@@ -114,7 +69,6 @@ bool Angel::Update(float dt)
 	}
 
 	CheckPoint();
-	
 	
 
 	if (app->scene->GetBoss()->inBossBattle && Enter) {
@@ -129,14 +83,6 @@ bool Angel::Update(float dt)
 	start_end();
 	display();
 	Finish();
-
-	
-
-
-
-
-
-
 
 	return true;
 }

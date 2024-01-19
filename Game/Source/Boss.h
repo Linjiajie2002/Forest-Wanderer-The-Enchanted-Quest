@@ -33,6 +33,8 @@ public:
 	void boss_atack_4(bool inversaAtack);
 	void goBossBattle();
 	void printTimer();
+	void bossModo();
+	void eliminarCollision();
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 	void OnEndCollision(PhysBody* physA, PhysBody* physB);
@@ -42,7 +44,6 @@ public:
 
 public:
 
-	bool isPicked = false;
 
 	Animation* currentAnimation1 = nullptr;
 	List<Animation*> currentAnimation2 ;
@@ -57,9 +58,6 @@ public:
 	Animation atack_4_running;
 	Animation atack_4_end;
 
-	Animation die;
-	Animation take_hit;
-
 	
 
 
@@ -72,7 +70,6 @@ public:
 	int PhotoWeight;
 	float speed;
 
-	bool isFacingLeft;
 
 	int attackMethod = 1 ;
 
@@ -88,9 +85,9 @@ public:
 	int maxNumAtack = 0;
 	bool allPrint = false;
 	int distancia = 0;
-
 	int aumentaDistanciaColison = 0;
 	int aumentaDistanciaColison_suport = 0;
+
 	//Atack3
 	bool direction_Atack = false;
 
@@ -108,7 +105,6 @@ public:
 	bool goFight = false;
 	int atack2_posY;
 
-	Player* player;
 
 	int deadenemy;
 

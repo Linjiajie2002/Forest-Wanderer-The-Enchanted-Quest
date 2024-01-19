@@ -29,7 +29,7 @@ public:
 	void OnEndCollision(PhysBody* physA, PhysBody* physB);
 
 	void EnemyMove(float dt, int enemyAreaLimitL, int enemyAreaLimitR);
-	bool Rd();
+	bool RandSelecion();
 
 	void reLoadXML();
 

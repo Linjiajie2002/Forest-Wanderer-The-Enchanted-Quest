@@ -37,7 +37,6 @@ public:
 
 	void reLoadXML();
 
-	void displayTime(int timeInSeconds);
 
 public:
 

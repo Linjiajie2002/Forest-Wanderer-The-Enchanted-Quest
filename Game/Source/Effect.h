@@ -39,7 +39,6 @@ public:
 	Animation OroEffect;
 	Animation GhostEffect;
 	Animation dieEffect;
-
 	Animation SPosition;
 
 

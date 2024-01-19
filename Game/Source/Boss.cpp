@@ -23,49 +23,6 @@ Boss::Boss() : Entity(EntityType::BOSS)
 Boss::~Boss() {}
 
 bool Boss::Awake() {
-
-	/*boss_atack_1_texture_Path = parameters.child("boss_atack").child("atack1").attribute("texturepath").as_string();
-	TSprite = parameters.child("boss_atack").child("atack1").attribute("Tsprite").as_int();
-	SpriteX = parameters.child("boss_atack").child("atack1").attribute("x").as_int();
-	SpriteY = parameters.child("boss_atack").child("atack1").attribute("y").as_int();
-	PhotoWeight = parameters.child("boss_atack").child("atack1").attribute("Pweight").as_int();
-	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-	atack_1.LoadAnim("Boss", "atack_1", spritePositions);
-
-
-	boss_atack_2_texture_Path = parameters.child("boss_atack").child("atack2").attribute("texturepath").as_string();
-	TSprite = parameters.child("boss_atack").child("atack2").attribute("Tsprite").as_int();
-	SpriteX = parameters.child("boss_atack").child("atack2").attribute("x").as_int();
-	SpriteY = parameters.child("boss_atack").child("atack2").attribute("y").as_int();
-	PhotoWeight = parameters.child("boss_atack").child("atack2").attribute("Pweight").as_int();
-	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-	for (int i = 0; i < numeroAtack; i++)
-	{
-		atack_2.Add(inicializaAnimation);
-
-		atack_2[i].LoadAnim("Boss", "atack_2", spritePositions);
-	}
-
-
-	boss_atack_3_texture_Path = parameters.child("boss_atack").child("atack3").attribute("texturepath").as_string();
-	TSprite = parameters.child("boss_atack").child("atack3").attribute("Tsprite").as_int();
-	SpriteX = parameters.child("boss_atack").child("atack3").attribute("x").as_int();
-	SpriteY = parameters.child("boss_atack").child("atack3").attribute("y").as_int();
-	PhotoWeight = parameters.child("boss_atack").child("atack3").attribute("Pweight").as_int();
-	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-	atack_3.LoadAnim("Boss", "atack_3", spritePositions);
-
-
-	boss_atack_4_texture_Path = parameters.child("boss_atack").child("atack4").attribute("texturepath").as_string();
-	TSprite = parameters.child("boss_atack").child("atack4").attribute("Tsprite").as_int();
-	SpriteX = parameters.child("boss_atack").child("atack4").attribute("x").as_int();
-	SpriteY = parameters.child("boss_atack").child("atack4").attribute("y").as_int();
-	PhotoWeight = parameters.child("boss_atack").child("atack4").attribute("Pweight").as_int();
-	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-	atack_4_start.LoadAnim("Boss", "atack_4_start", spritePositions);
-	atack_4_running.LoadAnim("Boss", "atack_4_running", spritePositions);
-	atack_4_end.LoadAnim("Boss", "atack_4_end", spritePositions);*/
-
 	return true;
 }
 
@@ -103,19 +60,8 @@ bool Boss::Start() {
 bool Boss::Update(float dt)
 {
 
-	if (atackTouch && app->scene->GetPlayerLife()->playerTakeBossDmg == false) {
-		app->scene->GetPlayerLife()->playerGetHit();
-		atackTouch = false;
-	}
 
-	if (app->scene->GetItem()->playerGetDiamante == 6 && inBossBattle == false && !app->scene->GetPlayer()->isDead && !app->scene->GetItem()->victoria && goFight == false) {
-		printf("1111");
-		goBossBattle();
-		goFight = true;
-	}
-
-
-
+	//Entrat Bossarea
 	if (app->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN) {
 		app->scene->GetAngel()->Enter = true;
 		app->scene->GetItem()->playerGetDiamante = 6;
@@ -128,187 +74,23 @@ bool Boss::Update(float dt)
 		app->scene->GetPlayer()->noTp = true;
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) {
-		getPlayerPosition = true;
-		attackMethod = 1;
-	}
-
-	if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN) {
-		inBossBattle = false;
-		app->scene->GetItem()->victoria = true;
-	}
-
 	if (inBossBattle) {
 		printTimer();
 	}
 
-
-	if (!inBossBattle && oneTimeInBossBattle) {
-		if (pbody != nullptr) {
-			pbody->body->GetWorld()->DestroyBody(pbody->body);
-			pbody = nullptr;
-		}
-		for (auto& physBodyWithTimer : physBodiesWithTimers) {
-			if (physBodyWithTimer.pbody2->body != nullptr) {
-				// Verifica si ha pasado suficiente tiempo desde la creaci車n
-				//physBodyWithTimer.timer.Start();
-				physBodyWithTimer.pbody2->body->GetWorld()->DestroyBody(physBodyWithTimer.pbody2->body);
-				physBodyWithTimer.pbody2->body = nullptr;
-			}
-		}
-
-		physBodies.clear();
+	if (atackTouch && app->scene->GetPlayerLife()->playerTakeBossDmg == false) {
+		app->scene->GetPlayerLife()->playerGetHit();
+		atackTouch = false;
 	}
 
-	if (inBossBattle && attackMethod == 1) {
-		if (getPlayerPosition) {
-			player_x = app->scene->GetPlayer()->position.x;
-			getPlayerPosition = false;
-			atack1_Collision.Start();
-		}
-		crearCollision = true;
-		boss_atack_1(player_x);
+	if (app->scene->GetItem()->playerGetDiamante == 6 && inBossBattle == false && !app->scene->GetPlayer()->isDead && !app->scene->GetItem()->victoria && goFight == false) {
+		goBossBattle();
+		goFight = true;
 	}
 
-	if (currentAnimation1->HasFinished()) {
-		getPlayerPosition = true;
-		atack_1.Reset();
-		attackMethod = 2;
-		if (pbody != nullptr) {
-			pbody->body->GetWorld()->DestroyBody(pbody->body);
-			pbody = nullptr;
-		}
-		app->scene->GetPlayerLife()->playerTakeBossDmg = false;
-
-	}
-
-
-	if (inBossBattle && attackMethod == 2) {
-
-		if (getPlayerPosition) {
-			player_x = app->scene->GetPlayer()->position.x;
-			getPlayerPosition = false;
-			atack1_Collision.Start();
-		}
-		if (player_x > 1899) {
-			direction_Atack = true;
-		}
-		else {
-			direction_Atack = false;
-		}
-
-		if (atack2_generAtack.ReadMSec() > 200) {
-			if (maxNumAtack < numeroAtack) {
-				maxNumAtack++;
-				atack2_generAtack.Start();
-				crearCollision = true;
-				aumentaDistanciaColison = aumentaDistanciaColison_suport * 195;
-				aumentaDistanciaColison_suport++;
-
-			}
-			else {
-				allPrint = true;
-			}
-		}
-
-		for (int i = 0; i < maxNumAtack; i++)
-		{
-			boss_atack_2(direction_Atack, i);
-		}
-
-	}
-
-
-	if (currentAnimation2[numeroAtack - 1]->HasFinished() && allPrint) {
-		getPlayerPosition = true;
-		for (int i = 0; i < numeroAtack; i++)
-		{
-			atack_2[i].Reset();
-
-
-		}
-		app->scene->GetPlayer()->shakeDuration = 0;
-		/*for (auto& body : physBodies) {
-			if (body != nullptr) {
-				body->body->GetWorld()->DestroyBody(body->body);
-				delete body;
-				body = nullptr;
-
-			}
-		}*/
-
-		for (auto& physBodyWithTimer : physBodiesWithTimers) {
-			if (physBodyWithTimer.pbody2->body != nullptr) {
-				// Verifica si ha pasado suficiente tiempo desde la creaci車n
-				//physBodyWithTimer.timer.Start();
-				physBodyWithTimer.pbody2->body->GetWorld()->DestroyBody(physBodyWithTimer.pbody2->body);
-				physBodyWithTimer.pbody2->body = nullptr;
-			}
-		}
-
-		physBodies.clear();
-		app->scene->GetPlayerLife()->playerTakeBossDmg = false;
-		aumentaDistanciaColison = 0;
-		aumentaDistanciaColison_suport = 0;
-		maxNumAtack = 0;
-		attackMethod = 3;
-
-
-	}
-
-
-	if (inBossBattle && attackMethod == 3) {
-		if (getPlayerPosition) {
-			player_x = app->scene->GetPlayer()->position.x;
-			getPlayerPosition = false;
-			atack1_Collision.Start();
-		}
-		crearCollision = true;
-		boss_atack_3(direction_Atack);
-
-
-	}
-
-
-	if (currentAnimation3->HasFinished()) {
-		atack_3.Reset();
-		currentAnimation4 = &atack_4_start;
-		if (pbody != nullptr) {
-			pbody->body->GetWorld()->DestroyBody(pbody->body);
-			pbody = nullptr;
-		}
-		app->scene->GetPlayerLife()->playerTakeBossDmg = false;
-		attackMethod = 4;
-	}
-
-
-	if (inBossBattle && attackMethod == 4) {
-
-		crearCollision = true;
-		boss_atack_4(direction_Atack);
-	}
-
-	if (currentAnimation4->HasFinished()) {
-
-		if (currentAnimation4->getNameAnimation() == "atack_4_start") {
-			currentAnimation4 = &atack_4_running;
-		}
-		if (currentAnimation4->getNameAnimation() == "atack_4_end") {
-			atack_4_start.Reset();
-			atack_4_end.Reset();
-			atack_4_running.Reset();
-			getPlayerPosition = true;
-			attackMethod = 1;
-			velocitat = 0;
-			atack4_posX_R = 1420;
-			atack4_posX_L = 2290;
-			if (pbody != nullptr) {
-				pbody->body->GetWorld()->DestroyBody(pbody->body);
-				pbody = nullptr;
-			}
-			app->scene->GetPlayerLife()->playerTakeBossDmg = false;
-		}
-	}
+	eliminarCollision();
+	
+	bossModo();
 
 	return true;
 }
@@ -529,6 +311,171 @@ void Boss::printTimer()
 
 	if ((int)secondsSinceStartup == 0) {
 		app->scene->GetPlayerLife()->playerGetHit();
+	}
+}
+
+void Boss::bossModo()
+{
+	if (inBossBattle && attackMethod == 1) {
+		if (getPlayerPosition) {
+			player_x = app->scene->GetPlayer()->position.x;
+			getPlayerPosition = false;
+			atack1_Collision.Start();
+		}
+		crearCollision = true;
+		boss_atack_1(player_x);
+	}
+
+	if (currentAnimation1->HasFinished()) {
+		getPlayerPosition = true;
+		atack_1.Reset();
+		attackMethod = 2;
+		if (pbody != nullptr) {
+			pbody->body->GetWorld()->DestroyBody(pbody->body);
+			pbody = nullptr;
+		}
+		app->scene->GetPlayerLife()->playerTakeBossDmg = false;
+
+	}
+
+
+	if (inBossBattle && attackMethod == 2) {
+
+		if (getPlayerPosition) {
+			player_x = app->scene->GetPlayer()->position.x;
+			getPlayerPosition = false;
+			atack1_Collision.Start();
+		}
+		if (player_x > 1899) {
+			direction_Atack = true;
+		}
+		else {
+			direction_Atack = false;
+		}
+
+		if (atack2_generAtack.ReadMSec() > 200) {
+			if (maxNumAtack < numeroAtack) {
+				maxNumAtack++;
+				atack2_generAtack.Start();
+				crearCollision = true;
+				aumentaDistanciaColison = aumentaDistanciaColison_suport * 195;
+				aumentaDistanciaColison_suport++;
+
+			}
+			else {
+				allPrint = true;
+			}
+		}
+
+		for (int i = 0; i < maxNumAtack; i++)
+		{
+			boss_atack_2(direction_Atack, i);
+		}
+
+	}
+
+
+	if (currentAnimation2[numeroAtack - 1]->HasFinished() && allPrint) {
+		getPlayerPosition = true;
+		for (int i = 0; i < numeroAtack; i++)
+		{
+			atack_2[i].Reset();
+
+
+		}
+		app->scene->GetPlayer()->shakeDuration = 0;
+
+		for (auto& physBodyWithTimer : physBodiesWithTimers) {
+			if (physBodyWithTimer.pbody2->body != nullptr) {
+				// Verifica si ha pasado suficiente tiempo desde la creaci車n
+				//physBodyWithTimer.timer.Start();
+				physBodyWithTimer.pbody2->body->GetWorld()->DestroyBody(physBodyWithTimer.pbody2->body);
+				physBodyWithTimer.pbody2->body = nullptr;
+			}
+		}
+
+		physBodies.clear();
+		app->scene->GetPlayerLife()->playerTakeBossDmg = false;
+		aumentaDistanciaColison = 0;
+		aumentaDistanciaColison_suport = 0;
+		maxNumAtack = 0;
+		attackMethod = 3;
+
+
+	}
+
+
+	if (inBossBattle && attackMethod == 3) {
+		if (getPlayerPosition) {
+			player_x = app->scene->GetPlayer()->position.x;
+			getPlayerPosition = false;
+			atack1_Collision.Start();
+		}
+		crearCollision = true;
+		boss_atack_3(direction_Atack);
+
+
+	}
+
+
+	if (currentAnimation3->HasFinished()) {
+		atack_3.Reset();
+		currentAnimation4 = &atack_4_start;
+		if (pbody != nullptr) {
+			pbody->body->GetWorld()->DestroyBody(pbody->body);
+			pbody = nullptr;
+		}
+		app->scene->GetPlayerLife()->playerTakeBossDmg = false;
+		attackMethod = 4;
+	}
+
+
+	if (inBossBattle && attackMethod == 4) {
+
+		crearCollision = true;
+		boss_atack_4(direction_Atack);
+	}
+
+	if (currentAnimation4->HasFinished()) {
+
+		if (currentAnimation4->getNameAnimation() == "atack_4_start") {
+			currentAnimation4 = &atack_4_running;
+		}
+		if (currentAnimation4->getNameAnimation() == "atack_4_end") {
+			atack_4_start.Reset();
+			atack_4_end.Reset();
+			atack_4_running.Reset();
+			getPlayerPosition = true;
+			attackMethod = 1;
+			velocitat = 0;
+			atack4_posX_R = 1420;
+			atack4_posX_L = 2290;
+			if (pbody != nullptr) {
+				pbody->body->GetWorld()->DestroyBody(pbody->body);
+				pbody = nullptr;
+			}
+			app->scene->GetPlayerLife()->playerTakeBossDmg = false;
+		}
+	}
+}
+
+void Boss::eliminarCollision()
+{
+	if (!inBossBattle && oneTimeInBossBattle) {
+		if (pbody != nullptr) {
+			pbody->body->GetWorld()->DestroyBody(pbody->body);
+			pbody = nullptr;
+		}
+		for (auto& physBodyWithTimer : physBodiesWithTimers) {
+			if (physBodyWithTimer.pbody2->body != nullptr) {
+				// Verifica si ha pasado suficiente tiempo desde la creaci車n
+				//physBodyWithTimer.timer.Start();
+				physBodyWithTimer.pbody2->body->GetWorld()->DestroyBody(physBodyWithTimer.pbody2->body);
+				physBodyWithTimer.pbody2->body = nullptr;
+			}
+		}
+
+		physBodies.clear();
 	}
 }
 

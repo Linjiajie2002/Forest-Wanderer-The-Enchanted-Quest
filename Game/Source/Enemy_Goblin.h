@@ -28,7 +28,7 @@ public:
 
 
 	void EnemyMove(float dt, int enemyAreaLimitL, int enemyAreaLimitR);
-	bool Rd();
+	bool RandSelecion();
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 	void OnEndCollision(PhysBody* physA, PhysBody* physB);

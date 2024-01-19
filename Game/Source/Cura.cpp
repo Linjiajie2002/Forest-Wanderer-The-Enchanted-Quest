@@ -29,19 +29,6 @@ Cura::Cura() : Entity(EntityType::CURA)
 Cura::~Cura() {}
 
 bool Cura::Awake() {
-
-	/*CuraPath = parameters.attribute("texturepath").as_string();
-	TSprite = parameters.attribute("Tsprite").as_int();
-	SpriteX = parameters.attribute("x").as_int();
-	SpriteY = parameters.attribute("y").as_int();
-	PhotoWeight = parameters.attribute("Pweight").as_int();
-	pos_X = parameters.attribute("Posx").as_int();
-	pos_Y = parameters.attribute("Posy").as_int();
-	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-	idle.LoadAnim("cura", "cura_idle", spritePositions);
-	die.LoadAnim("cura", "cura_die", spritePositions);
-	start.LoadAnim("cura", "cura_start", spritePositions);*/
-
 	return true;
 }
 
@@ -51,7 +38,7 @@ bool Cura::Start() {
 
 	reLoadXML();
 
-	Curatexture= app->tex->Load(CuraPath);
+	Curatexture = app->tex->Load(CuraPath);
 
 	if (pbody == nullptr) {
 		pbody = app->physics->CreateCircleSensor(pos_X + 55, pos_Y + 55, 28, bodyType::STATIC);
@@ -62,34 +49,28 @@ bool Cura::Start() {
 
 	currentAnimation = &idle;
 
-	
-	
+
+
 	return true;
 }
 
 bool Cura::Update(float dt)
 {
-	
-
-
-
 	if (!playerGetCura) {
 		rect = currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(Curatexture, pos_X, pos_Y, 1, SDL_FLIP_NONE, &rect);
 		currentAnimation->Update();
-		
-
 	}
 	else {
 		currentAnimation = &die;
 		DestroyCura();
 		playerCuraDie = true;
-		
+
 	}
 
 	if (playerCuraDie) {
 		rect = currentAnimation->GetCurrentFrame();
-		app->render->DrawTexture(Curatexture, app->scene->GetPlayer()->position.x, app->scene->GetPlayer()->position.y-30, 1, SDL_FLIP_NONE, &rect);
+		app->render->DrawTexture(Curatexture, app->scene->GetPlayer()->position.x, app->scene->GetPlayer()->position.y - 30, 1, SDL_FLIP_NONE, &rect);
 		currentAnimation->Update();
 	}
 
@@ -97,10 +78,6 @@ bool Cura::Update(float dt)
 		playerCuraDie = false;
 		die.Reset();
 	}
-
-
-
-	
 
 	return true;
 }
@@ -135,7 +112,7 @@ void Cura::OnCollision(PhysBody* physA, PhysBody* physB) {
 			app->scene->GetPlayerLife()->playerGetHeal();
 			playerGetCura = true;
 		}
-		
+
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");

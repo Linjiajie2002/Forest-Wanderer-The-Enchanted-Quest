@@ -40,14 +40,10 @@ public:
 
 	bool isPicked = false;
 	Animation* currentAnimation = nullptr;
-	Animation* currentAnimation2 = nullptr;
-
-	List<Animation*> currentAnimation1;
 
 	Animation idle;
-	List<Animation> Diamond_Counter;
 
-	Animation inicializaAnimation;
+	
 	Animation SPosition;
 	SDL_Rect* spritePositions;
 
@@ -58,50 +54,23 @@ public:
 	int pos_X;
 	int pos_Y;
 
-	double itemX[8];
-	double itemY[8];
-	double circleCenterX = 1920.0;
-	double circleCenterY = 900.0;
-	double angleIncrement = 1.0;
-
-
-	int NumeroDiamante = 7;
-	int maxDiamante = 0;
-
-	double angleInRadians;
-	double newX;
-	double newY;
-
-	double newCX;
-	double newCY;
-
-	bool DiamanteToCenter = false;
-	bool allDiamanteInCenter = false;
-
 	bool victoria = false;
 	bool lastDiamenteIsCreat = true;
 	bool playerTakeDiamante = false;
 
-
-	Timer TimeCrear;
-	Timer diamanteToBig;
-	Timer GoCenter;
 	bool hecreado7diamante = false;
 
 	bool GoCenterTime_determination;
 	int playerGetDiamante = 0;
 
 	SDL_Rect rect;
-	SDL_Rect rect_2;
-	List<SDL_Rect> rect_1;
+	
 
 private:
 
 	SDL_Texture* Diamondtexture;
 	const char* DiamondPath;
 
-	SDL_Texture* Diamond_Counter_texture;
-	const char* Diamond_Counter_texture_Path;
 	PhysBody* pbody;
 };
 #endif // __ITEM_H__

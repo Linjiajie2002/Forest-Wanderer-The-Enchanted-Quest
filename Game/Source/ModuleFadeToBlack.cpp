@@ -43,28 +43,16 @@ bool ModuleFadeToBlack::Update(float dt)
         ++frameCount;
         if (frameCount >= maxFadeFrames)
         {
-            // TODO 1: Enable / Disable the modules received when FadeToBlacks(...) gets called
 
 			app->entityManager->Disable();
             app->map->Disable();
-			//moduleToDisable->Disable();
-		
 			moduleToDisable->Disable();
-
-            
-			
-
-            /*app->physics->Disable();
-            app->physics->Enable();*/
-            /*app->physics->CleanUp();*/
 
 			pugi::xml_document configFile;
 			pugi::xml_node SceneInfo;
 			pugi::xml_parse_result parseResult = configFile.load_file("config.xml");
 			SceneInfo = configFile.child("config").child("scene");
 
-           
-			
 			app->map->Enable();
             moduleToEnable->Enable();
 			moduleToEnable->Awake(SceneInfo);
@@ -95,7 +83,6 @@ void ModuleFadeToBlack::ResetMap()
 {
 	app->map->Disable();
 	moduleToDisable->Disable();
-	//moduleToEnable->Enable();
 	app->entityManager->Disable();
 
 	app->map->Enable();
@@ -107,7 +94,6 @@ bool ModuleFadeToBlack::FadeToBlack(Module* toDisable, Module* toEnable, float f
 {
 	bool ret = false;
 
-	// If we are already in a fade process, ignore this call
 	if (currentStep == Fade_Step::NONE)
 	{
 		
@@ -115,7 +101,6 @@ bool ModuleFadeToBlack::FadeToBlack(Module* toDisable, Module* toEnable, float f
 		frameCount = 0;
 		maxFadeFrames = frames;
 
-		// TODO 1: How do we keep track of the modules received in this function?
 		this->moduleToDisable = toDisable;
 		this->moduleToEnable = toEnable;
 

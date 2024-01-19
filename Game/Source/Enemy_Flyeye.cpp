@@ -20,29 +20,6 @@ Enemy_Flyeye::Enemy_Flyeye() : Entity(EntityType::ENEMY_FLYEYE)
 Enemy_Flyeye::~Enemy_Flyeye() {}
 
 bool Enemy_Flyeye::Awake() {
-
-	//EnemyPath = parameters.attribute("texturepath").as_string();
-	//TSprite = parameters.attribute("Tsprite").as_int();
-	//SpriteX = parameters.attribute("x").as_int();
-	//SpriteY = parameters.attribute("y").as_int();
-	//PhotoWeight = parameters.attribute("Pweight").as_int();
-	//enemyAreaLimitR = parameters.attribute("Area_Limit_R").as_int();
-	//enemyAreaLimitL = parameters.attribute("Area_Limit_L").as_int();
-	//life = parameters.attribute("life").as_int();
-	//spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
-
-	//PathfindingPath = parameters.attribute("texturepath").as_string();
-
-	//position.x = parameters.attribute("Posx").as_int();
-	//position.y = parameters.attribute("Posy").as_int();
-	//speed = parameters.attribute("speed").as_float();
-
-	//idle.LoadAnim("Enemy_Flyeye", "idle", spritePositions);
-	///*run.LoadAnim("Enemy_Flyeye", "run", spritePositions);*/
-	//take_hit.LoadAnim("Enemy_Flyeye", "take_hit", spritePositions);
-	//die.LoadAnim("Enemy_Flyeye", "die", spritePositions);
-	//atack.LoadAnim("Enemy_Flyeye", "atk", spritePositions);
-
 	return true;
 }
 
@@ -52,13 +29,10 @@ bool Enemy_Flyeye::Start() {
 
 	Enemytexture = app->tex->Load(EnemyPath);
 	pbody = app->physics->CreateCircle(position.x - 10, position.y, 28, bodyType::DYNAMIC);
-
-	//pbody = app->physics->CreateCircle(position.x + 16, position.y + 16, 16, bodyType::STATIC);
 	pbody->ctype = ColliderType::ENEMY;
 	pbody->body->SetFixedRotation(true);
 	pbody->body->GetFixtureList()[0].SetFriction(0.03);
 	pbody->listener = this;
-	//pbody->body->SetGravityScale(0);
 	deadenemy = app->audio->LoadFx(parameters.child("deadenemy").attribute("texturepath").as_string());
 
 	currentAnimation = &idle;
@@ -66,7 +40,7 @@ bool Enemy_Flyeye::Start() {
 
 	b2Filter enemyFilter;
 	enemyFilter.categoryBits = static_cast<uint16_t>(ColliderType::PLATFORM);
-	enemyFilter.maskBits = 0xFFFF & ~static_cast<uint16_t>(ColliderType::PLATFORM);  //
+	enemyFilter.maskBits = 0xFFFF & ~static_cast<uint16_t>(ColliderType::PLATFORM); 
 	pbody->body->GetFixtureList()[0].SetFilterData(enemyFilter);
 
 	player = app->scene->GetPlayer();
@@ -166,18 +140,7 @@ bool Enemy_Flyeye::Update(float dt)
 								pbody->body->SetLinearVelocity(b2Vec2(speed * dt, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
 
 							}
-							/*else {
-								if (position.y == lastY) {
-									if (position.x > newPositionPoint.x) {
-										printf("×ó");
-										pbody->body->SetLinearVelocity(b2Vec2(speed * dt,0));
-									}
-									else {
-										printf("ÓÒ");
-										pbody->body->SetLinearVelocity(b2Vec2(-speed * dt, 0));
-									}
-								}
-							}*/
+
 
 
 
@@ -189,19 +152,6 @@ bool Enemy_Flyeye::Update(float dt)
 								pbody->body->SetLinearVelocity(b2Vec2(pbody->body->GetLinearVelocity().x, speed * dt));
 
 							}
-							//else {
-							//	if (position.x == lastX) {
-							//		if (position.y > newPositionPoint.y) {
-							//			//printf("×ó");
-							//			pbody->body->SetLinearVelocity(b2Vec2(-speed * dt, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
-							//		}
-							//		else {
-							//			//printf("ÓÒ");
-							//			pbody->body->SetLinearVelocity(b2Vec2(speed * dt, pbody->body->GetLinearVelocity().y - GRAVITY_Y));
-							//		}
-
-							//	}
-							//}
 							lastX = position.x;
 							lastY = position.y;
 						}
@@ -309,7 +259,7 @@ bool Enemy_Flyeye::CleanUp()
 void Enemy_Flyeye::EnemyMove(float dt, int enemyAreaLimitL, int enemyAreaLimitR)
 {
 	if (!enemyidle) {
-		if (!walkrdinWork)rddirection = Rd();
+		if (!walkrdinWork)rddirection = RandSelecion();
 		timeidle = 0;
 		walkrdinWork = true;
 		//currentAnimation = &idle;
@@ -335,7 +285,7 @@ void Enemy_Flyeye::EnemyMove(float dt, int enemyAreaLimitL, int enemyAreaLimitR)
 		}
 	}
 	else {
-		if (!rdinWork)rddirection = Rd();
+		if (!rdinWork)rddirection = RandSelecion();
 		rdinWork = true;
 		currentAnimation = &idle;
 		timeidle++;
@@ -348,7 +298,7 @@ void Enemy_Flyeye::EnemyMove(float dt, int enemyAreaLimitL, int enemyAreaLimitR)
 	}
 }
 
-bool Enemy_Flyeye::Rd()
+bool Enemy_Flyeye::RandSelecion()
 {
 	std::random_device rd;
 	std::mt19937 mt(rd());

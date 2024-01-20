@@ -221,7 +221,7 @@ bool Player::Update(float dt)
 		app->map->LevelMap = 1;
 		app->scene->changeScena = true;
 		//app->fade->FadetoBlackTransition(app->scene, app->scene);
-		app->fade->FadeToBlack(app->scene, app->scene);
+		app->fade->FadeToBlack(app->scene, app->scene,20.0f);
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
@@ -230,7 +230,7 @@ bool Player::Update(float dt)
 		app->map->LevelMap = 2;
 
 		//app->fade->FadetoBlackTransition(app->scene, app->scene);
-		app->fade->FadeToBlack(app->scene, app->scene);
+		app->fade->FadeToBlack(app->scene, app->scene, 20.0f);
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {

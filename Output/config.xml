@@ -79,7 +79,7 @@
 
 			<Diamond>
 				<Diamond Posx="480" Posy="330" Tsprite="6" Pweight="192" x="32" y="32" texturepath="Assets\Sprite\Mapa2\Diamond.png"/>
-				<Diamond Posx="4485" Posy="986" Tsprite="6" Pweight="192" x="32" y="32" texturepath="Assets\Sprite\Mapa2\Diamond.png"/>
+				<Diamond Posx="4600" Posy="1200" Tsprite="6" Pweight="192" x="32" y="32" texturepath="Assets\Sprite\Mapa2\Diamond.png"/>
 				<Diamond Posx="3296" Posy="200" Tsprite="6" Pweight="192" x="32" y="32" texturepath="Assets\Sprite\Mapa2\Diamond.png"/>
 				<Diamond Posx="5410" Posy="130" Tsprite="6" Pweight="192" x="32" y="32" texturepath="Assets\Sprite\Mapa2\Diamond.png"/>
 			</Diamond>

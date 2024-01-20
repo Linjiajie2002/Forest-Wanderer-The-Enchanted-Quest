@@ -77,7 +77,7 @@ Head Part:
 <br>3.7 Taking Damage without Blood</br>
 <br>3.8 Currently Taking Damage</br>
 
-(All animated effects were conceptualized by me and crafted using Aseprite. I referenced and utilized the following resource: https://otsoga.itch.io/dynamic-status-bars.)
+(All animated effects were conceptualized by  - Jiajie Lin - [@Linjiajie2002](https://github.com/Linjiajie2002) and crafted using Aseprite. I referenced and utilized the following resource: https://otsoga.itch.io/dynamic-status-bars.)
 
 
 ## Trials of the Angels

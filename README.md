@@ -52,10 +52,11 @@ The health points system is divided into three parts: the head, tail, and middle
 
 Head Part:
 
-1.1 Idle
+<br>1.1 Idle</br>
 1.2 Death
 1.3 Healing
 1.4 Taking Damage
+
 Tail Part:
 
 2.1 Idle

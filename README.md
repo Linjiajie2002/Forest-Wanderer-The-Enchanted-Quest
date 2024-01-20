@@ -53,28 +53,29 @@ The health points system is divided into three parts: the head, tail, and middle
 Head Part:
 
 <br>1.1 Idle</br>
-1.2 Death
-1.3 Healing
-1.4 Taking Damage
+<br>1.2 Death</br>
+<br>1.3 Healing</br>
+<br>1.4 Taking Damage</br>
 
-Tail Part:
+<br>Tail Part:</br>
 
-2.1 Idle
-2.2 Death
-2.3 Healing with Blood
-2.4 Healing without Blood
-2.5 Taking Damage with Blood
-2.6 Taking Damage without Blood
-Middle Part:
+<br>2.1 Idle</br>
+<br>2.2 Death</br>
+<br>2.3 Healing with Blood</br>
+<br>2.4 Healing without Blood</br>
+<br>2.5 Taking Damage with Blood</br>
+<br>2.6 Taking Damage without Blood</br>
 
-3.1 Idle
-3.2 Death
-3.3 Healing with Blood
-3.4 Healing without Blood
-3.5 Currently Healing
-3.6 Taking Damage with Blood
-3.7 Taking Damage without Blood
-3.8 Currently Taking Damage
+<br>Middle Part:</br>
+
+<br>3.1 Idle</br>
+<br>3.2 Death</br>
+<br>3.3 Healing with Blood</br>
+<br>3.4 Healing without Blood</br>
+<br>3.5 Currently Healing</br>
+<br>3.6 Taking Damage with Blood</br>
+<br>3.7 Taking Damage without Blood</br>
+<br>3.8 Currently Taking Damage</br>
 
 (All animated effects were conceptualized by me and crafted using Aseprite. I referenced and utilized the following resource: https://otsoga.itch.io/dynamic-status-bars.)
 

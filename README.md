@@ -40,6 +40,44 @@ This is an adventurous game where you collect diamonds. You must gather 7 gems, 
 
 The second level features 3 gems. You can obtain two of them through exploration, while the third gem is guarded by three angelic guardians. Once you collect 6 gems, they will challenge you. Upon completing their trial, they will reward you with the final gem!
 
+## Health Points System
+Our product features an excellent health points system, with each one accompanied by animated effects.
+![ezgif com-video-to-gif-converter](https://github.com/Linjiajie2002/Forest-Wanderer-The-Enchanted-Quest/assets/92087408/5350aee9-4e2f-4b44-a776-0a1331f0c17e)
+
+Moreover, you have the freedom to control the length of the health points at your discretion.
+
+![ezgif com-combine](https://github.com/Linjiajie2002/Forest-Wanderer-The-Enchanted-Quest/assets/92087408/5dfeb5a5-9ec6-4d2a-b04b-c317a68a2a0a)
+
+The health points system is divided into three parts: the head, tail, and middle. 
+
+Head Part:
+
+1.1 Idle
+1.2 Death
+1.3 Healing
+1.4 Taking Damage
+Tail Part:
+
+2.1 Idle
+2.2 Death
+2.3 Healing with Blood
+2.4 Healing without Blood
+2.5 Taking Damage with Blood
+2.6 Taking Damage without Blood
+Middle Part:
+
+3.1 Idle
+3.2 Death
+3.3 Healing with Blood
+3.4 Healing without Blood
+3.5 Currently Healing
+3.6 Taking Damage with Blood
+3.7 Taking Damage without Blood
+3.8 Currently Taking Damage
+
+(All animated effects were conceptualized by me and crafted using Aseprite. I referenced and utilized the following resource: https://otsoga.itch.io/dynamic-status-bars.)
+
+
 ## Trials of the Angels
 In the Trials of the Angels, you must navigate through intense enemy attacks while collecting three types of energy orbs. For each type of energy orb, you need to collect them five times.
 

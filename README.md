@@ -43,7 +43,18 @@ The second level features 3 gems. You can obtain two of them through exploration
 ## Trials of the Angels
 In the Trials of the Angels, you must navigate through intense enemy attacks while collecting three types of energy orbs. For each type of energy orb, you need to collect them five times.
 
-![GIF1](https://github.com/Linjiajie2002/Forest-Wanderer-The-Enchanted-Quest/assets/92087408/47fe3340-fe89-4ce7-b6d8-c0f40b9e5fc7)
+![GIF1](https://github.com/Linjiajie2002/Forest-Wanderer-The-Enchanted-Quest/assets/92087408/bfae79b0-1f56-4d61-ac10-f51fc0580ea0)
+
+Occasionally, there will also be opportunities to treat (heal) blood packs, and being prepared is how you can encounter them.
+
+![png1](https://github.com/Linjiajie2002/Forest-Wanderer-The-Enchanted-Quest/assets/92087408/8e8714c9-b310-452f-9393-ed34efc1d61c)
+
+Upon successful completion of the task, you will be entitled to receive a reward, thereby acknowledging your efforts and achievements in the process.
+
+![GIF2](https://github.com/Linjiajie2002/Forest-Wanderer-The-Enchanted-Quest/assets/92087408/842d45ae-5861-4739-92d1-dcac062964d1)
+
+
+
 
 
 ## Developers

@@ -99,8 +99,8 @@ Upon successful completion of the task, you will be entitled to receive a reward
 
 ## Developers
 
- - Guillem Montes- [@Guillem257](https://github.com/Guillem257)
  - Jiajie Lin - [@Linjiajie2002](https://github.com/Linjiajie2002)
+ - Guillem Montes- [@Guillem257](https://github.com/Guillem257)
 
 ## Features
 

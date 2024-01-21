@@ -71,7 +71,7 @@
 				<animations4 Tsprite="20" x="96" y="80" Pweight="384" texturepath="Assets/Effecto/Gravity-SpriteSheet.png"/>
 			</effect>
 
-			<playerlife>
+			<playerlife life ="10">
 				<lifebar_head_tail Posx="150" Posy="570" Tsprite="64" Pweight="144" x="18" y="18" texturepath="Assets\Effecto\LifeBar\lifebar_head_tail.png"/>
 				<lifebar_mid Posx="150" Posy="570" Tsprite="56" Pweight="120" x="15" y="18" texturepath="Assets\Effecto\LifeBar\lifebar_mid.png"/>
 				<lifebar_glass Posx="150" Posy="570" Tsprite="8" Pweight="680" x="85" y="110" texturepath="Assets\Effecto\LifeBar\glass.png"/>
@@ -166,7 +166,7 @@
 					<angel_texture3 texturepath="Assets\Sprite\Angel\yellow_bar.png"/>
 				</borde>
 			</angel>
-			<playerlife>
+			<playerlife life ="10">
 				<lifebar_head_tail Posx="150" Posy="570" Tsprite="64" Pweight="144" x="18" y="18" texturepath="Assets\Effecto\LifeBar\lifebar_head_tail.png"/>
 				<lifebar_mid Posx="150" Posy="570" Tsprite="56" Pweight="120" x="15" y="18" texturepath="Assets\Effecto\LifeBar\lifebar_mid.png"/>
 				<lifebar_glass Posx="150" Posy="570" Tsprite="8" Pweight="680" x="85" y="110" texturepath="Assets\Effecto\LifeBar\glass.png"/>

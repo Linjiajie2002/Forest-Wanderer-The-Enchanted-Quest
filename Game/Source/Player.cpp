@@ -221,7 +221,9 @@ bool Player::Update(float dt)
 		app->map->LevelMap = 1;
 		app->scene->changeScena = true;
 		//app->fade->FadetoBlackTransition(app->scene, app->scene);
+		app->SaveRequest();
 		app->fade->FadeToBlack(app->scene, app->scene,20.0f);
+		
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
@@ -230,6 +232,7 @@ bool Player::Update(float dt)
 		app->map->LevelMap = 2;
 
 		//app->fade->FadetoBlackTransition(app->scene, app->scene);
+		app->SaveRequest();
 		app->fade->FadeToBlack(app->scene, app->scene, 20.0f);
 	}
 
@@ -632,6 +635,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		//app->fade->FadetoBlackTransition(app->scene, app->scene);
 		isVictoria = true;
 		app->map->LevelMap = 2;
+		app->SaveRequest();
 		app->fade->FadeToBlack(app->scene, app->scene);
 
 		break;
@@ -663,7 +667,6 @@ void Player::reLoadXML()
 	position.y = parameters.attribute("y").as_int();
 	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
 
-
 	//data player
 
 	speed = parameters.attribute("speed").as_float();
@@ -693,5 +696,6 @@ void Player::reLoadXML()
 	Jump_UP.LoadAnim("Player", "Jump_UP", spritePositions);
 	Jump_DOWN.LoadAnim("Player", "Jump_DOWN", spritePositions);
 	Jump_DOWN_LOOP.LoadAnim("Player", "Jump_DOWN_LOOP", spritePositions);
+
 }
 

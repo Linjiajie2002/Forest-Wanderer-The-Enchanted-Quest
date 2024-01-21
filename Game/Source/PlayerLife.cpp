@@ -24,12 +24,16 @@ PlayerLife::PlayerLife() : Entity(EntityType::PLAYERLIFE)
 PlayerLife::~PlayerLife() {}
 
 bool PlayerLife::Awake() {
+
 	return true;
 }
 
 bool PlayerLife::Start() {
 
-
+	newmap = true;
+	app->SaveRequest();
+	app->LoadRequest();
+	newmap = false;
 	reLoadXML();
 	lifebar_head_tail_texture = app->tex->Load(lifebar_head_tail_texture_Path);
 
@@ -42,6 +46,11 @@ bool PlayerLife::Start() {
 
 	currentAnimation3 = &Tail_idle;
 
+
+
+	lifeMark = life;
+
+	lifebar = life - 2;
 
 	for (int i = 0; i < lifebar; i++)
 	{
@@ -81,7 +90,7 @@ bool PlayerLife::Update(float dt)
 	updateMiddleAnimations();
 	updateTailAnimation();
 	lifebarstate();
-	
+
 
 
 	rect_4 = currentAnimation4->GetCurrentFrame();
@@ -352,6 +361,8 @@ void PlayerLife::reLoadXML()
 {
 	pugi::xml_document configFile;
 
+
+
 	lifebar_head_tail_texture_Path = parameters.child("lifebar_head_tail").attribute("texturepath").as_string();
 	TSprite = parameters.child("lifebar_head_tail").attribute("Tsprite").as_int();
 	SpriteX = parameters.child("lifebar_head_tail").attribute("x").as_int();
@@ -373,12 +384,14 @@ void PlayerLife::reLoadXML()
 	Tail_idle_nb.LoadAnim("PlayerLife_head", "Tail_idle_nb", spritePositions);
 
 
+
 	lifebar_mid_texture_Path = parameters.child("lifebar_mid").attribute("texturepath").as_string();
 	TSprite = parameters.child("lifebar_mid").attribute("Tsprite").as_int();
 	SpriteX = parameters.child("lifebar_mid").attribute("x").as_int();
 	SpriteY = parameters.child("lifebar_mid").attribute("y").as_int();
 	PhotoWeight = parameters.child("lifebar_mid").attribute("Pweight").as_int();
 	spritePositions = SPosition.SpritesPos(TSprite, SpriteX, SpriteY, PhotoWeight);
+
 
 
 
@@ -415,4 +428,6 @@ void PlayerLife::reLoadXML()
 
 	Glass_idle.LoadAnim("PlayerLife_mid", "lifebar_glass_idle", spritePositions);
 	Glass_broke.LoadAnim("PlayerLife_mid", "lifebar_glass_broke", spritePositions);
+
+
 }

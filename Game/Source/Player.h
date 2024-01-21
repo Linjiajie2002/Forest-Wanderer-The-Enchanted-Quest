@@ -111,9 +111,10 @@ public:
 	bool isFacingLeft = false;
 	bool isHighJumping = false;
 
+	bool newMap = false;
+
 	uint width;
 	uint height;
-
 	//Jump
 	bool canJump = true;
 	bool playerOnPlatform = true;

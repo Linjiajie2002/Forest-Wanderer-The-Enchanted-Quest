@@ -101,13 +101,20 @@ public:
 	int lifePos_Y = 50;
 	int posXinicio = 100;
 
+	
+
+	/*
+		life = parameters.attribute("life").as_int();
+		lifeMark = life;
+		lifebar = life - 2;*/
+	
 	int life = 10;
 	int lifeMark = life;
 	bool playerTakeDmg = false;
 	bool playerTakeDmg_Animation = false;
-	int lifebar = life - 2;
+	int 	lifebar = life - 2;
 	bool playerTakeHeal = false;
-
+	bool newmap = false;
 	bool playerTakeBossDmg = false;
 
 private:

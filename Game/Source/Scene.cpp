@@ -62,7 +62,7 @@ bool Scene::Awake(pugi::xml_node& config)
 				enemy_flyeye->parameters = itemNode;
 			}
 
-			
+
 
 			for (pugi::xml_node itemNode = config.child("nivel_1").child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
 			{
@@ -244,7 +244,9 @@ bool Scene::Update(float dt)
 	}
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
 		printf("Load");
+		playerlife->newmap = false;
 		app->LoadRequest();
+		playerlife->newmap = true;
 	}
 
 	return true;
@@ -326,44 +328,67 @@ bool Scene::LoadState(pugi::xml_node node) {
 	LOG("Antes: x: %d y: %d", player->position.x, player->position.y);
 
 
-	player->position.x = node.child("player").attribute("x").as_int();
-	player->position.y = node.child("player").attribute("y").as_int();
-	player->pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(node.child("player").attribute("x").as_int()), PIXEL_TO_METERS(node.child("player").attribute("y").as_int())), 0);
-
-	LOG("Despues: x: %d y: %d", player->position.x, player->position.y);
-	LOG("aaaaaaaaaaaaa %d", node.child("player").attribute("x").as_int());
-	for (pugi::xml_node itemNode = node.child("enemies").child("enemy"); itemNode; itemNode = itemNode.next_sibling("enemy"))
-	{
-		if (!itemNode.attribute("active").as_bool()) {
-			app->entityManager->enemys_destroy.Add(iPoint(itemNode.attribute("x").as_int(), itemNode.attribute("y").as_int()));
-
-		}
+	if (playerlife->newmap == false) {
+		playerlife->life = node.child("player").attribute("life").as_int();
+		item->playerGetDiamante = node.child("player").attribute("Diamond").as_int();
 	}
-	app->entityManager->DestroyAllEnemis();
+	else {
+
+
+		player->position.x = node.child("player").attribute("x").as_int();
+		player->position.y = node.child("player").attribute("y").as_int();
+		playerlife->life = node.child("player").attribute("life").as_int();
+		item->playerGetDiamante = node.child("player").attribute("Diamond").as_int();
+		player->pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(node.child("player").attribute("x").as_int()), PIXEL_TO_METERS(node.child("player").attribute("y").as_int())), 0);
+
+		LOG("Despues: x: %d y: %d", player->position.x, player->position.y);
+		LOG("aaaaaaaaaaaaa %d", node.child("player").attribute("x").as_int());
+		for (pugi::xml_node itemNode = node.child("enemies").child("enemy"); itemNode; itemNode = itemNode.next_sibling("enemy"))
+		{
+			if (!itemNode.attribute("active").as_bool()) {
+				app->entityManager->enemys_destroy.Add(iPoint(itemNode.attribute("x").as_int(), itemNode.attribute("y").as_int()));
+
+			}
+		}
+		app->entityManager->DestroyAllEnemis();
+	}
+
 	return true;
 
 }
 
 bool Scene::SaveState(pugi::xml_node node) {
-
-
 	pugi::xml_node playerNode = node.append_child("player");
-	playerNode.append_attribute("x").set_value(player->position.x);
-	playerNode.append_attribute("y").set_value(player->position.y);
-	//playerNode.append_attribute("sceneLevel").set_value(app->sceneLevel);
 
-	pugi::xml_node enemyListNode = node.append_child("enemies");
-	for (int i = 0; i < app->entityManager->enemys.Count(); i++) {
-
-		pugi::xml_node enemyNode = enemyListNode.append_child("enemy");
-
-
-		enemyNode.append_attribute("x").set_value(app->entityManager->enemys.At(i)->data->originalposition.x);
-		enemyNode.append_attribute("y").set_value(app->entityManager->enemys.At(i)->data->originalposition.y);
-		enemyNode.append_attribute("active").set_value(app->entityManager->enemys.At(i)->data->active);
-
+	if (playerlife->newmap == false) {
+		playerNode.append_attribute("life").set_value(playerlife->life);
+		playerNode.append_attribute("x").set_value(player->position.x);
+		playerNode.append_attribute("y").set_value(player->position.y);
+		playerNode.append_attribute("life").set_value(playerlife->life);
+		playerNode.append_attribute("Diamond").set_value(item->playerGetDiamante);
 	}
+	else {
 
+		
+		playerNode.append_attribute("x").set_value(player->position.x);
+		playerNode.append_attribute("y").set_value(player->position.y);
+		playerNode.append_attribute("life").set_value(playerlife->life);
+		playerNode.append_attribute("Diamond").set_value(item->playerGetDiamante);
+		//playerNode.append_attribute("sceneLevel").set_value(app->sceneLevel);
+
+		pugi::xml_node enemyListNode = node.append_child("enemies");
+		for (int i = 0; i < app->entityManager->enemys.Count(); i++) {
+
+			pugi::xml_node enemyNode = enemyListNode.append_child("enemy");
+
+
+			enemyNode.append_attribute("x").set_value(app->entityManager->enemys.At(i)->data->originalposition.x);
+			enemyNode.append_attribute("y").set_value(app->entityManager->enemys.At(i)->data->originalposition.y);
+			enemyNode.append_attribute("active").set_value(app->entityManager->enemys.At(i)->data->active);
+
+		}
+	}
+	//playerlife->newmap = true;
 	return true;
 
 }

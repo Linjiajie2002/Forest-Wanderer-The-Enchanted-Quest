@@ -42,7 +42,7 @@ bool Effect::Start() {
 	pbody = app->physics->CreateRectangleSensor(6344, 1340, 70, 70, bodyType::STATIC);
 	pbody->ctype = ColliderType::VICTORYCOLLISION;
 
-	
+
 }
 
 bool Effect::Update(float dt)
@@ -59,8 +59,11 @@ bool Effect::Update(float dt)
 		ReviveEffectFuncion();
 		GhostEffect.Reset();
 	}
-	
+
+
+	if (app->scene->GetItem()->playerGetDiamante == 4) {
 		goMap2();
+	}
 
 
 	return true;
@@ -131,10 +134,10 @@ void Effect::goMap2()
 				pbody->body->SetFixedRotation(true);
 				pbody->listener = this;
 			}
-			
+
 			SDL_Rect rect4 = currentAnimation4->GetCurrentFrame();
 			currentAnimation4 = &Gravity_Void;
-			app->render->DrawTexture(Effecttexture4, position.x-55, position.y-50, 1.2, SDL_FLIP_NONE, &rect4);//0.8 , 2 
+			app->render->DrawTexture(Effecttexture4, position.x - 55, position.y - 50, 1.2, SDL_FLIP_NONE, &rect4);//0.8 , 2 
 			currentAnimation4->Update();
 
 		}
@@ -143,7 +146,7 @@ void Effect::goMap2()
 				app->physics->GetWorld()->DestroyBody(pbody->body);
 				pbody = nullptr;
 			}
-			
+
 
 		}
 	}

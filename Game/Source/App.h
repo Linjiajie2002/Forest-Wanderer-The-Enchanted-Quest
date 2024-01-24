@@ -10,10 +10,12 @@
 #include "ModuleFadeToBlack.h"
 #include "ModuleParticles.h"
 #include "Fonts.h"
+#include "Menu.h"
 
 #include "PugiXml/src/pugixml.hpp"
 
 // Modules
+
 class Window;
 class Input;
 class Render;
@@ -21,13 +23,13 @@ class Textures;
 class Audio;
 class Scene;
 class EntityManager;
+class Menu;
 class Map;
 class Physics;
 class Animation;
 class ModuleFadeToBlack;
 class ModuleParticles;
 class Fonts;
-
 
 class App
 {
@@ -108,6 +110,7 @@ public:
 	Audio* audio;
 	Scene* scene;
 	EntityManager* entityManager;
+	Menu* menu;
 	Map* map;
 	Physics* physics;
 	Animation* animation;

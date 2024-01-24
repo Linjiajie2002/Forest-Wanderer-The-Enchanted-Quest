@@ -7,16 +7,10 @@
 	<:anonymous />
 	<scene>
 		<player life="10" x="-11" y="1065" life="10" Diamond="0" />
-		<enemies>
-			<enemy x="3360" y="224" active="true" />
-			<enemy x="4648" y="1312" active="true" />
-			<enemy x="4438" y="1212" active="true" />
-			<enemy x="960" y="416" active="true" />
-			<enemy x="4992" y="672" active="true" />
-		</enemies>
 	</scene>
 	<map />
 	<entitymanager />
+	<:anonymous />
 	<particles />
 	<fonts />
 	<renderer>

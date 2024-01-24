@@ -13,7 +13,6 @@
 #include "Render.h"
 #include "Map.h"
 #include "Effect.h"
-#include "Particle.h"
 #include "Timer.h"
 #include "PlayerLife.h"
 #include "ModuleFadeToBlack.h"
@@ -234,6 +233,12 @@ bool Player::Update(float dt)
 		//app->fade->FadetoBlackTransition(app->scene, app->scene);
 		app->SaveRequest();
 		app->fade->FadeToBlack(app->scene, app->scene, 20.0f);
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN) {
+
+
+		app->fade->FadeToBlack(app->scene, app->menu, 20.0f);
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {

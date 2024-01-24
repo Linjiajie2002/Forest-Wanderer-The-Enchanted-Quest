@@ -4,7 +4,6 @@
 #include "Module.h"
 
 //#include "Globals.h"
-#include "Particle.h"
 //#include "Collider.h"
 #include "Physics.h"
 
@@ -56,7 +55,6 @@ private:
 	SDL_Texture* texture = nullptr;
 
 	// An array to store and handle all the particles
-	Particle* particles[MAX_ACTIVE_PARTICLES] = { nullptr };
 
 	// An index to the last added particle
 	uint lastParticle = 0;

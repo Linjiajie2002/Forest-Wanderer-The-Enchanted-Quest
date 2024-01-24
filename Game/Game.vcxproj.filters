@@ -52,9 +52,6 @@
     <ClCompile Include="Source\Window.cpp">
       <Filter>Modules\Other</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Particle.cpp">
-      <Filter>Modules\Particles</Filter>
-    </ClCompile>
     <ClCompile Include="Source\ModuleParticles.cpp">
       <Filter>Modules\Particles</Filter>
     </ClCompile>
@@ -96,6 +93,9 @@
     </ClCompile>
     <ClCompile Include="Source\Teleport.cpp">
       <Filter>Modules\Teleport</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Menu.cpp">
+      <Filter>Modules\Menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -177,9 +177,6 @@
     <ClInclude Include="Source\Animation.h">
       <Filter>Modules\Animation</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Particle.h">
-      <Filter>Modules\Particles</Filter>
-    </ClInclude>
     <ClInclude Include="Source\ModuleParticles.h">
       <Filter>Modules\Particles</Filter>
     </ClInclude>
@@ -221,6 +218,9 @@
     </ClInclude>
     <ClInclude Include="Source\Teleport.h">
       <Filter>Modules\Teleport</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Menu.h">
+      <Filter>Modules\Menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -289,6 +289,12 @@
     </Filter>
     <Filter Include="Modules\Teleport">
       <UniqueIdentifier>{26a70a62-fae5-4ef1-a124-bc213048188d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Menu">
+      <UniqueIdentifier>{a8ad0101-6c28-4d52-a954-0057ad0b72ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\GUI">
+      <UniqueIdentifier>{6ad10e03-d140-47a7-9240-df6196a74bfa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

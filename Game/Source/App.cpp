@@ -12,6 +12,8 @@
 #include "ModuleFadeToBlack.h"
 #include "ModuleParticles.h"
 #include "Fonts.h"
+#include "GuiManager.h"
+
 
 
 #include "Defs.h"
@@ -44,6 +46,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	par = new ModuleParticles();
 	fonts = new Fonts();
 	menu = new Menu();
+	guiManager = new GuiManager();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -58,8 +61,9 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(menu);
 	AddModule(par);
 	AddModule(fonts);
-
+	AddModule(guiManager);
 	// Render last to swap buffer
+	
 	AddModule(render);
 	AddModule(fade);
 
@@ -100,6 +104,8 @@ bool App::Awake()
 		fontsNumber = configNode.child("fonts").child("numbers").attribute("texturePath").as_string();
 		TimeBorde = configNode.child("fonts").child("borde").attribute("texturePath").as_string();
 		win->SetTitle(title.GetString());
+
+		
 
 		ListItem<Module*>* item;
 		item = modules.start;

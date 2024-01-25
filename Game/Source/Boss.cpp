@@ -76,6 +76,7 @@ bool Boss::Update(float dt)
 
 	if (inBossBattle) {
 		printTimer();
+		
 	}
 
 	if (atackTouch && app->scene->GetPlayerLife()->playerTakeBossDmg == false) {
@@ -85,6 +86,7 @@ bool Boss::Update(float dt)
 
 	if (app->scene->GetItem()->playerGetDiamante == 6 && inBossBattle == false && !app->scene->GetPlayer()->isDead && !app->scene->GetItem()->victoria && goFight == false) {
 		goBossBattle();
+		app->SaveRequest();
 		goFight = true;
 	}
 

@@ -14,6 +14,8 @@
 #include "Diamond.h"
 #include "Cura.h"
 #include "Teleport.h"
+#include "GuiControl.h"
+#include "GuiControlButton.h"
 
 struct SDL_Texture;
 
@@ -87,6 +89,9 @@ public:
 	const char* PathfindingPath;
 
 	bool changeScena = false;
+
+	GuiControlButton* gcButtom;
+	GuiControlButton* gcButtom1;
 };
 
 #endif // __SCENE_H__

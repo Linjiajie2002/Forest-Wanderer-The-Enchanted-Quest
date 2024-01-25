@@ -97,6 +97,12 @@
     <ClCompile Include="Source\Menu.cpp">
       <Filter>Modules\Menu</Filter>
     </ClCompile>
+    <ClCompile Include="Source\GuiControlButton.cpp">
+      <Filter>Modules\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GuiManager.cpp">
+      <Filter>Modules\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Defs.h">
@@ -221,6 +227,15 @@
     </ClInclude>
     <ClInclude Include="Source\Menu.h">
       <Filter>Modules\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GuiControl.h">
+      <Filter>Modules\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GuiControlButton.h">
+      <Filter>Modules\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GuiManager.h">
+      <Filter>Modules\GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

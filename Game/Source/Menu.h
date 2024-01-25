@@ -32,6 +32,14 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+public:
+	SDL_Texture* fondotexture;
+	const char* fondoPath;
+
+	SDL_Texture* menutexture;
+	const char* menuPath;
+	SDL_Rect rect;
+
 private:
 
 

@@ -16,7 +16,9 @@
 #include "Diamond.h"
 #include "Cura.h"
 #include "Teleport.h"
-
+#include "GuiControl.h"
+#include "GuiManager.h"
+#include "GuiControlButton.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -39,8 +41,7 @@ bool Scene::Awake(pugi::xml_node& config)
 
 	// iterate all objects in the scene
 	// Check https://pugixml.org/docs/quickstart.html#access
-
-	if (app->map->LevelMap == 1) {
+	 if (app->map->LevelMap == 1) {
 		for (pugi::xml_node itemNode = config.child("nivel_1"); itemNode; itemNode = itemNode.next_sibling("nivel_1")) {
 
 			if (config.child("nivel_1").child("player")) {
@@ -203,7 +204,23 @@ bool Scene::Start()
 		app->map->mapData.tilesets.Count());
 
 
-	Pathfindingtexture = app->tex->Load(PathfindingPath);
+	Pathfindingtexture = app->tex->Load(PathfindingPath);	
+
+
+	SDL_Rect btPos = { windowW / 2 - 99, windowH / 2 - 137 , 225,60 };
+	gcButtom = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "PLAY", btPos, this);
+
+	SDL_Rect btPos1 = { windowW / 2-99, windowH / 2 -53, 225,60 };
+	gcButtom = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "CONTINUE", btPos1, this);
+
+	SDL_Rect btPos2 = { windowW / 2 - 99, windowH / 2 + 31, 225,60 };
+	gcButtom = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "SETTINGS", btPos2, this);
+
+	SDL_Rect btPos3 = { windowW / 2 - 99, windowH / 2 + 115, 225,60 };
+	gcButtom = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "CREDITS", btPos3, this);
+
+	SDL_Rect btPos4 = { windowW / 2 - 99, windowH / 2 + 199, 225,60 };
+	gcButtom = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "EXIT", btPos4, this);
 
 
 	return true;
@@ -360,14 +377,14 @@ bool Scene::LoadState(pugi::xml_node node) {
 bool Scene::SaveState(pugi::xml_node node) {
 	pugi::xml_node playerNode = node.append_child("player");
 
-	if (playerlife->newmap == false) {
-		playerNode.append_attribute("life").set_value(playerlife->life);
-		playerNode.append_attribute("x").set_value(player->position.x);
-		playerNode.append_attribute("y").set_value(player->position.y);
-		playerNode.append_attribute("life").set_value(playerlife->life);
-		playerNode.append_attribute("Diamond").set_value(item->playerGetDiamante);
-	}
-	else {
+	//if (playerlife->newmap == false) {
+	//
+	//	playerNode.append_attribute("x").set_value(player->position.x);
+	//	playerNode.append_attribute("y").set_value(player->position.y);
+	//	playerNode.append_attribute("life").set_value(playerlife->life);
+	//	playerNode.append_attribute("Diamond").set_value(item->playerGetDiamante);
+	//}
+	//else {
 
 		
 		playerNode.append_attribute("x").set_value(player->position.x);
@@ -387,7 +404,7 @@ bool Scene::SaveState(pugi::xml_node node) {
 			enemyNode.append_attribute("active").set_value(app->entityManager->enemys.At(i)->data->active);
 
 		}
-	}
+	/*}*/
 	//playerlife->newmap = true;
 	return true;
 

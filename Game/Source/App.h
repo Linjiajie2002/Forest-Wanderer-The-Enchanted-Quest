@@ -30,6 +30,7 @@ class Animation;
 class ModuleFadeToBlack;
 class ModuleParticles;
 class Fonts;
+class GuiManager;
 
 class App
 {
@@ -117,7 +118,7 @@ public:
 	ModuleFadeToBlack* fade;
 	ModuleParticles* par;
 	Fonts* fonts;
-
+	GuiManager* guiManager;
 	int FpsNum = 16;
 	int numbers = -1;
 	const char* TimeBorde;

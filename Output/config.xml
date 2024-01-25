@@ -7,7 +7,14 @@
 
 	<renderer>
 		<vsync value="true"/>
+		<fontTTF texturePath ="Assets/Fonts/arial/Minecraft.ttf"/>
 	</renderer>
+
+	<menu>
+		<fondo texturePath ="Assets/GUI/fondo.png"/>
+		<menu texturePath ="Assets/GUI/menu.png"/>
+		<menu_play texturePath ="Assets/GUI/MENU PLAY.png"/>
+	</menu>
 	<fonts>
 		<numbers texturePath ="Assets/Maps/Time/numeros.png"/>
 		<borde texturePath ="Assets/Maps/Time/TimeBorde.png"/>
@@ -174,7 +181,6 @@
 			
 			<Teleport>
 				<Teleport Posx="160" Posy="1010" Tsprite="35" Pweight="2560" x="256" y="312" texturepath="Assets\Sprite\Teleport\teleport.png"/>
-				<Teleport Posx="1900" Posy="1010" Tsprite="35" Pweight="2560" x="256" y="312" texturepath="Assets\Sprite\Teleport\teleport.png"/>
 			</Teleport>
 			
 		</nivel_2>

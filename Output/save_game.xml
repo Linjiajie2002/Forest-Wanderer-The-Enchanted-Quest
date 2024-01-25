@@ -22,7 +22,7 @@
 	<fonts />
 	<guiManager />
 	<renderer>
-		<camera x="0" y="-501" />
+		<camera x="0" y="2797" />
 	</renderer>
 	<:anonymous />
 </save_game>

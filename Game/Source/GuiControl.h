@@ -30,6 +30,7 @@ enum class GuiControlState
 	NORMAL,
 	FOCUSED,
 	PRESSED,
+	PRESSED_UP,
 	SELECTED
 };
 

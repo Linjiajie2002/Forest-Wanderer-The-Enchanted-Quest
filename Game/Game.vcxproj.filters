@@ -103,6 +103,9 @@
     <ClCompile Include="Source\GuiManager.cpp">
       <Filter>Modules\GUI</Filter>
     </ClCompile>
+    <ClCompile Include="Source\GuiScene.cpp">
+      <Filter>Modules\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Defs.h">
@@ -235,6 +238,9 @@
       <Filter>Modules\GUI</Filter>
     </ClInclude>
     <ClInclude Include="Source\GuiManager.h">
+      <Filter>Modules\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GuiScene.h">
       <Filter>Modules\GUI</Filter>
     </ClInclude>
   </ItemGroup>

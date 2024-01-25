@@ -30,10 +30,10 @@ bool PlayerLife::Awake() {
 
 bool PlayerLife::Start() {
 
-	newmap = true;
+	/*newmap = true;
 	app->SaveRequest();
 	app->LoadRequest();
-	newmap = false;
+	newmap = false;*/
 	reLoadXML();
 	lifebar_head_tail_texture = app->tex->Load(lifebar_head_tail_texture_Path);
 

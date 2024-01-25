@@ -371,6 +371,7 @@ bool Map::Load()
 	}
 
 	// Find the navigation layer
+
 	ListItem<MapLayer*>* mapLayerItem;
 	mapLayerItem = mapData.maplayers.start;
 	navigationLayer = mapLayerItem->data;

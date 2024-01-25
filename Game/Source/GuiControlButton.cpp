@@ -48,24 +48,33 @@ bool GuiControlButton::Update(float dt)
 		switch (id)
 		{
 		case 1:
-			newScena = false;
-			app->scene->changeScena = true;
-			app->map->LevelMap = 1;
 			
-			app->scene->IsEnabled();
-			app->map->IsEnabled();
-			app->entityManager->IsEnabled();
-
+			newgame = true;
 			app->guiManager->Disable();
 			app->scenemenu->Disable();
+			app->SaveRequest();
 			app->fade->FadeToBlack(app->scenemenu,app->scene,10);
 			
-
 			printf("play");
 			break;
+
 		case 2:
 			newScena = false;
 			printf("continue");
+
+			
+			
+			app->guiManager->Disable();
+			app->scenemenu->Disable();
+
+
+			
+
+			app->fade->FadeToBlack(app->scenemenu, app->scene, 10);
+			app->scene->GetPlayerLife()->newmap = false;
+			app->LoadRequest();
+			app->scene->GetPlayerLife()->newmap = true;
+
 			break;
 		case 3:
 			newScena = false;

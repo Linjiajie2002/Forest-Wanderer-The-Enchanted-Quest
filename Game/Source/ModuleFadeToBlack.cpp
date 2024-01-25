@@ -47,6 +47,7 @@ bool ModuleFadeToBlack::Update(float dt)
 			app->entityManager->Disable();
             app->map->Disable();
 			moduleToDisable->Disable();
+			app->entityManager->CleanUp();
 
 			pugi::xml_document configFile;
 			pugi::xml_node SceneInfo;
@@ -76,6 +77,7 @@ bool ModuleFadeToBlack::Update(float dt)
 
 
 bool ModuleFadeToBlack::CleanUp() {
+
 
 	return true;
 }

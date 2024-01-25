@@ -39,7 +39,6 @@ bool Player::Start() {
 
 	texture = app->tex->Load(texturePath);
 
-
 	//pbody = app->physics->CreateRectangle(position.x, position.y, 55,70, bodyType::DYNAMIC);
 	pbody = app->physics->CreateCircle(position.x, position.y, 31, bodyType::DYNAMIC);
 	pbody->listener = this;
@@ -261,7 +260,10 @@ bool Player::Update(float dt)
 		}
 		app->scene->GetPlayerLife()->life = 0;
 		app->scene->GetBoss()->inBossBattle = false;
+
+		app->scene->GetPlayerLife()->newmap = false;
 		app->LoadRequest();
+		app->scene->GetPlayerLife()->newmap = true;
 		noTp = false;
 		isDead = false;
 		if (isPosibleRevive) {

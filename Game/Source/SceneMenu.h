@@ -49,7 +49,7 @@ public:
 	bool CleanUp();
 
 
-
+	GuiControlButton* GetGuiControlButton();
 
 private:
 	SDL_Texture* img;
@@ -61,7 +61,9 @@ public:
 	const char* fondoPath;
 	uint windowW, windowH;
 	GuiControlButton* gcButtom;
-	GuiControlButton* gcButtom1;
+
+
+
 };
 
 #endif // __SCENE_H__

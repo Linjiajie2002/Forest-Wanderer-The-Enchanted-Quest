@@ -41,7 +41,8 @@ bool Scene::Awake(pugi::xml_node& config)
 
 	// iterate all objects in the scene
 	// Check https://pugixml.org/docs/quickstart.html#access
-	 if (app->map->LevelMap == 1) {
+	/*if (IsEnabled()) {*/
+	if (app->map->LevelMap == 1) {
 		for (pugi::xml_node itemNode = config.child("nivel_1"); itemNode; itemNode = itemNode.next_sibling("nivel_1")) {
 
 			if (config.child("nivel_1").child("player")) {
@@ -179,6 +180,7 @@ bool Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool Scene::Start()
 {
+	printf("3");
 	// NOTE: We have to avoid the use of paths in the code, we will move it later to a config file
 	//img = app->tex->Load("Assets/Textures/test.png");
 
@@ -204,10 +206,10 @@ bool Scene::Start()
 		app->map->mapData.tilesets.Count());
 
 
-	Pathfindingtexture = app->tex->Load(PathfindingPath);	
+	Pathfindingtexture = app->tex->Load(PathfindingPath);
 
 
-	
+
 
 
 	return true;
@@ -333,18 +335,25 @@ bool Scene::LoadState(pugi::xml_node node) {
 
 
 	if (playerlife->newmap == false) {
+		printf("\nnewmap1");
 		playerlife->life = node.child("player").attribute("life").as_int();
 		item->playerGetDiamante = node.child("player").attribute("Diamond").as_int();
+		player->position.x = node.child("player").attribute("x").as_int();
+		player->position.y = node.child("player").attribute("y").as_int();
 	}
 	else {
 
-
+		
 		player->position.x = node.child("player").attribute("x").as_int();
 		player->position.y = node.child("player").attribute("y").as_int();
+		
 		playerlife->life = node.child("player").attribute("life").as_int();
 		item->playerGetDiamante = node.child("player").attribute("Diamond").as_int();
-		player->pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(node.child("player").attribute("x").as_int()), PIXEL_TO_METERS(node.child("player").attribute("y").as_int())), 0);
-
+		if (player->pbody != nullptr) {
+			printf("2");
+			player->pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(player->position.x), PIXEL_TO_METERS(player->position.y)), 0);
+		}
+		printf("PosX%d ", player->position.x);
 		LOG("Despues: x: %d y: %d", player->position.x, player->position.y);
 		LOG("aaaaaaaaaaaaa %d", node.child("player").attribute("x").as_int());
 		for (pugi::xml_node itemNode = node.child("enemies").child("enemy"); itemNode; itemNode = itemNode.next_sibling("enemy"))
@@ -364,16 +373,30 @@ bool Scene::LoadState(pugi::xml_node node) {
 bool Scene::SaveState(pugi::xml_node node) {
 	pugi::xml_node playerNode = node.append_child("player");
 
-	//if (playerlife->newmap == false) {
-	//
-	//	playerNode.append_attribute("x").set_value(player->position.x);
-	//	playerNode.append_attribute("y").set_value(player->position.y);
-	//	playerNode.append_attribute("life").set_value(playerlife->life);
-	//	playerNode.append_attribute("Diamond").set_value(item->playerGetDiamante);
-	//}
-	//else {
 
-		
+	if (app->scenemenu->GetGuiControlButton()->newgame) {
+
+		playerNode.append_attribute("x").set_value(player->position.x);
+		playerNode.append_attribute("y").set_value(player->position.y);
+		playerNode.append_attribute("life").set_value(10);
+		playerNode.append_attribute("Diamond").set_value(0);
+		//playerNode.append_attribute("sceneLevel").set_value(app->sceneLevel);
+
+		pugi::xml_node enemyListNode = node.append_child("enemies");
+		for (int i = 0; i < app->entityManager->enemys.Count(); i++) {
+
+			pugi::xml_node enemyNode = enemyListNode.append_child("enemy");
+
+
+			enemyNode.append_attribute("x").set_value(app->entityManager->enemys.At(i)->data->originalposition.x);
+			enemyNode.append_attribute("y").set_value(app->entityManager->enemys.At(i)->data->originalposition.y);
+			enemyNode.append_attribute("active").set_value(app->entityManager->enemys.At(i)->data->active);
+
+		}
+		app->scenemenu->GetGuiControlButton()->newgame = false;
+	}
+	else {
+
 		playerNode.append_attribute("x").set_value(player->position.x);
 		playerNode.append_attribute("y").set_value(player->position.y);
 		playerNode.append_attribute("life").set_value(playerlife->life);
@@ -391,6 +414,7 @@ bool Scene::SaveState(pugi::xml_node node) {
 			enemyNode.append_attribute("active").set_value(app->entityManager->enemys.At(i)->data->active);
 
 		}
+	}
 	/*}*/
 	//playerlife->newmap = true;
 	return true;

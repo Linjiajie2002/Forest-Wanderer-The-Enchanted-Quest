@@ -36,10 +36,15 @@ public:
 
 	SDL_Texture* pressed_texture;
 	const char* pressed_Path;
+
+	SDL_Texture* titulo_texture;
+	const char* titulo_Path;
+
 	SDL_Rect rect;
 
 
 	bool newScena = false;
+	bool newgame = false;
 
 private:
 

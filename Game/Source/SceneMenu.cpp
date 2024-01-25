@@ -37,6 +37,7 @@ SceneMenu::~SceneMenu()
 // Called before render is available
 bool SceneMenu::Awake(pugi::xml_node& config)
 {
+
 	LOG("Loading Scene");
 	bool ret = true;
 	
@@ -101,5 +102,10 @@ bool SceneMenu::CleanUp()
 	LOG("Freeing scene");
 
 	return true;
+}
+
+GuiControlButton* SceneMenu::GetGuiControlButton()
+{
+	return gcButtom;
 }
 

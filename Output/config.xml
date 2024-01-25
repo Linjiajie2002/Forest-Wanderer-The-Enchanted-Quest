@@ -14,9 +14,9 @@
 	<menu>
 		<fondo texturePath ="Assets/GUI/fondo.png"/>
 		<menu texturePath ="Assets/GUI/menu.png"/>
-		<menu texturePath ="Assets/GUI/menu.png"/>
-		<menu texturePath ="Assets/GUI/menu.png"/>
-		<menu texturePath ="Assets/GUI/menu.png"/>
+		<norrmal texturePath ="Assets/GUI/menu.png"/>
+		<focused texturePath ="Assets/GUI/menu.png"/>
+		<pressed texturePath ="Assets/GUI/boton_3.png"/>
 	</menu>
 	<fonts>
 		<numbers texturePath ="Assets/Maps/Time/numeros.png"/>

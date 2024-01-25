@@ -17,7 +17,7 @@
 #include "Defs.h"
 #include "Log.h"
 
-EntityManager::EntityManager() : Module()
+EntityManager::EntityManager(bool start_Enabled) : Module(start_Enabled)
 {
 	name.Create("entitymanager");
 }

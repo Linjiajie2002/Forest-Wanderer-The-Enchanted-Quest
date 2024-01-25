@@ -6,7 +6,7 @@
 #include "GuiScene.h"
 #include "Audio.h"
 
-GuiManager::GuiManager() :Module()
+GuiManager::GuiManager(bool start_Enabled) : Module(start_Enabled)
 {
 	name.Create("guiManager");
 }

@@ -43,9 +43,6 @@
     <ClCompile Include="Source\Physics.cpp">
       <Filter>Modules\Other</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Scene.cpp">
-      <Filter>Modules\Other</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Timer.cpp">
       <Filter>Modules\Other</Filter>
     </ClCompile>
@@ -105,6 +102,12 @@
     </ClCompile>
     <ClCompile Include="Source\GuiScene.cpp">
       <Filter>Modules\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene.cpp">
+      <Filter>Modules\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneMenu.cpp">
+      <Filter>Modules\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -169,9 +172,6 @@
       <Filter>Modules\Other</Filter>
     </ClInclude>
     <ClInclude Include="Source\Physics.h">
-      <Filter>Modules\Other</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene.h">
       <Filter>Modules\Other</Filter>
     </ClInclude>
     <ClInclude Include="Source\Timer.h">
@@ -242,6 +242,12 @@
     </ClInclude>
     <ClInclude Include="Source\GuiScene.h">
       <Filter>Modules\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene.h">
+      <Filter>Modules\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneMenu.h">
+      <Filter>Modules\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -316,6 +322,9 @@
     </Filter>
     <Filter Include="Modules\GUI">
       <UniqueIdentifier>{6ad10e03-d140-47a7-9240-df6196a74bfa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Scene">
+      <UniqueIdentifier>{0b17fd62-5cb3-4251-a862-7f4600433435}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

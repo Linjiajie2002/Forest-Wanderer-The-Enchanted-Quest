@@ -5,6 +5,7 @@
 #include "Textures.h"
 #include "Scene.h"
 #include "Map.h"
+#include "GuiManager.h"
 
 GuiControlButton::GuiControlButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(GuiControlType::BUTTON, id)
 {
@@ -16,7 +17,7 @@ GuiControlButton::GuiControlButton(uint32 id, SDL_Rect bounds, const char* text)
 	pugi::xml_document configFile;
 	pugi::xml_node menuconfig;
 	pugi::xml_parse_result parseResult = configFile.load_file("config.xml");
-	menuconfig = configFile.child("config").child("menu");
+	menuconfig = configFile.child("config").child("scenemenu").child("menu");
 
 	fondoPath = menuconfig.child("fondo").attribute("texturePath").as_string();
 	menuPath = menuconfig.child("menu").attribute("texturePath").as_string();
@@ -39,6 +40,9 @@ GuiControlButton::~GuiControlButton()
 bool GuiControlButton::Update(float dt)
 {
 
+	/*SDL_Rect rect1 = { 0,0,1920,1080 };
+	app->render->DrawTexture(fondotexture, 0, 0, 0.7, SDL_FLIP_NONE, &rect1, 0, 0);*/
+	
 	buttonstate();
 	if (newScena) {
 		switch (id)
@@ -46,8 +50,17 @@ bool GuiControlButton::Update(float dt)
 		case 1:
 			newScena = false;
 			app->scene->changeScena = true;
-			app->map->LevelMap = 2;
-			app->fade->FadeToBlack(app->scene,app->scene,10);
+			app->map->LevelMap = 1;
+			
+			app->scene->IsEnabled();
+			app->map->IsEnabled();
+			app->entityManager->IsEnabled();
+
+			app->guiManager->Disable();
+			app->scenemenu->Disable();
+			app->fade->FadeToBlack(app->scenemenu,app->scene,10);
+			
+
 			printf("play");
 			break;
 		case 2:
@@ -112,19 +125,19 @@ void GuiControlButton::buttonstate()
 			break;
 		case GuiControlState::NORMAL:
 			rect = { 0,0,1920,1080 };
-			app->render->DrawTexture(normal_texture, bounds.x / 2 - 420, bounds.y - 370, 0.7, SDL_FLIP_NONE, &rect, 0, 0);
+			app->render->DrawTexture(normal_texture, bounds.x / 2 - 390, bounds.y - 370, 0.7, SDL_FLIP_NONE, &rect, 0, 0);
 			//printf("Normal");
 			break;
 		case GuiControlState::FOCUSED:
-			app->render->DrawTexture(focused_texture, bounds.x / 2 - 420, bounds.y - 270, 0.7, SDL_FLIP_NONE, &rect, 0, 0);
+			app->render->DrawTexture(focused_texture, bounds.x / 2 - 390, bounds.y - 270, 0.7, SDL_FLIP_NONE, &rect, 0, 0);
 			break;
 		case GuiControlState::PRESSED:
-			app->render->DrawTexture(pressed_texture, bounds.x / 2 - 420, bounds.y - 270, 0.7, SDL_FLIP_NONE, &rect, 0, 0);
+			app->render->DrawTexture(pressed_texture, bounds.x / 2 - 390, bounds.y - 270, 0.7, SDL_FLIP_NONE, &rect, 0, 0);
 			break;
 
 		case GuiControlState::PRESSED_UP:
 			newScena = true;
-			app->render->DrawTexture(pressed_texture, bounds.x / 2 - 420, bounds.y - 270, 0.7, SDL_FLIP_NONE, &rect, 0, 0);
+			app->render->DrawTexture(pressed_texture, bounds.x / 2 - 390, bounds.y - 270, 0.7, SDL_FLIP_NONE, &rect, 0, 0);
 			break;
 		
 	}

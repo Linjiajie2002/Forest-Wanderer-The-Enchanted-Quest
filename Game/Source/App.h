@@ -11,6 +11,7 @@
 #include "ModuleParticles.h"
 #include "Fonts.h"
 #include "Menu.h"
+#include "SceneMenu.h"
 
 #include "PugiXml/src/pugixml.hpp"
 
@@ -31,6 +32,7 @@ class ModuleFadeToBlack;
 class ModuleParticles;
 class Fonts;
 class GuiManager;
+class SceneMenu;
 
 class App
 {
@@ -119,6 +121,8 @@ public:
 	ModuleParticles* par;
 	Fonts* fonts;
 	GuiManager* guiManager;
+	SceneMenu* scenemenu;
+
 	int FpsNum = 16;
 	int numbers = -1;
 	const char* TimeBorde;

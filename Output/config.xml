@@ -10,14 +10,15 @@
 		<fontTTF texturePath ="Assets/Fonts/arial/Minecraft.ttf"/>
 		<Death_Record texturePath ="Assets/Fonts/arial/Death_Record.ttf"/>
 	</renderer>
-
-	<menu>
-		<fondo texturePath ="Assets/GUI/fondo.png"/>
-		<menu texturePath ="Assets/GUI/menu.png"/>
-		<normal texturePath ="Assets/GUI/boton_1.png"/>
-		<focused texturePath ="Assets/GUI/boton_2.png"/>
-		<pressed texturePath ="Assets/GUI/boton_3.png"/>
-	</menu>
+	<scenemenu>
+		<menu>
+			<fondo texturePath ="Assets/GUI/fondo.png"/>
+			<menu texturePath ="Assets/GUI/menu.png"/>
+			<normal texturePath ="Assets/GUI/boton_1.png"/>
+			<focused texturePath ="Assets/GUI/boton_2.png"/>
+			<pressed texturePath ="Assets/GUI/boton_3.png"/>
+		</menu>
+	</scenemenu>
 	<fonts>
 		<numbers texturePath ="Assets/Maps/Time/numeros.png"/>
 		<borde texturePath ="Assets/Maps/Time/TimeBorde.png"/>

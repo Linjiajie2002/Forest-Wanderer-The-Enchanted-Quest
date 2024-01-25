@@ -13,6 +13,7 @@
 #include "ModuleParticles.h"
 #include "Fonts.h"
 #include "GuiManager.h"
+#include "SceneMenu.h"
 
 
 
@@ -38,9 +39,10 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	tex = new Textures();
 	audio = new Audio();
 	physics = new Physics();
-	scene = new Scene();
-	map = new Map();
-	entityManager = new EntityManager();
+	scene = new Scene(false);
+	scenemenu = new SceneMenu();
+	map = new Map(false);
+	entityManager = new EntityManager(false);
 	animation = new Animation();
 	fade = new ModuleFadeToBlack();
 	par = new ModuleParticles();
@@ -56,12 +58,14 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(physics);
 	AddModule(scene);
+	AddModule(scenemenu);
 	AddModule(map);
 	AddModule(entityManager);
 	AddModule(menu);
 	AddModule(par);
 	AddModule(fonts);
 	AddModule(guiManager);
+
 	// Render last to swap buffer
 	
 	AddModule(render);

@@ -51,7 +51,7 @@ bool Render::Awake(pugi::xml_node& config)
 	}
 	TTF_Init();
 
-	font = TTF_OpenFont(config.child("fontTTF").attribute("texturePath").as_string(),25);
+	font = TTF_OpenFont(config.child("Death_Record").attribute("texturePath").as_string(),50);
 	return ret;
 }
 
@@ -238,7 +238,7 @@ bool Render::DrawTexture(SDL_Texture* texture, int x, int y, double scale, SDL_R
 
 bool Render::DrawText(const char* text, int posx, int posy, int w, int h) {
 
-	SDL_Color color = { 255, 255, 255 };
+	SDL_Color color = { 255, 247, 194 };
 	SDL_Surface* surface = TTF_RenderText_Solid(font, text, color);
 	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
 

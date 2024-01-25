@@ -18,13 +18,11 @@ GuiControlButton::GuiControlButton(uint32 id, SDL_Rect bounds, const char* text)
 
 	fondoPath = menuconfig.child("fondo").attribute("texturePath").as_string();
 	menuPath = menuconfig.child("menu").attribute("texturePath").as_string();
-	menu_play_Path = menuconfig.child("menu_play").attribute("texturePath").as_string();
+	/*menu_play_Path = menuconfig.child("menu_play").attribute("texturePath").as_string();
 	menu_credits_Path = menuconfig.child("menu_credits").attribute("texturePath").as_string();
 	menu_continue_Path = menuconfig.child("menu_continue").attribute("texturePath").as_string();
 	menu_setting_Path = menuconfig.child("menu_setting").attribute("texturePath").as_string();
 	menu_exit_Path = menuconfig.child("menu_exit").attribute("texturePath").as_string();
-
-	
 
 
 	fondotexture = app->tex->Load(fondoPath);
@@ -33,7 +31,7 @@ GuiControlButton::GuiControlButton(uint32 id, SDL_Rect bounds, const char* text)
 	menu_credits_texture = app->tex->Load(menu_credits_Path);
 	menu_continue_texture = app->tex->Load(menu_continue_Path);
 	menu_setting_texture = app->tex->Load(menu_setting_Path);
-	menu_exit_texture = app->tex->Load(menu_exit_Path);
+	menu_exit_texture = app->tex->Load(menu_exit_Path);*/
 }
 
 GuiControlButton::~GuiControlButton()
@@ -100,6 +98,7 @@ bool GuiControlButton::Update(float dt)
 		}
 		
 		
+		app->render->DrawText(text.GetString(), bounds.x, bounds.y, bounds.w / 2, bounds.h / 2);
 
 		
 		

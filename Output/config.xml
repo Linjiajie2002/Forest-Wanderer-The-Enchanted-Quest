@@ -8,16 +8,15 @@
 	<renderer>
 		<vsync value="true"/>
 		<fontTTF texturePath ="Assets/Fonts/arial/Minecraft.ttf"/>
+		<Death_Record texturePath ="Assets/Fonts/arial/Death_Record.ttf"/>
 	</renderer>
 
 	<menu>
 		<fondo texturePath ="Assets/GUI/fondo.png"/>
 		<menu texturePath ="Assets/GUI/menu.png"/>
-		<menu_play texturePath ="Assets/GUI/MENU_PLAY.png"/>
-		<menu_credits texturePath ="Assets/GUI/MENU_CREDITS.png"/>
-		<menu_continue texturePath ="Assets/GUI/MENU_CONTINUE.png"/>
-		<menu_setting texturePath ="Assets/GUI/MENU_SETTINGS.png"/>
-		<menu_exit texturePath ="Assets/GUI/MENU_EXIT.png"/>
+		<menu texturePath ="Assets/GUI/menu.png"/>
+		<menu texturePath ="Assets/GUI/menu.png"/>
+		<menu texturePath ="Assets/GUI/menu.png"/>
 	</menu>
 	<fonts>
 		<numbers texturePath ="Assets/Maps/Time/numeros.png"/>

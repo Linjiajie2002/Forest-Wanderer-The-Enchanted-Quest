@@ -36,11 +36,6 @@ public:
 	SDL_Texture* menu_continue_texture;
 	const char* menu_continue_Path;
 
-	SDL_Texture* menu_setting_texture;
-	const char* menu_setting_Path;
-
-	SDL_Texture* menu_exit_texture;
-	const char* menu_exit_Path;
 
 	SDL_Rect rect;
 

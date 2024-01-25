@@ -207,19 +207,19 @@ bool Scene::Start()
 	Pathfindingtexture = app->tex->Load(PathfindingPath);	
 
 
-	SDL_Rect btPos = { windowW / 2 - 99, windowH / 2 - 137 , 225,60 };
+	SDL_Rect btPos = { windowW / 2 - 99, windowH / 2 - 130 , 200,50 };
 	gcButtom = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "PLAY", btPos, this);
 
-	SDL_Rect btPos1 = { windowW / 2-99, windowH / 2 -53, 225,60 };
+	SDL_Rect btPos1 = { windowW / 2-99, windowH / 2 -30, 200,50 };
 	gcButtom = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "CONTINUE", btPos1, this);
 
-	SDL_Rect btPos2 = { windowW / 2 - 99, windowH / 2 + 31, 225,60 };
+	SDL_Rect btPos2 = { windowW / 2 - 99, windowH / 2 + 70, 200,50 };
 	gcButtom = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "SETTINGS", btPos2, this);
 
-	SDL_Rect btPos3 = { windowW / 2 - 99, windowH / 2 + 115, 225,60 };
+	SDL_Rect btPos3 = { windowW / 2 - 99, windowH / 2 + 170, 200,50 };
 	gcButtom = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "CREDITS", btPos3, this);
 
-	SDL_Rect btPos4 = { windowW / 2 - 99, windowH / 2 + 199, 225,60 };
+	SDL_Rect btPos4 = { windowW / 2 - 99, windowH / 2 + 270, 200,50 };
 	gcButtom = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "EXIT", btPos4, this);
 
 

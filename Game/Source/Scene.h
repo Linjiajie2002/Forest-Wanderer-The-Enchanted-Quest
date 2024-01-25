@@ -63,14 +63,14 @@ public:
 	bool LoadState(pugi::xml_node node);
 
 	bool SaveState(pugi::xml_node node);
-	
+	uint windowW, windowH;
 
 
 private:
 	SDL_Texture* img;
 	float textPosX, textPosY = 0;
 	uint texW, texH;
-	uint windowW, windowH;
+	
 	Player* player = new Player;
 	Enemy_Goblin* enemy_goblin;
 	Effect* effect;

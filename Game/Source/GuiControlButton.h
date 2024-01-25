@@ -27,17 +27,18 @@ public:
 	SDL_Texture* menutexture;
 	const char* menuPath;
 
-	SDL_Texture* menu_play_texture;
-	const char* menu_play_Path;
+	SDL_Texture* normal_texture;
+	const char* normal_Path;
 
-	SDL_Texture* menu_credits_texture;
-	const char* menu_credits_Path;
+	SDL_Texture* focused_texture;
+	const char* focused_Path;
 
-	SDL_Texture* menu_continue_texture;
-	const char* menu_continue_Path;
-
-
+	SDL_Texture* pressed_texture;
+	const char* pressed_Path;
 	SDL_Rect rect;
+
+
+	bool newScena = false;
 
 private:
 

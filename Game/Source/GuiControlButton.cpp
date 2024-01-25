@@ -39,7 +39,7 @@ GuiControlButton::~GuiControlButton()
 
 bool GuiControlButton::Update(float dt)
 {
-
+	
 	/*SDL_Rect rect1 = { 0,0,1920,1080 };
 	app->render->DrawTexture(fondotexture, 0, 0, 0.7, SDL_FLIP_NONE, &rect1, 0, 0);*/
 	
@@ -62,13 +62,8 @@ bool GuiControlButton::Update(float dt)
 			newScena = false;
 			printf("continue");
 
-			
-			
 			app->guiManager->Disable();
 			app->scenemenu->Disable();
-
-
-			
 
 			app->fade->FadeToBlack(app->scenemenu, app->scene, 10);
 			app->scene->GetPlayerLife()->newmap = false;
@@ -83,11 +78,13 @@ bool GuiControlButton::Update(float dt)
 		case 4:
 			newScena = false;
 			printf("credits");
+
 			break;
 
 		case 5:
 			newScena = false;
 			printf("exit");
+			app->closeGame = false;
 			break;
 		}
 	

@@ -62,6 +62,8 @@ public:
 	uint windowW, windowH;
 	GuiControlButton* gcButtom;
 
+	bool ret = true;
+
 
 
 };

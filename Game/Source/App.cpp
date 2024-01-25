@@ -179,7 +179,9 @@ bool App::Update()
 		ret = PostUpdate();
 
 	FinishUpdate();
-	return ret;
+
+	if (!ret)return ret;
+	return closeGame;
 }
 
 // Load config from XML file

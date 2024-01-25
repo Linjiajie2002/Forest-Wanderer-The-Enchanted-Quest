@@ -126,6 +126,7 @@ public:
 	int FpsNum = 16;
 	int numbers = -1;
 	const char* TimeBorde;
+	bool closeGame = true;
 
 private:
 

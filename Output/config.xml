@@ -38,7 +38,7 @@
 	</particules>
 	<audio>
 		<music volume="128" />
-		<fx volume="18"/>
+		<fx volume="10"/>
 	</audio>
 	
 	<scene>

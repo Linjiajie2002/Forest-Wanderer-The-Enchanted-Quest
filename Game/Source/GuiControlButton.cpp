@@ -39,10 +39,8 @@ GuiControlButton::~GuiControlButton()
 
 bool GuiControlButton::Update(float dt)
 {
-	
 		buttonstate();
 
-		
 	return false;
 }
 

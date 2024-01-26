@@ -136,10 +136,6 @@ bool Player::Update(float dt)
 
 
 
-
-
-
-
 			if (playerOnPlatform) {
 				canJump = true;
 				jumping = false;
@@ -244,7 +240,6 @@ bool Player::Update(float dt)
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
-
 		vel = b2Vec2(1, 23);
 		pbody->body->SetTransform(vel,0);
 	}
@@ -255,28 +250,33 @@ bool Player::Update(float dt)
 		position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 35;
 	}
 
-	if (isDead) {
-		NoControl = false;
+	if (die.HasFinished()) {
+		app->fade->FadeToBlack(app->scene, app->scenemenu, 20.0f);
+	}
+	if (lose) {
 		currentAnimation = &die;
-		if (pbody != nullptr) {
-			pbody->body->SetActive(false);
-		}
-		app->scene->GetPlayerLife()->life = 0;
-		app->scene->GetBoss()->inBossBattle = false;
-		hasDie = true;
-		app->scene->GetPlayerLife()->newmap = false;
-		app->LoadRequest();
-		app->scene->GetPlayerLife()->newmap = true;
-		noTp = false;
-		isDead = false;
+	}
 
-	
+	if (isDead) {
+		
 		if (dieCount == 2) {
-			printf("to Menu die");
-			app->fade->FadeToBlack(app->scene, app->scenemenu, 20.0f);
+			lose = true;
+			
 		}
 		else {
-			printf("dieCount: %d ", dieCount);
+			NoControl = false;
+			
+			if (pbody != nullptr) {
+				pbody->body->SetActive(false);
+			}
+			app->scene->GetPlayerLife()->life = 0;
+			app->scene->GetBoss()->inBossBattle = false;
+			hasDie = true;
+			app->scene->GetPlayerLife()->newmap = false;
+			app->LoadRequest();
+			app->scene->GetPlayerLife()->newmap = true;
+			noTp = false;
+			isDead = false;
 			dieCount += 1;
 		}
 
@@ -305,7 +305,7 @@ bool Player::Update(float dt)
 		die.Reset();
 	}
 
-
+	
 	//app->render->DrawTexture(texture, position.x, position.y);
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
 

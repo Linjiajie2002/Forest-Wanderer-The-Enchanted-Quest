@@ -87,6 +87,9 @@ public:
 	SDL_Texture* box_texture;
 	const char* box_Path;
 
+	SDL_Texture* victoria_texture;
+	const char* victoria_Path;
+
 
 	int settingPosX;
 

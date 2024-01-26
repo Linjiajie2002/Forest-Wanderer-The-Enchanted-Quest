@@ -345,7 +345,7 @@ bool Scene::LoadState(pugi::xml_node node) {
 		
 		player->position.x = node.child("player").attribute("x").as_int();
 		player->position.y = node.child("player").attribute("y").as_int();
-		player->dieCount = node.child("player").attribute("dieCount").as_int();
+		//player->dieCount = node.child("player").attribute("dieCount").as_int();
 		playerlife->life = node.child("player").attribute("life").as_int();
 		item->playerGetDiamante = node.child("player").attribute("Diamond").as_int();
 		if (player->pbody != nullptr) {
@@ -377,20 +377,19 @@ bool Scene::SaveState(pugi::xml_node node) {
 		playerNode.append_attribute("y").set_value(player->position.y);
 		playerNode.append_attribute("life").set_value(10);
 		playerNode.append_attribute("Diamond").set_value(0);
+
+		printf("%d", player->hasDie);
 		if (!player->hasDie) {
 			playerNode.append_attribute("dieCount").set_value(player->dieCount);
 		}
 		else {
 			player->hasDie = false;
 		}
-		//playerNode.append_attribute("sceneLevel").set_value(app->sceneLevel);
 
 		pugi::xml_node enemyListNode = node.append_child("enemies");
 		for (int i = 0; i < app->entityManager->enemys.Count(); i++) {
 
 			pugi::xml_node enemyNode = enemyListNode.append_child("enemy");
-
-
 			enemyNode.append_attribute("x").set_value(app->entityManager->enemys.At(i)->data->originalposition.x);
 			enemyNode.append_attribute("y").set_value(app->entityManager->enemys.At(i)->data->originalposition.y);
 			enemyNode.append_attribute("active").set_value(app->entityManager->enemys.At(i)->data->active);
@@ -404,7 +403,8 @@ bool Scene::SaveState(pugi::xml_node node) {
 		playerNode.append_attribute("y").set_value(player->position.y);
 		playerNode.append_attribute("life").set_value(playerlife->life);
 		playerNode.append_attribute("Diamond").set_value(item->playerGetDiamante);
-		printf("dddddd");
+	
+		printf("%d", player->hasDie);
 		if (!player->hasDie) {
 			playerNode.append_attribute("dieCount").set_value(player->dieCount);
 		}
@@ -412,8 +412,6 @@ bool Scene::SaveState(pugi::xml_node node) {
 			player->hasDie = false;
 		}
 		
-
-		//playerNode.append_attribute("sceneLevel").set_value(app->sceneLevel);
 
 		pugi::xml_node enemyListNode = node.append_child("enemies");
 		for (int i = 0; i < app->entityManager->enemys.Count(); i++) {

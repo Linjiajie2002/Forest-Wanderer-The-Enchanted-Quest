@@ -42,7 +42,7 @@ public:
 	List<Entity*> enemys;
 	List<iPoint> enemys_destroy;
 
-	bool pausa = false;
+
 	
 };
 

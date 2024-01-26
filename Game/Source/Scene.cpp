@@ -262,8 +262,9 @@ bool Scene::PostUpdate()
 {
 	bool ret = true;
 
-	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-		ret = false;
+	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
+		app->pausa = !app->pausa;
+	}
 
 	return ret;
 }
@@ -342,7 +343,12 @@ bool Scene::LoadState(pugi::xml_node node) {
 	}
 	else {
 
-		
+		if (!player->hasDie) {
+			player->dieCount = node.child("player").attribute("dieCount").as_int();
+		}
+		else {
+			player->hasDie = false;
+		}
 		player->position.x = node.child("player").attribute("x").as_int();
 		player->position.y = node.child("player").attribute("y").as_int();
 		//player->dieCount = node.child("player").attribute("dieCount").as_int();
@@ -403,10 +409,10 @@ bool Scene::SaveState(pugi::xml_node node) {
 		playerNode.append_attribute("y").set_value(player->position.y);
 		playerNode.append_attribute("life").set_value(playerlife->life);
 		playerNode.append_attribute("Diamond").set_value(item->playerGetDiamante);
-	
+		playerNode.append_attribute("dieCount").set_value(player->dieCount);
 		printf("%d", player->hasDie);
 		if (!player->hasDie) {
-			playerNode.append_attribute("dieCount").set_value(player->dieCount);
+			
 		}
 		else {
 			player->hasDie = false;

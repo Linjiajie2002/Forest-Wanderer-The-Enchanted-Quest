@@ -128,6 +128,9 @@ public:
 	const char* TimeBorde;
 	bool closeGame = true;
 
+	bool pausa = false;
+
+
 private:
 
 	int argc;

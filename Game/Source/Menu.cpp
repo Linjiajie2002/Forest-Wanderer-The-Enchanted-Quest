@@ -26,7 +26,7 @@ Menu::~Menu()
 // Called before render is available
 bool Menu::Awake(pugi::xml_node& config)
 {
-	title_Path = config.child("title").attribute("texturePath").as_string();
+	//title_Path = config.child("title").attribute("texturePath").as_string();
 
 
 	return true;
@@ -34,7 +34,7 @@ bool Menu::Awake(pugi::xml_node& config)
 
 bool Menu::Start()
 {
-	title_texture = app->tex->Load(title_Path);
+	//title_texture = app->tex->Load(title_Path);
 	return true;
 }
 

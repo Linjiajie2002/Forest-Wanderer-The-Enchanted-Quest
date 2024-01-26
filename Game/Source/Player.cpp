@@ -70,7 +70,6 @@ bool Player::Start() {
 bool Player::Update(float dt)
 {
 
-
 	//printf("%d \n", position.x);
 	currentAnimation = &idle;
 	if (pbody != nullptr) {
@@ -236,6 +235,9 @@ bool Player::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN) {
 		app->scenemenu->showButton = true;
+		
+		app->scenemenu->Enable();
+		app->guiManager->Enable();
 		app->fade->FadeToBlack(app->scene, app->scenemenu, 20.0f);
 	}
 
@@ -297,15 +299,12 @@ bool Player::Update(float dt)
 
 	}
 
-
-
 	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) {
 		isDead = !isDead;
 
 		die.Reset();
 	}
 
-	
 	//app->render->DrawTexture(texture, position.x, position.y);
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
 

@@ -22,6 +22,7 @@
 			<barra texturePath ="Assets/GUI/barra.png"/>
 			<box texturePath ="Assets/GUI/caja.png"/>
 			<victoria texturePath ="Assets/GUI/victoria_title.png"/>
+			<gameOver texturePath ="Assets/GUI/game_over.png"/>
 		</menu>
 	</scenemenu>
 	<menu>

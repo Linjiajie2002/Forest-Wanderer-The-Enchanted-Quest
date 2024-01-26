@@ -50,7 +50,7 @@ bool EntityManager::Awake(pugi::xml_node& config)
 
 bool EntityManager::Start() {
 
-	bool ret = true; 
+	bool ret = true;
 
 	//Iterates over the entities and calls Start
 	ListItem<Entity*>* item;
@@ -76,7 +76,7 @@ bool EntityManager::CleanUp()
 
 	while (item != NULL && ret == true)
 	{
-		
+
 		ret = item->data->CleanUp();
 		item = item->prev;
 	}
@@ -88,15 +88,15 @@ bool EntityManager::CleanUp()
 
 Entity* EntityManager::CreateEntity(EntityType type)
 {
-	Entity* entity = nullptr; 
+	Entity* entity = nullptr;
 
 	switch (type)
 	{
 	case EntityType::PLAYER:
-		entity = new Player(); 
+		entity = new Player();
 		break;
 	case EntityType::ENEMY_GOBLIN:
-		entity = new Enemy_Goblin(); 
+		entity = new Enemy_Goblin();
 		enemys.Add(entity);
 		break;
 	case EntityType::ENEMY_FLYEYE:
@@ -161,23 +161,23 @@ void EntityManager::DestroyAllEntities()
 
 void EntityManager::AddEntity(Entity* entity)
 {
-	if ( entity != nullptr) entities.Add(entity);
+	if (entity != nullptr) entities.Add(entity);
 }
 
 void EntityManager::DestroyAllEnemis()
 {
 	ListItem<Entity*>* item;
-	for (item = enemys.start; item != NULL; item = item->next) 
+	for (item = enemys.start; item != NULL; item = item->next)
 	{
 		ListItem<iPoint>* destroyEnemy;
-		for (destroyEnemy = enemys_destroy.start; destroyEnemy != NULL; destroyEnemy = destroyEnemy->next) 
+		for (destroyEnemy = enemys_destroy.start; destroyEnemy != NULL; destroyEnemy = destroyEnemy->next)
 		{
 			if (app->map->WorldToMap(destroyEnemy->data.x, destroyEnemy->data.y) == app->map->WorldToMap(item->data->originalposition.x, item->data->originalposition.y))
 			{
 				item->data->active = false;
 			}
 		}
-		
+
 	}
 
 }
@@ -188,13 +188,7 @@ bool EntityManager::Update(float dt)
 	ListItem<Entity*>* item;
 	Entity* pEntity = NULL;
 
-	/*for (item = entities.start; item != NULL && ret == true; item = item->next)
-	{
-		pEntity = item->data;
 
-		if (pEntity->active == false) continue;
-		ret = item->data->Update(dt);
-	}*/
 
 	if (this->active) {
 		for (item = entities.start; item != NULL && ret == true; item = item->next)
@@ -203,11 +197,14 @@ bool EntityManager::Update(float dt)
 
 			if (pEntity->active == false) {
 
-
-				item->data->Update(dt);
+				if (!app->pausa) {
+					item->data->Update(dt);
+				}
 				continue;
 			};
-			ret = item->data->Update(dt);
+			if (!app->pausa) {
+				ret = item->data->Update(dt);
+			}
 		}
 	}
 	return ret;

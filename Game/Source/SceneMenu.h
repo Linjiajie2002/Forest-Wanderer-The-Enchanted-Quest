@@ -90,6 +90,8 @@ public:
 	SDL_Texture* victoria_texture;
 	const char* victoria_Path;
 
+	SDL_Texture* gameOver_texture;
+	const char* gameOver_Path;
 
 	int settingPosX;
 

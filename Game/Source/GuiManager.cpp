@@ -32,7 +32,7 @@ GuiControl* GuiManager::CreateGuiControl(GuiControlType type, int id, const char
 
 	//Set the observer
 	guiControl->observer = observer;
-	
+
 	// Created GuiControls are add it to the list of controls
 	guiControlsList.Add(guiControl);
 
@@ -40,14 +40,15 @@ GuiControl* GuiManager::CreateGuiControl(GuiControlType type, int id, const char
 }
 
 bool GuiManager::Update(float dt)
-{	
+{
 
 	ListItem<GuiControl*>* control = guiControlsList.start;
-
+	printf("guimanager");
 	while (control != nullptr)
 	{
 		control->data->Update(dt);
 		control = control->next;
+
 	}
 
 	return true;
@@ -61,10 +62,11 @@ bool GuiManager::CleanUp()
 	{
 		RELEASE(control);
 	}
+	//guiControlsList.Clear();
+
 
 	return true;
 
-	return false;
 }
 
 void GuiManager::DestroyGuiControl(GuiControl* toDestroy) {

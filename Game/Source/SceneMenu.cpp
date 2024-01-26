@@ -47,7 +47,7 @@ bool SceneMenu::Awake(pugi::xml_node& config)
 	barra_Path = config.child("menu").child("barra").attribute("texturePath").as_string();
 	box_Path = config.child("menu").child("box").attribute("texturePath").as_string();
 	victoria_Path = config.child("menu").child("victoria").attribute("texturePath").as_string();
-
+	gameOver_Path = config.child("menu").child("gameOver").attribute("texturePath").as_string();
 
 	
 	return ret;
@@ -67,6 +67,7 @@ bool SceneMenu::Start()
 	barra_texture = app->tex->Load(barra_Path);
 	box_texture = app->tex->Load(box_Path);
 	victoria_texture = app->tex->Load(victoria_Path);
+	gameOver_texture = app->tex->Load(gameOver_Path);
 
 	if (!app->scene->GetItem()->victoria) {
 		menu();
@@ -104,7 +105,7 @@ bool SceneMenu::Update(float dt)
 		}
 	}else if (app->scene->GetPlayer()->lose) {
 
-		app->render->DrawTexture(victoria_texture, -160, -60, 0.7, SDL_FLIP_NONE, &rect1, 0, 0);
+		app->render->DrawTexture(gameOver_texture, -160, -60, 0.7, SDL_FLIP_NONE, &rect1, 0, 0);
 
 		if (showButton) {
 			victoria();

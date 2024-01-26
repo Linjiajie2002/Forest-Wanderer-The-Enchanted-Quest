@@ -41,6 +41,8 @@ public:
 	List<Entity*> entities;
 	List<Entity*> enemys;
 	List<iPoint> enemys_destroy;
+
+	bool pausa = false;
 	
 };
 

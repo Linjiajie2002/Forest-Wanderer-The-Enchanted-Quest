@@ -110,6 +110,7 @@ public:
 
 	bool isFacingLeft = false;
 	bool isHighJumping = false;
+	bool lose = false;
 
 	bool hasDie = false;
 	bool newMap = false;

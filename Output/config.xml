@@ -21,6 +21,7 @@
 			<title texturePath ="Assets/GUI/titulo.png"/>
 			<barra texturePath ="Assets/GUI/barra.png"/>
 			<box texturePath ="Assets/GUI/caja.png"/>
+			<victoria texturePath ="Assets/GUI/victoria_title.png"/>
 		</menu>
 	</scenemenu>
 	<menu>

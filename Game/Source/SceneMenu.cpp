@@ -46,6 +46,7 @@ bool SceneMenu::Awake(pugi::xml_node& config)
 	normal_Path = config.child("menu").child("normal").attribute("texturePath").as_string();
 	barra_Path = config.child("menu").child("barra").attribute("texturePath").as_string();
 	box_Path = config.child("menu").child("box").attribute("texturePath").as_string();
+	victoria_Path = config.child("menu").child("victoria").attribute("texturePath").as_string();
 
 
 	
@@ -65,9 +66,9 @@ bool SceneMenu::Start()
 	normal_texture = app->tex->Load(normal_Path);
 	barra_texture = app->tex->Load(barra_Path);
 	box_texture = app->tex->Load(box_Path);
+	victoria_texture = app->tex->Load(victoria_Path);
 
 	if (!app->scene->GetItem()->victoria) {
-		
 		menu();
 	}
 	else {
@@ -95,14 +96,23 @@ bool SceneMenu::Update(float dt)
 
 
 	if (app->scene->GetItem()->victoria) {
-		app->render->DrawTexture(title_texture, -160, 160, 0.7, SDL_FLIP_NONE, &rect1, 0, 0);
-		printf("%d",showButton);
+
+		app->render->DrawTexture(victoria_texture, -160, -60, 0.7, SDL_FLIP_NONE, &rect1, 0, 0);
 		if (showButton) {
 			victoria();
 			showButton = false;
 		}
-	}
-	else {
+	}else if (app->scene->GetPlayer()->lose) {
+
+		app->render->DrawTexture(victoria_texture, -160, -60, 0.7, SDL_FLIP_NONE, &rect1, 0, 0);
+
+		if (showButton) {
+			victoria();
+			showButton = false;
+		}
+
+
+	}else {
 		if (showMenu) {
 			menu();
 			showMenu = false;

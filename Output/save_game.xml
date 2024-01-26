@@ -6,7 +6,7 @@
 	<audio />
 	<:anonymous />
 	<scene>
-		<player x="1429" y="650" life="10" Diamond="0" dieCount="0" />
+		<player x="3711" y="175" life="10" Diamond="0" dieCount="0" />
 		<enemies>
 			<enemy x="0" y="0" active="true" />
 			<enemy x="0" y="0" active="true" />
@@ -27,7 +27,7 @@
 	<fonts />
 	<guiManager />
 	<renderer>
-		<camera x="-991" y="32" />
+		<camera x="-2841" y="-94" />
 	</renderer>
 	<:anonymous />
 </save_game>

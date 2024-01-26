@@ -110,24 +110,26 @@ bool SceneMenu::Update(float dt)
 	}
 
 	if (!showMenu && showSetting) {
-
+		settingPosX = -300;
 		SDL_Rect btPos1 = { 0,0, 1920,1080 };
-		app->render->DrawTexture(normal_texture, -400, -150, 0.7, SDL_FLIP_NONE, &btPos1, 0, 0);
-		app->render->DrawText("MUSICA", 220, 210,100,50);
+		app->render->DrawTexture(normal_texture, settingPosX, -150, 0.7, SDL_FLIP_NONE, &btPos1, 0, 0);
+		app->render->DrawText("MUSICA", 320, 210,100,50);
 
-		app->render->DrawTexture(normal_texture, -400, -50, 0.7, SDL_FLIP_NONE, &btPos1, 0, 0);
-		app->render->DrawText("FX VOLUME", 220, 310, 120, 50);
+		app->render->DrawTexture(normal_texture, settingPosX, -50, 0.7, SDL_FLIP_NONE, &btPos1, 0, 0);
+		app->render->DrawText("FX VOLUME", 320, 310, 120, 50);
 
 
-		app->render->DrawTexture(normal_texture, -400, 50, 0.7, SDL_FLIP_NONE, &btPos1, 0, 0);
-		app->render->DrawText("FULL SCREEN", 220, 410, 140, 50);
+		app->render->DrawTexture(normal_texture, settingPosX, 50, 0.7, SDL_FLIP_NONE, &btPos1, 0, 0);
+		app->render->DrawText("FULL SCREEN", 320, 410, 140, 50);
 
-		app->render->DrawTexture(normal_texture, -400, 150, 0.7, SDL_FLIP_NONE, &btPos1, 0, 0);
-		app->render->DrawText("VSync", 220, 510, 100, 50);
+		app->render->DrawTexture(normal_texture, settingPosX, 150, 0.7, SDL_FLIP_NONE, &btPos1, 0, 0);
+		app->render->DrawText("VSync", 320, 510, 100, 50);
 
-		app->render->DrawTexture(barra_texture, 0, 150, 0.7, SDL_FLIP_NONE, &btPos1, 0, 0);
+		app->render->DrawTexture(barra_texture, settingPosX +10, -235, 0.8, SDL_FLIP_NONE, &btPos1, 0, 0);
+		app->render->DrawTexture(barra_texture, settingPosX + 10, -135, 0.8, SDL_FLIP_NONE, &btPos1, 0, 0);
 
-		app->render->DrawTexture(box_texture, 0, 150, 0.7, SDL_FLIP_NONE, &btPos1, 0, 0);
+		app->render->DrawTexture(box_texture, -40, -125, 0.6, SDL_FLIP_NONE, &btPos1, 0, 0);
+		app->render->DrawTexture(box_texture, -40, -25, 0.6, SDL_FLIP_NONE, &btPos1, 0, 0);
 
 
 		if (showButton) {
@@ -272,6 +274,7 @@ bool SceneMenu::OnGuiMouseClickEvent(GuiControl* control)
 		}
 		showMenu = true;
 		showCredits = false;
+		showSetting = false;
 		app->guiManager->DestroyGuiControl(gcButtom);
 		break;
 	}
@@ -282,7 +285,7 @@ bool SceneMenu::OnGuiMouseClickEvent(GuiControl* control)
 
 void SceneMenu::setting()
 {
-	SDL_Rect btPos3 = { windowW / 2 - 50, windowH / 2 + 230, 200,50 };
+	SDL_Rect btPos3 = { windowW / 2 - 50, windowH / 2 + 250, 200,50 };
 	gcButtom = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "RETURN", btPos3, this);
 	deleteControl.push_back(gcButtom);
 

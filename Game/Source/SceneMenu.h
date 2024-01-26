@@ -86,7 +86,7 @@ public:
 	const char* box_Path;
 
 
-
+	int settingPosX;
 
 	bool newScena = false;
 	bool newgame = false;

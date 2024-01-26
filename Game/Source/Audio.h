@@ -13,7 +13,6 @@ class Audio : public Module
 public:
 
 	Audio();
-	int music;
 
 	// Destructor
 	virtual ~Audio();

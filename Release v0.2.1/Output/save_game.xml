@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<save_game>
+	<window />
+	<input />
+	<textures />
+	<audio />
+	<:anonymous />
+	<scene>
+		<player x="1431" y="646" life="10" Diamond="0" dieCount="0" />
+		<enemies>
+			<enemy x="0" y="0" active="true" />
+			<enemy x="0" y="0" active="true" />
+			<enemy x="0" y="0" active="true" />
+			<enemy x="0" y="0" active="true" />
+			<enemy x="0" y="0" active="true" />
+			<enemy x="3360" y="224" active="true" />
+			<enemy x="4648" y="1312" active="true" />
+			<enemy x="4438" y="1212" active="true" />
+			<enemy x="960" y="416" active="true" />
+			<enemy x="4992" y="672" active="true" />
+		</enemies>
+	</scene>
+	<scenemenu />
+	<map />
+	<entitymanager />
+	<particles />
+	<fonts />
+	<guiManager />
+	<renderer>
+		<camera x="-969" y="-44" />
+	</renderer>
+	<:anonymous />
+</save_game>

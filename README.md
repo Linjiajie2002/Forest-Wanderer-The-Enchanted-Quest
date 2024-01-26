@@ -23,7 +23,7 @@ Basic Controls
 - Q - Add Dianmond
 - N - Healing
 - M - Injuried
-
+- ESC - PAUSA
 Debug Controls
 
 - F1 - Go to level1

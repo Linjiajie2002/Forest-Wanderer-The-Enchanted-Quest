@@ -44,6 +44,8 @@ bool SceneMenu::Awake(pugi::xml_node& config)
 	Credits_Path = config.child("menu").child("credits").attribute("texturePath").as_string();
 	title_Path = config.child("menu").child("title").attribute("texturePath").as_string();
 	normal_Path = config.child("menu").child("normal").attribute("texturePath").as_string();
+	barra_Path = config.child("menu").child("barra").attribute("texturePath").as_string();
+	box_Path = config.child("menu").child("box").attribute("texturePath").as_string();
 
 
 	return ret;
@@ -60,6 +62,8 @@ bool SceneMenu::Start()
 	Credits_texture = app->tex->Load(Credits_Path);
 	title_texture = app->tex->Load(title_Path);
 	normal_texture = app->tex->Load(normal_Path);
+	barra_texture = app->tex->Load(barra_Path);
+	box_texture = app->tex->Load(box_Path);
 
 	menu();
 
@@ -120,6 +124,12 @@ bool SceneMenu::Update(float dt)
 
 		app->render->DrawTexture(normal_texture, -400, 150, 0.7, SDL_FLIP_NONE, &btPos1, 0, 0);
 		app->render->DrawText("VSync", 220, 510, 100, 50);
+
+		app->render->DrawTexture(barra_texture, 0, 150, 0.7, SDL_FLIP_NONE, &btPos1, 0, 0);
+
+		app->render->DrawTexture(box_texture, 0, 150, 0.7, SDL_FLIP_NONE, &btPos1, 0, 0);
+
+
 		if (showButton) {
 			setting();
 			showButton = false;

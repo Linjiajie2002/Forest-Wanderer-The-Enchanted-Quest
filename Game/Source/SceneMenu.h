@@ -76,9 +76,14 @@ public:
 	SDL_Texture* normal_texture;
 	const char* normal_Path;
 
-
 	SDL_Texture* Credits_texture;
 	const char* Credits_Path;
+
+	SDL_Texture* barra_texture;
+	const char* barra_Path;
+
+	SDL_Texture* box_texture;
+	const char* box_Path;
 
 
 

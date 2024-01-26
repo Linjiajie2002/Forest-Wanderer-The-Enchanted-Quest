@@ -383,8 +383,6 @@ bool Scene::SaveState(pugi::xml_node node) {
 		playerNode.append_attribute("y").set_value(player->position.y);
 		playerNode.append_attribute("life").set_value(10);
 		playerNode.append_attribute("Diamond").set_value(0);
-
-		printf("%d", player->hasDie);
 		if (!player->hasDie) {
 			playerNode.append_attribute("dieCount").set_value(player->dieCount);
 		}
@@ -410,7 +408,6 @@ bool Scene::SaveState(pugi::xml_node node) {
 		playerNode.append_attribute("life").set_value(playerlife->life);
 		playerNode.append_attribute("Diamond").set_value(item->playerGetDiamante);
 		playerNode.append_attribute("dieCount").set_value(player->dieCount);
-		printf("%d", player->hasDie);
 		if (!player->hasDie) {
 			
 		}

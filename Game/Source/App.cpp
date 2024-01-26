@@ -47,7 +47,6 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	fade = new ModuleFadeToBlack();
 	par = new ModuleParticles();
 	fonts = new Fonts();
-	menu = new Menu();
 	guiManager = new GuiManager();
 
 	// Ordered for awake / Start / Update
@@ -61,7 +60,6 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scenemenu);
 	AddModule(map);
 	AddModule(entityManager);
-	AddModule(menu);
 	AddModule(par);
 	AddModule(fonts);
 	AddModule(guiManager);

@@ -25,11 +25,6 @@
 			<gameOver texturePath ="Assets/GUI/game_over.png"/>
 		</menu>
 	</scenemenu>
-	<menu>
-		<title texturePath ="Assets/GUI/titulo.png"/>
-		<victoria texturePath ="Assets/GUI/titulo.png"/>
-		
-	</menu>
 	<fonts>
 		<numbers texturePath ="Assets/Maps/Time/numeros.png"/>
 		<borde texturePath ="Assets/Maps/Time/TimeBorde.png"/>

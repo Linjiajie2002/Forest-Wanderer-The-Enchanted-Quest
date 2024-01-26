@@ -113,7 +113,7 @@ bool Item::CleanUp()
 void Item::diamanteVictoria()
 {
 
-	if (GoCenter.ReadMSec() > 15000) {
+	if (GoCenter.ReadMSec() > 10000) {
 		DiamanteToCenter = true;
 	}
 

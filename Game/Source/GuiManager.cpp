@@ -43,7 +43,6 @@ bool GuiManager::Update(float dt)
 {
 
 	ListItem<GuiControl*>* control = guiControlsList.start;
-	printf("guimanager");
 	while (control != nullptr)
 	{
 		control->data->Update(dt);

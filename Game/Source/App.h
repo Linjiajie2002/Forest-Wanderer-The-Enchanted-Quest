@@ -10,7 +10,6 @@
 #include "ModuleFadeToBlack.h"
 #include "ModuleParticles.h"
 #include "Fonts.h"
-#include "Menu.h"
 #include "SceneMenu.h"
 
 #include "PugiXml/src/pugixml.hpp"
@@ -24,7 +23,6 @@ class Textures;
 class Audio;
 class Scene;
 class EntityManager;
-class Menu;
 class Map;
 class Physics;
 class Animation;
@@ -113,7 +111,6 @@ public:
 	Audio* audio;
 	Scene* scene;
 	EntityManager* entityManager;
-	Menu* menu;
 	Map* map;
 	Physics* physics;
 	Animation* animation;

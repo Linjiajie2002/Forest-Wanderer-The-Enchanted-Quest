@@ -134,7 +134,6 @@ bool Player::Update(float dt)
 			}
 
 
-
 			if (playerOnPlatform) {
 				canJump = true;
 				jumping = false;
@@ -236,8 +235,6 @@ bool Player::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN) {
 		app->scenemenu->showButton = true;
 		
-		app->scenemenu->Enable();
-		app->guiManager->Enable();
 		app->fade->FadeToBlack(app->scene, app->scenemenu, 20.0f);
 	}
 

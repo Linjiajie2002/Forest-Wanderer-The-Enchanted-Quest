@@ -21,7 +21,6 @@ GuiScene::~GuiScene()
 bool GuiScene::Update(float dt)
 {
 	
-	printf("ssss");
 	return false;
 }
 

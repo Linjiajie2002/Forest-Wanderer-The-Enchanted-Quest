@@ -49,7 +49,7 @@ bool SceneMenu::Awake(pugi::xml_node& config)
 	victoria_Path = config.child("menu").child("victoria").attribute("texturePath").as_string();
 	gameOver_Path = config.child("menu").child("gameOver").attribute("texturePath").as_string();
 
-	
+
 	return ret;
 }
 
@@ -69,11 +69,11 @@ bool SceneMenu::Start()
 	victoria_texture = app->tex->Load(victoria_Path);
 	gameOver_texture = app->tex->Load(gameOver_Path);
 
-	if (!app->scene->GetItem()->victoria) {
+	if (!app->scene->GetItem()->victoria && !app->scene->GetPlayer()->lose) {
 		menu();
 	}
 	else {
-	
+
 		showButton = true;
 	}
 	return true;
@@ -103,7 +103,8 @@ bool SceneMenu::Update(float dt)
 			victoria();
 			showButton = false;
 		}
-	}else if (app->scene->GetPlayer()->lose) {
+	}
+	else if (app->scene->GetPlayer()->lose) {
 
 		app->render->DrawTexture(gameOver_texture, -160, -60, 0.7, SDL_FLIP_NONE, &rect1, 0, 0);
 
@@ -113,7 +114,8 @@ bool SceneMenu::Update(float dt)
 		}
 
 
-	}else {
+	}
+	else {
 		if (showMenu) {
 			menu();
 			showMenu = false;
@@ -160,7 +162,7 @@ bool SceneMenu::CleanUp()
 	LOG("Freeing scene");
 
 	for (auto obj : deleteControl) {
-		delete obj;
+		app->guiManager->DestroyGuiControl(obj);
 	}
 
 	return true;
@@ -204,14 +206,12 @@ void SceneMenu::creditos()
 
 bool SceneMenu::OnGuiMouseClickEvent(GuiControl* control)
 {
-
-	printf("%d", control->id);
 	switch (control->id)
 	{
 	case 1:
-
+		app->scene->GetItem()->victoria = false;
+		app->scene->GetPlayer()->lose = false;
 		newgame = true;
-		app->guiManager->Disable();
 		app->scenemenu->Disable();
 		app->SaveRequest();
 		app->fade->FadeToBlack(app->scenemenu, app->scene, 10);
@@ -220,17 +220,16 @@ bool SceneMenu::OnGuiMouseClickEvent(GuiControl* control)
 		break;
 
 	case 2:
-		newScena = false;
-		printf("continue");
+			newScena = false;
+			printf("continue");
 
-		app->guiManager->Disable();
-		app->scenemenu->Disable();
-
-		app->fade->FadeToBlack(app->scenemenu, app->scene, 10);
-		app->scene->GetPlayerLife()->newmap = false;
-		app->LoadRequest();
-		app->scene->GetPlayerLife()->newmap = true;
-
+			app->scenemenu->Disable();
+			app->scene->GetItem()->victoria = false;
+			app->scene->GetPlayer()->lose = false;
+			app->fade->FadeToBlack(app->scenemenu, app->scene, 10);
+			app->scene->GetPlayerLife()->newmap = false;
+			app->LoadRequest();
+			app->scene->GetPlayerLife()->newmap = true;
 
 		break;
 	case 3:
@@ -273,6 +272,8 @@ bool SceneMenu::OnGuiMouseClickEvent(GuiControl* control)
 		showCredits = false;
 		showSetting = false;
 		app->scene->GetItem()->victoria = false;
+		app->scene->GetPlayer()->lose = false;
+		app->scene->GetPlayer()->dieCount = 0;
 		app->guiManager->DestroyGuiControl(gcButtom);
 		break;
 	}
@@ -317,7 +318,7 @@ void SceneMenu::printSetting()
 void SceneMenu::victoria()
 {
 
-	SDL_Rect btPos3 = { windowW / 2 - 50, windowH / 2 +100, 200,50 };
+	SDL_Rect btPos3 = { windowW / 2 - 50, windowH / 2 + 100, 200,50 };
 	gcButtom = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "RETURN", btPos3, this);
 	deleteControl.push_back(gcButtom);
 

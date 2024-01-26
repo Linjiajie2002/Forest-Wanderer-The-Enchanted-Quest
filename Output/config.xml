@@ -17,6 +17,7 @@
 			<normal texturePath ="Assets/GUI/boton_1.png"/>
 			<focused texturePath ="Assets/GUI/boton_2.png"/>
 			<pressed texturePath ="Assets/GUI/boton_3.png"/>
+			<credits texturePath ="Assets/GUI/creditos.png"/>
 		</menu>
 	</scenemenu>
 	<fonts>

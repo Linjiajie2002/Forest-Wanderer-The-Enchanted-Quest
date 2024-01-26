@@ -33,7 +33,7 @@ GuiControl* GuiManager::CreateGuiControl(GuiControlType type, int id, const char
 
 	//Set the observer
 	guiControl->observer = observer;
-
+	
 	// Created GuiControls are add it to the list of controls
 	guiControlsList.Add(guiControl);
 
@@ -68,5 +68,18 @@ bool GuiManager::CleanUp()
 	return false;
 }
 
+void GuiManager::DestroyGuiControl(GuiControl* toDestroy) {
 
+
+	ListItem<GuiControl*>* control;
+	for (control = guiControlsList.start; control != NULL; control = control->next)
+	{
+		if (control->data == toDestroy) {
+			printf("1");
+			guiControlsList.Del(control);
+			break;
+		}
+	}
+
+}
 

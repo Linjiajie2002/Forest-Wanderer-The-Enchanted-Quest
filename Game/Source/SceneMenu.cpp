@@ -37,10 +37,13 @@ SceneMenu::~SceneMenu()
 // Called before render is available
 bool SceneMenu::Awake(pugi::xml_node& config)
 {
-
-	LOG("Loading Scene");
 	bool ret = true;
-	
+
+
+	fondoPath= config.child("menu").child("fondo").attribute("texturePath").as_string();
+	Credits_Path= config.child("menu").child("credits").attribute("texturePath").as_string();
+
+
 
 	return ret;
 }
@@ -51,21 +54,11 @@ bool SceneMenu::Start()
 	app->win->GetWindowSize(windowW, windowH);
 
 	//app->map->Load();
+	
+	fondotexture = app->tex->Load(fondoPath);
+	Credits_texture = app->tex->Load(Credits_Path);
 
-	SDL_Rect btPos = { windowW / 2 -50, windowH / 2 - 130 , 200,50 };
-	gcButtom = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "PLAY", btPos, this);
-
-	SDL_Rect btPos1 = { windowW / 2 - 50, windowH / 2 - 30, 200,50 };
-	gcButtom = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "CONTINUE", btPos1, this);
-
-	SDL_Rect btPos2 = { windowW / 2 - 50, windowH / 2 + 70, 200,50 };
-	gcButtom = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "SETTINGS", btPos2, this);
-
-	SDL_Rect btPos3 = { windowW / 2 - 50, windowH / 2 + 170, 200,50 };
-	gcButtom = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "CREDITS", btPos3, this);
-
-	SDL_Rect btPos4 = { windowW / 2 - 50, windowH / 2 + 270, 200,50 };
-	gcButtom = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "EXIT", btPos4, this);
+	menu();
 
 	return true;
 }
@@ -81,6 +74,34 @@ bool SceneMenu::Update(float dt)
 {
 	
 
+	SDL_Rect rect1 = { 0,0,1920,1080 };
+	app->render->DrawTexture(fondotexture, 0, 0, 0.8, SDL_FLIP_NONE, &rect1, 0, 0);
+
+	/*if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN) {
+		
+		showMenu = false;
+		showCredits = true;
+	}*/
+
+
+	if (showMenu) {
+		menu();
+		showMenu = false;
+	}
+
+	if (!showMenu && showCredits) {
+		SDL_Rect rect2 = { 0,0,1920,1080 };
+		app->render->DrawTexture(Credits_texture, -60, 0, 0.6, SDL_FLIP_NONE, &rect2, 0, 0);
+		
+		if (showButton) {
+			creditos();
+			showButton = false;
+		}
+	}
+
+
+
+	
 	return true;
 }
 
@@ -101,6 +122,10 @@ bool SceneMenu::CleanUp()
 
 	LOG("Freeing scene");
 
+	for (auto obj : deleteControl) {
+		delete obj;
+	}
+
 	return true;
 }
 
@@ -108,4 +133,115 @@ GuiControlButton* SceneMenu::GetGuiControlButton()
 {
 	return gcButtom;
 }
+
+void SceneMenu::menu()
+{
+	
+	SDL_Rect btPos = { windowW / 2 - 50, windowH / 2 - 130 , 200,50 };
+	gcButtom = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "PLAY", btPos, this);
+	deleteControl.push_back(gcButtom);
+
+	SDL_Rect btPos1 = { windowW / 2 - 50, windowH / 2 - 30, 200,50 };
+	gcButtom = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "CONTINUE", btPos1, this);
+	deleteControl.push_back(gcButtom);
+
+	SDL_Rect btPos2 = { windowW / 2 - 50, windowH / 2 + 70, 200,50 };
+	gcButtom = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "SETTINGS", btPos2, this);
+	deleteControl.push_back(gcButtom);
+
+	SDL_Rect btPos3 = { windowW / 2 - 50, windowH / 2 + 170, 200,50 };
+	gcButtom = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "CREDITS", btPos3, this);
+	deleteControl.push_back(gcButtom);
+
+	SDL_Rect btPos4 = { windowW / 2 - 50, windowH / 2 + 270, 200,50 };
+	gcButtom = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "EXIT", btPos4, this);
+	deleteControl.push_back(gcButtom);
+}
+
+void SceneMenu::creditos()
+{
+	SDL_Rect btPos3 = { windowW / 2 - 50, windowH / 2 + 230, 200,50 };
+	gcButtom = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "RETURN", btPos3, this);
+	deleteControl.push_back(gcButtom);
+}
+
+bool SceneMenu::OnGuiMouseClickEvent(GuiControl* control)
+{
+
+	printf("%d", control->id);
+		switch (control->id)
+		{
+		case 1:
+
+			newgame = true;
+			app->guiManager->Disable();
+			app->scenemenu->Disable();
+			app->SaveRequest();
+			app->fade->FadeToBlack(app->scenemenu, app->scene, 10);
+
+			printf("play");
+			break;
+
+		case 2:
+			newScena = false;
+			printf("continue");
+
+			app->guiManager->Disable();
+			app->scenemenu->Disable();
+
+			app->fade->FadeToBlack(app->scenemenu, app->scene, 10);
+			app->scene->GetPlayerLife()->newmap = false;
+			app->LoadRequest();
+			app->scene->GetPlayerLife()->newmap = true;
+
+
+			break;
+		case 3:
+			newScena = false;
+			printf("setting");
+			break;
+		case 4:
+			newScena = false;
+			printf("credits");
+			for (GuiControl* obj : deleteControl) {
+				obj->state = GuiControlState::DISABLED;
+				app->guiManager->DestroyGuiControl(obj);
+			}
+
+			showMenu = false;
+			showCredits = true;
+			showButton = true;
+			
+			break;
+
+		case 5:
+			newScena = false;
+			printf("exit");
+			app->closeGame = false;
+			break;
+		case 6:
+			newScena = false;
+			printf("return");
+			for (GuiControl* obj : deleteControl) {
+				obj->state = GuiControlState::DISABLED;
+				app->guiManager->DestroyGuiControl(obj);
+			}
+			showMenu = true;
+			showCredits = false;
+			app->guiManager->DestroyGuiControl(gcButtom);
+			break;
+		}
+
+	
+	return false;
+}
+
+//void SceneMenu::DestroyButton()
+//{
+//	for (GuiControl* obj : deleteControl) {
+//
+//		app->guiManager->guiControlsList
+//		delete obj;
+//	}
+//}
 

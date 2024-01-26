@@ -76,7 +76,8 @@ bool SceneMenu::Update(float dt)
 	
 
 	SDL_Rect rect1 = { 0,0,1920,1080 };
-	app->render->DrawTexture(fondotexture, 0, 0, 0.8, SDL_FLIP_NONE, &rect1, 0, 0);
+	//app->render->DrawTexture(fondotexture, 0, 0, 0.8, SDL_FLIP_NONE, &rect1, 0, 0);
+	app->render->DrawTexture(fondotexture, -300, -10, 1, SDL_FLIP_NONE, &rect1, 0, 0);
 
 	app->render->DrawTexture(title_texture, -160, -30, 0.7, SDL_FLIP_NONE, &rect1, 0, 0);
 

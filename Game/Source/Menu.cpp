@@ -40,8 +40,6 @@ bool Menu::Start()
 
 bool Menu::Update(float dt)
 {
-	printf("menu");
-
 
 		
 	return true;

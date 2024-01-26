@@ -10,6 +10,7 @@
 #include "Physics.h"
 #include "Timer.h"
 #include "Map.h"
+#include "GuiManager.h"
 
 #include <stdio.h>
 #include <tuple>
@@ -127,8 +128,6 @@ void Item::diamanteVictoria()
 	if (DiamanteToCenter == true) {
 		for (int i = 0; i < maxDiamante; i++)
 		{
-
-
 			diamanteToCenter(itemX[i], itemY[i]);
 		}
 
@@ -177,6 +176,12 @@ void Item::diamanteToCenter(double& x, double& y)
 
 	if (allDiamanteInCenter) {
 		app->render->DrawTexture(Diamondtexture, x - 32, y - 32, 4, SDL_FLIP_NONE, &rect);
+
+		app->scene->changeScena = true;
+		app->map->LevelMap = 1;
+		//app->guiManager->Enable();
+		//app->scenemenu->Enable();
+		app->fade->FadeToBlack(app->scene, app->scenemenu, 60.0f);
 	}
 	else {
 		app->render->DrawTexture(Diamondtexture, x, y, 2, SDL_FLIP_NONE, &rect);

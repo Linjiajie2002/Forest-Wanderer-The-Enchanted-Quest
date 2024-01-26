@@ -372,7 +372,6 @@ const char* App::GetOrganization() const
 	return organization.GetString();
 }
 
-
 bool App::LoadRequest() {
 	bool ret = true;
 	loadRequest = true;

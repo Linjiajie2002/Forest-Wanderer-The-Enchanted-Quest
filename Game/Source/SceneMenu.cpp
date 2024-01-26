@@ -48,6 +48,7 @@ bool SceneMenu::Awake(pugi::xml_node& config)
 	box_Path = config.child("menu").child("box").attribute("texturePath").as_string();
 
 
+	
 	return ret;
 }
 
@@ -65,8 +66,14 @@ bool SceneMenu::Start()
 	barra_texture = app->tex->Load(barra_Path);
 	box_texture = app->tex->Load(box_Path);
 
-	menu();
-
+	if (!app->scene->GetItem()->victoria) {
+		
+		menu();
+	}
+	else {
+	
+		showButton = true;
+	}
 	return true;
 }
 
@@ -82,64 +89,45 @@ bool SceneMenu::Update(float dt)
 
 
 	SDL_Rect rect1 = { 0,0,1920,1080 };
-	//app->render->DrawTexture(fondotexture, 0, 0, 0.8, SDL_FLIP_NONE, &rect1, 0, 0);
 	app->render->DrawTexture(fondotexture, -320, 0, 0.8, SDL_FLIP_NONE, &rect1, 0, 0);
 
 	app->render->DrawTexture(title_texture, -160, -30, 0.7, SDL_FLIP_NONE, &rect1, 0, 0);
 
-	/*if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN) {
 
-		showMenu = false;
-		showCredits = true;
-	}*/
-
-
-	if (showMenu) {
-		menu();
-		showMenu = false;
-	}
-
-	if (!showMenu && showCredits) {
-		SDL_Rect rect2 = { 0,0,1920,1080 };
-		app->render->DrawTexture(Credits_texture, -63, 50, 0.6, SDL_FLIP_NONE, &rect2, 0, 0);
-
+	if (app->scene->GetItem()->victoria) {
+		app->render->DrawTexture(title_texture, -160, 160, 0.7, SDL_FLIP_NONE, &rect1, 0, 0);
+		printf("%d",showButton);
 		if (showButton) {
-			creditos();
+			victoria();
 			showButton = false;
 		}
 	}
-
-	if (!showMenu && showSetting) {
-		settingPosX = -300;
-		SDL_Rect btPos1 = { 0,0, 1920,1080 };
-		app->render->DrawTexture(normal_texture, settingPosX, -150, 0.7, SDL_FLIP_NONE, &btPos1, 0, 0);
-		app->render->DrawText("MUSICA", 320, 210,100,50);
-
-		app->render->DrawTexture(normal_texture, settingPosX, -50, 0.7, SDL_FLIP_NONE, &btPos1, 0, 0);
-		app->render->DrawText("FX VOLUME", 320, 310, 120, 50);
-
-
-		app->render->DrawTexture(normal_texture, settingPosX, 50, 0.7, SDL_FLIP_NONE, &btPos1, 0, 0);
-		app->render->DrawText("FULL SCREEN", 320, 410, 140, 50);
-
-		app->render->DrawTexture(normal_texture, settingPosX, 150, 0.7, SDL_FLIP_NONE, &btPos1, 0, 0);
-		app->render->DrawText("VSync", 320, 510, 100, 50);
-
-		app->render->DrawTexture(barra_texture, settingPosX +10, -235, 0.8, SDL_FLIP_NONE, &btPos1, 0, 0);
-		app->render->DrawTexture(barra_texture, settingPosX + 10, -135, 0.8, SDL_FLIP_NONE, &btPos1, 0, 0);
-
-		app->render->DrawTexture(box_texture, -40, -125, 0.6, SDL_FLIP_NONE, &btPos1, 0, 0);
-		app->render->DrawTexture(box_texture, -40, -25, 0.6, SDL_FLIP_NONE, &btPos1, 0, 0);
-
-
-		if (showButton) {
-			setting();
-			showButton = false;
+	else {
+		if (showMenu) {
+			menu();
+			showMenu = false;
 		}
+
+		if (!showMenu && showCredits) {
+			SDL_Rect rect2 = { 0,0,1920,1080 };
+			app->render->DrawTexture(Credits_texture, -63, 50, 0.6, SDL_FLIP_NONE, &rect2, 0, 0);
+
+			if (showButton) {
+				creditos();
+				showButton = false;
+			}
+		}
+
+		if (!showMenu && showSetting) {
+			printSetting();
+
+			if (showButton) {
+				setting();
+				showButton = false;
+			}
+		}
+
 	}
-
-
-
 	return true;
 }
 
@@ -174,6 +162,7 @@ GuiControlButton* SceneMenu::GetGuiControlButton()
 
 void SceneMenu::menu()
 {
+
 	SDL_Rect btPos = { windowW / 2 - 50, windowH / 2 - 130 , 200,50 };
 	gcButtom = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "PLAY", btPos, this);
 	deleteControl.push_back(gcButtom);
@@ -253,13 +242,10 @@ bool SceneMenu::OnGuiMouseClickEvent(GuiControl* control)
 			obj->state = GuiControlState::DISABLED;
 			app->guiManager->DestroyGuiControl(obj);
 		}
-
 		showMenu = false;
 		showCredits = true;
 		showButton = true;
-
 		break;
-
 	case 5:
 		newScena = false;
 		printf("exit");
@@ -275,6 +261,7 @@ bool SceneMenu::OnGuiMouseClickEvent(GuiControl* control)
 		showMenu = true;
 		showCredits = false;
 		showSetting = false;
+		app->scene->GetItem()->victoria = false;
 		app->guiManager->DestroyGuiControl(gcButtom);
 		break;
 	}
@@ -289,6 +276,43 @@ void SceneMenu::setting()
 	gcButtom = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "RETURN", btPos3, this);
 	deleteControl.push_back(gcButtom);
 
+}
+
+void SceneMenu::printSetting()
+{
+	settingPosX = -300;
+	SDL_Rect btPos1 = { 0,0, 1920,1080 };
+	app->render->DrawTexture(normal_texture, settingPosX, -150, 0.7, SDL_FLIP_NONE, &btPos1, 0, 0);
+	app->render->DrawText("MUSICA", 320, 210, 100, 50);
+
+	app->render->DrawTexture(normal_texture, settingPosX, -50, 0.7, SDL_FLIP_NONE, &btPos1, 0, 0);
+	app->render->DrawText("FX VOLUME", 320, 310, 120, 50);
+
+
+	app->render->DrawTexture(normal_texture, settingPosX, 50, 0.7, SDL_FLIP_NONE, &btPos1, 0, 0);
+	app->render->DrawText("FULL SCREEN", 320, 410, 140, 50);
+
+	app->render->DrawTexture(normal_texture, settingPosX, 150, 0.7, SDL_FLIP_NONE, &btPos1, 0, 0);
+	app->render->DrawText("VSync", 320, 510, 100, 50);
+
+	app->render->DrawTexture(barra_texture, settingPosX + 10, -235, 0.8, SDL_FLIP_NONE, &btPos1, 0, 0);
+	app->render->DrawTexture(barra_texture, settingPosX + 10, -135, 0.8, SDL_FLIP_NONE, &btPos1, 0, 0);
+
+	app->render->DrawTexture(box_texture, -40, -125, 0.6, SDL_FLIP_NONE, &btPos1, 0, 0);
+	app->render->DrawTexture(box_texture, -40, -25, 0.6, SDL_FLIP_NONE, &btPos1, 0, 0);
+
+}
+
+void SceneMenu::victoria()
+{
+
+	SDL_Rect btPos3 = { windowW / 2 - 50, windowH / 2 +100, 200,50 };
+	gcButtom = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "RETURN", btPos3, this);
+	deleteControl.push_back(gcButtom);
+
+	SDL_Rect btPos4 = { windowW / 2 - 50, windowH / 2 + 250, 200,50 };
+	gcButtom = (GuiControlButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "EXIT", btPos4, this);
+	deleteControl.push_back(gcButtom);
 }
 
 

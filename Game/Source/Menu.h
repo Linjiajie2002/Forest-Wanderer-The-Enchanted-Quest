@@ -36,8 +36,8 @@ public:
 	SDL_Texture* fondotexture;
 	const char* fondoPath;
 
-	SDL_Texture* menutexture;
-	const char* menuPath;
+	SDL_Texture* title_texture;
+	const char* title_Path;
 	SDL_Rect rect;
 
 private:

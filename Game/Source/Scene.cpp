@@ -180,7 +180,6 @@ bool Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool Scene::Start()
 {
-	printf("3");
 	// NOTE: We have to avoid the use of paths in the code, we will move it later to a config file
 	//img = app->tex->Load("Assets/Textures/test.png");
 
@@ -335,25 +334,23 @@ bool Scene::LoadState(pugi::xml_node node) {
 
 
 	if (playerlife->newmap == false) {
-		printf("\nnewmap1");
 		playerlife->life = node.child("player").attribute("life").as_int();
 		item->playerGetDiamante = node.child("player").attribute("Diamond").as_int();
 		player->position.x = node.child("player").attribute("x").as_int();
 		player->position.y = node.child("player").attribute("y").as_int();
+		player->dieCount = node.child("player").attribute("dieCount").as_int();
 	}
 	else {
 
 		
 		player->position.x = node.child("player").attribute("x").as_int();
 		player->position.y = node.child("player").attribute("y").as_int();
-		
+		player->dieCount = node.child("player").attribute("dieCount").as_int();
 		playerlife->life = node.child("player").attribute("life").as_int();
 		item->playerGetDiamante = node.child("player").attribute("Diamond").as_int();
 		if (player->pbody != nullptr) {
-			printf("2");
 			player->pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(player->position.x), PIXEL_TO_METERS(player->position.y)), 0);
 		}
-		printf("PosX%d ", player->position.x);
 		LOG("Despues: x: %d y: %d", player->position.x, player->position.y);
 		LOG("aaaaaaaaaaaaa %d", node.child("player").attribute("x").as_int());
 		for (pugi::xml_node itemNode = node.child("enemies").child("enemy"); itemNode; itemNode = itemNode.next_sibling("enemy"))
@@ -380,6 +377,12 @@ bool Scene::SaveState(pugi::xml_node node) {
 		playerNode.append_attribute("y").set_value(player->position.y);
 		playerNode.append_attribute("life").set_value(10);
 		playerNode.append_attribute("Diamond").set_value(0);
+		if (!player->hasDie) {
+			playerNode.append_attribute("dieCount").set_value(player->dieCount);
+		}
+		else {
+			player->hasDie = false;
+		}
 		//playerNode.append_attribute("sceneLevel").set_value(app->sceneLevel);
 
 		pugi::xml_node enemyListNode = node.append_child("enemies");
@@ -401,6 +404,15 @@ bool Scene::SaveState(pugi::xml_node node) {
 		playerNode.append_attribute("y").set_value(player->position.y);
 		playerNode.append_attribute("life").set_value(playerlife->life);
 		playerNode.append_attribute("Diamond").set_value(item->playerGetDiamante);
+		printf("dddddd");
+		if (!player->hasDie) {
+			playerNode.append_attribute("dieCount").set_value(player->dieCount);
+		}
+		else {
+			player->hasDie = false;
+		}
+		
+
 		//playerNode.append_attribute("sceneLevel").set_value(app->sceneLevel);
 
 		pugi::xml_node enemyListNode = node.append_child("enemies");

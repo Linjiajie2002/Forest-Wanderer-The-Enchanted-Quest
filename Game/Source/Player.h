@@ -111,8 +111,9 @@ public:
 	bool isFacingLeft = false;
 	bool isHighJumping = false;
 
+	bool hasDie = false;
 	bool newMap = false;
-
+	int dieCount;
 	uint width;
 	uint height;
 	//Jump

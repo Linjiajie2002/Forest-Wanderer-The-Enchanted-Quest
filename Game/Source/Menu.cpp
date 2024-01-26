@@ -9,6 +9,7 @@
 #include "Player.h"
 #include "Scene.h"
 #include "Menu.h"
+#include "Render.h"
 
 #include <iostream>
 
@@ -25,8 +26,7 @@ Menu::~Menu()
 // Called before render is available
 bool Menu::Awake(pugi::xml_node& config)
 {
-	printf("%s",config.name());
-	fondoPath = config.child("fondo").attribute("texturePath").as_string();
+	title_Path = config.child("title").attribute("texturePath").as_string();
 
 
 	return true;
@@ -34,14 +34,18 @@ bool Menu::Awake(pugi::xml_node& config)
 
 bool Menu::Start()
 {
-	fondotexture = app->tex->Load(fondoPath);
+	title_texture = app->tex->Load(title_Path);
 	return true;
 }
 
 bool Menu::Update(float dt)
 {
-
+	/*SDL_Rect btPos1 = { 0,0, 1920,1080 };
 		
+	app->render->DrawTexture(title_texture, -160, -30, 0.7, SDL_FLIP_NONE, &btPos1, 0, 0);
+
+	app->render->DrawTexture(title_texture, -160, 130, 0.7, SDL_FLIP_NONE, &btPos1, 0, 0);*/
+
 	return true;
 }
 

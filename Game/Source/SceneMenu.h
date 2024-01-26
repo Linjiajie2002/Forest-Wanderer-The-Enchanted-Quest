@@ -54,6 +54,8 @@ public:
 	void creditos();
 	bool OnGuiMouseClickEvent(GuiControl* control);
 	void setting();
+	void printSetting();
+	void victoria();
 
 private:
 	SDL_Texture* img;

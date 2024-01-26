@@ -75,7 +75,9 @@ public:
 	bool DiamanteToCenter = false;
 	bool allDiamanteInCenter = false;
 	bool outCamera = false;
+
 	bool victoria = false;
+
 	bool lastDiamenteIsCreat = true;
 	bool playerTakeDiamante = false;
 	
@@ -87,6 +89,7 @@ public:
 
 	bool GoCenterTime_determination;
 	int playerGetDiamante = 0;
+	bool jumpToScreenVictory = false;
 
 	SDL_Rect rect;
 	SDL_Rect rect_2;

@@ -16,6 +16,10 @@
 #include "Timer.h"
 #include "PlayerLife.h"
 #include "ModuleFadeToBlack.h"
+#include "GuiManager.h"
+#include "GuiControlButton.h"
+#include "GuiControl.h"
+#include "GuiScene.h"
 
 Player::Player() : Entity(EntityType::PLAYER)
 {
@@ -235,9 +239,8 @@ bool Player::Update(float dt)
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN) {
-
-
-		app->fade->FadeToBlack(app->scene, app->menu, 20.0f);
+		app->scenemenu->showButton = true;
+		app->fade->FadeToBlack(app->scene, app->scenemenu, 20.0f);
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
@@ -260,12 +263,23 @@ bool Player::Update(float dt)
 		}
 		app->scene->GetPlayerLife()->life = 0;
 		app->scene->GetBoss()->inBossBattle = false;
-
+		hasDie = true;
 		app->scene->GetPlayerLife()->newmap = false;
 		app->LoadRequest();
 		app->scene->GetPlayerLife()->newmap = true;
 		noTp = false;
 		isDead = false;
+
+	
+		if (dieCount == 2) {
+			printf("to Menu die");
+			app->fade->FadeToBlack(app->scene, app->scenemenu, 20.0f);
+		}
+		else {
+			printf("dieCount: %d ", dieCount);
+			dieCount += 1;
+		}
+
 		if (isPosibleRevive) {
 			for (int i = 0; i < app->scene->GetPlayerLife()->lifeMark; i++)
 			{

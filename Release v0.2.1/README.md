@@ -24,7 +24,8 @@ Basic Controls
 - N - Healing
 - M - Injuried
 - ESC - PAUSA
-Debug Controls
+
+-Debug Controls
 
 - F1 - Go to level1
 - F3 - Reset level

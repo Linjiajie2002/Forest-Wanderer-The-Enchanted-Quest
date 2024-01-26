@@ -50,22 +50,42 @@ public:
 
 
 	GuiControlButton* GetGuiControlButton();
+	void menu();
+	void creditos();
+	bool OnGuiMouseClickEvent(GuiControl* control);
+	void DestroyButton();
 
 private:
 	SDL_Texture* img;
 	float textPosX, textPosY = 0;
 	uint texW, texH;
 
+	std::vector<GuiControl*> deleteControl;
 public:
-	SDL_Texture* fondotexture;
-	const char* fondoPath;
+
 	uint windowW, windowH;
 	GuiControlButton* gcButtom;
 
-	bool ret = true;
+
+	SDL_Texture* fondotexture;
+	const char* fondoPath;
+
+	SDL_Texture* title_texture;
+	const char* title_Path;
+
+
+	SDL_Texture* Credits_texture;
+	const char* Credits_Path;
 
 
 
+
+	bool newScena = false;
+	bool newgame = false;
+
+	bool showMenu = true;
+	bool showCredits = false;
+	bool showButton = false;
 };
 
 #endif // __SCENE_H__

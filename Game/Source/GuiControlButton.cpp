@@ -39,59 +39,11 @@ GuiControlButton::~GuiControlButton()
 
 bool GuiControlButton::Update(float dt)
 {
-	
-	/*SDL_Rect rect1 = { 0,0,1920,1080 };
-	app->render->DrawTexture(fondotexture, 0, 0, 0.7, SDL_FLIP_NONE, &rect1, 0, 0);*/
-	
-	buttonstate();
-	if (newScena) {
-		switch (id)
-		{
-		case 1:
-			
-			newgame = true;
-			app->guiManager->Disable();
-			app->scenemenu->Disable();
-			app->SaveRequest();
-			app->fade->FadeToBlack(app->scenemenu,app->scene,10);
-			
-			printf("play");
-			break;
 
-		case 2:
-			newScena = false;
-			printf("continue");
 
-			app->guiManager->Disable();
-			app->scenemenu->Disable();
+		buttonstate();
 
-			app->fade->FadeToBlack(app->scenemenu, app->scene, 10);
-			app->scene->GetPlayerLife()->newmap = false;
-			app->LoadRequest();
-			app->scene->GetPlayerLife()->newmap = true;
-
-			break;
-		case 3:
-			newScena = false;
-			printf("setting");
-			break;
-		case 4:
-			newScena = false;
-			printf("credits");
-
-			break;
-
-		case 5:
-			newScena = false;
-			printf("exit");
-			app->closeGame = false;
-			break;
-		}
-	
-	}
-
-	
-
+		
 	return false;
 }
 
@@ -145,8 +97,8 @@ void GuiControlButton::buttonstate()
 			newScena = true;
 			app->render->DrawTexture(pressed_texture, bounds.x / 2 - 390, bounds.y - 270, 0.7, SDL_FLIP_NONE, &rect, 0, 0);
 			break;
-		
-	}
+
+		}
 
 		app->render->DrawText(text.GetString(), bounds.x, bounds.y, bounds.w / 2, bounds.h / 2);
 

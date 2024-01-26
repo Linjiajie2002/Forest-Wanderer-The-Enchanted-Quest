@@ -13,7 +13,7 @@ class Menu : public Module
 {
 public:
 	//Constructor
-	Menu();
+	Menu(bool start_Enabled = true);
 
 	//Destructor
 	~Menu();

@@ -19,6 +19,8 @@
 			<pressed texturePath ="Assets/GUI/boton_3.png"/>
 			<credits texturePath ="Assets/GUI/intro.png"/>
 			<title texturePath ="Assets/GUI/titulo.png"/>
+			<barra texturePath ="Assets/GUI/barra.png"/>
+			<box texturePath ="Assets/GUI/caja.png"/>
 		</menu>
 	</scenemenu>
 	<fonts>

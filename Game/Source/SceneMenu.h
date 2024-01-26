@@ -70,6 +70,9 @@ public:
 	SDL_Texture* fondotexture;
 	const char* fondoPath;
 
+	SDL_Texture* title_texture;
+	const char* title_Path;
+
 
 	SDL_Texture* Credits_texture;
 	const char* Credits_Path;

@@ -42,7 +42,7 @@ bool SceneMenu::Awake(pugi::xml_node& config)
 
 	fondoPath= config.child("menu").child("fondo").attribute("texturePath").as_string();
 	Credits_Path= config.child("menu").child("credits").attribute("texturePath").as_string();
-
+	title_Path = config.child("menu").child("title").attribute("texturePath").as_string();
 
 
 	return ret;
@@ -57,6 +57,7 @@ bool SceneMenu::Start()
 	
 	fondotexture = app->tex->Load(fondoPath);
 	Credits_texture = app->tex->Load(Credits_Path);
+	title_texture = app->tex->Load(title_Path);
 
 	menu();
 
@@ -77,6 +78,8 @@ bool SceneMenu::Update(float dt)
 	SDL_Rect rect1 = { 0,0,1920,1080 };
 	app->render->DrawTexture(fondotexture, 0, 0, 0.8, SDL_FLIP_NONE, &rect1, 0, 0);
 
+	app->render->DrawTexture(title_texture, -160, -30, 0.7, SDL_FLIP_NONE, &rect1, 0, 0);
+
 	/*if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN) {
 		
 		showMenu = false;
@@ -91,7 +94,7 @@ bool SceneMenu::Update(float dt)
 
 	if (!showMenu && showCredits) {
 		SDL_Rect rect2 = { 0,0,1920,1080 };
-		app->render->DrawTexture(Credits_texture, -60, 0, 0.6, SDL_FLIP_NONE, &rect2, 0, 0);
+		app->render->DrawTexture(Credits_texture, -63, 50, 0.6, SDL_FLIP_NONE, &rect2, 0, 0);
 		
 		if (showButton) {
 			creditos();

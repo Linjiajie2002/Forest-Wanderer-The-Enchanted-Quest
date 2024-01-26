@@ -75,7 +75,6 @@ void GuiManager::DestroyGuiControl(GuiControl* toDestroy) {
 	for (control = guiControlsList.start; control != NULL; control = control->next)
 	{
 		if (control->data == toDestroy) {
-			printf("1");
 			guiControlsList.Del(control);
 			break;
 		}

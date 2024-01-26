@@ -53,7 +53,7 @@ public:
 	void menu();
 	void creditos();
 	bool OnGuiMouseClickEvent(GuiControl* control);
-	void DestroyButton();
+	void setting();
 
 private:
 	SDL_Texture* img;
@@ -73,6 +73,9 @@ public:
 	SDL_Texture* title_texture;
 	const char* title_Path;
 
+	SDL_Texture* normal_texture;
+	const char* normal_Path;
+
 
 	SDL_Texture* Credits_texture;
 	const char* Credits_Path;
@@ -85,6 +88,7 @@ public:
 
 	bool showMenu = true;
 	bool showCredits = false;
+	bool showSetting = false;
 	bool showButton = false;
 };
 

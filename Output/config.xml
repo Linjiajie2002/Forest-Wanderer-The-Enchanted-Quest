@@ -38,7 +38,7 @@
 	</particules>
 	<audio>
 		<music volume="128" />
-		<fx volume="18"/>
+		<fx volume="10"/>
 	</audio>
 	
 	<scene>
@@ -128,6 +128,8 @@
 				<finallevel texturepath="Assets/Audio/Fx/FINALLEVEL_PR.ogg"/>
 				<escudo texturepath="Assets/Audio/Fx/ESCUDO.ogg"/>
 				<intro texturepath="Assets/Audio/Fx/INTRO.ogg"/>
+				<musica texturepath="Assets/Audio/Music/musica.ogg"/>
+
 			</player>
 			<Diamond>
 				<Diamond Posx="860" Posy="590" Tsprite="6" Pweight="192" x="32" y="32" texturepath="Assets\Sprite\Mapa2\Diamond.png"/>
